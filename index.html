@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhishek Tripathi | Full Stack Developer &amp; Data Analytics Enthusiast</title>
+
+  <meta
+    name="description"
+    content="Portfolio of Abhishek Tripathi — Full Stack Developer &amp; Data Analytics Enthusiast. B.Tech CSE student building modern 3D web applications, machine learning solutions, and interactive platforms."
+  />
+  <meta
+    name="keywords"
+    content="Abhishek Tripathi, Full Stack Developer, Data Analytics, Java, Python, React.js, Three.js, Portfolio, Web Developer, Prayagraj, Banda"
+  />
+  <meta name="author" content="Abhishek Tripathi" />
+  <meta name="theme-color" content="#030712" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Abhishek Tripathi | Full Stack &amp; Data Analytics Portfolio" />
+  <meta
+    property="og:description"
+    content="Explore the 3D interactive portfolio of Abhishek Tripathi featuring full-stack projects, machine learning models, and modern UI engineering."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/Abhishek Tripathi.jpeg" />
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230b0f19'/><text x='50%' y='65%' font-family='sans-serif' font-weight='900' font-size='50' fill='%2300f0ff' text-anchor='middle'>AT</text></svg>"
+  />
+
+  <!-- Google Fonts: Space Grotesk, Outfit, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Three.js CDN for 3D WebGL background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Ambient Aurora Orbs -->
+  <div class="ambient-glow orb-1"></div>
+  <div class="ambient-glow orb-2"></div>
+  <div class="ambient-glow orb-3"></div>
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- Custom Glowing Cursor -->
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <!-- Top Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+  </div>
+
+  <!-- =====================================================
+       NAVBAR
+       ===================================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" aria-label="Abhishek Tripathi Logo">
+        <span class="logo-bracket">&lt;</span><span class="logo-text">AT</span><span class="logo-bracket">/&gt;</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+        <span class="hamburger"></span>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#certifications" class="nav-link">Certifications</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li class="nav-cta-item">
+          <a href="#contact" class="btn btn-nav-cta">
+            <span>Connect</span>
+            <i data-lucide="sparkles" class="btn-icon-sm"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- =====================================================
+       HERO SECTION
+       ===================================================== -->
+  <section class="hero" id="home">
+    <!-- Three.js 3D Interactive WebGL Canvas -->
+    <div class="hero-3d-wrapper">
+      <canvas id="hero-3d-canvas"></canvas>
+    </div>
+
+    <div class="hero-container">
+      <div class="hero-content">
+        <!-- Hero Text -->
+        <div class="hero-text">
+          <!-- Availability Badge -->
+          <div class="status-badge reveal">
+            <span class="pulse-indicator">
+              <span class="pulse-ring"></span>
+              <span class="pulse-core"></span>
+            </span>
+            <span class="status-badge-text">Available for Internships &amp; Roles</span>
+          </div>
+
+          <p class="hero-greeting reveal">
+            <span class="greeting-line"></span>
+            <span>Welcome to my digital universe</span>
+          </p>
+
+          <h1 class="hero-name reveal">
+            Abhishek <span class="name-gradient">Tripathi</span>
+          </h1>
+
+          <!-- Cyber Decipher / Typewriter Subtitle -->
+          <div class="typewriter-box reveal">
+            <span class="typewriter-prefix">&gt; </span>
+            <span class="typewriter-text" id="typewriter-text">Full Stack Developer</span>
+            <span class="typewriter-cursor">_</span>
+          </div>
+
+          <p class="hero-description reveal">
+            Computer Science &amp; Engineering student passionate about crafting high-performance
+            full-stack web applications, architecting robust systems with <strong>Java</strong> &amp; <strong>Python</strong>,
+            and turning raw data into compelling interactive insights.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="hero-buttons reveal">
+            <a href="#projects" class="btn btn-primary btn-3d" id="hero-projects-btn">
+              <span class="btn-glow-layer"></span>
+              <i data-lucide="layers" class="btn-icon"></i>
+              <span>View Projects</span>
+            </a>
+
+            <button class="btn btn-outline btn-3d" id="btn-open-resume" aria-label="Open Resume Preview">
+              <i data-lucide="file-text" class="btn-icon"></i>
+              <span>View Resume</span>
+            </button>
+
+            <a href="#contact" class="btn btn-glass btn-3d">
+              <i data-lucide="send" class="btn-icon"></i>
+              <span>Contact Me</span>
+            </a>
+          </div>
+
+          <!-- Hero Social Icons -->
+          <div class="hero-socials reveal">
+            <span class="socials-label">Connect:</span>
+            <a
+              href="https://github.com/abhishektripathi9"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+              aria-label="GitHub Profile"
+              title="GitHub Profile"
+            >
+              <i data-lucide="github"></i>
+            </a>
+
+            <a
+              href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+              aria-label="LinkedIn Profile"
+              title="LinkedIn Profile"
+            >
+              <i data-lucide="linkedin"></i>
+            </a>
+
+            <a
+              href="mailto:at180887@gmail.com"
+              class="social-link"
+              aria-label="Email Abhishek"
+              title="Email: at180887@gmail.com"
+            >
+              <i data-lucide="mail"></i>
+            </a>
+
+            <a
+              href="tel:+919595347836"
+              class="social-link"
+              aria-label="Call Abhishek"
+              title="Call: +91 9595347836"
+            >
+              <i data-lucide="phone"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3D Holographic Avatar Card -->
+        <div class="hero-avatar-area reveal">
+          <div class="hologram-card-container" data-tilt>
+            <!-- Orbiting Particle Rings -->
+            <div class="orbit-ring orbit-ring-1"></div>
+            <div class="orbit-ring orbit-ring-2"></div>
+            <div class="orbit-ring orbit-ring-3"></div>
+
+            <!-- 3D Holographic Card Core -->
+            <div class="hologram-card">
+              <div class="card-glass-sheen"></div>
+
+              <div class="avatar-img-frame">
+                <img
+                  src="assets/Abhishek Tripathi.jpeg"
+                  alt="Abhishek Tripathi"
+                  class="hero-avatar-img"
+                  id="hero-image"
+                />
+                <div class="avatar-fallback" id="hero-fallback">
+                  <i data-lucide="user" class="avatar-fallback-icon"></i>
+                </div>
+              </div>
+
+              <!-- Floating 3D Micro-Chips -->
+              <div class="float-chip chip-top-left" data-tilt-depth="40">
+                <div class="chip-dot"></div>
+                <span>Full-Stack Dev</span>
+              </div>
+
+              <div class="float-chip chip-bottom-right" data-tilt-depth="50">
+                <i data-lucide="activity" class="chip-icon"></i>
+                <span>Data Analytics</span>
+              </div>
+
+              <div class="avatar-card-footer">
+                <span class="footer-tag">B.Tech CSE &bull; 2023-2027</span>
+                <span class="footer-coord">&lt;UIT_PRAYAGRAJ&gt;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#about" class="scroll-indicator" aria-label="Scroll to about section">
+        <div class="mouse-icon">
+          <div class="mouse-wheel"></div>
+        </div>
+        <span class="scroll-text">EXPLORE</span>
+        <i data-lucide="chevron-down" class="scroll-arrow"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ABOUT ME SECTION
+       ===================================================== -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">DISCOVER</span>
+        <h2 class="section-title">
+          About <span class="highlight">Me</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-bio-card glass-panel reveal" data-tilt>
+          <div class="card-glow-top"></div>
+          <div class="terminal-header">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+            <span class="term-title">abhishek_bio.sh</span>
+          </div>
+
+          <div class="bio-text">
+            <p>
+              I am a proactive <strong>B.Tech Computer Science &amp; Engineering</strong> student at
+              <span class="text-cyan">United Institute of Technology, Prayagraj</span>. Driven by curiosity and a problem-solving mindset,
+              I specialize in bridging dynamic frontend interfaces with reliable backend logic and extracting actionable insights through data science.
+            </p>
+            <p>
+              Whether engineering scalable web architectures with <strong>React.js &amp; Java / Spring Boot</strong>, conducting regression analysis in <strong>Python</strong>,
+              or designing interactive real-time systems, I strive to build software that is both visually engaging and structurally sound.
+            </p>
+            <div class="bio-highlights">
+              <div class="bio-pill">
+                <i data-lucide="code" class="pill-icon"></i>
+                <span>Clean Architecture</span>
+              </div>
+              <div class="bio-pill">
+                <i data-lucide="cpu" class="pill-icon"></i>
+                <span>Data Analytics &amp; ML</span>
+              </div>
+              <div class="bio-pill">
+                <i data-lucide="zap" class="pill-icon"></i>
+                <span>Interactive 3D UI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Stat Cards -->
+        <div class="about-stats-grid">
+          <div class="stat-card glass-panel reveal" data-tilt>
+            <div class="stat-icon-wrap cyan">
+              <i data-lucide="graduation-cap"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Degree</span>
+              <h3 class="stat-value">B.Tech CSE</h3>
+              <p class="stat-sub">United Institute of Technology</p>
+            </div>
+          </div>
+
+          <div class="stat-card glass-panel reveal" data-tilt>
+            <div class="stat-icon-wrap purple">
+              <i data-lucide="award"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Academic Standing</span>
+              <h3 class="stat-value counter" data-target="7.5" data-decimals="1">0</h3>
+              <p class="stat-sub">CGPA out of 10.0</p>
+            </div>
+          </div>
+
+          <div class="stat-card glass-panel reveal" data-tilt>
+            <div class="stat-icon-wrap blue">
+              <i data-lucide="calendar"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Graduation Year</span>
+              <h3 class="stat-value">2027</h3>
+              <p class="stat-sub">Batch of 2023–2027</p>
+            </div>
+          </div>
+
+          <div class="stat-card glass-panel reveal" data-tilt>
+            <div class="stat-icon-wrap amber">
+              <i data-lucide="map-pin"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Location</span>
+              <h3 class="stat-value">Banda, India</h3>
+              <p class="stat-sub">Uttar Pradesh, India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SKILLS SECTION
+       ===================================================== -->
+  <section class="section section--alt" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">CAPABILITIES</span>
+        <h2 class="section-title">
+          Technical <span class="highlight">Arsenal</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <!-- Skill Category Filter Tabs -->
+      <div class="filter-tabs reveal">
+        <button class="filter-btn active" data-filter="all">All Skills</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="backend">Backend &amp; DB</button>
+        <button class="filter-btn" data-filter="data">Data &amp; AI</button>
+        <button class="filter-btn" data-filter="tools">Tools &amp; Core</button>
+      </div>
+
+      <div class="skills-grid" id="skills-grid">
+        <!-- Frontend -->
+        <div class="skill-category-card glass-panel reveal" data-category="frontend" data-tilt>
+          <div class="cat-header">
+            <div class="cat-icon-box cyan">
+              <i data-lucide="layout"></i>
+            </div>
+            <div>
+              <h3 class="cat-title">Frontend Development</h3>
+              <span class="cat-subtitle">Modern Responsive Interfaces</span>
+            </div>
+          </div>
+          <div class="skill-meter-list">
+            <div class="skill-item">
+              <div class="skill-meta"><span>React.js</span><span>85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 85%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>JavaScript (ES6+)</span><span>88%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 88%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>HTML5 &amp; Modern CSS3</span><span>92%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 92%;"></div></div>
+            </div>
+          </div>
+          <div class="skill-tag-pills">
+            <span class="tag-pill">React.js</span>
+            <span class="tag-pill">ES6+</span>
+            <span class="tag-pill">CSS Flex/Grid</span>
+            <span class="tag-pill">Responsive Design</span>
+            <span class="tag-pill">DOM APIs</span>
+          </div>
+        </div>
+
+        <!-- Programming -->
+        <div class="skill-category-card glass-panel reveal" data-category="backend" data-tilt>
+          <div class="cat-header">
+            <div class="cat-icon-box purple">
+              <i data-lucide="code-2"></i>
+            </div>
+            <div>
+              <h3 class="cat-title">Core Programming</h3>
+              <span class="cat-subtitle">Languages &amp; Logic</span>
+            </div>
+          </div>
+          <div class="skill-meter-list">
+            <div class="skill-item">
+              <div class="skill-meta"><span>Java (OOP &amp; Collections)</span><span>86%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 86%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>Python</span><span>84%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 84%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>C / C++ Basics</span><span>75%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 75%;"></div></div>
+            </div>
+          </div>
+          <div class="skill-tag-pills">
+            <span class="tag-pill">Java</span>
+            <span class="tag-pill">Python</span>
+            <span class="tag-pill">OOP Concepts</span>
+            <span class="tag-pill">Exception Handling</span>
+          </div>
+        </div>
+
+        <!-- Data Analytics -->
+        <div class="skill-category-card glass-panel reveal" data-category="data" data-tilt>
+          <div class="cat-header">
+            <div class="cat-icon-box blue">
+              <i data-lucide="bar-chart-3"></i>
+            </div>
+            <div>
+              <h3 class="cat-title">Data Analytics &amp; ML</h3>
+              <span class="cat-subtitle">Insights, Modeling &amp; BI</span>
+            </div>
+          </div>
+          <div class="skill-meter-list">
+            <div class="skill-item">
+              <div class="skill-meta"><span>Pandas &amp; NumPy</span><span>82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 82%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>Scikit-learn (Regression/ML)</span><span>78%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 78%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>Power BI &amp; Visualization</span><span>80%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 80%;"></div></div>
+            </div>
+          </div>
+          <div class="skill-tag-pills">
+            <span class="tag-pill">Pandas</span>
+            <span class="tag-pill">NumPy</span>
+            <span class="tag-pill">Scikit-learn</span>
+            <span class="tag-pill">Power BI</span>
+            <span class="tag-pill">Data Cleaning</span>
+          </div>
+        </div>
+
+        <!-- Backend & Databases -->
+        <div class="skill-category-card glass-panel reveal" data-category="backend" data-tilt>
+          <div class="cat-header">
+            <div class="cat-icon-box emerald">
+              <i data-lucide="database"></i>
+            </div>
+            <div>
+              <h3 class="cat-title">Backend &amp; Databases</h3>
+              <span class="cat-subtitle">Services, APIs &amp; Storage</span>
+            </div>
+          </div>
+          <div class="skill-meter-list">
+            <div class="skill-item">
+              <div class="skill-meta"><span>RESTful API Design</span><span>84%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 84%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>SQL &amp; MySQL</span><span>82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 82%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>Spring Boot (Basics)</span><span>74%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 74%;"></div></div>
+            </div>
+          </div>
+          <div class="skill-tag-pills">
+            <span class="tag-pill">REST APIs</span>
+            <span class="tag-pill">Spring Boot</span>
+            <span class="tag-pill">MySQL</span>
+            <span class="tag-pill">CRUD Ops</span>
+            <span class="tag-pill">JSON Integration</span>
+          </div>
+        </div>
+
+        <!-- Tools & Workflow -->
+        <div class="skill-category-card glass-panel reveal" data-category="tools" data-tilt>
+          <div class="cat-header">
+            <div class="cat-icon-box amber">
+              <i data-lucide="wrench"></i>
+            </div>
+            <div>
+              <h3 class="cat-title">Tools &amp; Environments</h3>
+              <span class="cat-subtitle">Dev Workflows &amp; Versioning</span>
+            </div>
+          </div>
+          <div class="skill-meter-list">
+            <div class="skill-item">
+              <div class="skill-meta"><span>Git &amp; GitHub</span><span>88%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 88%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>VS Code &amp; IntelliJ IDEA</span><span>90%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 90%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>Jupyter &amp; Postman</span><span>80%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 80%;"></div></div>
+            </div>
+          </div>
+          <div class="skill-tag-pills">
+            <span class="tag-pill">Git</span>
+            <span class="tag-pill">GitHub</span>
+            <span class="tag-pill">VS Code</span>
+            <span class="tag-pill">IntelliJ</span>
+            <span class="tag-pill">Postman</span>
+          </div>
+        </div>
+
+        <!-- Core Concepts -->
+        <div class="skill-category-card glass-panel reveal" data-category="tools" data-tilt>
+          <div class="cat-header">
+            <div class="cat-icon-box pink">
+              <i data-lucide="brain"></i>
+            </div>
+            <div>
+              <h3 class="cat-title">Core Computer Science</h3>
+              <span class="cat-subtitle">Foundations &amp; Problem Solving</span>
+            </div>
+          </div>
+          <div class="skill-meter-list">
+            <div class="skill-item">
+              <div class="skill-meta"><span>Object-Oriented Programming</span><span>88%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 88%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>Data Structures (Basics)</span><span>76%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 76%;"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-meta"><span>DBMS Concepts</span><span>82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--percent: 82%;"></div></div>
+            </div>
+          </div>
+          <div class="skill-tag-pills">
+            <span class="tag-pill">OOP</span>
+            <span class="tag-pill">Arrays &amp; Lists</span>
+            <span class="tag-pill">Relational Schema</span>
+            <span class="tag-pill">Algorithm Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       EXPERIENCE SECTION
+       ===================================================== -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">JOURNEY</span>
+        <h2 class="section-title">
+          Work &amp; <span class="highlight">Experience</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="timeline-container">
+        <!-- Laser Timeline Beam with Dynamic Fill -->
+        <div class="timeline-laser-track">
+          <div class="timeline-laser-fill" id="timeline-laser-fill"></div>
+        </div>
+
+        <div class="timeline-nodes">
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item reveal">
+            <div class="timeline-dot-container">
+              <div class="timeline-dot"></div>
+              <div class="timeline-dot-ping"></div>
+            </div>
+            <div class="timeline-card glass-panel" data-tilt>
+              <div class="timeline-top">
+                <span class="timeline-period">
+                  <i data-lucide="calendar" class="timeline-icon"></i>
+                  May 2026 – Jul 2026
+                </span>
+                <span class="badge-offline">In-Person &bull; Offline</span>
+              </div>
+              <h3 class="timeline-role">Industrial Training Intern – Python &amp; Data Analytics</h3>
+              <h4 class="timeline-company">
+                <i data-lucide="building-2" class="company-icon"></i>
+                Techie Technologies Pvt. Ltd.
+              </h4>
+              <p class="timeline-desc">
+                Engaged in intensive hands-on Python programming, comprehensive exploratory data analysis (EDA),
+                and built interactive visual executive dashboards using Power BI to uncover business insights.
+              </p>
+              <div class="timeline-tags">
+                <span class="tag-pill">Python</span>
+                <span class="tag-pill">Data Analytics</span>
+                <span class="tag-pill">Power BI</span>
+                <span class="tag-pill">Dashboard Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item reveal">
+            <div class="timeline-dot-container">
+              <div class="timeline-dot"></div>
+              <div class="timeline-dot-ping"></div>
+            </div>
+            <div class="timeline-card glass-panel" data-tilt>
+              <div class="timeline-top">
+                <span class="timeline-period">
+                  <i data-lucide="calendar" class="timeline-icon"></i>
+                  Jul 2025 – Aug 2025
+                </span>
+                <span class="badge-remote">Remote &bull; Project-Based</span>
+              </div>
+              <h3 class="timeline-role">PBEL Virtual Internship</h3>
+              <h4 class="timeline-company">
+                <i data-lucide="building-2" class="company-icon"></i>
+                IBM
+              </h4>
+              <p class="timeline-desc">
+                Successfully completed a prestigious project-based virtual internship focusing on modern web
+                and mobile application development paradigms, integrating full-stack components and receiving a merit-based stipend award.
+              </p>
+              <div class="timeline-tags">
+                <span class="tag-pill">Web Development</span>
+                <span class="tag-pill">Mobile Solutions</span>
+                <span class="tag-pill">Stipend Awarded</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item reveal">
+            <div class="timeline-dot-container">
+              <div class="timeline-dot"></div>
+              <div class="timeline-dot-ping"></div>
+            </div>
+            <div class="timeline-card glass-panel" data-tilt>
+              <div class="timeline-top">
+                <span class="timeline-period">
+                  <i data-lucide="calendar" class="timeline-icon"></i>
+                  Jul 2024 – Aug 2024
+                </span>
+                <span class="badge-campus">On-Campus Training</span>
+              </div>
+              <h3 class="timeline-role">Summer Training in Core Java</h3>
+              <h4 class="timeline-company">
+                <i data-lucide="building-2" class="company-icon"></i>
+                United Institute of Technology
+              </h4>
+              <p class="timeline-desc">
+                Mastered core Java fundamentals including Object-Oriented Programming (OOP) paradigms,
+                polymorphism, inheritance, exception handling, data structures, and terminal application engineering.
+              </p>
+              <div class="timeline-tags">
+                <span class="tag-pill">Core Java</span>
+                <span class="tag-pill">OOP</span>
+                <span class="tag-pill">Collections</span>
+                <span class="tag-pill">Algorithms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FEATURED PROJECTS SECTION
+       ===================================================== -->
+  <section class="section section--alt" id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">PORTFOLIO WORK</span>
+        <h2 class="section-title">
+          Featured <span class="highlight">Projects</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <!-- Project Filter Tabs -->
+      <div class="filter-tabs reveal">
+        <button class="filter-btn active" data-project-filter="all">All Projects</button>
+        <button class="filter-btn" data-project-filter="blockchain">Blockchain &amp; Web3</button>
+        <button class="filter-btn" data-project-filter="fullstack">Full Stack</button>
+        <button class="filter-btn" data-project-filter="data">Data &amp; AI</button>
+        <button class="filter-btn" data-project-filter="web">Web &amp; 3D</button>
+      </div>
+
+      <div class="projects-grid">
+        <!-- PROJECT 0: Advanced Land Registry DApp (FLAGSHIP WITH LIVE DEMO) -->
+        <div class="project-card glass-panel reveal" data-category="blockchain" data-tilt>
+          <div class="project-media-wrap">
+            <img
+              src="assets/project-land-registry.jpg"
+              alt="Advanced Land Registry Web3 DApp Mockup"
+              class="project-img"
+              loading="lazy"
+            />
+            <span class="live-demo-tag">
+              <span class="pulse-indicator-live"></span>
+              Live Demo
+            </span>
+            <span class="project-badge">Web3 / Blockchain</span>
+
+            <div class="project-overlay-3d">
+              <button
+                class="btn-quick-view"
+                data-project-id="land-registry"
+                aria-label="Quick View Advanced Land Registry"
+              >
+                <i data-lucide="eye"></i>
+                <span>Quick View</span>
+              </button>
+              <div class="overlay-links">
+                <a
+                  href="https://abhishektripathi9.github.io/Advanced-Land-Registry-Dapp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-live-demo-pill"
+                  aria-label="Launch Live Demo"
+                  title="Launch Live Demo"
+                >
+                  <i data-lucide="external-link"></i>
+                  <span>Live Demo</span>
+                </a>
+                <a
+                  href="https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link-btn"
+                  aria-label="GitHub Repository"
+                  title="GitHub Repository"
+                >
+                  <i data-lucide="github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-body">
+            <div class="project-header-meta">
+              <span class="project-year">2026</span>
+              <span class="project-stars"><i data-lucide="sparkles"></i> Flagship DApp</span>
+            </div>
+            <h3 class="project-title">Advanced Land Registry DApp</h3>
+            <p class="project-desc">
+              Decentralized, tamper-proof property title registration &amp; ownership transfer platform powered by Ethereum smart contracts, IPFS immutable deed storage, and MetaMask integration for fraud-proof real estate.
+            </p>
+            <div class="project-tech-tags">
+              <span class="tech-tag">Solidity</span>
+              <span class="tech-tag">Ethereum</span>
+              <span class="tech-tag">Web3.js</span>
+              <span class="tech-tag">React.js</span>
+              <span class="tech-tag">IPFS</span>
+              <span class="tech-tag">MetaMask</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 1: RentEase -->
+        <div class="project-card glass-panel reveal" data-category="fullstack" data-tilt>
+          <div class="project-media-wrap">
+            <img
+              src="assets/project-rentease.jpg"
+              alt="RentEase Platform Mockup"
+              class="project-img"
+              loading="lazy"
+            />
+            <div class="project-overlay-3d">
+              <button
+                class="btn-quick-view"
+                data-project-id="rentease"
+                aria-label="Quick View RentEase"
+              >
+                <i data-lucide="eye"></i>
+                <span>Quick View</span>
+              </button>
+              <div class="overlay-links">
+                <a
+                  href="https://github.com/abhishektripathi9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link-btn"
+                  aria-label="GitHub Repository"
+                  title="GitHub Repository"
+                >
+                  <i data-lucide="github"></i>
+                </a>
+              </div>
+            </div>
+            <span class="project-badge">Full Stack</span>
+          </div>
+
+          <div class="project-body">
+            <div class="project-header-meta">
+              <span class="project-year">2026</span>
+              <span class="project-stars"><i data-lucide="sparkles"></i> Featured</span>
+            </div>
+            <h3 class="project-title">RentEase – PG &amp; Room Finder</h3>
+            <p class="project-desc">
+              Comprehensive full-stack PG and rental housing portal with intuitive filter search, booking workflow, verified listings, owner portal, and interactive map interface.
+            </p>
+            <div class="project-tech-tags">
+              <span class="tech-tag">React.js</span>
+              <span class="tech-tag">Java</span>
+              <span class="tech-tag">Spring Boot</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">REST API</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 2: Weather Forecast -->
+        <div class="project-card glass-panel reveal" data-category="web" data-tilt>
+          <div class="project-media-wrap">
+            <img
+              src="assets/project-weather.jpg"
+              alt="Weather Forecast Application Mockup"
+              class="project-img"
+              loading="lazy"
+            />
+            <div class="project-overlay-3d">
+              <button
+                class="btn-quick-view"
+                data-project-id="weather"
+                aria-label="Quick View Weather App"
+              >
+                <i data-lucide="eye"></i>
+                <span>Quick View</span>
+              </button>
+              <div class="overlay-links">
+                <a
+                  href="https://github.com/abhishektripathi9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link-btn"
+                  aria-label="GitHub Repository"
+                  title="GitHub Repository"
+                >
+                  <i data-lucide="github"></i>
+                </a>
+              </div>
+            </div>
+            <span class="project-badge">Web Application</span>
+          </div>
+
+          <div class="project-body">
+            <div class="project-header-meta">
+              <span class="project-year">2025</span>
+              <span class="project-stars"><i data-lucide="sun"></i> Live API</span>
+            </div>
+            <h3 class="project-title">Real-Time Weather Forecast</h3>
+            <p class="project-desc">
+              Glassmorphic weather telemetry application integrating OpenWeather API with live weather radar, 7-day projections, dynamic atmospheric gradients, and hourly wind analysis.
+            </p>
+            <div class="project-tech-tags">
+              <span class="tech-tag">React.js</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">REST API</span>
+              <span class="tech-tag">OpenWeather</span>
+              <span class="tech-tag">CSS3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 3: Salary Prediction -->
+        <div class="project-card glass-panel reveal" data-category="data" data-tilt>
+          <div class="project-media-wrap">
+            <img
+              src="assets/project-salary.jpg"
+              alt="Salary Prediction ML Mockup"
+              class="project-img"
+              loading="lazy"
+            />
+            <div class="project-overlay-3d">
+              <button
+                class="btn-quick-view"
+                data-project-id="salary"
+                aria-label="Quick View Salary Predictor"
+              >
+                <i data-lucide="eye"></i>
+                <span>Quick View</span>
+              </button>
+              <div class="overlay-links">
+                <a
+                  href="https://github.com/abhishektripathi9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link-btn"
+                  aria-label="GitHub Repository"
+                  title="GitHub Repository"
+                >
+                  <i data-lucide="github"></i>
+                </a>
+              </div>
+            </div>
+            <span class="project-badge">Data &amp; ML</span>
+          </div>
+
+          <div class="project-body">
+            <div class="project-header-meta">
+              <span class="project-year">2024</span>
+              <span class="project-stars"><i data-lucide="trending-up"></i> AI Model</span>
+            </div>
+            <h3 class="project-title">Salary Prediction System</h3>
+            <p class="project-desc">
+              Predictive machine learning regression model analyzing experience, education, skills, and industry benchmarks to estimate real-time compensation with feature-importance visualizations.
+            </p>
+            <div class="project-tech-tags">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">NumPy</span>
+              <span class="tech-tag">Scikit-learn</span>
+              <span class="tech-tag">Regression</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 4: 3D Interactive Portfolio -->
+        <div class="project-card glass-panel reveal" data-category="web" data-tilt>
+          <div class="project-media-wrap">
+            <img
+              src="assets/project-portfolio.jpg"
+              alt="3D Developer Portfolio Mockup"
+              class="project-img"
+              loading="lazy"
+            />
+            <div class="project-overlay-3d">
+              <button
+                class="btn-quick-view"
+                data-project-id="portfolio"
+                aria-label="Quick View 3D Portfolio"
+              >
+                <i data-lucide="eye"></i>
+                <span>Quick View</span>
+              </button>
+              <div class="overlay-links">
+                <a
+                  href="https://github.com/abhishektripathi9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link-btn"
+                  aria-label="GitHub Repository"
+                  title="GitHub Repository"
+                >
+                  <i data-lucide="github"></i>
+                </a>
+              </div>
+            </div>
+            <span class="project-badge">3D &amp; Creative</span>
+          </div>
+
+          <div class="project-body">
+            <div class="project-header-meta">
+              <span class="project-year">2026</span>
+              <span class="project-stars"><i data-lucide="zap"></i> Three.js</span>
+            </div>
+            <h3 class="project-title">3D Holographic Web Portfolio</h3>
+            <p class="project-desc">
+              State-of-the-art developer portfolio engineered with Three.js WebGL particle constellations, physics-inspired 3D card tilt, dynamic neon glassmorphism, and responsive interactions.
+            </p>
+            <div class="project-tech-tags">
+              <span class="tech-tag">Three.js</span>
+              <span class="tech-tag">WebGL</span>
+              <span class="tech-tag">CSS 3D Tilt</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">HTML5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       EDUCATION SECTION
+       ===================================================== -->
+  <section class="section" id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">ACADEMICS</span>
+        <h2 class="section-title">
+          Educational <span class="highlight">Foundation</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="education-card glass-panel reveal" data-tilt>
+        <div class="edu-left-banner">
+          <div class="edu-icon-circle">
+            <i data-lucide="graduation-cap"></i>
+          </div>
+          <div class="edu-timeline-badge">Oct 2023 – Expected 2027</div>
+        </div>
+
+        <div class="edu-content">
+          <div class="edu-header">
+            <div>
+              <h3 class="edu-institution">United Institute of Technology</h3>
+              <p class="edu-location"><i data-lucide="map-pin" class="pin-icon"></i> Prayagraj, Uttar Pradesh, India</p>
+            </div>
+            <div class="cgpa-pill">
+              <i data-lucide="award" class="award-icon"></i>
+              <span>CGPA: <strong>7.5</strong> / 10</span>
+            </div>
+          </div>
+
+          <h4 class="edu-degree">Bachelor of Technology — Computer Science &amp; Engineering</h4>
+          <p class="edu-desc">
+            Focused curriculum emphasizing Computer Science fundamentals, Object-Oriented Programming, Database Management Systems, Data Structures &amp; Algorithms, Computer Networks, and Full Stack Web Architectures.
+          </p>
+
+          <div class="edu-course-tags">
+            <span class="tag-pill">Data Structures</span>
+            <span class="tag-pill">OOP &amp; Java</span>
+            <span class="tag-pill">DBMS &amp; SQL</span>
+            <span class="tag-pill">Operating Systems</span>
+            <span class="tag-pill">Web Technologies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CERTIFICATIONS & ACHIEVEMENTS SECTION
+       ===================================================== -->
+  <section class="section section--alt" id="certifications">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">CREDENTIALS</span>
+        <h2 class="section-title">
+          Certifications &amp; <span class="highlight">Honors</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="certs-grid">
+        <!-- Cert 1 -->
+        <div class="cert-card glass-panel reveal" data-tilt>
+          <div class="cert-glow"></div>
+          <div class="cert-icon-box cyan">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <span class="cert-issuer">IBM / PBEL</span>
+          <h3 class="cert-title">Web &amp; Mobile Development &amp; Marketing Intelligence</h3>
+          <p class="cert-desc">
+            Project-based certification covering responsive web development, mobile architectural principles, and telemetry metrics.
+          </p>
+          <button class="cert-view-btn" data-cert="pbel">
+            <span>Verify Credential</span>
+            <i data-lucide="arrow-up-right" class="btn-icon-xs"></i>
+          </button>
+        </div>
+
+        <!-- Cert 2 -->
+        <div class="cert-card glass-panel reveal" data-tilt>
+          <div class="cert-glow"></div>
+          <div class="cert-icon-box purple">
+            <i data-lucide="award"></i>
+          </div>
+          <span class="cert-issuer">IBM Corporation</span>
+          <h3 class="cert-title">PBEL Virtual Internship Program</h3>
+          <p class="cert-desc">
+            Comprehensive practical internship certificate validating real-world project delivery and full-stack software development competency.
+          </p>
+          <button class="cert-view-btn" data-cert="ibm">
+            <span>Verify Credential</span>
+            <i data-lucide="arrow-up-right" class="btn-icon-xs"></i>
+          </button>
+        </div>
+
+        <!-- Cert 3 -->
+        <div class="cert-card glass-panel reveal" data-tilt>
+          <div class="cert-glow"></div>
+          <div class="cert-icon-box blue">
+            <i data-lucide="code"></i>
+          </div>
+          <span class="cert-issuer">United Institute of Technology</span>
+          <h3 class="cert-title">Summer Training in Core Java</h3>
+          <p class="cert-desc">
+            Advanced training certificate in Java programming, Object-Oriented design patterns, and application implementation.
+          </p>
+          <button class="cert-view-btn" data-cert="java">
+            <span>Verify Credential</span>
+            <i data-lucide="arrow-up-right" class="btn-icon-xs"></i>
+          </button>
+        </div>
+
+        <!-- Achievement Card (Gold Award Style) -->
+        <div class="cert-card cert-card--achievement glass-panel reveal" data-tilt>
+          <div class="gold-shimmer"></div>
+          <div class="cert-icon-box gold">
+            <i data-lucide="trophy"></i>
+          </div>
+          <span class="cert-issuer gold-text">Merit Recognition</span>
+          <h3 class="cert-title gold-title">IBM Internship Stipend Award</h3>
+          <p class="cert-desc">
+            Earned a monetary performance stipend during the IBM PBEL Virtual Internship in recognition of exceptional project work and dedication.
+          </p>
+          <div class="achievement-badge-pill">
+            <i data-lucide="check-circle-2"></i>
+            <span>Verified Achievement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CONTACT SECTION
+       ===================================================== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-subtitle">COMMUNICATION</span>
+        <h2 class="section-title">
+          Let's Build <span class="highlight">Together</span>
+        </h2>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="contact-wrapper">
+        <!-- Contact Info Cards -->
+        <div class="contact-info-col reveal">
+          <div class="contact-intro-card glass-panel" data-tilt>
+            <h3 class="contact-headline">Have a project, opportunity, or idea in mind?</h3>
+            <p class="contact-subtext">
+              I am actively seeking internships, collaborative projects, and engineering opportunities.
+              Feel free to reach out via email, phone, or any of the channels below!
+            </p>
+
+            <div class="contact-method-list">
+              <!-- Email Item with Copy Button -->
+              <div class="contact-channel-card">
+                <div class="channel-icon-wrap cyan">
+                  <i data-lucide="mail"></i>
+                </div>
+                <div class="channel-details">
+                  <span class="channel-label">Email Address</span>
+                  <a href="mailto:at180887@gmail.com" class="channel-link">at180887@gmail.com</a>
+                </div>
+                <button
+                  class="btn-copy-action"
+                  data-copy="at180887@gmail.com"
+                  aria-label="Copy email address"
+                  title="Copy email"
+                >
+                  <i data-lucide="copy" class="copy-icon"></i>
+                </button>
+              </div>
+
+              <!-- Phone Item with Copy Button -->
+              <div class="contact-channel-card">
+                <div class="channel-icon-wrap purple">
+                  <i data-lucide="phone"></i>
+                </div>
+                <div class="channel-details">
+                  <span class="channel-label">Phone &amp; WhatsApp</span>
+                  <a href="tel:+919595347836" class="channel-link">+91 9595347836</a>
+                </div>
+                <button
+                  class="btn-copy-action"
+                  data-copy="+919595347836"
+                  aria-label="Copy phone number"
+                  title="Copy phone"
+                >
+                  <i data-lucide="copy" class="copy-icon"></i>
+                </button>
+              </div>
+
+              <!-- Location Item -->
+              <div class="contact-channel-card">
+                <div class="channel-icon-wrap blue">
+                  <i data-lucide="map-pin"></i>
+                </div>
+                <div class="channel-details">
+                  <span class="channel-label">Location</span>
+                  <span class="channel-static">Banda, Uttar Pradesh, India</span>
+                </div>
+              </div>
+
+              <!-- Profiles Bar -->
+              <div class="contact-channel-card">
+                <div class="channel-icon-wrap emerald">
+                  <i data-lucide="globe"></i>
+                </div>
+                <div class="channel-details">
+                  <span class="channel-label">Social &amp; Professional Links</span>
+                  <div class="quick-links-row">
+                    <a
+                      href="https://github.com/abhishektripathi9"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="quick-pill"
+                    >
+                      <i data-lucide="github"></i> GitHub
+                    </a>
+                    <a
+                      href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="quick-pill"
+                    >
+                      <i data-lucide="linkedin"></i> LinkedIn
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Contact Form -->
+        <div class="contact-form-col reveal">
+          <form class="contact-form glass-panel" id="contact-form" novalidate data-tilt>
+            <div class="form-header">
+              <h3 class="form-title">Send a Direct Message</h3>
+              <p class="form-subtitle">Fill out the form below and I'll respond within 24 hours.</p>
+            </div>
+
+            <div class="input-floating-group">
+              <input
+                type="text"
+                id="form-name"
+                name="name"
+                class="form-input"
+                placeholder=" "
+                required
+              />
+              <label for="form-name" class="floating-label">Your Full Name</label>
+              <i data-lucide="user" class="input-icon"></i>
+            </div>
+
+            <div class="input-floating-group">
+              <input
+                type="email"
+                id="form-email"
+                name="email"
+                class="form-input"
+                placeholder=" "
+                required
+              />
+              <label for="form-email" class="floating-label">Your Email Address</label>
+              <i data-lucide="mail" class="input-icon"></i>
+            </div>
+
+            <div class="input-floating-group">
+              <input
+                type="text"
+                id="form-subject"
+                name="subject"
+                class="form-input"
+                placeholder=" "
+                required
+              />
+              <label for="form-subject" class="floating-label">Subject / Purpose</label>
+              <i data-lucide="tag" class="input-icon"></i>
+            </div>
+
+            <div class="input-floating-group">
+              <textarea
+                id="form-message"
+                name="message"
+                rows="4"
+                class="form-input form-textarea"
+                placeholder=" "
+                required
+              ></textarea>
+              <label for="form-message" class="floating-label">Your Message</label>
+              <i data-lucide="message-square" class="input-icon textarea-icon"></i>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-3d" id="form-submit-btn">
+              <span class="btn-glow-layer"></span>
+              <i data-lucide="send" class="btn-icon"></i>
+              <span>Transmit Message</span>
+            </button>
+
+            <!-- Inline Form Success Indicator -->
+            <div class="form-success-banner" id="form-success">
+              <div class="success-icon-wrap">
+                <i data-lucide="check-circle-2"></i>
+              </div>
+              <div>
+                <h4>Message Received!</h4>
+                <p>Thank you for reaching out, Abhishek will get back to you shortly.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#home" class="footer-logo">
+          <span class="logo-bracket">&lt;</span><span class="logo-text">AT</span><span class="logo-bracket">/&gt;</span>
+        </a>
+        <p class="footer-tagline">
+          Building the future with clean code, data-driven algorithms, and immersive 3D interfaces.
+        </p>
+        <div class="footer-social-row">
+          <a
+            href="https://github.com/abhishektripathi9"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-icon-link"
+            aria-label="GitHub"
+          >
+            <i data-lucide="github"></i>
+          </a>
+          <a
+            href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-icon-link"
+            aria-label="LinkedIn"
+          >
+            <i data-lucide="linkedin"></i>
+          </a>
+          <a
+            href="mailto:at180887@gmail.com"
+            class="footer-icon-link"
+            aria-label="Email"
+          >
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; <span id="current-year">2026</span> Abhishek Tripathi. All rights reserved.
+        </p>
+        <div class="footer-meta-badge">
+          <span class="footer-status-dot"></span>
+          <span>Crafted with Three.js &amp; Pure Web Tech</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================
+       FLOATING SCROLL-TO-TOP BUTTON
+       ===================================================== -->
+  <button class="scroll-top-btn" id="scroll-top-btn" aria-label="Scroll back to top">
+    <svg class="scroll-progress-ring" width="48" height="48" viewBox="0 0 48 48">
+      <circle class="ring-bg" cx="24" cy="24" r="20"></circle>
+      <circle class="ring-progress" id="ring-progress" cx="24" cy="24" r="20"></circle>
+    </svg>
+    <i data-lucide="arrow-up" class="scroll-top-icon"></i>
+  </button>
+
+  <!-- =====================================================
+       PROJECT QUICK VIEW MODAL
+       ===================================================== -->
+  <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog glass-panel">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-content" id="modal-content-target">
+        <!-- Dynamically injected via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       RESUME PREVIEW MODAL
+       ===================================================== -->
+  <div class="modal-overlay" id="resume-modal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog glass-panel resume-modal-dialog">
+      <button class="modal-close-btn" id="resume-modal-close-btn" aria-label="Close resume dialog">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="resume-modal-content">
+        <div class="resume-header">
+          <div class="resume-title-wrap">
+            <i data-lucide="file-check" class="resume-header-icon"></i>
+            <div>
+              <h3 class="resume-name">Abhishek Tripathi — Resume</h3>
+              <p class="resume-role">B.Tech CSE &bull; Full Stack Developer &bull; Data Analytics Enthusiast</p>
+            </div>
+          </div>
+          <a
+            href="mailto:at180887@gmail.com?subject=Request%20for%20Resume%20-%20Abhishek%20Tripathi"
+            class="btn btn-primary btn-sm"
+          >
+            <i data-lucide="download"></i>
+            <span>Request Full PDF</span>
+          </a>
+        </div>
+
+        <div class="resume-body-preview">
+          <div class="resume-section">
+            <h4 class="resume-section-title"><i data-lucide="user"></i> Professional Profile</h4>
+            <p>
+              Pre-final year Computer Science Engineering student with practical internship experience in Python Data Analytics (Techie Technologies) and Full Stack / Mobile development (IBM PBEL). Strong analytical acumen combined with expertise in Java, React.js, and SQL.
+            </p>
+          </div>
+
+          <div class="resume-section">
+            <h4 class="resume-section-title"><i data-lucide="graduation-cap"></i> Academic Education</h4>
+            <div class="resume-entry">
+              <div class="entry-header">
+                <strong>United Institute of Technology, Prayagraj</strong>
+                <span>2023 – 2027</span>
+              </div>
+              <p class="entry-sub">B.Tech in Computer Science &amp; Engineering &bull; CGPA: 7.5 / 10.0</p>
+            </div>
+          </div>
+
+          <div class="resume-section">
+            <h4 class="resume-section-title"><i data-lucide="briefcase"></i> Experience &amp; Internships</h4>
+            <div class="resume-entry">
+              <div class="entry-header">
+                <strong>Techie Technologies Pvt. Ltd.</strong>
+                <span>May 2026 – Jul 2026</span>
+              </div>
+              <p class="entry-sub">Industrial Training Intern – Python &amp; Data Analytics</p>
+            </div>
+            <div class="resume-entry">
+              <div class="entry-header">
+                <strong>IBM (PBEL Virtual Internship)</strong>
+                <span>Jul 2025 – Aug 2025</span>
+              </div>
+              <p class="entry-sub">Project Intern – Web &amp; Mobile Development (Awarded Stipend)</p>
+            </div>
+          </div>
+
+          <div class="resume-section">
+            <h4 class="resume-section-title"><i data-lucide="cpu"></i> Core Skills</h4>
+            <p><strong>Languages:</strong> Java, Python, JavaScript (ES6+), C, SQL</p>
+            <p><strong>Frameworks &amp; Libs:</strong> React.js, Spring Boot, Pandas, NumPy, Scikit-learn, Three.js</p>
+            <p><strong>Tools:</strong> Power BI, MySQL, Git, GitHub, VS Code, IntelliJ IDEA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

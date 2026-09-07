@@ -1,0 +1,23 @@
+{
+  "name": "abhishek-tripathi-portfolio",
+  "version": "1.0.0",
+  "description": "3D Interactive Developer Portfolio of Abhishek Tripathi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Build complete'"
+  },
+  "keywords": [
+    "portfolio",
+    "developer",
+    "threejs",
+    "3d",
+    "web3"
+  ],
+  "author": "Abhishek Tripathi",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,27 @@
+services:
+  # Option 1: Static Site (Recommended on Render - 100% Free, Global CDN, No spin-down delays)
+  - type: web
+    name: abhishek-tripathi-portfolio
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  # Option 2: Web Service (Node.js dynamic runtime)
+  # - type: web
+  #   name: abhishek-tripathi-portfolio-service
+  #   runtime: node
+  #   plan: free
+  #   buildCommand: npm install
+  #   startCommand: npm start
+  #   healthCheckPath: /healthz
