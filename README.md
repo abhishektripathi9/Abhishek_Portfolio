@@ -1,68 +1,62 @@
-# Abhishek Tripathi — Personal Portfolio
+# Abhishek Tripathi — 3D & Animated Developer Portfolio
 
-A premium dark-themed developer portfolio showcasing projects, skills, and professional experience.
+A state-of-the-art developer portfolio engineered with **Three.js WebGL**, **CSS 3D perspective tilt**, **cyber-glassmorphism aesthetics**, and real-time interactive showcases.
 
-## Quick Start (VS Code)
+---
 
-1. Open the `portfolio` folder in VS Code
-2. Install the **Live Server** extension (by Ritwick Dey) from the Extensions panel
-3. Right-click `index.html` → **Open with Live Server**
-4. The site opens at `http://127.0.0.1:5500` (auto-refreshes on save)
+## 🚀 How to Deploy on Render (Step-by-Step)
 
-## Adding Your Files
+### Step 1: Push this code to your GitHub
+1. Go to [github.com/new](https://github.com/new) and create a new repository (e.g., `portfolio`).
+2. Open terminal in this folder and run:
+   ```bash
+   git remote add origin https://github.com/abhishektripathi9/portfolio.git
+   git branch -M main
+   git push -u origin main
+   ```
 
-### Profile Photo
-Place your photo at `assets/profile.jpg`.
-- Recommended: 400×400px or larger (square/circular crop)
-- Format: JPG or PNG
+### Step 2: Deploy on Render
 
-### Resume PDF
-Place your resume at `assets/resume.pdf`.
-- The "Download Resume" button links to this file automatically
+#### Recommended: Static Site (100% Free, Global CDN, Fast)
+1. Sign in to [dashboard.render.com](https://dashboard.render.com).
+2. Click **New +** at the top right and select **Static Site**.
+3. Connect your GitHub account and choose the `portfolio` repository.
+4. Fill in the settings:
+   - **Name**: `abhishek-tripathi-portfolio`
+   - **Branch**: `main`
+   - **Build Command**: *(leave blank)*
+   - **Publish Directory**: `.` (a single dot)
+5. Click **Create Static Site**.
+6. Render will publish your site in seconds and provide a live URL like:
+   `https://abhishek-tripathi-portfolio.onrender.com`
 
-### Project Screenshots
-Place project screenshots in `assets/projects/`.
-- Recommended: 800×500px
-- Then update the `<img>` tag inside `.project-image-placeholder` in `index.html`
+---
 
-### GitHub / Live Demo Links
-Search for `YOUR_GITHUB_PROJECT_LINK` and `YOUR_LIVE_PROJECT_LINK` in `index.html` and replace them with your actual URLs.
+#### Alternative: Web Service (Node.js Server)
+If you prefer deploying with the included Node.js server:
+1. Click **New +** -> **Web Service**.
+2. Connect your `portfolio` repository.
+3. Settings:
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. Click **Create Web Service**.
 
-### Certificate Links
-Search for `YOUR_CERTIFICATE_LINK` in `index.html` and replace with your certificate URLs.
+---
 
-## File Structure
+#### 1-Click Blueprint Deploy:
+1. Click **New +** -> **Blueprint**.
+2. Connect your repository. Render will automatically detect `render.yaml` and configure the service for you!
 
+---
+
+## 💻 Local Development
+To run locally:
+```bash
+# Using Node
+npm start
+
+# Or using Python
+python -m http.server 3000
 ```
-portfolio/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── assets/
-│   ├── profile.jpg      ← add your photo
-│   ├── resume.pdf        ← add your resume
-│   └── projects/         ← add project screenshots
-└── README.md
-```
-
-## Tech Stack
-
-- HTML5 (semantic)
-- CSS3 (custom properties, glassmorphism, animations)
-- JavaScript (vanilla, no frameworks)
-- Lucide Icons (CDN)
-- Google Fonts: Inter + JetBrains Mono
-
-## Features
-
-- Dark premium theme with gradient accents
-- Glassmorphism cards
-- Particle grid hero background
-- Scroll-reveal animations
-- Active nav link highlighting
-- Responsive (desktop, tablet, mobile)
-- Mobile hamburger menu
-- Frontend-only contact form
-- SEO meta tags + Open Graph
+Open [http://localhost:3000](http://localhost:3000) in your browser.
