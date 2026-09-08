@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Clone 2.0 | Ultra-Modern E-Commerce Portfolio Showcase</title>
+  <meta name="description" content="Production-ready Amazon 2.0 E-Commerce Clone built with modern semantic HTML5, Vanilla CSS, and Modular ES6 JavaScript for freelancing portfolio.">
+  <meta name="keywords" content="Amazon Clone, E-Commerce, Vanilla JS, Portfolio Project, Freelancer, Web Developer">
+  <meta name="author" content="Portfolio Showcase">
+
+  <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Application Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <link rel="stylesheet" href="css/animations-3d.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas Layer for Order Celebrations -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ========================================================================
+       GLOBAL HEADER & SEARCH BAR
+       ======================================================================== -->
+  <header class="nav-header" id="navbar">
+    <div class="nav-top-bar">
+      <!-- Amazon Logo -->
+      <a href="#" class="nav-logo-box" aria-label="Amazon Home">
+        <span class="nav-brand-logo">
+          amazon<span class="brand-dot-com">.clone</span>
+        </span>
+        <span class="brand-prime-tag">Prime</span>
+      </a>
+
+      <!-- Deliver To Location Widget -->
+      <div class="nav-delivery-box" id="nav-deliver-location-btn" role="button" tabindex="0" title="Change delivery location">
+        <span class="nav-pin-icon">📍</span>
+        <div class="nav-delivery-text">
+          <span class="delivery-line-1">Deliver to</span>
+          <span class="delivery-line-2" id="nav-delivery-city">New York 10001</span>
+        </div>
+      </div>
+
+      <!-- Live Search Bar -->
+      <div class="nav-search-wrapper">
+        <select class="nav-search-category" id="search-category-select" aria-label="Select department">
+          <option value="all">All Departments</option>
+          <option value="clothing">👗 Clothing & Fashion</option>
+          <option value="kitchen">🍳 Home & Kitchen</option>
+          <option value="beauty">💄 Beauty & Personal Care</option>
+          <option value="sports">🏋️ Sports & Fitness</option>
+          <option value="electronics">💻 Electronics & Tech</option>
+          <option value="audio">🎧 Audio & Headphones</option>
+          <option value="smarthome">🏠 Smart Home & Appliances</option>
+          <option value="gaming">🎮 Gaming & VR Consoles</option>
+          <option value="fashion">⌚ Luxury Watches & Bags</option>
+        </select>
+
+        <input 
+          type="text" 
+          class="nav-search-input" 
+          id="navbar-search-input" 
+          placeholder="Search Amazon Clone, products, brands, or deals..."
+          autocomplete="off"
+          aria-label="Search"
+        />
+
+        <button class="nav-search-submit" id="navbar-search-submit" aria-label="Submit search">
+          <svg class="search-icon-svg" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </button>
+
+        <!-- Live Autocomplete Suggestions Box -->
+        <div class="search-suggestions-dropdown" id="search-suggestions-dropdown"></div>
+      </div>
+
+      <!-- Action Navigation Links -->
+      <div class="nav-actions-group">
+        <!-- Currency Converter Pill -->
+        <div class="nav-pill-btn" title="Change currency">
+          <span id="nav-current-currency-symbol">$</span>
+          <span id="nav-current-currency-code" style="display:none">USD</span>
+          <select class="currency-select-inline currency-selector" aria-label="Select currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="INR">INR (₹)</option>
+            <option value="JPY">JPY (¥)</option>
+            <option value="CAD">CAD (CA$)</option>
+          </select>
+        </div>
+
+        <!-- Theme Mode Toggle Button -->
+        <button class="nav-pill-btn theme-toggle-btn" title="Toggle Dark / Light Theme" aria-label="Theme switch">
+          <span class="theme-icon">☀️</span>
+          <span class="theme-label">Light Mode</span>
+        </button>
+
+        <!-- Account & Lists Trigger -->
+        <div class="nav-item-box" id="nav-account-btn" role="button" tabindex="0">
+          <span class="nav-item-small">Hello, Portfolio Client</span>
+          <span class="nav-item-bold">Account & Lists ▾</span>
+        </div>
+
+        <!-- Returns & Orders Trigger -->
+        <div class="nav-item-box" id="nav-orders-btn" role="button" tabindex="0">
+          <span class="nav-item-small">Returns</span>
+          <span class="nav-item-bold">& Orders</span>
+        </div>
+
+        <!-- Cart Slide-out Drawer Trigger -->
+        <div class="nav-cart-box" id="nav-cart-btn" role="button" tabindex="0" title="View Shopping Cart">
+          <div class="nav-cart-icon-wrapper">
+            <svg class="cart-icon-svg" viewBox="0 0 24 24">
+              <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+            <span class="nav-cart-count" id="nav-cart-count">0</span>
+          </div>
+          <span class="nav-cart-label">Cart</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SUB-NAVIGATION STRIP (Mega Menu & Categories)
+         ====================================================================== -->
+    <nav class="nav-sub-bar" aria-label="Departments Navigation">
+      <div class="nav-sub-left">
+        <!-- Hamburger Menu Button -->
+        <button class="nav-sub-item" id="nav-hamburger-btn">
+          <div class="hamburger-icon-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span>All Departments</span>
+        </button>
+
+        <a href="#products-section" class="nav-sub-item is-active" data-filter-category="all">All Products</a>
+        <a href="#products-section" class="nav-sub-item nav-gender-item" data-filter-gender="men">👨 Men's (पुरुष)</a>
+        <a href="#products-section" class="nav-sub-item nav-gender-item" data-filter-gender="women">👩 Women's (महिलाएं)</a>
+        <a href="#products-section" class="nav-sub-item nav-gender-item" data-filter-gender="karigar">🏡 Rural Karigar</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="clothing">👗 Clothing & Fashion</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="kitchen">🍳 Home & Kitchen</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="beauty">💄 Beauty & Care</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="sports">🏋️ Sports & Outdoors</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="electronics">💻 Electronics</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="audio">🎧 Audio & Sound</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="smarthome">🏠 Smart Home</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="gaming">🎮 Gaming</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="fashion">⌚ Luxury</a>
+        <a href="#" class="nav-sub-item" id="nav-wishlist-link">❤️ Wish List</a>
+      </div>
+
+      <div class="nav-sub-right">
+        <button class="seller-hub-pill-btn" id="open-seller-hub-btn" title="Open Amazon Seller Central Portal">
+          <span class="seller-pulse-dot"></span>
+          <span class="seller-hub-text">🚀 Seller Central <span class="seller-hindi">(बेचें)</span></span>
+        </button>
+        <span class="prime-special-banner">
+          ⚡ Fast, Free Delivery with Prime
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========================================================================
+       MAIN HERO SECTION: 3D SPATIAL ARENA & PROMOTIONS
+       ======================================================================== -->
+  <section class="hero-section" id="hero-carousel" aria-label="3D Spatial Promotions Arena">
+    <div class="hero-3d-spatial-container">
+      <div class="hero-content">
+        <span class="hero-tag" style="background: linear-gradient(135deg, #ff9900, #f08804); box-shadow: 0 0 16px rgba(255, 153, 0, 0.6); display: inline-flex; align-items: center; gap: 6px;">
+          <span>⚡</span> Next-Gen 3D Interactive
+        </span>
+        <h2 class="hero-title" style="letter-spacing: -0.5px;">
+          Experience Tomorrow's Tech in <span style="background: linear-gradient(135deg, #00f2fe, #4facfe, #febd69); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">True 3D</span>
+        </h2>
+        <p class="hero-desc">
+          Interact with real-time WebGL 3D models, rotate 360° across spherical axes, inspect spatial acoustics, and discover cutting-edge electronics with Prime delivery.
+        </p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="#products-section" class="hero-cta-btn" data-filter-category="audio">
+            Explore 3D Audio Flagship →
+          </a>
+          <button class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.12); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);" onclick="document.getElementById('portfolio-hud-trigger').click()">
+            💼 Freelance Portfolio Specs
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Three.js 3D Canvas Wrapper -->
+      <div class="hero-3d-canvas-wrapper" id="hero-3d-canvas-wrapper" title="Click & drag to rotate 3D gadget in 360°">
+        <canvas id="hero-three-canvas"></canvas>
+
+        <!-- Interactive 3D Spatial Hotspot Pins -->
+        <div class="spatial-hotspot" style="top: 36%; left: 32%;">
+          <div class="hotspot-beacon"></div>
+          <div class="hotspot-label">Titanium Acoustic Arc (Ultra-Light)</div>
+        </div>
+        <div class="spatial-hotspot" style="top: 60%; left: 24%;">
+          <div class="hotspot-beacon"></div>
+          <div class="hotspot-label">Active ANC Matrix (-42dB)</div>
+        </div>
+        <div class="spatial-hotspot" style="top: 55%; left: 64%;">
+          <div class="hotspot-beacon"></div>
+          <div class="hotspot-label">30-Hour Fast Charge Core</div>
+        </div>
+
+        <div class="hero-3d-drag-hint">
+          <span class="drag-icon-rotate">🔄</span>
+          <span>Click & Drag to Rotate in 360°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gradient fade into product cards -->
+    <div class="hero-gradient-overlay"></div>
+  </section>
+
+  <!-- ========================================================================
+       FLOATING FEATURE QUAD-CARDS OVERLAY
+       ======================================================================== -->
+  <section class="hero-floating-tiles" aria-label="Quick Category Portals">
+    <div class="tiles-grid">
+      <!-- Quad 1: Clothing & Fashion -->
+      <div class="tile-card">
+        <h3 class="tile-title">👗 Clothing & Everyday Fashion</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80" alt="Clothing & Fashion" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="clothing">Shop shirts, dresses & denim →</a>
+      </div>
+
+      <!-- Quad 2: Home & Kitchen -->
+      <div class="tile-card">
+        <h3 class="tile-title">🍳 Kitchen & Everyday Essentials</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80" alt="Kitchen Essentials" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="kitchen">Explore cookware, espresso & fryers →</a>
+      </div>
+
+      <!-- Quad 3: Beauty & Grooming -->
+      <div class="tile-card">
+        <h3 class="tile-title">💄 Beauty, Skincare & Grooming</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Beauty & Grooming" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="beauty">Discover Dyson, CeraVe & trimmers →</a>
+      </div>
+
+      <!-- Quad 4: Sports & Fitness -->
+      <div class="tile-card">
+        <h3 class="tile-title">🏋️ Sports, Fitness & Active Life</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&q=80" alt="Sports & Fitness" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="sports">Shop dumbbells, Garmin & yoga mats →</a>
+      </div>
+
+      <!-- Quad 5: Computing & Laptops -->
+      <div class="tile-card">
+        <h3 class="tile-title">💻 High-Performance Tech</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80" alt="Laptops & Tech" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="electronics">Explore MacBook Pro, iPad & Canon →</a>
+      </div>
+
+      <!-- Quad 6: Audio & Studio -->
+      <div class="tile-card">
+        <h3 class="tile-title">🎧 Pro Audio & Sound Systems</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Audio & Sound" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="audio">Shop Sony ANC & Bose speakers →</a>
+      </div>
+
+      <!-- Quad 7: Smart Home -->
+      <div class="tile-card">
+        <h3 class="tile-title">🏠 Smart Home & Robot Cleaners</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Smart Home" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="smarthome">Explore Roborock & Echo devices →</a>
+      </div>
+
+      <!-- Quad 8: Gaming & Luxury -->
+      <div class="tile-card">
+        <h3 class="tile-title">🎮 Pro Gaming & Luxury Style</h3>
+        <div class="tile-media">
+          <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&q=80" alt="Gaming & Luxury" class="tile-img" />
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="gaming">View PS5, OLED screens & watches →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       EXPLORE ALL DEPARTMENTS & EVERYDAY ESSENTIALS VISUAL SHOWCASE
+       ======================================================================== -->
+  <section class="dept-showcase-section" aria-label="Explore All Departments">
+    <div class="dept-showcase-card-container">
+      <div class="dept-showcase-header">
+        <div class="dept-showcase-title-box">
+          <span class="dept-showcase-badge">All Departments</span>
+          <div>
+            <h2 class="dept-showcase-title">Explore All Departments & Everyday Essentials</h2>
+            <span class="dept-showcase-sub">Browse clothes, kitchenware, personal care, gym equipment, tech, gaming and more</span>
+          </div>
+        </div>
+        <a href="#products-section" class="tile-link" data-filter-category="all" style="font-size: 0.9rem; font-weight: 700;">
+          View Complete Catalog (26 Items) →
+        </a>
+      </div>
+
+      <div class="dept-showcase-grid">
+        <!-- 1. Clothing & Fashion -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="clothing" title="Shop Clothing, Shoes & Apparel">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=300&q=80" alt="Clothing & Fashion" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">👗 Clothing & Fashion</span>
+          <span class="dept-showcase-count">4 Products</span>
+        </a>
+
+        <!-- 2. Home & Kitchen -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="kitchen" title="Shop Home & Kitchen Essentials">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=300&q=80" alt="Home & Kitchen" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">🍳 Home & Kitchen</span>
+          <span class="dept-showcase-count">4 Products</span>
+        </a>
+
+        <!-- 3. Beauty & Care -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="beauty" title="Shop Beauty & Personal Grooming">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&q=80" alt="Beauty & Care" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">💄 Beauty & Care</span>
+          <span class="dept-showcase-count">4 Products</span>
+        </a>
+
+        <!-- 4. Sports & Fitness -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="sports" title="Shop Sports, Fitness & Outdoors">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=300&q=80" alt="Sports & Fitness" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">🏋️ Sports & Fitness</span>
+          <span class="dept-showcase-count">3 Products</span>
+        </a>
+
+        <!-- 5. Electronics & Tech -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="electronics" title="Shop Electronics, Laptops & Cameras">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&q=80" alt="Electronics & Tech" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">💻 Electronics & Tech</span>
+          <span class="dept-showcase-count">3 Products</span>
+        </a>
+
+        <!-- 6. Audio & Sound -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="audio" title="Shop Audio, Headphones & Speakers">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80" alt="Audio & Sound" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">🎧 Audio & Sound</span>
+          <span class="dept-showcase-count">2 Products</span>
+        </a>
+
+        <!-- 7. Smart Home -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="smarthome" title="Shop Smart Home Automation">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=300&q=80" alt="Smart Home" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">🏠 Smart Home</span>
+          <span class="dept-showcase-count">2 Products</span>
+        </a>
+
+        <!-- 8. Gaming & Consoles -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="gaming" title="Shop Video Games & VR Consoles">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=300&q=80" alt="Gaming & VR" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">🎮 Gaming & VR</span>
+          <span class="dept-showcase-count">2 Products</span>
+        </a>
+
+        <!-- 9. Luxury Watches & Bags -->
+        <a href="#products-section" class="dept-showcase-card" data-filter-category="fashion" title="Shop Luxury Watches & Premium Bags">
+          <div class="dept-showcase-avatar">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80" alt="Luxury Watches" loading="lazy" />
+          </div>
+          <span class="dept-showcase-name">⌚ Luxury & Watches</span>
+          <span class="dept-showcase-count">2 Products</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       TODAY'S LIGHTNING DEALS COUNTDOWN BANNER
+       ======================================================================== -->
+  <section class="deals-banner-section" aria-label="Lightning Deals">
+    <div class="deals-banner-card">
+      <div class="deals-banner-left">
+        <span class="deal-lightning-icon">⚡</span>
+        <div>
+          <h2 class="deal-banner-heading">Today's Lightning Deals</h2>
+          <span class="deal-banner-sub">Exclusive flash discounts refreshed throughout the day</span>
+        </div>
+      </div>
+
+      <!-- Live Real-Time Countdown Clocks -->
+      <div class="deals-countdown-box">
+        <span class="countdown-label">Ends in:</span>
+        <div class="countdown-digits-wrapper">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="deals-hours">07</span>
+            <span class="countdown-sub">Hours</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="deals-minutes">44</span>
+            <span class="countdown-sub">Mins</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="deals-seconds">29</span>
+            <span class="countdown-sub">Secs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       PRODUCT CATALOG, FILTER & SORT SECTION
+       ======================================================================== -->
+  <main class="catalog-section" id="products-section">
+    <!-- Filter & Sort Toolbar -->
+    <div class="catalog-toolbar">
+      <div class="toolbar-left">
+        <!-- Target Audience / Gender Quick Filters -->
+        <div class="audience-pill-cluster" role="group" aria-label="Audience filter">
+          <button class="filter-pill audience-pill is-active" data-filter-gender="all">🌐 All Items</button>
+          <button class="filter-pill audience-pill" data-filter-gender="men">👨 Men's (पुरुष)</button>
+          <button class="filter-pill audience-pill" data-filter-gender="women">👩 Women's (महिलाएं)</button>
+          <button class="filter-pill audience-pill" data-filter-gender="karigar">🏡 Rural Karigar</button>
+        </div>
+        <span class="toolbar-vertical-sep"></span>
+        <button class="filter-pill is-active" data-filter-category="all">All Departments</button>
+        <button class="filter-pill" data-filter-category="clothing">👗 Clothes & Fashion</button>
+        <button class="filter-pill" data-filter-category="kitchen">🍳 Kitchen & Home</button>
+        <button class="filter-pill" data-filter-category="beauty">💄 Beauty & Care</button>
+        <button class="filter-pill" data-filter-category="sports">🏋️ Sports & Fitness</button>
+        <button class="filter-pill" data-filter-category="electronics">💻 Laptops & Tech</button>
+        <button class="filter-pill" data-filter-category="audio">🎧 Audio & Sound</button>
+        <button class="filter-pill" data-filter-category="smarthome">🏠 Smart Home</button>
+        <button class="filter-pill" data-filter-category="gaming">🎮 Gaming & VR</button>
+        <button class="filter-pill" data-filter-category="fashion">⌚ Luxury & Watches</button>
+
+        <label class="filter-checkbox-label">
+          <input type="checkbox" id="filter-prime-toggle" />
+          <span>Prime Eligible</span>
+        </label>
+
+        <label class="filter-checkbox-label">
+          <input type="checkbox" id="filter-deals-toggle" />
+          <span>Lightning Deals Only</span>
+        </label>
+
+        <button class="amz-btn amz-btn-secondary" id="clear-all-filters-btn" style="width: auto; padding: 6px 14px;">
+          Reset Filters
+        </button>
+      </div>
+
+      <div class="toolbar-right">
+        <span class="search-result-count" id="search-result-count">Loading products...</span>
+        
+        <div class="sort-select-box">
+          <label for="product-sort-select" class="sort-label">Sort by:</label>
+          <select class="sort-select" id="product-sort-select">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Avg. Customer Review</option>
+            <option value="discount">Biggest Discount</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Product Cards Grid -->
+    <div class="products-grid" id="products-grid-container">
+      <!-- Populated dynamically via js/search-filter.js -->
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       SLIDE-OUT SHOPPING CART DRAWER (Right)
+       ======================================================================== -->
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title-box">
+        <h3 class="cart-drawer-title">Shopping Cart</h3>
+        <span class="cart-drawer-count" id="cart-drawer-count">0 items</span>
+      </div>
+      <button class="drawer-close-btn" id="cart-drawer-close-btn" aria-label="Close cart">×</button>
+    </div>
+
+    <!-- Free Prime Shipping Progress Indicator -->
+    <div class="cart-shipping-banner">
+      <div class="cart-shipping-msg" id="cart-shipping-msg">
+        Add $35.00 for FREE Delivery
+      </div>
+      <div class="cart-shipping-bar">
+        <div class="cart-shipping-progress" id="cart-shipping-progress" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items Container -->
+    <div class="cart-drawer-items" id="cart-drawer-items">
+      <!-- Populated via js/cart.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="cart-drawer-empty" id="cart-drawer-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <h4 class="cart-empty-title">Your Amazon Cart is empty</h4>
+      <p class="cart-empty-desc">Your shopping cart is currently waiting for something great. Explore lightning deals or popular electronics.</p>
+      <button class="amz-btn amz-btn-primary" onclick="window.amzModal.closeCartDrawer()">
+        Start Shopping Now
+      </button>
+    </div>
+
+    <!-- Cart Footer & Checkout Trigger -->
+    <div class="cart-drawer-footer" id="cart-drawer-filled">
+      <div class="cd-subtotal-row">
+        <span class="cd-subtotal-label">Subtotal:</span>
+        <span class="cd-subtotal-val" id="cart-drawer-subtotal">$0.00</span>
+      </div>
+      <button class="amz-btn amz-btn-primary" id="cart-drawer-checkout-btn">
+        Proceed to Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       DEPARTMENT MEGA-MENU SIDE DRAWER (Left)
+       ======================================================================== -->
+  <aside class="department-drawer" id="department-drawer" aria-label="Departments Drawer">
+    <div class="department-drawer-header">
+      <div class="dept-user-box">
+        <div class="dept-avatar-icon">👤</div>
+        <span>Hello, Sign In</span>
+      </div>
+      <button class="drawer-close-btn" id="department-drawer-close-btn" aria-label="Close menu">×</button>
+    </div>
+
+    <div class="department-drawer-body">
+      <div class="dept-menu-section-title">Digital Content & Devices</div>
+      <ul class="dept-menu-list">
+        <li><a href="#" class="dept-menu-item" data-side-category="audio"><span>Amazon Prime Music & Audio</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="smarthome"><span>Echo & Alexa Smart Devices</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="electronics"><span>Fire Tablets & MacBooks</span><span class="dept-arrow">›</span></a></li>
+      </ul>
+
+      <div class="dept-menu-divider"></div>
+
+      <div class="dept-menu-section-title">Shop by Department</div>
+      <ul class="dept-menu-list">
+        <li><a href="#" class="dept-menu-item" data-side-category="clothing"><span>👗 Clothing, Shoes & Fashion</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="kitchen"><span>🍳 Home & Kitchen Essentials</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="beauty"><span>💄 Beauty & Personal Grooming</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="sports"><span>🏋️ Sports, Fitness & Outdoors</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="electronics"><span>💻 Electronics & Computers</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="audio"><span>🎧 Audio, Studio & Headphones</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="smarthome"><span>🏠 Smart Home & Appliances</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="gaming"><span>🎮 Video Games & Consoles</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="fashion"><span>⌚ Luxury Watches & Bags</span><span class="dept-arrow">›</span></a></li>
+      </ul>
+
+      <div class="dept-menu-divider"></div>
+
+      <div class="dept-menu-section-title">Help & Settings</div>
+      <ul class="dept-menu-list">
+        <li><a href="#" class="dept-menu-item" onclick="window.amzModal.openOrdersModal('orders'); window.amzModal.closeDepartmentDrawer();"><span>Your Orders & Tracking</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" onclick="window.amzModal.openOrdersModal('wishlist'); window.amzModal.closeDepartmentDrawer();"><span>Your Wish List</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" onclick="document.getElementById('portfolio-hud-trigger').click(); window.amzModal.closeDepartmentDrawer();"><span>Portfolio Project Specs</span><span class="dept-arrow">★</span></a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       MODAL: PRODUCT QUICK VIEW
+       ======================================================================== -->
+  <div class="modal" id="quickview-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Product Quick View</h3>
+        <button class="modal-close-btn" data-close-modal aria-label="Close modal">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="quickview-layout">
+          <!-- Gallery Column with 3D Studio Switcher -->
+          <div class="qv-gallery-col">
+            <div class="qv-view-mode-tabs">
+              <button class="qv-tab-btn is-active" id="qv-tab-photos">
+                <span>📷 Photo Gallery</span>
+              </button>
+              <button class="qv-tab-btn" id="qv-tab-3d">
+                <span>✨ 3D Studio 360°</span>
+              </button>
+            </div>
+
+            <!-- Standard Photo Box -->
+            <div class="qv-main-image-box">
+              <img src="" alt="" class="qv-main-image" />
+            </div>
+            <div class="qv-thumbnails-strip"></div>
+
+            <!-- Interactive 3D Studio Box -->
+            <div class="qv-3d-studio-container" id="qv-3d-studio-container">
+              <canvas id="qv-three-canvas"></canvas>
+              <div class="qv-3d-controls-overlay">
+                <button class="qv-3d-ctrl-btn" id="qv-3d-wireframe-btn">🕸️ Wireframe</button>
+                <button class="qv-3d-ctrl-btn" id="qv-3d-light-btn">⚡ Cyber Neon</button>
+                <button class="qv-3d-ctrl-btn" id="qv-3d-reset-btn">🔄 Reset Angle</button>
+              </div>
+              <span class="qv-3d-hint-text">Drag model to inspect 360°</span>
+            </div>
+          </div>
+
+          <!-- Details Column -->
+          <div class="qv-details-col">
+            <span class="qv-category"></span>
+            <h2 class="qv-title"></h2>
+
+            <div class="qv-ratings-bar">
+              <span class="qv-rating-val"></span>
+              <span class="qv-reviews-count"></span>
+            </div>
+
+            <div class="qv-pricing-box">
+              <span class="qv-discount-tag"></span>
+              <span class="qv-price-current"></span>
+              <span class="qv-price-original"></span>
+            </div>
+
+            <div class="qv-stock-row">
+              <span class="qv-stock-status"></span>
+              <span class="qv-delivery-info" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;"></span>
+            </div>
+
+            <h4 class="qv-features-heading">Key Features</h4>
+            <ul class="qv-features-list"></ul>
+
+            <h4 class="qv-specs-heading">Specifications</h4>
+            <table class="qv-specs-table"></table>
+
+            <!-- Quantity & Actions -->
+            <div class="qv-purchase-controls">
+              <div class="qv-qty-row">
+                <label for="qv-quantity-select" class="qv-qty-label">Quantity:</label>
+                <select id="qv-quantity-select" class="qv-quantity-select">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button class="amz-btn amz-btn-primary" id="qv-add-to-cart-btn">
+                  Add to Cart
+                </button>
+                <button class="amz-btn amz-btn-buy-now" id="qv-buy-now-btn">
+                  Buy Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: 3-STEP CHECKOUT WIZARD
+       ======================================================================== -->
+  <div class="modal" id="checkout-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-large">
+      <div class="checkout-steps-nav">
+        <div class="checkout-step-tab is-active" data-step="1">
+          <span class="step-circle">1</span>
+          <span>Shipping Address</span>
+        </div>
+        <div class="checkout-step-tab" data-step="2">
+          <span class="step-circle">2</span>
+          <span>Payment Method</span>
+        </div>
+        <div class="checkout-step-tab" data-step="3">
+          <span class="step-circle">3</span>
+          <span>Review & Place Order</span>
+        </div>
+        <button class="modal-close-btn" id="checkout-modal-close-btn" style="color: #ffffff; margin-right: 12px;">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- STEP 1: SHIPPING ADDRESS -->
+        <div class="checkout-step-pane is-active" data-step="1">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem;">Enter Shipping Address</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Step 1 of 3</span>
+          </div>
+
+          <!-- Village vs City Delivery Mode Switcher -->
+          <div class="delivery-type-toggle">
+            <button type="button" class="delivery-type-btn is-active" id="delivery-type-village">
+              <span>🏡 Village / Rural Delivery (गाँव / देहात)</span>
+            </button>
+            <button type="button" class="delivery-type-btn" id="delivery-type-city">
+              <span>🏙️ City / Urban Delivery (शहर)</span>
+            </button>
+          </div>
+
+          <!-- Village Delivery Assurance Banner -->
+          <div class="village-delivery-banner" id="village-info-banner">
+            <span class="village-banner-icon">📮</span>
+            <div>
+              <strong>Doorstep Delivery to Remote Villages Guaranteed:</strong>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">
+                We deliver to all village post offices, gram panchayats, and remote talukas across India & worldwide via <strong>India Post Speed Post</strong> and rural logistics networks.
+              </div>
+            </div>
+          </div>
+
+          <form id="checkout-shipping-form">
+            <!-- Country Selector -->
+            <div class="form-group">
+              <label class="form-label" for="ship-country">Country / Region</label>
+              <select id="ship-country" class="form-input">
+                <option value="IN" selected>🇮🇳 India (भारत)</option>
+                <option value="US">🇺🇸 United States</option>
+                <option value="GB">🇬🇧 United Kingdom</option>
+                <option value="CA">🇨🇦 Canada</option>
+                <option value="DE">🇩🇪 Germany / Europe</option>
+                <option value="JP">🇯🇵 Japan</option>
+                <option value="AU">🇦🇺 Australia</option>
+                <option value="OTHER">🌍 Other Global Destination</option>
+              </select>
+            </div>
+
+            <!-- Full Name & Mobile Number -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ship-name">Full Name</label>
+                <input type="text" id="ship-name" class="form-input" placeholder="e.g. Ramesh Kumar Sharma" value="Ramesh Kumar Sharma" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ship-phone">Mobile Number</label>
+                <input type="tel" id="ship-phone" class="form-input" placeholder="e.g. +91 98765 43210" value="+91 98765 43210" required />
+                <span class="form-hint">Delivery agent will call this number when reaching your village.</span>
+              </div>
+            </div>
+
+            <!-- Village / Town Name & House Details -->
+            <div class="form-grid-2">
+              <div class="form-group" id="group-village-name">
+                <label class="form-label" for="ship-village">Village / Gram Panchayat / Town (गाँव का नाम)</label>
+                <input type="text" id="ship-village" class="form-input" placeholder="e.g. Rampur Kalan / Khed / Shivali" value="Rampur Kalan" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ship-street" id="label-street">House / Farm / Mohalla / Street</label>
+                <input type="text" id="ship-street" class="form-input" placeholder="e.g. House No. 42, Main Basti" value="House No. 42, Main Basti" required />
+              </div>
+            </div>
+
+            <!-- Post Office / Tehsil & District -->
+            <div class="form-grid-2">
+              <div class="form-group" id="group-tehsil">
+                <label class="form-label" for="ship-tehsil">Post Office & Tehsil / Taluka (डाकघर / तहसील)</label>
+                <input type="text" id="ship-tehsil" class="form-input" placeholder="e.g. Chandpur Branch Post Office, Bilaspur Tehsil" value="Chandpur Sub-Post Office, Bilaspur Tehsil" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ship-district" id="label-district">District / City (जिला)</label>
+                <input type="text" id="ship-district" class="form-input" placeholder="e.g. Varanasi / Pune / Patna / Jaipur" value="Varanasi" required />
+              </div>
+            </div>
+
+            <!-- State & PIN Code -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ship-state">State / Province (राज्य)</label>
+                <select id="ship-state" class="form-input">
+                  <option value="Uttar Pradesh" selected>Uttar Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Delhi NCR">Delhi NCR</option>
+                  <option value="Other">Other State / Territory</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ship-zip">PIN / Postal Code (पिन कोड)</label>
+                <input type="text" id="ship-zip" class="form-input" placeholder="e.g. 221001" value="221001" required />
+                <span class="form-hint">6-digit Indian PIN code or local postal code</span>
+              </div>
+            </div>
+
+            <!-- Famous Landmark (Critical for Village Delivery) -->
+            <div class="form-group landmark-highlight" id="group-landmark">
+              <label class="form-label" for="ship-landmark">
+                🚩 Nearest Famous Landmark (लैंडमार्क - प्रसिद्ध स्थान)
+              </label>
+              <input type="text" id="ship-landmark" class="form-input" placeholder="e.g. Near Shiv Temple / Opposite Gram Panchayat Bhavan / Near Govt Primary School / Near Bus Stand" value="Opposite Gram Panchayat Bhavan & Primary School" required />
+              <span class="form-hint">Mandatory for village delivery: helps delivery partner find your doorstep without delay.</span>
+            </div>
+
+            <!-- Carrier Selection -->
+            <div class="form-group" style="margin-top: 18px;">
+              <label class="form-label">Selected Delivery Logistics Network</label>
+              <label class="carrier-option-card">
+                <input type="radio" name="ship-carrier" value="indiapost" checked />
+                <div>
+                  <strong>📮 India Post Speed Post (Last-Mile Village Doorstep Delivery)</strong>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary);">Direct delivery through your local village postman to all 155,000+ PIN codes in India (FREE)</div>
+                </div>
+              </label>
+              <label class="carrier-option-card">
+                <input type="radio" name="ship-carrier" value="ruralexpress" />
+                <div>
+                  <strong>⚡ Amazon Rural Express Hub Partner</strong>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary);">Surface express delivery to nearest village hub & doorstep dispatch (FREE)</div>
+                </div>
+              </label>
+            </div>
+
+            <div style="text-align: right; margin-top: 24px;">
+              <button type="button" class="amz-btn amz-btn-primary" id="btn-to-payment" style="width: auto; padding: 12px 28px;">
+                Continue to Payment Method →
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- STEP 2: PAYMENT METHOD (ALL COUNTRIES & COMPLETE UPI SUITE) -->
+        <div class="checkout-step-pane" data-step="2">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <h3 style="margin-bottom: 4px; font-family: var(--font-display);">Select Payment Method</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Step 2 of 3</span>
+          </div>
+
+          <!-- Country / Region Payment Tabs -->
+          <div class="country-pay-tabs" id="country-pay-tabs">
+            <button type="button" class="country-pay-tab is-active" data-country-pane="india">
+              <span>🇮🇳 India (UPI, NetBanking, COD)</span>
+            </button>
+            <button type="button" class="country-pay-tab" data-country-pane="usa">
+              <span>🇺🇸 USA & Canada (Cards, Apple Pay)</span>
+            </button>
+            <button type="button" class="country-pay-tab" data-country-pane="europe">
+              <span>🇬🇧 🇪🇺 Europe (SEPA, Klarna, Revolut)</span>
+            </button>
+            <button type="button" class="country-pay-tab" data-country-pane="apac">
+              <span>🇯🇵 Asia-Pacific (PayPay, Konbini, JCB)</span>
+            </button>
+            <button type="button" class="country-pay-tab" data-country-pane="global">
+              <span>🌍 Global & Wallets (Amazon Pay, Crypto)</span>
+            </button>
+          </div>
+
+          <!-- PANE 1: INDIA (UPI & DOMESTIC) -->
+          <div class="country-pay-pane is-active" data-country-pane-content="india">
+            <!-- 1. UPI Payment Option -->
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="upi" checked />
+              <div class="pm-label-box" style="flex: 1;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                  <span class="pm-title">⚡ UPI (Google Pay, PhonePe, Paytm, BHIM, Any UPI ID)</span>
+                  <span class="pay-country-badge">Instant 0% Fee</span>
+                </div>
+                <span class="pm-desc">Pay instantly using any UPI App, your UPI VPA ID, or QR code</span>
+              </div>
+            </label>
+
+            <!-- Expanded UPI Details Box -->
+            <div class="upi-suite-box" id="checkout-upi-box">
+              <div class="upi-mode-toggle">
+                <button type="button" class="upi-mode-btn is-active" id="upi-mode-apps">📱 1-Click UPI Apps</button>
+                <button type="button" class="upi-mode-btn" id="upi-mode-vpa">🔑 Enter UPI ID / VPA</button>
+                <button type="button" class="upi-mode-btn" id="upi-mode-qr">📷 Scan QR Code</button>
+              </div>
+
+              <!-- UPI Mode 1: 1-Click Apps -->
+              <div id="upi-view-apps">
+                <div class="upi-apps-grid">
+                  <div class="upi-app-chip is-selected" data-upi-app="Google Pay">
+                    <span class="upi-app-icon">🟢</span>
+                    <span class="upi-app-name">Google Pay</span>
+                  </div>
+                  <div class="upi-app-chip" data-upi-app="PhonePe">
+                    <span class="upi-app-icon">🟣</span>
+                    <span class="upi-app-name">PhonePe</span>
+                  </div>
+                  <div class="upi-app-chip" data-upi-app="Paytm UPI">
+                    <span class="upi-app-icon">🔵</span>
+                    <span class="upi-app-name">Paytm UPI</span>
+                  </div>
+                  <div class="upi-app-chip" data-upi-app="Amazon Pay UPI">
+                    <span class="upi-app-icon">🟠</span>
+                    <span class="upi-app-name">Amazon Pay</span>
+                  </div>
+                  <div class="upi-app-chip" data-upi-app="BHIM UPI">
+                    <span class="upi-app-icon">🟡</span>
+                    <span class="upi-app-name">BHIM UPI</span>
+                  </div>
+                  <div class="upi-app-chip" data-upi-app="CRED UPI">
+                    <span class="upi-app-icon">🔴</span>
+                    <span class="upi-app-name">CRED UPI</span>
+                  </div>
+                </div>
+                <div style="font-size: 0.78rem; color: #007185; margin-top: 8px; font-weight: 600;" id="upi-app-status">
+                  ✓ Selected: Google Pay (Seamless payment intent will launch upon clicking Place Order)
+                </div>
+              </div>
+
+              <!-- UPI Mode 2: Custom UPI ID Input -->
+              <div id="upi-view-vpa" style="display: none;">
+                <label class="form-label" for="upi-vpa-input">Enter Your UPI ID / Virtual Payment Address (VPA)</label>
+                <div class="upi-input-group">
+                  <input type="text" id="upi-vpa-input" class="form-input" placeholder="e.g. 9876543210@ybl or alex@okhdfcbank" value="ramesh@okhdfcbank" />
+                  <button type="button" class="amz-btn amz-btn-secondary" id="btn-verify-upi" style="width: auto; white-space: nowrap; padding: 0 16px;">
+                    Verify
+                  </button>
+                </div>
+                <div class="upi-verify-badge" id="upi-verify-badge">
+                  ✓ Verified: Ramesh Kumar Sharma (State Bank of India)
+                </div>
+                <span class="form-hint">Accepted handle extensions: @okhdfcbank, @oksbi, @okaxis, @ybl, @paytm, @apl, @ibl</span>
+              </div>
+
+              <!-- UPI Mode 3: Scan QR Code -->
+              <div id="upi-view-qr" style="display: none;">
+                <div class="upi-qr-box">
+                  <div class="upi-qr-frame">
+                    <!-- SVG QR Code Simulation -->
+                    <svg class="upi-qr-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="100" height="100" fill="#ffffff"/>
+                      <path d="M10 10h28v28H10zM14 14h20v20H14zM18 18h12v12H18zM62 10h28v28H62zM66 14h20v20H66zM70 18h12v12H70zM10 62h28v28H10zM14 66h20v20H14zM18 70h12v12H18zM44 14h6v6h-6zM52 14h4v6h-4zM44 26h4v6h-4zM50 24h6v6h-6zM46 34h8v6h-8zM14 44h6v6h-6zM24 44h6v6h-6zM34 44h4v6h-4zM14 54h4v6h-4zM22 52h8v6h-8zM64 44h8v6h-8zM76 44h6v6h-6zM86 44h4v6h-4zM64 54h4v6h-4zM72 52h6v6h-6zM82 52h8v6h-8zM44 64h6v6h-6zM54 62h6v6h-6zM44 74h8v6h-8zM56 72h4v8h-4zM44 84h4v6h-4zM52 82h8v8h-8zM64 64h4v6h-4zM72 64h8v6h-8zM84 64h6v6h-6zM64 74h6v6h-6zM74 72h4v8h-4zM82 72h8v8h-8zM64 84h8v6h-8zM76 84h6v6h-6zM86 84h4v6h-4z" fill="#131921"/>
+                    </svg>
+                    <div class="upi-qr-center-logo">UPI</div>
+                  </div>
+                  <div>
+                    <strong>Scan with any UPI App on your phone</strong>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">
+                      Open Google Pay, PhonePe, Paytm, or BHIM and scan this code
+                    </div>
+                  </div>
+                  <div class="upi-timer-text">
+                    ⏱️ Code expires in: <span id="upi-qr-timer">04:59</span>
+                  </div>
+                  <button type="button" class="amz-btn amz-btn-primary" id="btn-simulate-qr-scan" style="width: auto; padding: 6px 16px; font-size: 0.8rem;">
+                    📲 Simulate Mobile Scan & Authorize
+                  </button>
+                  <div class="upi-verify-badge" id="qr-scan-success-badge" style="margin-top: 4px;">
+                    ✓ Payment Authorized from Mobile App
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Cash on Delivery (COD) -->
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="cod" />
+              <div class="pm-label-box" style="flex: 1;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                  <span class="pm-title">💵 Cash on Delivery / Pay on Arrival (गाँव व शहर डिलीवरी)</span>
+                  <span class="pay-country-badge">Zero Advance</span>
+                </div>
+                <span class="pm-desc">Pay cash or contactless UPI to delivery partner upon doorstep arrival</span>
+              </div>
+            </label>
+
+            <!-- 3. Indian Net Banking -->
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="netbanking" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🏦 Indian Net Banking (All Major Banks)</span>
+                <span class="pm-desc">State Bank of India, HDFC, ICICI, Axis, PNB, Kotak Mahindra Bank</span>
+              </div>
+            </label>
+
+            <!-- Net Banking Sub-box -->
+            <div id="checkout-netbanking-box" style="display: none; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+              <label class="form-label">Select Your Bank</label>
+              <div class="netbanking-grid">
+                <div class="bank-chip is-selected" data-bank="State Bank of India (SBI)">🏛️ SBI</div>
+                <div class="bank-chip" data-bank="HDFC Bank">🏛️ HDFC Bank</div>
+                <div class="bank-chip" data-bank="ICICI Bank">🏛️ ICICI Bank</div>
+                <div class="bank-chip" data-bank="Axis Bank">🏛️ Axis Bank</div>
+                <div class="bank-chip" data-bank="Punjab National Bank (PNB)">🏛️ PNB</div>
+                <div class="bank-chip" data-bank="Kotak Mahindra Bank">🏛️ Kotak Bank</div>
+              </div>
+            </div>
+
+            <!-- 4. RuPay / Indian Cards -->
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="rupay_card" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">💳 RuPay, Visa, MasterCard Indian Cards</span>
+                <span class="pm-desc">Debit, Credit & ATM cards issued by Indian banks</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- PANE 2: USA & CANADA -->
+          <div class="country-pay-pane" data-country-pane-content="usa">
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="card" />
+              <div class="pm-label-box" style="flex: 1;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                  <span class="pm-title">💳 Credit or Debit Card (Visa, MC, Amex, Discover)</span>
+                  <span class="pay-country-badge">US & Global</span>
+                </div>
+                <span class="pm-desc">Encrypted with 256-Bit SSL Bank Grade Security</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="applepay" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🍏 Apple Pay</span>
+                <span class="pm-desc">1-Touch biometric checkout with Touch ID / Face ID on Apple Devices</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="paypal" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🅿️ PayPal & Venmo</span>
+                <span class="pm-desc">Pay directly from your PayPal balance or linked checking account</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="affirm" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🛍️ Affirm: Buy Now, Pay Later</span>
+                <span class="pm-desc">4 interest-free bi-weekly payments of 25%</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- PANE 3: UK & EUROPE -->
+          <div class="country-pay-pane" data-country-pane-content="europe">
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="sepa" />
+              <div class="pm-label-box" style="flex: 1;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                  <span class="pm-title">🇪🇺 SEPA Direct Debit / Bank Transfer</span>
+                  <span class="pay-country-badge">Eurozone</span>
+                </div>
+                <span class="pm-desc">Direct account debit across Europe with IBAN & BIC</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="klarna" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🛍️ Klarna Pay in 3 / Sofort Banking</span>
+                <span class="pm-desc">Split into 3 monthly payments or instant European direct banking</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="ideal" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🇳🇱 iDEAL & 🇧🇪 Bancontact</span>
+                <span class="pm-desc">Leading online banking method in Netherlands and Belgium</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="revolut" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">⚡ Revolut Pay</span>
+                <span class="pm-desc">1-Click instant mobile payment for Revolut account holders</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- PANE 4: ASIA-PACIFIC -->
+          <div class="country-pay-pane" data-country-pane-content="apac">
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="paypay" />
+              <div class="pm-label-box" style="flex: 1;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                  <span class="pm-title">🔴 PayPay & LINE Pay</span>
+                  <span class="pay-country-badge">🇯🇵 Japan</span>
+                </div>
+                <span class="pm-desc">Japan's leading QR and mobile wallet payment network</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="konbini" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🏪 Konbini: Convenience Store Payment</span>
+                <span class="pm-desc">Pay cash at 7-Eleven, Lawson, FamilyMart across Japan</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="jcb" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🇯🇵 JCB International & UnionPay Cards</span>
+                <span class="pm-desc">Primary credit card network across Japan & Asia</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- PANE 5: GLOBAL & WALLETS -->
+          <div class="country-pay-pane" data-country-pane-content="global">
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="amazonpay" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🟠 Amazon Pay Balance & Stored Credentials</span>
+                <span class="pm-desc">Instant 1-click checkout with available account balance</span>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="giftcard" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🎁 Redeem Amazon Gift Voucher / Promo Code</span>
+                <span class="pm-desc">Apply 16-digit voucher code to deduct from total</span>
+              </div>
+            </label>
+
+            <!-- Gift Card Input Box -->
+            <div id="checkout-giftcard-box" style="display: none; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+              <label class="form-label" for="giftcard-code-input">Enter Gift Card or Promotional Code</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="giftcard-code-input" class="form-input" placeholder="e.g. AMZ-GIFT-50" value="AMZ-PRIME-2026" />
+                <button type="button" class="amz-btn amz-btn-primary" id="btn-apply-giftcard" style="width: auto; padding: 0 16px;">
+                  Apply
+                </button>
+              </div>
+              <div class="upi-verify-badge" id="giftcard-success-badge" style="margin-top: 8px;">
+                ✓ Promo code AMZ-PRIME-2026 Applied ($10.00 / ₹835 Discount)
+              </div>
+            </div>
+
+            <label class="payment-method-card">
+              <input type="radio" name="checkout-payment-method" value="crypto" />
+              <div class="pm-label-box" style="flex: 1;">
+                <span class="pm-title">🪙 Web3 Crypto (Bitcoin, Ethereum, USDT)</span>
+                <span class="pm-desc">Simulated decentralized crypto checkout (0% merchant markup)</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Card Fields & Graphic (shown for card / rupay_card / jcb) -->
+          <div id="checkout-card-fields" style="display: none;">
+            <div class="simulated-card-box">
+              <div class="card-chip"></div>
+              <div class="card-num-preview">•••• •••• •••• 4242</div>
+              <div class="card-holder-row">
+                <span>CARDHOLDER: ALEX VANCE</span>
+                <span>EXPIRES: 09/28</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 24px;">
+            <button type="button" class="amz-btn amz-btn-secondary" data-checkout-back="1" style="width: auto;">
+              ← Back to Shipping
+            </button>
+            <button type="button" class="amz-btn amz-btn-primary" id="btn-to-review" style="width: auto; padding: 10px 24px;">
+              Review Order & Pricing →
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: ORDER REVIEW -->
+        <div class="checkout-step-pane" data-step="3">
+          <h3 style="margin-bottom: 16px; font-family: var(--font-display);">Review Your Order</h3>
+          <div class="checkout-review-layout">
+            <div>
+              <h4 style="margin-bottom: 10px; font-size: 0.95rem;">Items in Your Order</h4>
+              <div class="review-items-container" id="checkout-review-items"></div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
+                <div style="background: var(--bg-secondary); padding: 12px; border-radius: var(--radius-sm); font-size: 0.85rem;">
+                  <span style="font-weight: 700; display: block; margin-bottom: 4px;">Shipping To:</span>
+                  <div id="checkout-review-shipping-details"></div>
+                </div>
+                <div style="background: var(--bg-secondary); padding: 12px; border-radius: var(--radius-sm); font-size: 0.85rem;">
+                  <span style="font-weight: 700; display: block; margin-bottom: 4px;">Payment:</span>
+                  <div id="checkout-review-payment-details"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Breakdown Box -->
+            <div class="checkout-summary-box">
+              <h4 class="summary-heading">Order Summary</h4>
+              <div class="summary-line-row">
+                <span>Items:</span>
+                <span id="checkout-summary-subtotal">$0.00</span>
+              </div>
+              <div class="summary-line-row">
+                <span>Shipping & Handling:</span>
+                <span id="checkout-summary-shipping">FREE</span>
+              </div>
+              <div class="summary-line-row">
+                <span>Estimated Tax:</span>
+                <span id="checkout-summary-tax">$0.00</span>
+              </div>
+              <div class="summary-line-total">
+                <span>Order Total:</span>
+                <span id="checkout-summary-total">$0.00</span>
+              </div>
+
+              <button class="amz-btn amz-btn-buy-now" id="btn-place-order" style="margin-top: 18px; padding: 12px;">
+                Place Your Order and Pay
+              </button>
+              <div style="text-align: center; margin-top: 10px; font-size: 0.75rem; color: var(--text-muted);">
+                🔒 256-Bit SSL Simulated Bank Encryption
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button type="button" class="amz-btn amz-btn-secondary" data-checkout-back="2" style="width: auto;">
+              ← Back to Payment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: ORDER SUCCESS & RECEIPT CONFIRMATION
+       ======================================================================== -->
+  <div class="modal" id="order-success-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Order Placed Successfully!</h3>
+        <button class="modal-close-btn" data-close-modal aria-label="Close modal">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="order-success-content">
+          <div class="success-badge-icon">✓</div>
+          <h2 class="success-headline">Thank you for your order!</h2>
+          <p class="success-sub">We've sent a simulated confirmation email and updated your package tracking.</p>
+
+          <div class="success-details-card">
+            <div class="success-detail-row">
+              <span>Order Number:</span>
+              <strong class="success-order-id">114-0000000-0000000</strong>
+            </div>
+            <div class="success-detail-row">
+              <span>Carrier Tracking:</span>
+              <strong class="success-tracking-no">TBA000000000000</strong>
+            </div>
+            <div class="success-detail-row">
+              <span>Estimated Delivery:</span>
+              <strong class="success-delivery-date">Arriving Tomorrow</strong>
+            </div>
+            <div class="success-detail-row">
+              <span>Recipient:</span>
+              <strong class="success-shipping-name">Alex Vance</strong>
+            </div>
+            <div class="success-detail-row">
+              <span>Delivery Address:</span>
+              <strong class="success-shipping-address">742 Evergreen Terrace, Springfield</strong>
+            </div>
+            <div class="success-detail-row">
+              <span>Payment Method:</span>
+              <strong class="success-payment-method" style="color: var(--amz-orange);">⚡ UPI (Google Pay - Verified)</strong>
+            </div>
+            <div class="success-detail-row" style="border-top: 1px solid var(--border-light); padding-top: 8px;">
+              <span>Total Paid:</span>
+              <strong class="success-order-total" style="color: var(--amz-deal-badge); font-size: 1.1rem;">$0.00</strong>
+            </div>
+          </div>
+
+          <div class="success-actions-row">
+            <button class="amz-btn amz-btn-primary" id="btn-download-receipt" style="width: auto; padding: 10px 20px;">
+              📄 Download Receipt (.txt)
+            </button>
+            <button class="amz-btn amz-btn-secondary" onclick="window.amzModal.hideModal(document.getElementById('order-success-modal'))" style="width: auto; padding: 10px 20px;">
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       EXPRESS 1-CLICK INSTANT PURCHASE MODAL (BUYER-FRIENDLY)
+       ======================================================================== -->
+  <div class="amz-modal express-buy-modal" id="express-buy-modal" role="dialog" aria-labelledby="express-buy-heading" aria-modal="true">
+    <div class="modal-dialog modal-dialog-md">
+      <div class="express-modal-header">
+        <div class="express-header-brand">
+          <span class="express-lightning-icon">⚡</span>
+          <div>
+            <h2 class="express-modal-heading" id="express-buy-heading">1-Click Express Buy (तुरंत खरीदें)</h2>
+            <span class="express-modal-sub">Fast, secure 1-click checkout with Village & City delivery</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="express-buy-close" aria-label="Close Express Buy">×</button>
+      </div>
+
+      <div class="express-modal-body">
+        <!-- Selected Product Overview -->
+        <div class="express-product-summary">
+          <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&q=80" alt="Product" class="express-prod-thumb" id="express-prod-img" />
+          <div class="express-prod-details">
+            <h4 class="express-prod-title" id="express-prod-title">Product Title</h4>
+            <div class="express-price-row">
+              <span class="express-unit-price" id="express-prod-price">$0.00</span>
+              <span class="express-prime-tag"><span class="prime-italic">prime</span></span>
+            </div>
+            <span class="express-delivery-info" id="express-delivery-text">FREE Delivery Tomorrow</span>
+          </div>
+          <div class="express-qty-box">
+            <label for="express-qty-select">Qty:</label>
+            <select id="express-qty-select" class="express-qty-select">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 1-Tap Delivery Address Selection -->
+        <div class="express-section-card">
+          <div class="express-section-title">
+            <span>📍 Delivery Address (1-Tap Selection)</span>
+            <span class="express-auto-detected">Auto-Selected</span>
+          </div>
+          <div class="express-address-options">
+            <label class="express-address-chip is-selected" id="express-addr-village">
+              <input type="radio" name="express-addr-opt" value="village" checked />
+              <div class="chip-content">
+                <strong>🏡 Village Doorstep Delivery (गाँव डिलीवरी)</strong>
+                <p id="express-addr-village-text">House #42, Rampur Gram Panchayat, Tehsil Sadar, Varanasi District, UP - 244901</p>
+                <span class="chip-badge">Assigned: India Post Rural Speed Post</span>
+              </div>
+            </label>
+
+            <label class="express-address-chip" id="express-addr-city">
+              <input type="radio" name="express-addr-opt" value="city" />
+              <div class="chip-content">
+                <strong>🏢 City / Urban Residence</strong>
+                <p id="express-addr-city-text">Flat 402, Lotus Heights, Outer Ring Road, New Delhi / Bangalore</p>
+                <span class="chip-badge">Assigned: Amazon Prime Express Van</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 1-Tap Payment Mode -->
+        <div class="express-section-card">
+          <div class="express-section-title">
+            <span>💳 1-Click Instant Payment</span>
+            <span class="express-security-tag">🔒 256-Bit Encrypted</span>
+          </div>
+          <div class="express-payment-grid">
+            <label class="express-pay-pill is-selected" id="express-pay-upi">
+              <input type="radio" name="express-pay-opt" value="upi" checked />
+              <div class="pay-pill-inner">
+                <span class="pay-icon">⚡</span>
+                <div>
+                  <strong>UPI 1-Click (GPay / PhonePe / Paytm)</strong>
+                  <span class="pay-sub">Pre-authorized Instant Pay</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="express-pay-pill" id="express-pay-cod">
+              <input type="radio" name="express-pay-opt" value="cod" />
+              <div class="pay-pill-inner">
+                <span class="pay-icon">💵</span>
+                <div>
+                  <strong>Cash on Delivery (COD)</strong>
+                  <span class="pay-sub">Pay cash when postman arrives</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="express-pay-pill" id="express-pay-card">
+              <input type="radio" name="express-pay-opt" value="card" />
+              <div class="pay-pill-inner">
+                <span class="pay-icon">💳</span>
+                <div>
+                  <strong>Saved Card / Apple Pay</strong>
+                  <span class="pay-sub">Ending in •••• 4242</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Order Total & 1-Click Purchase Action -->
+        <div class="express-total-bar">
+          <div class="express-total-info">
+            <span class="total-label">Order Total (Taxes & Village Delivery Included):</span>
+            <span class="total-amount" id="express-total-amount">$0.00</span>
+          </div>
+          <button class="amz-btn amz-btn-buy-now express-submit-btn" id="btn-express-confirm-order">
+            <span class="bolt-icon">⚡</span>
+            <span>Slide / Tap to Complete 1-Click Order</span>
+          </button>
+        </div>
+
+        <div class="express-fallback-row">
+          <a href="#" id="express-fallback-link">Or switch to standard 3-step checkout with multiple items →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: DELIVERY LOCATION SELECTOR
+       ======================================================================== -->
+  <div class="modal" id="location-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Choose Your Location</h3>
+        <button class="modal-close-btn" data-close-modal aria-label="Close modal">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="background: linear-gradient(135deg, rgba(254, 189, 105, 0.15), rgba(0, 242, 254, 0.12)); border: 1px solid rgba(254, 189, 105, 0.4); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-primary); display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.4rem;">🌐</span>
+          <span><strong>Automatic Currency Switching:</strong> Selecting your delivery country automatically converts all catalog prices, cart items, and deals to your local currency!</span>
+        </div>
+
+        <form id="location-form">
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="location-zip-input" class="form-input" placeholder="Type city or country (e.g. Mumbai, London, Paris, Tokyo, 400001, 10001)..." required />
+            <button type="submit" class="amz-btn amz-btn-primary" style="width: auto; white-space: nowrap; padding: 0 20px;">
+              Apply
+            </button>
+          </div>
+        </form>
+
+        <div style="margin-top: 22px;">
+          <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Select a global destination:</span>
+          <div class="location-chips-grid" style="margin-top: 10px;">
+            <button class="location-chip-btn" data-preset-location="Mumbai, India" data-currency="INR">🇮🇳 Mumbai, India (₹ INR)</button>
+            <button class="location-chip-btn" data-preset-location="New York, USA" data-currency="USD">🇺🇸 New York, USA ($ USD)</button>
+            <button class="location-chip-btn" data-preset-location="London, UK" data-currency="GBP">🇬🇧 London, UK (£ GBP)</button>
+            <button class="location-chip-btn" data-preset-location="Paris, France" data-currency="EUR">🇫🇷 Paris, France (€ EUR)</button>
+            <button class="location-chip-btn" data-preset-location="Berlin, Germany" data-currency="EUR">🇩🇪 Berlin, Germany (€ EUR)</button>
+            <button class="location-chip-btn" data-preset-location="Tokyo, Japan" data-currency="JPY">🇯🇵 Tokyo, Japan (¥ JPY)</button>
+            <button class="location-chip-btn" data-preset-location="Toronto, Canada" data-currency="CAD">🇨🇦 Toronto, Canada (CA$ CAD)</button>
+            <button class="location-chip-btn" data-preset-location="Seattle, USA" data-currency="USD">🇺🇸 Seattle, USA ($ USD)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: ORDERS & WISHLIST HUB
+       ======================================================================== -->
+  <div class="modal" id="orders-wishlist-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Your Account Hub</h3>
+        <button class="modal-close-btn" data-close-modal aria-label="Close modal">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-tabs-header">
+          <button class="modal-tab-btn is-active" data-tab="orders">Past Orders & Tracking</button>
+          <button class="modal-tab-btn" data-tab="wishlist">Saved Wish List</button>
+        </div>
+
+        <!-- Orders Pane -->
+        <div class="modal-tab-pane is-active" id="tab-pane-orders">
+          <div id="orders-history-list"></div>
+        </div>
+
+        <!-- Wishlist Pane -->
+        <div class="modal-tab-pane" id="tab-pane-wishlist">
+          <div id="wishlist-items-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: FREELANCE PORTFOLIO SHOWCASE HUD
+       ======================================================================== -->
+  <div class="modal" id="portfolio-hud-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-large">
+      <div class="hud-specs-header">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <span class="hud-badge-tag">Freelance Portfolio Showcase</span>
+            <h2 class="hud-title">Amazon 2.0 Web Application</h2>
+            <p class="hud-sub">Built to demonstrate enterprise-grade frontend architecture, UX polish, and modern vanilla web performance.</p>
+          </div>
+          <button class="modal-close-btn" id="portfolio-hud-close" style="color: #ffffff;">×</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="hud-features-grid">
+          <div class="hud-feature-card">
+            <div class="hud-card-icon">⚡</div>
+            <h4 class="hud-card-title">Pure Vanilla Web Stack</h4>
+            <p class="hud-card-desc">Zero heavy bundler overhead. Built with semantic HTML5, modern CSS3 (Custom Properties, Grid/Flexbox, Keyframes), and modular ES6 JavaScript.</p>
+          </div>
+
+          <div class="hud-feature-card">
+            <div class="hud-card-icon">🔍</div>
+            <h4 class="hud-card-title">Debounced Live Search</h4>
+            <p class="hud-card-desc">Real-time autocomplete with regex highlight matching, category filtering, and instant smooth-scroll product filtering.</p>
+          </div>
+
+          <div class="hud-feature-card">
+            <div class="hud-card-icon">🛒</div>
+            <h4 class="hud-card-title">Reactive Cart & Free Shipping</h4>
+            <p class="hud-card-desc">Slide-out cart drawer, quantity selectors, undo toast notifications, dynamic progress bar for Free Prime Shipping, and localStorage persistence.</p>
+          </div>
+
+          <div class="hud-feature-card">
+            <div class="hud-card-icon">💳</div>
+            <h4 class="hud-card-title">3-Step Checkout Wizard</h4>
+            <p class="hud-card-desc">Complete checkout simulation with address validation, payment selector, review totals, canvas confetti particle system, and downloadable text invoices.</p>
+          </div>
+
+          <div class="hud-feature-card">
+            <div class="hud-card-icon">🌐</div>
+            <h4 class="hud-card-title">Multi-Currency & Theme Modes</h4>
+            <p class="hud-card-desc">Live conversion between USD ($), EUR (€), GBP (£), and INR (₹), paired with a seamless Amazon Dark Luxury and Classic Light theme toggle.</p>
+          </div>
+
+          <div class="hud-feature-card">
+            <div class="hud-card-icon">📱</div>
+            <h4 class="hud-card-title">Mobile-First Responsiveness</h4>
+            <p class="hud-card-desc">Fluid layouts that adapt across mobile phones, tablets, and high-resolution 4K ultrawide desktop monitors.</p>
+          </div>
+        </div>
+
+        <div class="hud-hire-cta-box">
+          <h3 class="hud-hire-title">Looking for a Senior Frontend Developer for Your Next Project?</h3>
+          <p class="hud-hire-desc">Available for freelance contracts, custom e-commerce web applications, SaaS dashboards, and modern UI/UX engineering.</p>
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="mailto:freelance@portfolio.dev" class="amz-btn amz-btn-primary" style="width: auto; padding: 10px 24px; text-decoration: none;">
+              📩 Hire for Freelancing
+            </a>
+            <button class="amz-btn amz-btn-secondary" onclick="window.amzModal.hideModal(document.getElementById('portfolio-hud-modal'))" style="width: auto; padding: 10px 20px;">
+              Back to Store
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SELLER CENTRAL & RURAL ARTISAN PORTAL MODAL
+       ======================================================================== -->
+  <div class="amz-modal seller-modal" id="seller-modal" role="dialog" aria-labelledby="seller-modal-heading" aria-modal="true">
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="seller-modal-header">
+        <div class="seller-modal-brand">
+          <div class="seller-badge-icon">🚀</div>
+          <div>
+            <div class="seller-heading-row">
+              <h2 class="seller-modal-heading" id="seller-modal-heading">Amazon Seller Central</h2>
+              <span class="seller-hindi-pill">विक्रेता केंद्र</span>
+              <span class="seller-karigar-pill">🏡 Karigar Hub</span>
+            </div>
+            <p class="seller-modal-sub">List products, manage live inventory, analyze village & city orders, and sell to millions of buyers worldwide.</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="seller-modal-close" aria-label="Close Seller Central">×</button>
+      </div>
+
+      <!-- Seller Navigation Tabs -->
+      <nav class="seller-tabs-bar" aria-label="Seller Hub Tabs">
+        <button class="seller-tab-btn is-active" data-seller-tab="list">
+          <span>📦</span> List New Product
+        </button>
+        <button class="seller-tab-btn" data-seller-tab="inventory">
+          <span>📋</span> Inventory & Pricing
+        </button>
+        <button class="seller-tab-btn" data-seller-tab="analytics">
+          <span>📊</span> Sales & Dispatches
+        </button>
+        <button class="seller-tab-btn" data-seller-tab="karigar">
+          <span>🏡</span> Amazon Karigar (Rural Artisans)
+        </button>
+      </nav>
+
+      <!-- Panel 1: List New Product (Super User-Friendly Split Studio) -->
+      <div class="seller-tab-panel is-active" id="seller-panel-list">
+        <!-- Smart AI Category Autofill Templates Bar -->
+        <div class="seller-ai-templates-bar">
+          <div class="templates-header">
+            <span class="templates-sparkle">✨</span>
+            <div>
+              <strong>1-Click Smart Product Templates (एक क्लिक में भरें):</strong>
+              <span>Tap any template to auto-fill title, features, target audience, price & high-res image instantly!</span>
+            </div>
+          </div>
+          <div class="templates-pills-row">
+            <button type="button" class="template-chip" data-smart-template="sneakers">
+              👟 Men's Sneakers ($69.99)
+            </button>
+            <button type="button" class="template-chip" data-smart-template="saree">
+              👗 Women's Silk Saree ($119.00)
+            </button>
+            <button type="button" class="template-chip" data-smart-template="watch">
+              ⌚ Luxury Chronograph ($149.99)
+            </button>
+            <button type="button" class="template-chip" data-smart-template="handbag">
+              👜 Quilted Leather Bag ($89.99)
+            </button>
+            <button type="button" class="template-chip" data-smart-template="earbuds">
+              🎧 Wireless Earbuds ($49.99)
+            </button>
+            <button type="button" class="template-chip" data-smart-template="pottery">
+              🏺 Jaipur Blue Pottery ($39.99)
+            </button>
+          </div>
+        </div>
+
+        <div class="seller-studio-split">
+          <!-- Left Column: Easy Upload Form -->
+          <form id="seller-product-form" class="seller-upload-form">
+            <!-- Product Title -->
+            <div class="form-group">
+              <label for="seller-prod-title">Product Title / Name *</label>
+              <input type="text" id="seller-prod-title" class="amz-input" placeholder="e.g. Men's Oxford Shirt, Women's Handbag, or Handloom Saree" required />
+            </div>
+
+            <!-- Image Uploader: Drag & Drop OR 1-Click Photo Chips -->
+            <div class="form-group">
+              <label>Product Photo (Drag & Drop, Browse, or Pick a Sample) *</label>
+              <div class="seller-dropzone" id="seller-dropzone">
+                <input type="file" id="seller-image-file" accept="image/*" class="seller-file-input" />
+                <div class="dropzone-content" id="seller-dropzone-prompt">
+                  <span class="dropzone-icon">📷</span>
+                  <span class="dropzone-title">Drag & Drop photo here, or <span class="browse-link">Browse device</span></span>
+                  <span class="dropzone-sub">Supports JPG, PNG, WEBP from your phone or laptop</span>
+                </div>
+                <div class="dropzone-preview" id="seller-image-preview" style="display: none;">
+                  <img id="seller-preview-img" src="" alt="Uploaded photo preview" />
+                  <button type="button" class="btn-remove-photo" id="seller-remove-photo-btn">✕ Change Photo</button>
+                </div>
+              </div>
+
+              <!-- Curated Photo Gallery Chips -->
+              <div class="photo-chips-cluster">
+                <span class="photo-chips-lbl">Or pick a ready sample photo:</span>
+                <div class="photo-chips-grid">
+                  <button type="button" class="photo-chip-btn" data-preset-img="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&q=80" alt="Sneaker" />
+                    <span>Red Sneaker</span>
+                  </button>
+                  <button type="button" class="photo-chip-btn" data-preset-img="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=100&q=80" alt="Watch" />
+                    <span>Gold Watch</span>
+                  </button>
+                  <button type="button" class="photo-chip-btn" data-preset-img="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=100&q=80" alt="Saree" />
+                    <span>Silk Saree</span>
+                  </button>
+                  <button type="button" class="photo-chip-btn" data-preset-img="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80">
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=100&q=80" alt="Bag" />
+                    <span>Leather Bag</span>
+                  </button>
+                  <button type="button" class="photo-chip-btn" data-preset-img="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80" alt="Headphones" />
+                    <span>Headphones</span>
+                  </button>
+                  <button type="button" class="photo-chip-btn" data-preset-img="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=100&q=80" alt="Pottery" />
+                    <span>Blue Pottery</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- URL input -->
+              <input type="text" id="seller-prod-image" class="amz-input" style="margin-top: 8px; font-size: 0.8rem;" placeholder="Or paste direct image URL (https://...)" value="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80" />
+            </div>
+
+            <!-- Two Column Row: Department & Target Audience -->
+            <div class="seller-form-row">
+              <div class="form-group">
+                <label for="seller-prod-category">Department / Category *</label>
+                <select id="seller-prod-category" class="amz-select" required>
+                  <option value="clothing">👗 Clothing & Fashion</option>
+                  <option value="kitchen">🍳 Home, Kitchen & Dining</option>
+                  <option value="beauty">💄 Beauty & Personal Grooming</option>
+                  <option value="sports">🏋️ Sports, Fitness & Outdoors</option>
+                  <option value="electronics">💻 Electronics & Computers</option>
+                  <option value="audio">🎧 Audio & Headphones</option>
+                  <option value="smarthome">🏠 Smart Home & Automation</option>
+                  <option value="gaming">🎮 Gaming & VR Consoles</option>
+                  <option value="fashion">⌚ Luxury Watches & Bags</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="seller-prod-gender">Target Audience / Gender *</label>
+                <select id="seller-prod-gender" class="amz-select" required>
+                  <option value="unisex">✨ Unisex / Universal (Everyone)</option>
+                  <option value="men">👨 Men's (पुरुष)</option>
+                  <option value="women">👩 Women's (महिलाएं)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Two Column Row: Price & Stock -->
+            <div class="seller-form-row">
+              <div class="form-group">
+                <label for="seller-prod-price">Selling Price (USD $) *</label>
+                <input type="number" id="seller-prod-price" class="amz-input" step="0.01" min="1" placeholder="49.99" value="49.99" required />
+                <small class="form-hint" id="seller-price-converted-hint">Auto-converts to ₹4,174 INR • €45.99 EUR</small>
+              </div>
+
+              <div class="form-group">
+                <label for="seller-prod-stock">Units in Stock *</label>
+                <input type="number" id="seller-prod-stock" class="amz-input" min="1" max="9999" placeholder="25" value="25" required />
+              </div>
+            </div>
+
+            <!-- Features -->
+            <div class="form-group">
+              <label for="seller-prod-features">Key Bullet Points / Features</label>
+              <textarea id="seller-prod-features" class="amz-textarea" rows="3" placeholder="100% Premium Quality Guaranteed&#10;Fast Doorstep Village or City Dispatch&#10;Easy 30-Day Replacements">100% Premium Quality Guaranteed
+Fast Doorstep Village or City Dispatch
+Easy 30-Day Replacements</textarea>
+            </div>
+
+            <!-- Rural Karigar Toggle -->
+            <div class="form-group seller-checkbox-card">
+              <label class="seller-checkbox-label">
+                <input type="checkbox" id="seller-prod-karigar" />
+                <div>
+                  <strong>🏡 Amazon Karigar / Rural Indian Artisan Product</strong>
+                  <p>Check if handcrafted by rural Indian weavers, potters, or cottage artisans. Free doorstep village courier pickup & 0% listing fee.</p>
+                </div>
+              </label>
+            </div>
+
+            <div class="seller-form-submit-row">
+              <button type="submit" class="amz-btn amz-btn-primary seller-publish-btn" id="btn-seller-publish">
+                <span class="btn-rocket">🚀</span>
+                <span>Publish Product to Live Store Now</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Right Column: Live Buyer's View Preview Card -->
+          <div class="seller-live-preview-col">
+            <div class="preview-header-box">
+              <span class="preview-badge-live">👁️ LIVE BUYER'S VIEW</span>
+              <span class="preview-title-hint">Updates in real-time as you type:</span>
+            </div>
+
+            <div class="preview-card-wrapper">
+              <article class="prod-card seller-preview-card" id="seller-live-preview-card">
+                <div class="prod-card-header">
+                  <span class="prod-badge badge-bestseller" id="prev-badge">New Seller Launch</span>
+                  <button class="prod-wishlist-btn is-active" type="button" title="Wishlist">
+                    <svg viewBox="0 0 24 24" width="20" height="20" class="heart-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                  </button>
+                </div>
+
+                <div class="prod-card-media">
+                  <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80" alt="Product Preview" class="prod-image" id="prev-image" />
+                </div>
+
+                <div class="prod-card-body">
+                  <div class="prod-tags-row">
+                    <span class="prod-category-tag" id="prev-category">Clothing & Fashion</span>
+                    <span class="prod-tag-pill tag-unisex" id="prev-audience">✨ Unisex</span>
+                  </div>
+
+                  <h3 class="prod-title" id="prev-title">Product Title Preview</h3>
+
+                  <div class="prod-rating-row">
+                    <div class="prod-stars">
+                      <span class="star-icon star-full">★</span>
+                      <span class="star-icon star-full">★</span>
+                      <span class="star-icon star-full">★</span>
+                      <span class="star-icon star-full">★</span>
+                      <span class="star-icon star-full">★</span>
+                      <span class="rating-num">5.0</span>
+                    </div>
+                    <span class="rating-count">(New Launch)</span>
+                  </div>
+
+                  <div class="prod-price-row">
+                    <span class="prod-discount-tag">-23%</span>
+                    <div class="prod-price-box">
+                      <span class="price-current" id="prev-price">$49.99</span>
+                      <span class="price-original" id="prev-orig-price">List: $64.99</span>
+                    </div>
+                  </div>
+
+                  <div class="prod-delivery-row">
+                    <span class="amz-prime-badge"><span class="prime-italic">prime</span></span>
+                    <span class="delivery-text" id="prev-delivery">FREE Delivery Tomorrow, 7 AM - 11 AM</span>
+                  </div>
+                </div>
+
+                <div class="prod-card-actions">
+                  <button class="amz-btn amz-btn-primary add-to-cart-btn" type="button">
+                    Add to Cart
+                  </button>
+                  <button class="amz-btn amz-btn-buy-now buy-now-btn" type="button">
+                    ⚡ Buy Now
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Live Inventory & Pricing -->
+      <div class="seller-tab-panel" id="seller-panel-inventory">
+        <div class="seller-inv-toolbar">
+          <span class="seller-inv-count-pill" id="seller-inventory-total-count">31 Products Listed</span>
+          <span class="seller-inv-hint">💡 Adjust stock count (+ / -) or click Delist to remove an item. Changes reflect in the live store instantly!</span>
+        </div>
+        <div class="seller-inv-table-wrapper">
+          <table class="seller-inv-table">
+            <thead>
+              <tr>
+                <th>Product Info</th>
+                <th>Department</th>
+                <th>Selling Price</th>
+                <th>Live Stock</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="seller-inventory-tbody">
+              <!-- Rendered dynamically by js/seller.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Panel 3: Sales Analytics & Order Dispatches -->
+      <div class="seller-tab-panel" id="seller-panel-analytics">
+        <div class="seller-analytics-grid">
+          <div class="seller-stat-card">
+            <span class="stat-icon">💰</span>
+            <span class="stat-val" id="seller-stat-revenue">$14,850.00</span>
+            <span class="stat-lbl">Gross Store Sales</span>
+          </div>
+          <div class="seller-stat-card">
+            <span class="stat-icon">📦</span>
+            <span class="stat-val" id="seller-stat-orders">312</span>
+            <span class="stat-lbl">Orders Dispatched</span>
+          </div>
+          <div class="seller-stat-card">
+            <span class="stat-icon">🏷️</span>
+            <span class="stat-val" id="seller-stat-listings">31</span>
+            <span class="stat-lbl">Active Store Listings</span>
+          </div>
+          <div class="seller-stat-card">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-val" id="seller-stat-rating">4.9 ★</span>
+            <span class="stat-lbl">Buyer Feedback (100% Positive)</span>
+          </div>
+        </div>
+
+        <div class="seller-dispatches-card">
+          <div class="dispatches-header">
+            <h3>🌍 Live Dispatches: Village & Global Deliveries</h3>
+            <span class="dispatches-sub">Tracking real-time shipments across Indian villages and worldwide cities</span>
+          </div>
+          <div class="dispatches-list">
+            <div class="dispatch-item">
+              <span class="dispatch-dot dot-delivered"></span>
+              <div class="dispatch-details">
+                <span class="dispatch-dest">🇮🇳 Rampur Village, Uttar Pradesh (PIN: 244901)</span>
+                <span class="dispatch-prod">Artisan Banarasi Katan Silk Saree • Paid via UPI PhonePe</span>
+              </div>
+              <span class="dispatch-badge badge-shipped">Dispatched via India Post Rural</span>
+            </div>
+            <div class="dispatch-item">
+              <span class="dispatch-dot dot-in-transit"></span>
+              <div class="dispatch-details">
+                <span class="dispatch-dest">🇮🇳 Mawlynnong Eco-Village, Meghalaya (PIN: 793109)</span>
+                <span class="dispatch-prod">Women's High-Waist Yoga Leggings • Paid via GPay</span>
+              </div>
+              <span class="dispatch-badge badge-transit">In Transit (Out for Village Delivery)</span>
+            </div>
+            <div class="dispatch-item">
+              <span class="dispatch-dot dot-delivered"></span>
+              <div class="dispatch-details">
+                <span class="dispatch-dest">🇺🇸 Brooklyn, New York, USA (ZIP: 11201)</span>
+                <span class="dispatch-prod">Men's Titanium Aviator Sunglasses • Paid via Apple Pay</span>
+              </div>
+              <span class="dispatch-badge badge-delivered">Delivered Successfully</span>
+            </div>
+            <div class="dispatch-item">
+              <span class="dispatch-dot dot-in-transit"></span>
+              <div class="dispatch-details">
+                <span class="dispatch-dest">🇬🇧 Cambridge, England, UK (CB2 1TN)</span>
+                <span class="dispatch-prod">Artisan Jaipur Blue Pottery Dinner Set • Paid via PayPal</span>
+              </div>
+              <span class="dispatch-badge badge-transit">Customs Cleared • Out for Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: Amazon Karigar & Rural Artisan Program -->
+      <div class="seller-tab-panel" id="seller-panel-karigar">
+        <div class="karigar-banner">
+          <div class="karigar-banner-content">
+            <span class="karigar-hero-tag">🇮🇳 Amazon Karigar & ODOP Initiative</span>
+            <h3 class="karigar-banner-title">Empowering 1.5 Million Rural Indian Artisans & Weavers</h3>
+            <p class="karigar-banner-desc">
+              Amazon Karigar connects traditional rural craftspeople directly to over 300 million customers worldwide. With zero upfront fees and doorstep pickup from 155,000+ Indian pincodes, village artisans retain 100% of their fair craft earnings.
+            </p>
+          </div>
+        </div>
+
+        <div class="karigar-pillars-grid">
+          <div class="karigar-pillar-card">
+            <div class="pillar-icon">🚚</div>
+            <h4>Doorstep Rural Pickup</h4>
+            <p>Amazon Logistics & India Post collect parcels directly from weavers' homes and rural clusters in remote villages.</p>
+          </div>
+          <div class="karigar-pillar-card">
+            <div class="pillar-icon">💸</div>
+            <h4>0% Onboarding Fee</h4>
+            <p>Subsidized marketplace commissions for certified rural artisans, self-help groups (SHGs), and tribal cooperatives.</p>
+          </div>
+          <div class="karigar-pillar-card">
+            <div class="pillar-icon">🏷️</div>
+            <h4>Government GI Tag Verification</h4>
+            <p>Silk Mark, Handloom Mark, and Geographical Indication badges prove 100% authentic craftsmanship to international buyers.</p>
+          </div>
+          <div class="karigar-pillar-card">
+            <div class="pillar-icon">🌐</div>
+            <h4>Global Export Corridor</h4>
+            <p>Automatic cross-border export distribution to USA, UK, Europe, Japan, and Canada with integrated currency conversion.</p>
+          </div>
+        </div>
+
+        <div class="karigar-join-box">
+          <div>
+            <h4>Are you a rural artisan, weaver, or cooperative?</h4>
+            <p>Start selling your handcrafted products globally in under 5 minutes.</p>
+          </div>
+          <button type="button" class="amz-btn amz-btn-primary" onclick="window.amzSeller.switchTab('list')" style="width: auto; padding: 12px 28px;">
+            Start Listing Handcrafted Goods →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Portfolio Trigger Button -->
+  <button class="portfolio-hud-trigger" id="portfolio-hud-trigger" title="Inspect Portfolio Architecture">
+    <span class="hud-pulse-dot"></span>
+    <span>💼 Freelance Specs</span>
+  </button>
+
+  <!-- Global Backdrop Overlay for Modals & Drawers -->
+  <div class="global-overlay" id="global-overlay"></div>
+
+  <!-- Unified Toast Message Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <button class="footer-back-to-top" id="footer-back-to-top">
+      Back to top ↑
+    </button>
+
+    <div class="footer-links-grid">
+      <div>
+        <h4 class="footer-col-title">Get to Know Us</h4>
+        <ul class="footer-link-list">
+          <li><a href="#">About Amazon Clone</a></li>
+          <li><a href="#">Careers & Culture</a></li>
+          <li><a href="#">Sustainability & Green Prime</a></li>
+          <li><a href="#">Amazon Science & AI</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Make Money with Us</h4>
+        <ul class="footer-link-list">
+          <li><a href="#" id="footer-sell-link">Sell products on Amazon (Seller Hub)</a></li>
+          <li><a href="#" id="footer-karigar-link">Amazon Karigar (Rural Artisans)</a></li>
+          <li><a href="#">Sell on Amazon Business</a></li>
+          <li><a href="#">Become an Affiliate Partner</a></li>
+          <li><a href="#">Fulfillment by Amazon (FBA)</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Amazon Payment Products</h4>
+        <ul class="footer-link-list">
+          <li><a href="#">Amazon Rewards Visa Signature</a></li>
+          <li><a href="#">Amazon Store Card</a></li>
+          <li><a href="#">Shop with Points & Cash Back</a></li>
+          <li><a href="#">Reload Your Balance</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Let Us Help You</h4>
+        <ul class="footer-link-list">
+          <li><a href="#" onclick="window.amzModal.openOrdersModal('orders'); return false;">Your Account & Orders</a></li>
+          <li><a href="#">Shipping Rates & Policies</a></li>
+          <li><a href="#">Returns & Replacements</a></li>
+          <li><a href="#">Amazon Assistant & Help</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div>© 2026 Amazon Clone 2.0. Portfolio Demonstration Project. Not affiliated with Amazon.com, Inc.</div>
+      <div class="footer-freelancer-note">Crafted with Precision for Freelancing Portfolio & Client Demonstrations</div>
+    </div>
+  </footer>
+
+  <!-- Three.js 3D WebGL Library (Lightweight CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/search-filter.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/seller.js"></script>
+  <script src="js/tilt-3d.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM VARIABLES
+   Amazon 2.0 Portfolio Edition
+   ========================================================================== */
+
+:root {
+  /* Brand Primary Colors */
+  --amz-dark: #131921;
+  --amz-nav-sub: #232f3e;
+  --amz-light-dark: #37475a;
+  --amz-gold: #febd69;
+  --amz-gold-hover: #f3a847;
+  --amz-orange: #f08804;
+  --amz-amber: #ff9900;
+  --amz-yellow: #ffd814;
+  --amz-yellow-hover: #f7ca00;
+  --amz-yellow-active: #f0b800;
+  --amz-blue: #007185;
+  --amz-blue-hover: #004550;
+  --amz-blue-light: #e7f4f6;
+  --amz-deal-red: #cc0c39;
+  --amz-deal-badge: #b12704;
+  --amz-green: #067d62;
+  --amz-green-light: #eaf8f4;
+
+  /* Neutral UI Elements */
+  --bg-primary: #eaeded;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-secondary: #f7fafa;
+  --border-light: #e0e6eb;
+  --border-medium: #d5dbdb;
+  --border-focus: #e77600;
+  
+  /* Typography Colors */
+  --text-primary: #0f1111;
+  --text-secondary: #565959;
+  --text-muted: #888c8c;
+  --text-white: #ffffff;
+  --text-link: #007185;
+  --text-link-hover: #c7511f;
+
+  /* Typography Fonts */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Box Shadows & Glows */
+  --shadow-xs: 0 1px 2px rgba(15, 17, 17, 0.08);
+  --shadow-sm: 0 2px 5px rgba(15, 17, 17, 0.12);
+  --shadow-md: 0 4px 14px rgba(15, 17, 17, 0.15);
+  --shadow-lg: 0 10px 30px rgba(15, 17, 17, 0.2);
+  --shadow-xl: 0 20px 45px rgba(0, 0, 0, 0.28);
+  --shadow-drawer: -5px 0 35px rgba(0, 0, 0, 0.35);
+  --shadow-amber-glow: 0 0 12px rgba(254, 189, 105, 0.45);
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-full: 9999px;
+
+  /* Layout Consts */
+  --max-width: 1540px;
+  --header-height: 60px;
+  --subnav-height: 40px;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-drawer: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-hud: 600;
+}
+
+/* Dark Luxury Mode overrides */
+[data-theme="dark"] {
+  --bg-primary: #0a0e14;
+  --bg-surface: #121820;
+  --bg-surface-elevated: #1a222c;
+  --bg-card: #151d26;
+  --bg-secondary: #1a232f;
+  --border-light: #263342;
+  --border-medium: #304153;
+  --border-focus: #f3a847;
+  
+  --text-primary: #f0f3f6;
+  --text-secondary: #9da7b3;
+  --text-muted: #6b7785;
+  --text-white: #ffffff;
+  --text-link: #48b4c4;
+  --text-link-hover: #ff9900;
+
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.85);
+}

@@ -50,35 +50,46 @@ const server = http.createServer((req, res) => {
   }
 
   fs.stat(safePath, (err, stats) => {
-    if (err || !stats.isFile()) {
-      // Fallback to index.html for SPA routing
-      const fallbackPath = path.join(PUBLIC_DIR, 'index.html');
-      fs.readFile(fallbackPath, (readErr, content) => {
-        if (readErr) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.end('404 Not Found');
-          return;
-        }
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        res.end(content);
-      });
-      return;
+    let targetPath = safePath;
+
+    if (!err && stats.isDirectory()) {
+      const indexPath = path.join(safePath, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        targetPath = indexPath;
+      }
     }
 
-    const ext = path.extname(safePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    fs.stat(targetPath, (fileErr, fileStats) => {
+      if (fileErr || !fileStats.isFile()) {
+        // Fallback to root index.html for SPA routing
+        const fallbackPath = path.join(PUBLIC_DIR, 'index.html');
+        fs.readFile(fallbackPath, (readErr, content) => {
+          if (readErr) {
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('404 Not Found');
+            return;
+          }
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.end(content);
+        });
+        return;
+      }
 
-    // Set caching headers
-    const cacheControl = ext === '.html' ? 'no-cache' : 'public, max-age=86400';
+      const ext = path.extname(targetPath).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-    res.writeHead(200, {
-      'Content-Type': contentType,
-      'Cache-Control': cacheControl,
-      'X-Content-Type-Options': 'nosniff'
+      // Set caching headers
+      const cacheControl = ext === '.html' ? 'no-cache' : 'public, max-age=86400';
+
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': cacheControl,
+        'X-Content-Type-Options': 'nosniff'
+      });
+
+      const stream = fs.createReadStream(targetPath);
+      stream.pipe(res);
     });
-
-    const stream = fs.createReadStream(safePath);
-    stream.pipe(res);
   });
 });
 

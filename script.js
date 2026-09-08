@@ -481,8 +481,9 @@ function initProjectFilters() {
 
       const filter = btn.getAttribute('data-project-filter');
       projectCards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (filter === 'all' || cat === filter) {
+        const cat = card.getAttribute('data-category') || '';
+        const matches = filter === 'all' || cat === filter || cat.split(' ').includes(filter);
+        if (matches) {
           card.style.display = 'flex';
           setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 50);
         } else {
@@ -499,6 +500,23 @@ function initProjectFilters() {
    10. PROJECT QUICK-VIEW MODAL
    ===================================================== */
 const projectData = {
+  'amazon-clone': {
+    title: 'Amazon 2.0 – 3D Interactive E-Commerce Platform',
+    year: '2026',
+    category: 'Full Stack & 3D WebGL E-Commerce',
+    image: 'assets/project-amazon-clone.jpg',
+    desc: 'An enterprise-grade, ultra-modern Amazon Clone powered by Three.js WebGL 3D spatial product inspection, 60fps card tilt physics, 1-Click Express Buy, UPI/Multi-Currency payment gateway, and village doorstep logistics across 155,000+ PIN codes. Engineered as a flagship showcase for freelancing clients and production e-commerce.',
+    highlights: [
+      'Interactive 3D Three.js Spatial Arena with 360° spherical orbit drag, rotational inertia, and animated pulsing feature hotspots.',
+      'Physics-driven 60fps CSS 3D perspective card tilt with dynamic specular cursor glare and layered spatial depth.',
+      'Village & Rural Doorstep Delivery engine supporting 155,000+ India Post PIN codes, Gram Panchayats, and global postal routes.',
+      'Instant UPI payment engine (Google Pay, PhonePe, Paytm, BHIM QR generator) + real-time multi-currency converter (INR, USD, EUR, GBP).',
+      '1-Click Express Checkout modal, dynamic reactive cart, and Seller Central Studio product management.'
+    ],
+    tech: ['Three.js', 'WebGL', 'JavaScript (ES6+)', 'UPI Payments', 'CSS 3D Transforms', 'LocalStorage', 'Responsive UI'],
+    github: 'https://github.com/abhishektripathi9/Amazon-clone-',
+    liveDemo: './amazon-clone/index.html'
+  },
   'land-registry': {
     title: 'Advanced Land Registry DApp – Web3 & Blockchain Platform',
     year: '2026',

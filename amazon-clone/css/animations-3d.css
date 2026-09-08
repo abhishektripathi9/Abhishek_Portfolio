@@ -1,0 +1,391 @@
+/* ==========================================================================
+   AMAZON 2.0 PORTFOLIO - 3D ANIMATIONS & SPATIAL VISUALS
+   ========================================================================== */
+
+/* 3D Global Perspective Root */
+:root {
+  --perspective-deep: 1200px;
+  --perspective-normal: 1000px;
+  --perspective-subtle: 800px;
+  --hologram-cyan: #00f2fe;
+  --hologram-magenta: #4facfe;
+  --hologram-gold: #febd69;
+}
+
+/* ==========================================================================
+   1. 3D HERO SPATIAL ARENA
+   ========================================================================== */
+
+.hero-3d-spatial-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background: radial-gradient(circle at 75% 50%, #172436 0%, #0d131a 50%, #080b0f 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hero-3d-canvas-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  z-index: 2;
+  cursor: grab;
+  touch-action: none;
+}
+
+.hero-3d-canvas-wrapper:active {
+  cursor: grabbing;
+}
+
+#hero-three-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* 3D Interactive Floating Badge Indicator */
+.hero-3d-drag-hint {
+  position: absolute;
+  bottom: 24px;
+  right: 60px;
+  z-index: 5;
+  background: rgba(19, 25, 33, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(254, 189, 105, 0.4);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  animation: floatSlow 3s ease-in-out infinite;
+}
+
+.drag-icon-rotate {
+  display: inline-block;
+  font-size: 1rem;
+  animation: rotateIcon 4s linear infinite;
+}
+
+@keyframes rotateIcon {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* 3D Interactive Hotspot Pins */
+.spatial-hotspot {
+  position: absolute;
+  z-index: 6;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.hotspot-beacon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--amz-gold);
+  box-shadow: 0 0 15px var(--amz-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hotspot-beacon::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--amz-gold);
+  animation: rippleRing 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes rippleRing {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.hotspot-label {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(254, 189, 105, 0.35);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+}
+
+.spatial-hotspot:hover .hotspot-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ==========================================================================
+   2. 3D CARD TILT & DEPTH SHADING
+   ========================================================================== */
+
+/* Enable 3D transform context on product cards */
+.prod-card {
+  perspective: var(--perspective-normal);
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+/* 3D Multi-Layer Elevation */
+.prod-card-media {
+  transform: translateZ(28px);
+  transition: transform var(--transition-normal);
+}
+
+.prod-card-header,
+.prod-badge {
+  transform: translateZ(36px);
+}
+
+.prod-card-body {
+  transform: translateZ(20px);
+}
+
+.prod-card-actions {
+  transform: translateZ(32px);
+}
+
+/* Moving Specular Glare Sheen */
+.prod-card-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.05) 35%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.prod-card.is-tilting .prod-card-glare {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   3. HOLOGRAPHIC & CYBER AMBIANCE ACCENTS
+   ========================================================================== */
+
+/* Holographic animated gradient border for featured items */
+.hologram-border {
+  position: relative;
+  z-index: 1;
+}
+
+.hologram-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-md) + 2px);
+  background: linear-gradient(
+    135deg,
+    #ff9900 0%,
+    #00f2fe 30%,
+    #4facfe 60%,
+    #febd69 100%
+  );
+  background-size: 300% 300%;
+  animation: hologramShift 6s ease infinite;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+@keyframes hologramShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 3D Floating Action Pills */
+.floating-3d-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(254, 189, 105, 0.15), rgba(240, 136, 4, 0.25));
+  border: 1px solid rgba(254, 189, 105, 0.4);
+  border-radius: var(--radius-full);
+  color: var(--amz-gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(240, 136, 4, 0.2);
+  transform: translateZ(15px);
+}
+
+/* ==========================================================================
+   4. QUICK VIEW 3D STUDIO VIEWER
+   ========================================================================== */
+
+.qv-view-mode-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.qv-tab-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.qv-tab-btn.is-active {
+  background: var(--amz-dark);
+  color: #ffffff;
+  border-color: var(--amz-dark);
+}
+
+[data-theme="dark"] .qv-tab-btn.is-active {
+  background: var(--amz-gold);
+  color: #111111;
+  border-color: var(--amz-gold);
+}
+
+.qv-3d-studio-container {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  display: none;
+}
+
+.qv-3d-studio-container.is-active {
+  display: block;
+}
+
+#qv-three-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+}
+
+#qv-three-canvas:active {
+  cursor: grabbing;
+}
+
+.qv-3d-controls-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 5;
+}
+
+.qv-3d-ctrl-btn {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: var(--radius-xs);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.qv-3d-ctrl-btn:hover {
+  background: var(--amz-orange);
+  border-color: var(--amz-orange);
+}
+
+.qv-3d-ctrl-btn.is-active {
+  background: var(--amz-gold);
+  color: #111111;
+  font-weight: 800;
+}
+
+.qv-3d-hint-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   5. RESPONSIVE 3D TWEAKS
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .hero-3d-spatial-container {
+    height: auto;
+    min-height: 480px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .hero-3d-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    margin-top: 20px;
+  }
+
+  .hero-content {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-width: 100%;
+  }
+
+  .hero-3d-drag-hint {
+    right: 20px;
+    bottom: 10px;
+  }
+}
