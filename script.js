@@ -531,7 +531,7 @@ const projectData = {
     ],
     tech: ['Solidity', 'Ethereum', 'Web3.js', 'React.js', 'IPFS', 'MetaMask', 'Hardhat'],
     github: 'https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp',
-    liveDemo: 'https://abhishektripathi9.github.io/Advanced-Land-Registry-Dapp/'
+    liveDemo: './land-registry/index.html'
   },
   rentease: {
     title: 'RentEase – PG & Room Finder Platform',
