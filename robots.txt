@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap URL (Apne live domain ke according replace karein agar alag hai)
+Sitemap: https://abhishek-tripathi-portfolio.onrender.com/sitemap.xml
