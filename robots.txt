@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /assets/
+
 Sitemap: https://abhishek-portfolio-uir4.onrender.com/sitemap.xml
