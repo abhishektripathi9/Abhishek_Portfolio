@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayPulse – ML Compensation Predictor & Salary Analytics | Live Demo</title>
+  <meta name="description" content="PayPulse is an interactive Machine Learning compensation prediction engine estimating software engineer compensation with real-time distribution modeling." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(16, 24, 46, 0.75);
+      --border: rgba(255, 255, 255, 0.1);
+      --cyan: #00f0ff;
+      --emerald: #10b981;
+      --purple: #8b5cf6;
+      --amber: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 45%);
+    }
+    .top-bar {
+      background: rgba(10, 15, 30, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--emerald), var(--cyan));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #040711;
+      font-weight: 900;
+    }
+    .demo-badge {
+      font-size: 0.72rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-weight: 600;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .back-btn:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 240, 255, 0.05); }
+
+    .main-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+
+    .hero-title-box { text-align: center; max-width: 800px; margin: 0 auto 36px; }
+    .hero-title-box h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+    .hero-title-box h1 span {
+      background: linear-gradient(135deg, var(--emerald), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-title-box p { color: var(--text-muted); font-size: 1rem; }
+
+    /* Prediction Grid Layout */
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    /* Left Control Panel */
+    .controls-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    .field-group { margin-bottom: 22px; }
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .field-val-badge { color: var(--cyan); font-weight: 700; font-family: 'Space Grotesk'; }
+    .slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+      cursor: pointer;
+    }
+    .select-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #fff;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .select-input:focus { border-color: var(--cyan); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .skill-check-label {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .skill-check-label.selected {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+    .skill-check-label input { display: none; }
+
+    /* Right Result Showcase */
+    .result-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .hero-metric-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .hero-metric-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--emerald), var(--cyan));
+    }
+    .metric-sub { font-size: 0.85rem; text-transform: uppercase; color: var(--emerald); font-weight: 700; margin-bottom: 6px; }
+    .metric-large { font-size: 4rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: #fff; line-height: 1.1; }
+    .metric-equiv { color: var(--text-muted); font-size: 1.1rem; margin-top: 6px; }
+    .percentile-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      color: #fff;
+    }
+
+    /* Distribution Canvas */
+    .distrib-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+    }
+    .card-h { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #fff; }
+    .distrib-canvas { width: 100%; height: 160px; display: block; }
+
+    /* Breakdown factors */
+    .factors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .factor-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .factor-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .factor-val { font-size: 1.15rem; font-weight: 700; color: #fff; font-family: 'Space Grotesk'; }
+
+    @media (max-width: 860px) {
+      .calc-layout { grid-template-columns: 1fr; }
+      .metric-large { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="top-bar">
+    <a href="./index.html" class="brand">
+      <div class="brand-icon"><i data-lucide="trending-up"></i></div>
+      <span>PayPulse ML</span>
+      <span class="demo-badge">LIVE DEMO</span>
+    </a>
+    <a href="../index.html#projects" class="back-btn">
+      <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+      <span>Back to Portfolio</span>
+    </a>
+  </header>
+
+  <main class="main-container">
+    <div class="hero-title-box">
+      <h1>Predict Software Engineer <span>Compensation</span></h1>
+      <p>Multi-variable Machine Learning regression model evaluating years of experience, core tech stack, company tiers, and regional cost-of-living indices.</p>
+    </div>
+
+    <div class="calc-layout">
+      <!-- Left Inputs -->
+      <section class="controls-panel">
+        <div class="field-group">
+          <div class="field-label">
+            <span>Years of Industry Experience</span>
+            <span class="field-val-badge" id="disp-exp">2 Years</span>
+          </div>
+          <input type="range" class="slider" id="slider-exp" min="0" max="15" value="2" step="0.5" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Target Role / Discipline</label>
+          <select class="select-input" id="select-role">
+            <option value="fullstack" selected>Full Stack Web Developer (React + Java/Python)</option>
+            <option value="data">Data Analyst &amp; BI Engineer</option>
+            <option value="ml">Machine Learning / AI Engineer</option>
+            <option value="blockchain">Web3 &amp; Smart Contract Engineer</option>
+            <option value="devops">DevOps &amp; Cloud Platform Engineer</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Education / Degree</label>
+          <select class="select-input" id="select-edu">
+            <option value="btech" selected>B.Tech Computer Science &amp; Engineering</option>
+            <option value="mtech">M.Tech / MS in CS</option>
+            <option value="bca">BCA / MCA</option>
+            <option value="other">Non-CS Degree / Self-Taught</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Company Tier &amp; Scale</label>
+          <select class="select-input" id="select-tier">
+            <option value="startup">High-Growth Tech Startup</option>
+            <option value="mid" selected>Mid-Size Product Company</option>
+            <option value="tier1">Tier-1 Tech Product (Unicorn)</option>
+            <option value="faang">Global Tech Giant / FAANG Tier</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Core Skills Multipliers (Select all that apply)</label>
+          <div class="skills-grid" id="skills-container">
+            <label class="skill-check-label selected"><input type="checkbox" value="react" checked /> React.js &amp; Modern UI</label>
+            <label class="skill-check-label selected"><input type="checkbox" value="java" checked /> Java &amp; Spring Boot</label>
+            <label class="skill-check-label selected"><input type="checkbox" value="python" checked /> Python &amp; Data Sci</label>
+            <label class="skill-check-label selected"><input type="checkbox" value="three" checked /> Three.js &amp; WebGL</label>
+            <label class="skill-check-label"><input type="checkbox" value="aws" /> AWS / Cloud Architecture</label>
+            <label class="skill-check-label"><input type="checkbox" value="solidity" /> Web3 / Solidity</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Output Showcase -->
+      <section class="result-panel">
+        <div class="hero-metric-card">
+          <div class="metric-sub">Predicted Total Compensation (CTC)</div>
+          <div class="metric-large" id="res-lpa">₹12.4 LPA</div>
+          <div class="metric-equiv" id="res-usd">≈ $15,000 USD / yr base + incentives</div>
+          <div class="percentile-pill">
+            <i data-lucide="sparkles" style="width:16px;height:16px;color:var(--emerald);"></i>
+            <span id="res-percentile">Top 18% for 2 yrs experience</span>
+          </div>
+        </div>
+
+        <!-- Salary Distribution Bell Curve -->
+        <div class="distrib-card">
+          <div class="card-h">
+            <i data-lucide="bar-chart-2" style="width:18px;height:18px;color:var(--cyan);"></i>
+            <span>Gaussian Probability Distribution Curve</span>
+          </div>
+          <canvas id="bell-curve" class="distrib-canvas"></canvas>
+        </div>
+
+        <!-- Weights Breakdown -->
+        <div class="factors-grid">
+          <div class="factor-pill">
+            <div class="factor-lbl">Experience Weight</div>
+            <div class="factor-val" id="factor-exp">+42%</div>
+          </div>
+          <div class="factor-pill">
+            <div class="factor-lbl">Skills Stacking</div>
+            <div class="factor-val" id="factor-skills">+28%</div>
+          </div>
+          <div class="factor-pill">
+            <div class="factor-lbl">Market Multiplier</div>
+            <div class="factor-val" id="factor-tier">1.4x</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    function calculateSalary() {
+      const exp = parseFloat(document.getElementById('slider-exp').value);
+      document.getElementById('disp-exp').textContent = `${exp} Year${exp !== 1 ? 's' : ''}`;
+
+      const role = document.getElementById('select-role').value;
+      const edu = document.getElementById('select-edu').value;
+      const tier = document.getElementById('select-tier').value;
+
+      // Base role baseline
+      let baseLPA = 6.0;
+      if (role === 'fullstack') baseLPA = 7.5;
+      if (role === 'data') baseLPA = 7.0;
+      if (role === 'ml') baseLPA = 9.5;
+      if (role === 'blockchain') baseLPA = 10.0;
+      if (role === 'devops') baseLPA = 8.5;
+
+      // Experience curve: logarithmic with exponential boost
+      const expMultiplier = 1 + (exp * 0.28) + (Math.pow(exp, 1.3) * 0.05);
+
+      // Education factor
+      let eduFactor = 1.0;
+      if (edu === 'btech') eduFactor = 1.1;
+      if (edu === 'mtech') eduFactor = 1.25;
+      if (edu === 'bca') eduFactor = 0.95;
+
+      // Company tier
+      let tierFactor = 1.0;
+      if (tier === 'startup') tierFactor = 1.15;
+      if (tier === 'mid') tierFactor = 1.0;
+      if (tier === 'tier1') tierFactor = 1.5;
+      if (tier === 'faang') tierFactor = 2.1;
+
+      // Selected skills
+      const checkedBoxes = document.querySelectorAll('#skills-container input:checked');
+      const skillsBonus = checkedBoxes.length * 0.08;
+
+      // Total calculation
+      const predictedLPA = (baseLPA * expMultiplier * eduFactor * tierFactor * (1 + skillsBonus));
+      const roundedLPA = Math.round(predictedLPA * 10) / 10;
+      const usdEquiv = Math.round(roundedLPA * 1200);
+
+      document.getElementById('res-lpa').textContent = `₹${roundedLPA} LPA`;
+      document.getElementById('res-usd').textContent = `≈ $${usdEquiv.toLocaleString()} USD / yr base + incentives`;
+
+      let percentile = Math.min(96, Math.max(12, Math.round(40 + (roundedLPA / 40) * 50)));
+      document.getElementById('res-percentile').textContent = `Top ${100 - percentile}% for this category profile`;
+
+      document.getElementById('factor-exp').textContent = `+${Math.round(expMultiplier * 18)}%`;
+      document.getElementById('factor-skills').textContent = `+${Math.round(skillsBonus * 100)}%`;
+      document.getElementById('factor-tier').textContent = `${tierFactor}x`;
+
+      drawBellCurve(roundedLPA);
+    }
+
+    function drawBellCurve(userLpa) {
+      const canvas = document.getElementById('bell-curve');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
+
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw normal distribution curve
+      const mean = 14;
+      const stdDev = 7;
+      const points = [];
+
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += 3) {
+        const val = (x / w) * 45; // 0 to 45 LPA
+        const yVal = Math.exp(-0.5 * Math.pow((val - mean) / stdDev, 2));
+        const y = h - 25 - yVal * (h - 50);
+        points.push({ x, y, val });
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // User Marker
+      const userX = Math.min(w - 10, Math.max(10, (userLpa / 45) * w));
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.moveTo(userX, 10);
+      ctx.lineTo(userX, h - 25);
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Pin
+      ctx.beginPath();
+      ctx.arc(userX, 18, 6, 0, Math.PI * 2);
+      ctx.fillStyle = '#10b981';
+      ctx.fill();
+
+      ctx.fillStyle = '#10b981';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = userX > w - 60 ? 'right' : 'left';
+      ctx.fillText(` You (₹${userLpa}L)`, userX + 8, 22);
+
+      // Axis labels
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('₹3L (Entry)', 10, h - 8);
+      ctx.textAlign = 'center';
+      ctx.fillText('₹14L (Median)', w / 2, h - 8);
+      ctx.textAlign = 'right';
+      ctx.fillText('₹45L+ (Staff)', w - 10, h - 8);
+    }
+
+    document.querySelectorAll('#skills-container label').forEach(lbl => {
+      lbl.addEventListener('click', (e) => {
+        const chk = lbl.querySelector('input');
+        if (e.target !== chk) chk.checked = !chk.checked;
+        lbl.classList.toggle('selected', chk.checked);
+        calculateSalary();
+      });
+    });
+
+    ['slider-exp', 'select-role', 'select-edu', 'select-tier'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateSalary);
+    });
+
+    window.addEventListener('resize', calculateSalary);
+    document.addEventListener('DOMContentLoaded', () => {
+      calculateSalary();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

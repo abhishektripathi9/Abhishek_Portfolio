@@ -546,7 +546,8 @@ const projectData = {
       'Responsive React frontend featuring instant keyword filters and real-time availability badges.'
     ],
     tech: ['React.js', 'Java', 'Spring Boot', 'MySQL', 'REST APIs', 'CSS3 Grid'],
-    github: 'https://github.com/abhishektripathi9'
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './rentease/index.html'
   },
   weather: {
     title: 'Real-Time Weather Forecast Application',
@@ -561,7 +562,8 @@ const projectData = {
       'Location auto-detection via browser Geolocation API with city search autocomplete.'
     ],
     tech: ['React.js', 'JavaScript (ES6+)', 'OpenWeather API', 'HTML5', 'CSS3 Glassmorphism'],
-    github: 'https://github.com/abhishektripathi9'
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './weather/index.html'
   },
   salary: {
     title: 'Salary Prediction & Compensation Analytics',
@@ -576,7 +578,8 @@ const projectData = {
       'Visualized distribution plots and variance curves illustrating salary density across roles.'
     ],
     tech: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'Regression Analysis', 'Matplotlib'],
-    github: 'https://github.com/abhishektripathi9'
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './salary/index.html'
   },
   portfolio: {
     title: '3D Holographic Developer Portfolio',
@@ -591,7 +594,8 @@ const projectData = {
       'Fully responsive, accessible, and high-performance WebGL rendering with automated off-screen pause.'
     ],
     tech: ['Three.js', 'WebGL', 'JavaScript (ES6+)', 'HTML5', 'CSS 3D Transforms'],
-    github: 'https://github.com/abhishektripathi9'
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './index.html'
   }
 };
 

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RentEase – Verified PG & Room Finder Platform | Live Demo</title>
+  <meta name="description" content="RentEase is a full-stack student & professional PG room finder platform featuring verified listings, amenity filters, and direct booking workflow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #070a14;
+      --card-bg: rgba(16, 23, 42, 0.75);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(0, 240, 255, 0.4);
+      --cyan: #00f0ff;
+      --emerald: #10b981;
+      --purple: #8b5cf6;
+      --amber: #f59e0b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+    }
+    .top-bar {
+      background: rgba(10, 15, 30, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #040711;
+      font-weight: 900;
+    }
+    .demo-badge {
+      font-size: 0.72rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 240, 255, 0.05); }
+
+    .hero-banner {
+      padding: 50px 24px 30px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--cyan), #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; }
+
+    /* Search & Filter Controls */
+    .search-box {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      padding: 18px 24px;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr auto;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .control-group { text-align: left; }
+    .control-label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+    .control-select, .control-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      outline: none;
+      font-size: 0.92rem;
+    }
+    .control-select:focus, .control-input:focus { border-color: var(--cyan); }
+    .search-btn {
+      background: linear-gradient(135deg, var(--cyan), #0284c7);
+      color: #040711;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    .search-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+
+    /* Category Filter Tabs */
+    .filter-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 99px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .pill.active, .pill:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Property Grid */
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px 60px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: 0 20px 40px rgba(0, 240, 255, 0.15);
+    }
+    .card-img-wrap {
+      height: 200px;
+      position: relative;
+      background: #1e293b;
+      overflow: hidden;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .card:hover .card-img { transform: scale(1.06); }
+    .card-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(16, 185, 129, 0.9);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+    }
+    .card-price {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(7, 10, 20, 0.85);
+      border: 1px solid var(--border);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+    .card-price span { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+    .card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
+    .card-loc { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; }
+    .amenities { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; flex: 1; }
+    .amenity-tag {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-book {
+      flex: 1;
+      background: linear-gradient(135deg, var(--cyan), #0284c7);
+      color: #040711;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-book:hover { box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
+    .btn-call {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-call:hover { border-color: var(--emerald); color: var(--emerald); }
+
+    /* Booking Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal-box {
+      background: #0d1326;
+      border: 1px solid var(--cyan);
+      border-radius: 20px;
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 240, 255, 0.2);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-h { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .modal-sub { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px; }
+    .modal-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: #fff;
+      margin-bottom: 14px;
+      outline: none;
+      font-family: inherit;
+    }
+    .modal-input:focus { border-color: var(--cyan); }
+    .modal-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--emerald), var(--cyan));
+      color: #040711;
+      font-weight: 700;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .search-box { grid-template-columns: 1fr; }
+      .hero-title { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-bar">
+    <a href="./index.html" class="brand">
+      <div class="brand-icon">RE</div>
+      <span>RentEase</span>
+      <span class="demo-badge">LIVE DEMO</span>
+    </a>
+    <a href="../index.html#projects" class="back-btn">
+      <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+      <span>Back to Portfolio</span>
+    </a>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <h1 class="hero-title">Find Verified Student &amp; Professional <span>PG Rooms</span></h1>
+    <p class="hero-sub">Search across Prayagraj, Banda, Delhi NCR, and Bangalore with verified amenities, zero brokerage, and instant booking token advance.</p>
+
+    <!-- Search Controls -->
+    <div class="search-box">
+      <div class="control-group">
+        <label class="control-label">Location / City</label>
+        <select class="control-select" id="city-select">
+          <option value="all">All Cities</option>
+          <option value="Prayagraj" selected>Prayagraj (Near UIT &amp; Civil Lines)</option>
+          <option value="Banda">Banda (Near Station &amp; Bypass)</option>
+          <option value="Delhi">Delhi NCR (Noida &amp; South Campus)</option>
+          <option value="Bangalore">Bangalore (Koramangala &amp; BTM)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Sharing / Room Type</label>
+        <select class="control-select" id="type-select">
+          <option value="all">Any Room Type</option>
+          <option value="single">Single Private Room</option>
+          <option value="double">Double Sharing PG</option>
+          <option value="flat">1BHK / 2BHK Apartment</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Max Monthly Budget</label>
+        <select class="control-select" id="budget-select">
+          <option value="all">Any Budget</option>
+          <option value="5000">Under ₹5,000 / mo</option>
+          <option value="8000">Under ₹8,000 / mo</option>
+          <option value="12000">Under ₹12,000 / mo</option>
+        </select>
+      </div>
+
+      <button class="search-btn" id="search-btn">
+        <i data-lucide="search" style="width:18px;height:18px;"></i>
+        <span>Search</span>
+      </button>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="filter-pills">
+      <button class="pill active" data-cat="all">All Listings (6)</button>
+      <button class="pill" data-cat="boys">Boys PG</button>
+      <button class="pill" data-cat="girls">Girls PG</button>
+      <button class="pill" data-cat="single">Single Rooms</button>
+      <button class="pill" data-cat="flat">Independent Flats</button>
+    </div>
+  </section>
+
+  <!-- Properties Grid -->
+  <main class="container">
+    <div class="grid" id="properties-grid">
+      <!-- Populated via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="book-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close-btn">&times;</button>
+      <h3 class="modal-h" id="modal-prop-title">Book Room Visit</h3>
+      <p class="modal-sub" id="modal-prop-loc">Pay refundable ₹499 visit token or lock booking instantly via simulated UPI.</p>
+      
+      <input type="text" class="modal-input" placeholder="Your Full Name" required />
+      <input type="tel" class="modal-input" placeholder="Phone Number / WhatsApp" required />
+      <input type="date" class="modal-input" id="visit-date" />
+
+      <button class="modal-btn" id="confirm-booking-btn">
+        <span>Confirm Visit &amp; Token Advance (₹499)</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const listings = [
+      {
+        id: 1,
+        title: "United Scholars Residency (Boys PG)",
+        city: "Prayagraj",
+        area: "Naini, Near UIT Campus",
+        price: 5500,
+        type: "double",
+        gender: "boys",
+        badge: "Near UIT Campus",
+        image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=700&q=80",
+        amenities: ["WiFi (100Mbps)", "3x Meals Included", "Power Backup", "RO Water", "RO Water"]
+      },
+      {
+        id: 2,
+        title: "Civil Lines Elite Studio",
+        city: "Prayagraj",
+        area: "Civil Lines Market",
+        price: 8500,
+        type: "single",
+        gender: "all",
+        badge: "Zero Brokerage",
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+        amenities: ["Air Conditioned", "Private Attached Bath", "Geyser", "Smart TV", "Parking"]
+      },
+      {
+        id: 3,
+        title: "St. Mary's Girls Haven PG",
+        city: "Prayagraj",
+        area: "George Town",
+        price: 6500,
+        type: "double",
+        gender: "girls",
+        badge: "24/7 CCTV & Security",
+        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=700&q=80",
+        amenities: ["High Security", "Food Included", "Washing Machine", "Study Table", "Garden"]
+      },
+      {
+        id: 4,
+        title: "Banda Royal Residency",
+        city: "Banda",
+        area: "Civil Lines & Bypass",
+        price: 4500,
+        type: "single",
+        gender: "boys",
+        badge: "Budget Choice",
+        image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=700&q=80",
+        amenities: ["Spacious Balcony", "Water Cooler", "Power Inverter", "Bike Parking"]
+      },
+      {
+        id: 5,
+        title: "Noida Tech-Park 1BHK Flat",
+        city: "Delhi",
+        area: "Sector 62, Noida NCR",
+        price: 11500,
+        type: "flat",
+        gender: "all",
+        badge: "Metro 5 Min Walk",
+        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=700&q=80",
+        amenities: ["Modular Kitchen", "Clubhouse & Gym", "High-Speed Lift", "24/7 Security"]
+      },
+      {
+        id: 6,
+        title: "Koramangala Executive Co-Living",
+        city: "Bangalore",
+        area: "5th Block Koramangala",
+        price: 12000,
+        type: "single",
+        gender: "all",
+        badge: "Co-Working Lounge",
+        image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=700&q=80",
+        amenities: ["Gaming Room", "Housekeeping Included", "Chef Meals", "Rooftop Cafe"]
+      }
+    ];
+
+    function renderListings(items) {
+      const grid = document.getElementById('properties-grid');
+      if (items.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;color:var(--text-muted);"><h3>No listings match your filter criteria.</h3><p>Try resetting city or budget filters.</p></div>';
+        return;
+      }
+      grid.innerHTML = items.map(p => `
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="${p.image}" alt="${p.title}" class="card-img" loading="lazy" />
+            <span class="card-badge">${p.badge}</span>
+            <div class="card-price">₹${p.price.toLocaleString('en-IN')} <span>/mo</span></div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${p.title}</h3>
+            <div class="card-loc">
+              <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--cyan);"></i>
+              <span>${p.area}, ${p.city}</span>
+            </div>
+            <div class="amenities">
+              ${p.amenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+            </div>
+            <div class="card-actions">
+              <button class="btn-book" onclick="openBookModal('${p.title}', '${p.area}, ${p.city}')">
+                <i data-lucide="calendar" style="width:16px;height:16px;"></i>
+                <span>Book Visit</span>
+              </button>
+              <button class="btn-call" onclick="alert('Connecting with landlord for ${p.title}...')">
+                <i data-lucide="phone" style="width:16px;height:16px;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function applyFilters() {
+      const city = document.getElementById('city-select').value;
+      const type = document.getElementById('type-select').value;
+      const budget = document.getElementById('budget-select').value;
+      const activePill = document.querySelector('.pill.active').getAttribute('data-cat');
+
+      let filtered = listings.filter(item => {
+        const matchesCity = city === 'all' || item.city === city;
+        const matchesType = type === 'all' || item.type === type;
+        const matchesBudget = budget === 'all' || item.price <= parseInt(budget);
+        
+        let matchesCat = true;
+        if (activePill === 'boys') matchesCat = item.gender === 'boys';
+        if (activePill === 'girls') matchesCat = item.gender === 'girls';
+        if (activePill === 'single') matchesCat = item.type === 'single';
+        if (activePill === 'flat') matchesCat = item.type === 'flat';
+
+        return matchesCity && matchesType && matchesBudget && matchesCat;
+      });
+
+      renderListings(filtered);
+    }
+
+    document.getElementById('search-btn').addEventListener('click', applyFilters);
+    document.querySelectorAll('.pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    const modal = document.getElementById('book-modal');
+    function openBookModal(title, loc) {
+      document.getElementById('modal-prop-title').textContent = title;
+      document.getElementById('modal-prop-loc').textContent = loc + ' • Token advance ₹499';
+      modal.classList.add('open');
+    }
+    document.getElementById('modal-close-btn').addEventListener('click', () => modal.classList.remove('open'));
+    document.getElementById('confirm-booking-btn').addEventListener('click', () => {
+      alert('🎉 Booking Scheduled! A confirmation SMS and WhatsApp invite with exact landlord location coordinates has been generated.');
+      modal.classList.remove('open');
+    });
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+      renderListings(listings);
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('visit-date');
+      if (dateInput) dateInput.value = today;
+    });
+  </script>
+</body>
+</html>
