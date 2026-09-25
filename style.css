@@ -813,11 +813,29 @@ ul {
   justify-content: center;
   color: var(--text-secondary);
   transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
 }
 
-.social-link i {
+.social-link i,
+.social-link svg {
   width: 20px;
   height: 20px;
+  display: block;
+}
+
+.social-img-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+  border-radius: 4px;
+  transition: transform var(--transition-fast);
+}
+
+.social-link:hover .social-img-icon,
+.footer-icon-link:hover .social-img-icon {
+  transform: scale(1.18);
 }
 
 .social-link:hover {
@@ -826,6 +844,49 @@ ul {
   color: var(--cyan);
   transform: translateY(-4px) scale(1.08);
   box-shadow: 0 0 20px var(--cyan-glow);
+}
+
+.social-link.social-github:hover,
+.footer-icon-link.footer-github:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  transform: translateY(-4px) scale(1.08);
+}
+
+.social-link.social-linkedin:hover,
+.footer-icon-link.footer-linkedin:hover {
+  background: rgba(10, 102, 194, 0.25);
+  border-color: #0a66c2;
+  box-shadow: 0 0 20px rgba(10, 102, 194, 0.5);
+  transform: translateY(-4px) scale(1.08);
+}
+
+.social-link.social-whatsapp:hover,
+.footer-icon-link.footer-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.22);
+  border-color: #25d366;
+  color: #25d366;
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.45);
+  transform: translateY(-4px) scale(1.08);
+}
+
+.social-link.social-mail:hover,
+.footer-icon-link.footer-mail:hover {
+  background: rgba(234, 67, 53, 0.22);
+  border-color: #ea4335;
+  color: #ea4335;
+  box-shadow: 0 0 20px rgba(234, 67, 53, 0.45);
+  transform: translateY(-4px) scale(1.08);
+}
+
+.social-link.social-phone:hover,
+.footer-icon-link.footer-phone:hover {
+  background: rgba(0, 240, 255, 0.22);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 20px var(--cyan-glow);
+  transform: translateY(-4px) scale(1.08);
 }
 
 /* =====================================================
@@ -2216,12 +2277,13 @@ ul {
 .quick-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
+  gap: 7px;
+  padding: 5px 14px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--text-secondary);
   transition: all var(--transition-fast);
 }
@@ -2230,11 +2292,42 @@ ul {
   background: rgba(0, 240, 255, 0.15);
   color: var(--cyan);
   border-color: var(--cyan);
+  transform: translateY(-2px);
 }
 
-.quick-pill i {
-  width: 14px;
-  height: 14px;
+.quick-pill i,
+.quick-pill svg {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.pill-logo-img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.quick-pill.quick-github:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.quick-pill.quick-linkedin:hover {
+  background: rgba(10, 102, 194, 0.2);
+  border-color: #0a66c2;
+  color: #38bdf8;
+}
+
+.quick-pill.quick-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.2);
+  border-color: #25d366;
+  color: #25d366;
 }
 
 /* Contact Form */
@@ -2431,8 +2524,8 @@ ul {
 }
 
 .footer-icon-link {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-subtle);
@@ -2441,6 +2534,8 @@ ul {
   justify-content: center;
   color: var(--text-secondary);
   transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
 }
 
 .footer-icon-link:hover {
@@ -2450,9 +2545,11 @@ ul {
   transform: translateY(-3px);
 }
 
-.footer-icon-link i {
+.footer-icon-link i,
+.footer-icon-link svg {
   width: 18px;
   height: 18px;
+  display: block;
 }
 
 .footer-divider {
