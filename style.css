@@ -447,6 +447,50 @@ ul {
   width: 100%;
 }
 
+.nav-social-item {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.nav-social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.nav-social-link:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.nav-social-link.nav-github:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.nav-social-link.nav-linkedin:hover {
+  background: rgba(10, 102, 194, 0.25);
+  border-color: #0a66c2;
+  box-shadow: 0 0 12px rgba(10, 102, 194, 0.4);
+}
+
+.nav-social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
 .nav-cta-item {
   margin-left: 8px;
 }
@@ -1803,9 +1847,104 @@ ul {
 }
 
 .icon-link-btn:hover {
-  background: var(--cyan);
+  background: #fff;
   color: #040711;
   transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
+}
+
+.project-card-gh-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Projects Showcase CTA */
+.projects-more-cta {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.projects-cta-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 26px 36px;
+  background: linear-gradient(135deg, rgba(20, 29, 56, 0.65) 0%, rgba(10, 15, 30, 0.85) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-cta-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+
+.projects-cta-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cta-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cta-github-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.cta-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.btn-brand-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .projects-cta-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 18px;
+  }
+  .projects-cta-left {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
 
 .project-body {
