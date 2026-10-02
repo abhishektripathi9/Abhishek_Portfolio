@@ -1167,11 +1167,17 @@ async function loadAndRenderMessages(highlightId = null) {
 
   try {
     const res = await fetch('/api/messages', { cache: 'no-cache' });
-    if (res.ok) {
+    const contentType = res.headers.get('content-type') || '';
+    if (res.ok && contentType.includes('application/json')) {
       messages = await res.json();
       localStorage.setItem('portfolio_messages', JSON.stringify(messages));
     } else {
-      throw new Error('API status ' + res.status);
+      const staticRes = await fetch('./messages.json', { cache: 'no-cache' });
+      if (staticRes.ok) {
+        messages = await staticRes.json();
+      } else {
+        throw new Error('Static fallback');
+      }
     }
   } catch (err) {
     // Clean up any legacy fake sample data
