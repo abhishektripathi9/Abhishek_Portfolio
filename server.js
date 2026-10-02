@@ -49,11 +49,51 @@ function saveMessages(msgs) {
   }
 }
 
+const sseClients = new Set();
+
+function broadcastEvent(eventType, data) {
+  const payload = `event: ${eventType}\ndata: ${JSON.stringify(data)}\n\n`;
+  for (const client of sseClients) {
+    try {
+      client.write(payload);
+    } catch (err) {
+      sseClients.delete(client);
+    }
+  }
+}
+
 const server = http.createServer((req, res) => {
   // Health check endpoint for Render
   if (req.url === '/healthz') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('OK');
+    return;
+  }
+
+  // API: Real-time SSE stream for instant message & reply synchronization
+  if (req.method === 'GET' && req.url === '/api/messages/stream') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write(`data: ${JSON.stringify({ type: 'connected', time: Date.now() })}\n\n`);
+    sseClients.add(res);
+
+    const keepAlive = setInterval(() => {
+      try {
+        res.write(': keep-alive\n\n');
+      } catch (e) {
+        clearInterval(keepAlive);
+        sseClients.delete(res);
+      }
+    }, 20000);
+
+    req.on('close', () => {
+      clearInterval(keepAlive);
+      sseClients.delete(res);
+    });
     return;
   }
 
@@ -87,6 +127,7 @@ const server = http.createServer((req, res) => {
           id: 'msg-' + Date.now(),
           name: data.name.trim(),
           email: (data.email || '').trim(),
+          phone: (data.phone || '').trim(),
           subject: (data.subject || 'Portfolio Inquiry').trim(),
           message: data.message.trim(),
           createdAt: new Date().toISOString(),
@@ -94,6 +135,9 @@ const server = http.createServer((req, res) => {
         };
         msgs.unshift(newMsg);
         saveMessages(msgs);
+
+        // Broadcast to all active browsers in real-time
+        broadcastEvent('new_message', newMsg);
 
         res.writeHead(201, {
           'Content-Type': 'application/json; charset=utf-8',
@@ -145,6 +189,9 @@ const server = http.createServer((req, res) => {
         };
         target.replies.push(reply);
         saveMessages(msgs);
+
+        // Broadcast to all active browsers in real-time
+        broadcastEvent('new_reply', { reply, target });
 
         res.writeHead(200, {
           'Content-Type': 'application/json; charset=utf-8',
