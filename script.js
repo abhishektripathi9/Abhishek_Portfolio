@@ -820,26 +820,48 @@ function initContactActions() {
       if (response.ok || result.success === 'true' || result.success === true) {
         form.reset();
         if (successBanner) {
+          successBanner.innerHTML = `
+            <div class="success-icon-wrap">
+              <i data-lucide="check-circle-2"></i>
+            </div>
+            <div>
+              <h4>Message Received from ${escapeHtml(name)}!</h4>
+              <p style="margin:2px 0 4px;color:var(--text-primary);font-size:0.86rem;">
+                Sender Email: <strong style="color:var(--cyan);font-family:var(--font-mono);">${escapeHtml(email)}</strong>
+              </p>
+              <p style="font-size:0.82rem;color:var(--text-secondary);">
+                Your message is live on the communication feed below and sent to Abhishek Tripathi (at180887@gmail.com).
+              </p>
+            </div>
+          `;
           successBanner.classList.add('show');
           if (typeof lucide !== 'undefined') lucide.createIcons();
 
           setTimeout(() => {
             successBanner.classList.remove('show');
-          }, 8000);
+          }, 9000);
         }
-        showToast('Message sent! Abhishek will receive this in his Gmail and reply soon.');
+        showToast(`Message from ${name} (${email}) sent! Live on communication feed.`);
         // Also save to Live Communication Hub
         saveMessageToHub({ name, email, subject, message: msg });
+
+        // Scroll smoothly to message hub so the sender sees their name, email & message right in front!
+        const hub = document.getElementById('message-hub');
+        if (hub) {
+          setTimeout(() => {
+            hub.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 350);
+        }
       } else {
         throw new Error(result.message || 'Submission error');
       }
     } catch (err) {
       // Save to hub as well so visitor sees it immediately
       saveMessageToHub({ name, email, subject, message: msg });
+      showToast(`Saved to live feed! Opening email for Abhishek (at180887@gmail.com)...`);
       // Graceful fallback: Open visitor's email client directly
       const mailtoUrl = `mailto:at180887@gmail.com?subject=${encodeURIComponent('Portfolio: ' + subject)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + msg)}`;
       window.location.href = mailtoUrl;
-      showToast('Redirecting to your email client to send message to Abhishek...');
     } finally {
       submitBtn.innerHTML = originalHtml;
       submitBtn.disabled = false;
@@ -1204,8 +1226,13 @@ async function loadAndRenderMessages() {
               <div class="reply-header">
                 <div class="reply-author-info">
                   <img src="assets/abhishek-tripathi.jpeg" alt="Abhishek Tripathi" class="reply-author-img" />
-                  <span class="reply-author-name">${escapeHtml(rep.author || 'Abhishek Tripathi')}</span>
-                  <span class="verified-badge"><i data-lucide="shield-check"></i> Abhishek Verified</span>
+                  <div class="reply-author-meta">
+                    <div class="reply-title-row">
+                      <span class="reply-author-name">${escapeHtml(rep.author || 'Abhishek Tripathi')}</span>
+                      <span class="verified-badge"><i data-lucide="shield-check"></i> Abhishek Verified</span>
+                    </div>
+                    <span class="reply-author-email"><i data-lucide="mail"></i> at180887@gmail.com</span>
+                  </div>
                 </div>
                 <span class="reply-time">${formatTimeAgo(rep.createdAt)}</span>
               </div>
@@ -1234,7 +1261,7 @@ async function loadAndRenderMessages() {
       ? `
         <a href="mailto:${encodeURIComponent(msg.email)}?subject=${encodeURIComponent('Re: ' + (msg.subject || 'Portfolio Inquiry'))}" class="btn-email-reply" title="Direct Email">
           <i data-lucide="mail"></i>
-          <span>Email ${escapeHtml(msg.name)}</span>
+          <span>Email ${escapeHtml(msg.name)} (${escapeHtml(msg.email)})</span>
         </a>
       `
       : '';
@@ -1245,14 +1272,43 @@ async function loadAndRenderMessages() {
           <div class="msg-sender-info">
             <div class="msg-avatar">${senderInitials}</div>
             <div class="msg-sender-meta">
-              <span class="msg-sender-name">${escapeHtml(msg.name || 'Anonymous')}</span>
-              <span class="msg-subject-tag">${escapeHtml(msg.subject || 'Portfolio Inquiry')}</span>
+              <div class="msg-name-badge-row">
+                <span class="msg-sender-name">${escapeHtml(msg.name || 'Anonymous')}</span>
+                <span class="msg-visitor-pill"><i data-lucide="user"></i> Sender</span>
+              </div>
+              <span class="msg-subject-tag"><i data-lucide="bookmark"></i> ${escapeHtml(msg.subject || 'Portfolio Inquiry')}</span>
             </div>
           </div>
           <span class="msg-time">${timeFormatted}</span>
         </div>
 
-        <p class="msg-text">${escapeHtml(msg.message)}</p>
+        <!-- Prominently Visible Sender Details (Naam & Email Right in Front) -->
+        <div class="msg-sender-details-card">
+          <div class="msg-detail-item">
+            <span class="detail-label"><i data-lucide="user"></i> Sender Name:</span>
+            <span class="detail-value name-value">${escapeHtml(msg.name || 'Anonymous')}</span>
+          </div>
+          <div class="msg-detail-item">
+            <span class="detail-label"><i data-lucide="mail"></i> Sender Email:</span>
+            <a href="mailto:${escapeHtml(msg.email)}" class="detail-value email-link" title="Click to email ${escapeHtml(msg.name)}">
+              ${escapeHtml(msg.email || 'Email not provided')}
+            </a>
+            ${msg.email ? `
+              <button
+                class="btn-copy-mini"
+                onclick="navigator.clipboard.writeText('${escapeHtml(msg.email)}'); showToast('Copied email: ${escapeHtml(msg.email)}');"
+                title="Copy email to clipboard"
+                aria-label="Copy email"
+              >
+                <i data-lucide="copy"></i>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <div class="msg-body-wrapper">
+          <p class="msg-text">${escapeHtml(msg.message)}</p>
+        </div>
 
         ${repliesHtml}
 
@@ -1265,7 +1321,7 @@ async function loadAndRenderMessages() {
           <textarea
             class="reply-textarea"
             id="reply-text-${msg.id}"
-            placeholder="Write your verified response as Abhishek Tripathi to ${escapeHtml(msg.name)}..."
+            placeholder="Write your verified response as Abhishek Tripathi to ${escapeHtml(msg.name)} (${escapeHtml(msg.email || '')})..."
             rows="3"
           ></textarea>
           <div class="reply-box-btns">
