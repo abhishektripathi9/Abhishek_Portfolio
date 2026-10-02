@@ -206,6 +206,45 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // API: Delete message (Abhishek verification via PIN 1808)
+  if (req.method === 'POST' && req.url === '/api/messages/delete') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body);
+        if (data.pin !== '1808' && data.pin !== '180887') {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid PIN. Only Abhishek can delete messages.' }));
+          return;
+        }
+
+        if (!data.messageId) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'MessageId required' }));
+          return;
+        }
+
+        let msgs = getMessages();
+        msgs = msgs.filter(m => m.id !== data.messageId);
+        saveMessages(msgs);
+
+        // Broadcast deletion event to all connected clients in real-time
+        broadcastEvent('message_deleted', { messageId: data.messageId });
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, messageId: data.messageId }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
   // Parse URL and strip query params
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let pathname = decodeURIComponent(parsedUrl.pathname);

@@ -3957,41 +3957,45 @@ ul {
   flex-shrink: 0;
 }
 
-/* SENDER DETAILS BOX (Prominently shows Name & Email right in front) */
+/* SENDER DETAILS BOX (Prominently shows Name, Email & Phone right in front) */
 .msg-sender-details-card {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  background: rgba(0, 240, 255, 0.05);
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  background: rgba(0, 240, 255, 0.04);
+  border: 1px solid rgba(0, 240, 255, 0.22);
   border-radius: var(--radius-md);
-  padding: 10px 16px;
-  margin: 10px 0 14px;
+  padding: 12px 14px;
+  margin: 12px 0 16px;
 }
 
 .msg-detail-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
   font-size: 0.85rem;
   font-family: var(--font-mono);
+  background: rgba(4, 7, 17, 0.4);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  overflow: hidden;
 }
 
 .detail-label {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   color: var(--text-muted);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  flex-shrink: 0;
 }
 
 .detail-label i {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   color: var(--cyan);
 }
 
@@ -4000,6 +4004,9 @@ ul {
   font-weight: 700;
   font-family: var(--font-display);
   font-size: 0.96rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .detail-value.email-link {
@@ -4009,6 +4016,9 @@ ul {
   text-underline-offset: 3px;
   transition: all var(--transition-fast);
   word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .detail-value.email-link:hover {
@@ -4028,6 +4038,8 @@ ul {
   justify-content: center;
   cursor: pointer;
   padding: 0;
+  margin-left: auto;
+  flex-shrink: 0;
   transition: all var(--transition-fast);
 }
 
@@ -4040,6 +4052,82 @@ ul {
 .btn-copy-mini i {
   width: 12px;
   height: 12px;
+}
+
+/* Delete button for Owner */
+.btn-delete-msg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+  transition: all var(--transition-fast);
+}
+
+.btn-delete-msg:hover {
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.5);
+}
+
+.btn-delete-msg i {
+  width: 13px;
+  height: 13px;
+}
+
+/* Empty State */
+.messages-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px dashed rgba(0, 240, 255, 0.25);
+  border-radius: var(--radius-lg);
+  background: rgba(4, 7, 17, 0.4);
+}
+
+.empty-icon-ring {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1.5px solid rgba(0, 240, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  color: var(--cyan);
+}
+
+.empty-icon-ring i {
+  width: 26px;
+  height: 26px;
+}
+
+.messages-empty-state h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.messages-empty-state p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  max-width: 440px;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 .detail-value.phone-link {

@@ -1174,6 +1174,12 @@ async function loadAndRenderMessages(highlightId = null) {
       throw new Error('API status ' + res.status);
     }
   } catch (err) {
+    // Clean up any legacy fake sample data
+    const localRaw = localStorage.getItem('portfolio_messages');
+    if (localRaw && (localRaw.includes('Sarah Jenkins') || localRaw.includes('Vikram Patel'))) {
+      localStorage.removeItem('portfolio_messages');
+    }
+
     const local = localStorage.getItem('portfolio_messages');
     if (local) {
       try {
@@ -1184,46 +1190,28 @@ async function loadAndRenderMessages(highlightId = null) {
     }
   }
 
-  // Fallback sample messages if empty
+  // Filter out any fake demo messages if present
+  if (Array.isArray(messages)) {
+    messages = messages.filter(m => m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel');
+  }
+
+  // Clean professional empty state when no messages have been sent yet
   if (!messages || messages.length === 0) {
-    messages = [
-      {
-        id: "msg-1",
-        name: "Sarah Jenkins",
-        email: "sarah.j@techrecruitment.com",
-        phone: "+1 (555) 234-5678",
-        subject: "Full Stack & 3D Web Engineering Role",
-        message: "Hi Abhishek! We reviewed your interactive 3D portfolio and Land Registry DApp. Your full-stack engineering with React, Three.js, and Java is impressive. Are you available for roles?",
-        createdAt: new Date(Date.now() - 3600000 * 14).toISOString(),
-        replies: [
-          {
-            id: "rep-1",
-            author: "Abhishek Tripathi",
-            isOwner: true,
-            text: "Hi Sarah, thank you for reaching out! Yes, I am actively available for Full Stack and Software Engineering internships and roles. Let's connect!",
-            createdAt: new Date(Date.now() - 3600000 * 12).toISOString()
-          }
-        ]
-      },
-      {
-        id: "msg-2",
-        name: "Vikram Patel",
-        email: "vikram@fintechinnovations.in",
-        phone: "+91 98765 43210",
-        subject: "Collaboration & Web Platform Development",
-        message: "Loved your RentEase and Data Analytics projects. Would love to collaborate with you on a high-performance web dashboard.",
-        createdAt: new Date(Date.now() - 3600000 * 8).toISOString(),
-        replies: [
-          {
-            id: "rep-2",
-            author: "Abhishek Tripathi",
-            isOwner: true,
-            text: "Hello Vikram, thank you! I would be glad to collaborate on building modern, responsive dashboards and systems. Feel free to connect directly via email or WhatsApp!",
-            createdAt: new Date(Date.now() - 3600000 * 6).toISOString()
-          }
-        ]
-      }
-    ];
+    container.innerHTML = `
+      <div class="messages-empty-state">
+        <div class="empty-icon-ring">
+          <i data-lucide="message-square-dashed"></i>
+        </div>
+        <h4>No Direct Messages Yet</h4>
+        <p>Real-time incoming messages from your portfolio visitors will appear here automatically with instant chime notification.</p>
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('form-name')?.focus()">
+          <i data-lucide="send"></i>
+          <span>Send First Message Above</span>
+        </button>
+      </div>
+    `;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    return;
   }
 
   const isOwner = isOwnerVerified();
@@ -1348,6 +1336,12 @@ async function loadAndRenderMessages(highlightId = null) {
           ${ownerReplyBtn}
           ${emailBtn}
           ${whatsappBtn}
+          ${isOwner ? `
+            <button class="btn-delete-msg" onclick="window.deleteMessage('${msg.id}')" title="Delete Message">
+              <i data-lucide="trash-2"></i>
+              <span>Delete</span>
+            </button>
+          ` : ''}
         </div>
 
         <div class="inline-reply-box" id="reply-box-${msg.id}" style="display: none;">
@@ -1445,6 +1439,35 @@ window.submitReply = async function(msgId) {
   }
 };
 
+window.deleteMessage = async function(msgId) {
+  if (!confirm('Are you sure you want to delete this message?')) return;
+  const pin = sessionStorage.getItem('abhishek_owner_pin') || '1808';
+
+  try {
+    const res = await fetch('/api/messages/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messageId: msgId, pin: pin })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to delete');
+    }
+    showToast('Message deleted successfully.');
+    loadAndRenderMessages();
+  } catch (err) {
+    try {
+      let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+      stored = stored.filter(m => m.id !== msgId);
+      localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+      showToast('Message removed locally.');
+      loadAndRenderMessages();
+      return;
+    } catch (e) {}
+    showToast('Error deleting: ' + err.message);
+  }
+};
+
 function getInitials(name) {
   if (!name) return '??';
   const parts = name.trim().split(/\s+/);
@@ -1535,6 +1558,10 @@ function initRealtimeSync() {
           playNotificationSound();
           showToast('💬 Abhishek posted a verified reply!');
         } catch (err) {}
+        loadAndRenderMessages();
+      });
+
+      sse.addEventListener('message_deleted', () => {
         loadAndRenderMessages();
       });
 
