@@ -896,12 +896,14 @@ function initContactActions() {
     form.reset();
     showToast(`Direct message from ${name} sent! Live on board & delivered.`);
 
-    // Scroll smoothly to message hub so the sender sees their message right in front!
-    const hub = document.getElementById('message-hub');
-    if (hub) {
-      setTimeout(() => {
-        hub.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 300);
+    // If thank you modal didn't open, scroll to board directly
+    if (!thankYouModal) {
+      const hub = document.getElementById('message-hub');
+      if (hub) {
+        setTimeout(() => {
+          hub.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 300);
+      }
     }
 
     // 3. Asynchronously transmit to FormSubmit for Gmail inbox delivery
@@ -1205,38 +1207,52 @@ function initMessageHub() {
 }
 
 async function saveMessageToHub(msgData) {
-  let created = null;
+  const localMsg = {
+    id: 'msg-' + Date.now(),
+    name: (msgData.name || 'Anonymous').trim(),
+    email: (msgData.email || '').trim(),
+    phone: (msgData.phone || '').trim(),
+    subject: (msgData.subject || 'Portfolio Inquiry').trim(),
+    message: (msgData.message || '').trim(),
+    createdAt: new Date().toISOString(),
+    replies: []
+  };
+
+  // 1. Immediately store in localStorage so it appears right in front of the sender
+  try {
+    let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+    stored = stored.filter(m => m && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel');
+    stored.unshift(localMsg);
+    localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+  } catch (e) {
+    console.error('LocalStorage write error', e);
+  }
+
+  // 2. Also sync to dynamic server API if available
   try {
     const res = await fetch('/api/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(msgData)
     });
-    if (res.ok) {
+    const contentType = res.headers.get('content-type') || '';
+    if (res.ok && contentType.includes('application/json')) {
       const data = await res.json();
-      created = data.message;
+      if (data && data.message) {
+        try {
+          let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+          stored = stored.map(m => m.id === localMsg.id ? data.message : m);
+          localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+        } catch (e) {}
+      }
     }
   } catch (err) {
-    try {
-      const stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-      created = {
-        id: 'msg-' + Date.now(),
-        name: msgData.name,
-        email: msgData.email || '',
-        phone: msgData.phone || '',
-        subject: msgData.subject || 'Portfolio Inquiry',
-        message: msgData.message,
-        createdAt: new Date().toISOString(),
-        replies: []
-      };
-      stored.unshift(created);
-      localStorage.setItem('portfolio_messages', JSON.stringify(stored));
-    } catch (e) {
-      console.error(e);
-    }
+    // Static hosting fallback
   }
-  loadAndRenderMessages(created?.id);
-  return created;
+
+  // 3. Immediately render messages on board with newly submitted message highlighted
+  await loadAndRenderMessages(localMsg.id);
+  return localMsg;
 }
 
 function cleanPhone(num) {
@@ -1298,41 +1314,66 @@ async function loadAndRenderMessages(highlightId = null) {
   if (!container) return;
 
   let messages = [];
+  let serverMessages = [];
 
+  // 1. Attempt to fetch from dynamic server API
   try {
     const res = await fetch(`/api/messages?_t=${Date.now()}`, { cache: 'no-cache' });
     const contentType = res.headers.get('content-type') || '';
     if (res.ok && contentType.includes('application/json')) {
-      messages = await res.json();
-      localStorage.setItem('portfolio_messages', JSON.stringify(messages));
-    } else {
-      const staticRes = await fetch(`./messages.json?_t=${Date.now()}`, { cache: 'no-cache' });
-      if (staticRes.ok) {
-        messages = await staticRes.json();
-      } else {
-        throw new Error('Static fallback');
-      }
+      serverMessages = await res.json();
     }
   } catch (err) {
-    // Clean up any legacy fake sample data
-    const localRaw = localStorage.getItem('portfolio_messages');
-    if (localRaw && (localRaw.includes('Sarah Jenkins') || localRaw.includes('Vikram Patel'))) {
-      localStorage.removeItem('portfolio_messages');
-    }
-
-    const local = localStorage.getItem('portfolio_messages');
-    if (local) {
-      try {
-        messages = JSON.parse(local);
-      } catch (e) {
-        messages = [];
-      }
-    }
+    // Dynamic server offline or running on static CDN
   }
 
-  // Filter out any fake demo messages if present
-  if (Array.isArray(messages)) {
-    messages = messages.filter(m => m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel');
+  // 2. Load locally stored messages
+  let localMessages = [];
+  try {
+    const localRaw = localStorage.getItem('portfolio_messages');
+    if (localRaw) {
+      localMessages = JSON.parse(localRaw);
+    }
+  } catch (e) {
+    localMessages = [];
+  }
+
+  // 3. Deduplicate and merge: Server + Local
+  const messageMap = new Map();
+
+  if (Array.isArray(serverMessages)) {
+    serverMessages.forEach(m => {
+      if (m && m.id && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel') {
+        messageMap.set(m.id, m);
+      }
+    });
+  }
+
+  if (Array.isArray(localMessages)) {
+    localMessages.forEach(m => {
+      if (m && m.id && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel') {
+        if (!messageMap.has(m.id)) {
+          messageMap.set(m.id, m);
+        } else {
+          // If message exists in both, preserve local replies
+          const existing = messageMap.get(m.id);
+          if ((!existing.replies || existing.replies.length === 0) && (m.replies && m.replies.length > 0)) {
+            existing.replies = m.replies;
+          }
+        }
+      }
+    });
+  }
+
+  messages = Array.from(messageMap.values());
+  // Sort descending by createdAt (newest first)
+  messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  // Keep local storage updated with merged messages
+  if (messages.length > 0) {
+    try {
+      localStorage.setItem('portfolio_messages', JSON.stringify(messages));
+    } catch (e) {}
   }
 
   // Clean professional empty state when no messages have been sent yet
