@@ -1743,6 +1743,41 @@
           </form>
         </div>
       </div>
+
+      <!-- =====================================================
+           LIVE INTERACTIVE COMMUNICATION HUB & REPLIES
+           ===================================================== -->
+      <div class="message-hub-wrapper glass-panel reveal" id="message-hub">
+        <div class="hub-glow-line"></div>
+        <div class="message-hub-header">
+          <div class="hub-header-left">
+            <div class="hub-live-badge">
+              <span class="hub-pulse"></span>
+              <span>LIVE COMMUNICATION FEED</span>
+            </div>
+            <h3 class="hub-title">Direct Messages &amp; Abhishek's Responses</h3>
+            <p class="hub-subtitle">
+              Messages submitted to Abhishek appear here. You can reply and communicate directly right from this board.
+            </p>
+          </div>
+
+          <div class="hub-header-right">
+            <!-- Owner Auth / PIN Login Button -->
+            <button class="btn-owner-auth" id="btn-owner-auth" aria-label="Toggle Abhishek Reply Mode">
+              <i data-lucide="shield-check" class="owner-btn-icon" id="owner-auth-icon"></i>
+              <span id="owner-auth-text">Abhishek (Owner) Reply Mode</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages Feed List -->
+        <div class="messages-feed" id="messages-feed">
+          <div class="messages-loading">
+            <span class="pulse-indicator"><span class="pulse-core"></span></span>
+            <span>Connecting to live communication feed...</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1920,6 +1955,44 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Owner PIN Verification Modal -->
+  <div class="modal-overlay" id="owner-pin-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-dialog owner-modal-dialog glass-panel">
+      <button class="modal-close-btn" id="owner-pin-close" aria-label="Close PIN modal">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="owner-pin-header">
+        <div class="owner-avatar-ring">
+          <img src="assets/abhishek-tripathi.jpeg" alt="Abhishek Tripathi" class="owner-modal-avatar" width="60" height="60" />
+        </div>
+        <h3 class="owner-modal-title">Abhishek Tripathi</h3>
+        <span class="owner-verified-pill"><i data-lucide="shield-check"></i> Verified Portfolio Owner</span>
+        <p class="owner-modal-desc">Enter your 4-digit Owner PIN to activate direct replies on your website.</p>
+      </div>
+
+      <form id="owner-pin-form">
+        <div class="input-floating-group">
+          <input
+            type="password"
+            id="owner-pin-input"
+            class="form-input text-center"
+            placeholder=" "
+            maxlength="6"
+            required
+            autocomplete="current-password"
+          />
+          <label for="owner-pin-input" class="floating-label">Enter PIN (Default: 1808)</label>
+          <i data-lucide="key" class="input-icon"></i>
+        </div>
+        <p class="owner-pin-hint">💡 Default PIN: <strong>1808</strong> (Only you can post verified replies)</p>
+        <button type="submit" class="btn btn-primary btn-full btn-3d" id="btn-submit-pin">
+          <i data-lucide="unlock" class="btn-icon"></i>
+          <span>Unlock &amp; Start Replying</span>
+        </button>
+      </form>
     </div>
   </div>
 

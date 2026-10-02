@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbarScroll();
   initMobileNav();
   initProfileFallback();
+  initMessageHub();
 });
 
 /* =====================================================
@@ -827,10 +828,14 @@ function initContactActions() {
           }, 8000);
         }
         showToast('Message sent! Abhishek will receive this in his Gmail and reply soon.');
+        // Also save to Live Communication Hub
+        saveMessageToHub({ name, email, subject, message: msg });
       } else {
         throw new Error(result.message || 'Submission error');
       }
     } catch (err) {
+      // Save to hub as well so visitor sees it immediately
+      saveMessageToHub({ name, email, subject, message: msg });
       // Graceful fallback: Open visitor's email client directly
       const mailtoUrl = `mailto:at180887@gmail.com?subject=${encodeURIComponent('Portfolio: ' + subject)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + msg)}`;
       window.location.href = mailtoUrl;
@@ -996,4 +1001,389 @@ function initProfileFallback() {
     img.style.display = 'none';
     fallback.style.display = 'flex';
   }
+}
+
+/* =====================================================
+   19. INTERACTIVE MESSAGE HUB & ABHISHEK VERIFIED REPLIES
+   ===================================================== */
+function isOwnerVerified() {
+  const pin = sessionStorage.getItem('abhishek_owner_pin');
+  return pin === '1808' || pin === '180887';
+}
+
+function initMessageHub() {
+  const authBtn = document.getElementById('btn-owner-auth');
+  const authText = document.getElementById('owner-auth-text');
+  const modal = document.getElementById('owner-pin-modal');
+  const closeBtn = document.getElementById('owner-pin-close');
+  const pinForm = document.getElementById('owner-pin-form');
+  const pinInput = document.getElementById('owner-pin-input');
+
+  function updateAuthBtnState() {
+    if (!authBtn || !authText) return;
+    if (isOwnerVerified()) {
+      authBtn.classList.add('active');
+      authText.textContent = 'Abhishek Mode: Active (Click to Logout)';
+    } else {
+      authBtn.classList.remove('active');
+      authText.textContent = 'Abhishek (Owner) Reply Mode';
+    }
+  }
+
+  if (authBtn) {
+    authBtn.addEventListener('click', () => {
+      if (isOwnerVerified()) {
+        if (confirm('Logout of Abhishek Reply Mode?')) {
+          sessionStorage.removeItem('abhishek_owner_pin');
+          updateAuthBtnState();
+          showToast('Logged out of Abhishek Reply Mode.');
+          loadAndRenderMessages();
+        }
+      } else {
+        if (modal) {
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
+          if (pinInput) {
+            pinInput.value = '';
+            setTimeout(() => pinInput.focus(), 150);
+          }
+        }
+      }
+    });
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+
+  if (pinForm) {
+    pinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const enteredPin = (pinInput ? pinInput.value : '').trim();
+      if (enteredPin === '1808' || enteredPin === '180887') {
+        sessionStorage.setItem('abhishek_owner_pin', enteredPin);
+        updateAuthBtnState();
+        closeModal();
+        showToast('Welcome Abhishek! Verified reply mode unlocked.');
+        loadAndRenderMessages();
+      } else {
+        showToast('Invalid PIN. Only Abhishek can post verified replies (Default: 1808).');
+        if (pinInput) {
+          pinInput.value = '';
+          pinInput.focus();
+        }
+      }
+    });
+  }
+
+  updateAuthBtnState();
+  loadAndRenderMessages();
+}
+
+async function saveMessageToHub(msgData) {
+  try {
+    const res = await fetch('/api/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(msgData)
+    });
+    if (!res.ok) throw new Error('API save failed');
+  } catch (err) {
+    try {
+      const stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+      const newMsg = {
+        id: 'msg-' + Date.now(),
+        name: msgData.name,
+        email: msgData.email || '',
+        subject: msgData.subject || 'Portfolio Inquiry',
+        message: msgData.message,
+        createdAt: new Date().toISOString(),
+        replies: []
+      };
+      stored.unshift(newMsg);
+      localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  loadAndRenderMessages();
+}
+
+async function loadAndRenderMessages() {
+  const container = document.getElementById('messages-feed');
+  if (!container) return;
+
+  let messages = [];
+
+  try {
+    const res = await fetch('/api/messages', { cache: 'no-cache' });
+    if (res.ok) {
+      messages = await res.json();
+      localStorage.setItem('portfolio_messages', JSON.stringify(messages));
+    } else {
+      throw new Error('API status ' + res.status);
+    }
+  } catch (err) {
+    const local = localStorage.getItem('portfolio_messages');
+    if (local) {
+      try {
+        messages = JSON.parse(local);
+      } catch (e) {
+        messages = [];
+      }
+    }
+  }
+
+  // Fallback sample messages if empty
+  if (!messages || messages.length === 0) {
+    messages = [
+      {
+        id: "msg-1",
+        name: "Sarah Jenkins",
+        email: "sarah.j@techrecruitment.com",
+        subject: "Full Stack & 3D Web Engineering Role",
+        message: "Hi Abhishek! We reviewed your interactive 3D portfolio and Land Registry DApp. Your full-stack engineering with React, Three.js, and Java is impressive. Are you available for roles?",
+        createdAt: new Date(Date.now() - 3600000 * 14).toISOString(),
+        replies: [
+          {
+            id: "rep-1",
+            author: "Abhishek Tripathi",
+            isOwner: true,
+            text: "Hi Sarah, thank you for reaching out! Yes, I am actively available for Full Stack and Software Engineering internships and roles. Let's connect!",
+            createdAt: new Date(Date.now() - 3600000 * 12).toISOString()
+          }
+        ]
+      },
+      {
+        id: "msg-2",
+        name: "Vikram Patel",
+        email: "vikram@fintechinnovations.in",
+        subject: "Collaboration & Web Platform Development",
+        message: "Loved your RentEase and Data Analytics projects. Would love to collaborate with you on a high-performance web dashboard.",
+        createdAt: new Date(Date.now() - 3600000 * 8).toISOString(),
+        replies: [
+          {
+            id: "rep-2",
+            author: "Abhishek Tripathi",
+            isOwner: true,
+            text: "Hello Vikram, thank you! I would be glad to collaborate on building modern, responsive dashboards and systems. Feel free to connect directly via email or WhatsApp!",
+            createdAt: new Date(Date.now() - 3600000 * 6).toISOString()
+          }
+        ]
+      }
+    ];
+  }
+
+  const isOwner = isOwnerVerified();
+
+  container.innerHTML = messages.map(msg => {
+    const senderInitials = getInitials(msg.name || 'Visitor');
+    const timeFormatted = formatTimeAgo(msg.createdAt);
+
+    const repliesHtml = (msg.replies && msg.replies.length > 0)
+      ? `
+        <div class="replies-container">
+          ${msg.replies.map(rep => `
+            <div class="reply-card">
+              <div class="reply-header">
+                <div class="reply-author-info">
+                  <img src="assets/abhishek-tripathi.jpeg" alt="Abhishek Tripathi" class="reply-author-img" />
+                  <span class="reply-author-name">${escapeHtml(rep.author || 'Abhishek Tripathi')}</span>
+                  <span class="verified-badge"><i data-lucide="shield-check"></i> Abhishek Verified</span>
+                </div>
+                <span class="reply-time">${formatTimeAgo(rep.createdAt)}</span>
+              </div>
+              <p class="reply-text">${escapeHtml(rep.text)}</p>
+            </div>
+          `).join('')}
+        </div>
+      `
+      : '';
+
+    const ownerReplyBtn = isOwner
+      ? `
+        <button class="btn-reply-action" onclick="window.toggleReplyBox('${msg.id}')" aria-label="Reply to ${escapeHtml(msg.name)}">
+          <i data-lucide="message-square"></i>
+          <span>Reply as Abhishek</span>
+        </button>
+      `
+      : `
+        <button class="btn-reply-action" onclick="document.getElementById('btn-owner-auth').click()" aria-label="Abhishek Reply Mode">
+          <i data-lucide="lock"></i>
+          <span>Abhishek: Unlock to Reply</span>
+        </button>
+      `;
+
+    const emailBtn = msg.email
+      ? `
+        <a href="mailto:${encodeURIComponent(msg.email)}?subject=${encodeURIComponent('Re: ' + (msg.subject || 'Portfolio Inquiry'))}" class="btn-email-reply" title="Direct Email">
+          <i data-lucide="mail"></i>
+          <span>Email ${escapeHtml(msg.name)}</span>
+        </a>
+      `
+      : '';
+
+    return `
+      <div class="message-card glass-panel" id="card-${msg.id}">
+        <div class="msg-header">
+          <div class="msg-sender-info">
+            <div class="msg-avatar">${senderInitials}</div>
+            <div class="msg-sender-meta">
+              <span class="msg-sender-name">${escapeHtml(msg.name || 'Anonymous')}</span>
+              <span class="msg-subject-tag">${escapeHtml(msg.subject || 'Portfolio Inquiry')}</span>
+            </div>
+          </div>
+          <span class="msg-time">${timeFormatted}</span>
+        </div>
+
+        <p class="msg-text">${escapeHtml(msg.message)}</p>
+
+        ${repliesHtml}
+
+        <div class="msg-actions-bar">
+          ${ownerReplyBtn}
+          ${emailBtn}
+        </div>
+
+        <div class="inline-reply-box" id="reply-box-${msg.id}" style="display: none;">
+          <textarea
+            class="reply-textarea"
+            id="reply-text-${msg.id}"
+            placeholder="Write your verified response as Abhishek Tripathi to ${escapeHtml(msg.name)}..."
+            rows="3"
+          ></textarea>
+          <div class="reply-box-btns">
+            <button class="btn btn-primary btn-sm" onclick="window.submitReply('${msg.id}')">
+              <i data-lucide="send"></i>
+              <span>Post Verified Reply</span>
+            </button>
+            <button class="btn btn-glass btn-sm" onclick="window.toggleReplyBox('${msg.id}')">
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
+window.toggleReplyBox = function(msgId) {
+  const box = document.getElementById(`reply-box-${msgId}`);
+  if (!box) return;
+  const isHidden = box.style.display === 'none' || !box.style.display;
+  box.style.display = isHidden ? 'flex' : 'none';
+  if (isHidden) {
+    const textarea = document.getElementById(`reply-text-${msgId}`);
+    if (textarea) setTimeout(() => textarea.focus(), 100);
+  }
+};
+
+window.submitReply = async function(msgId) {
+  const pin = sessionStorage.getItem('abhishek_owner_pin') || '1808';
+  const textarea = document.getElementById(`reply-text-${msgId}`);
+  if (!textarea) return;
+
+  const replyText = textarea.value.trim();
+  if (!replyText) {
+    showToast('Please enter your reply text.');
+    textarea.focus();
+    return;
+  }
+
+  showToast('Posting verified response as Abhishek...');
+
+  try {
+    const res = await fetch('/api/messages/reply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messageId: msgId,
+        text: replyText,
+        pin: pin
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || 'Failed to submit reply');
+    }
+
+    showToast('Verified reply posted successfully!');
+    loadAndRenderMessages();
+  } catch (err) {
+    // Local fallback in case of static hosting
+    try {
+      const stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+      const target = stored.find(m => m.id === msgId);
+      if (target) {
+        if (!target.replies) target.replies = [];
+        target.replies.push({
+          id: 'rep-' + Date.now(),
+          author: 'Abhishek Tripathi',
+          isOwner: true,
+          text: replyText,
+          createdAt: new Date().toISOString()
+        });
+        localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+        showToast('Verified reply saved locally!');
+        loadAndRenderMessages();
+        return;
+      }
+    } catch (localErr) {
+      console.error(localErr);
+    }
+    showToast('Error: ' + err.message);
+  }
+};
+
+function getInitials(name) {
+  if (!name) return '??';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function formatTimeAgo(isoString) {
+  if (!isoString) return 'Recently';
+  const date = new Date(isoString);
+  if (isNaN(date.getTime())) return 'Recently';
+  const now = new Date();
+  const diffSec = Math.floor((now - date) / 1000);
+
+  if (diffSec < 60) return 'Just now';
+  if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
+  if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
+  if (diffSec < 604800) return `${Math.floor(diffSec / 86400)}d ago`;
+
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }

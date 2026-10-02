@@ -26,11 +26,136 @@ const MIME_TYPES = {
   '.ttf': 'font/ttf'
 };
 
+const MESSAGES_FILE = path.join(PUBLIC_DIR, 'messages.json');
+
+function getMessages() {
+  try {
+    if (fs.existsSync(MESSAGES_FILE)) {
+      return JSON.parse(fs.readFileSync(MESSAGES_FILE, 'utf8'));
+    }
+  } catch (e) {
+    console.error('Error reading messages:', e);
+  }
+  return [];
+}
+
+function saveMessages(msgs) {
+  try {
+    fs.writeFileSync(MESSAGES_FILE, JSON.stringify(msgs, null, 2), 'utf8');
+    return true;
+  } catch (e) {
+    console.error('Error saving messages:', e);
+    return false;
+  }
+}
+
 const server = http.createServer((req, res) => {
   // Health check endpoint for Render
   if (req.url === '/healthz') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('OK');
+    return;
+  }
+
+  // API: Get all messages
+  if (req.method === 'GET' && req.url === '/api/messages') {
+    const msgs = getMessages();
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-cache',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify(msgs));
+    return;
+  }
+
+  // API: Post new message
+  if (req.method === 'POST' && req.url === '/api/messages') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body);
+        if (!data.name || !data.message) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Name and message required' }));
+          return;
+        }
+
+        const msgs = getMessages();
+        const newMsg = {
+          id: 'msg-' + Date.now(),
+          name: data.name.trim(),
+          email: (data.email || '').trim(),
+          subject: (data.subject || 'Portfolio Inquiry').trim(),
+          message: data.message.trim(),
+          createdAt: new Date().toISOString(),
+          replies: []
+        };
+        msgs.unshift(newMsg);
+        saveMessages(msgs);
+
+        res.writeHead(201, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, message: newMsg }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // API: Reply to a message (Abhishek verification via PIN 1808)
+  if (req.method === 'POST' && req.url === '/api/messages/reply') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body);
+        if (data.pin !== '1808' && data.pin !== '180887') {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid PIN. Only Abhishek can post verified replies.' }));
+          return;
+        }
+
+        if (!data.messageId || !data.text) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'MessageId and reply text required' }));
+          return;
+        }
+
+        const msgs = getMessages();
+        const target = msgs.find(m => m.id === data.messageId);
+        if (!target) {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Message not found' }));
+          return;
+        }
+
+        if (!target.replies) target.replies = [];
+        const reply = {
+          id: 'rep-' + Date.now(),
+          author: 'Abhishek Tripathi',
+          isOwner: true,
+          text: data.text.trim(),
+          createdAt: new Date().toISOString()
+        };
+        target.replies.push(reply);
+        saveMessages(msgs);
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, reply, target }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
     return;
   }
 
