@@ -775,12 +775,13 @@ function initContactActions() {
 
   if (!form || !submitBtn) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = form.querySelector('#form-name').value.trim();
-    const email = form.querySelector('#form-email').value.trim();
-    const msg = form.querySelector('#form-message').value.trim();
+    const name = form.querySelector('#form-name')?.value.trim();
+    const email = form.querySelector('#form-email')?.value.trim();
+    const subject = form.querySelector('#form-subject')?.value.trim() || 'Portfolio Inquiry';
+    const msg = form.querySelector('#form-message')?.value.trim();
 
     if (!name || !email || !msg) {
       showToast('Please complete all required fields.');
@@ -790,27 +791,54 @@ function initContactActions() {
     const originalHtml = submitBtn.innerHTML;
     submitBtn.innerHTML = `
       <span style="display:inline-flex;align-items:center;gap:8px;">
-        <span class="pulse-indicator"><span class="pulse-core"></span></span> Transmitting...
+        <span class="pulse-indicator"><span class="pulse-core"></span></span> Transmitting to Abhishek's Gmail...
       </span>
     `;
     submitBtn.disabled = true;
 
-    setTimeout(() => {
-      form.reset();
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/at180887@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          _replyto: email,
+          _subject: `New Portfolio Message from ${name}: ${subject}`,
+          _template: 'table',
+          subject: subject,
+          message: msg
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok || result.success === 'true' || result.success === true) {
+        form.reset();
+        if (successBanner) {
+          successBanner.classList.add('show');
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+
+          setTimeout(() => {
+            successBanner.classList.remove('show');
+          }, 8000);
+        }
+        showToast('Message sent! Abhishek will receive this in his Gmail and reply soon.');
+      } else {
+        throw new Error(result.message || 'Submission error');
+      }
+    } catch (err) {
+      // Graceful fallback: Open visitor's email client directly
+      const mailtoUrl = `mailto:at180887@gmail.com?subject=${encodeURIComponent('Portfolio: ' + subject)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + msg)}`;
+      window.location.href = mailtoUrl;
+      showToast('Redirecting to your email client to send message to Abhishek...');
+    } finally {
       submitBtn.innerHTML = originalHtml;
       submitBtn.disabled = false;
-
-      if (successBanner) {
-        successBanner.classList.add('show');
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-
-        setTimeout(() => {
-          successBanner.classList.remove('show');
-        }, 6000);
-      }
-
-      showToast('Thank you! Message transmitted successfully.');
-    }, 1200);
+    }
   });
 }
 
