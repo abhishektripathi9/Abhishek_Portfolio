@@ -929,21 +929,24 @@ function initMobileNav() {
   if (!toggle || !links) return;
 
   toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    links.classList.toggle('open');
+    const isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   links.querySelectorAll('.nav-link, .btn-nav-cta').forEach(link => {
     link.addEventListener('click', () => {
       toggle.classList.remove('active');
       links.classList.remove('open');
+      document.body.style.overflow = '';
     });
   });
 
   document.addEventListener('click', (e) => {
-    if (!toggle.contains(e.target) && !links.contains(e.target)) {
+    if (!toggle.contains(e.target) && !links.contains(e.target) && links.classList.contains('open')) {
       toggle.classList.remove('active');
       links.classList.remove('open');
+      document.body.style.overflow = '';
     }
   });
 }
