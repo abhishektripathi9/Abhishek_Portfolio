@@ -1789,6 +1789,12 @@
               <span>Reload Messages</span>
             </button>
 
+            <!-- Clear All Messages Button -->
+            <button class="btn-clear-hub" id="btn-clear-all-messages" onclick="window.clearAllMessages()" aria-label="Clear All Messages" title="Delete all messages (Abhishek PIN 1808 required)">
+              <i data-lucide="trash-2"></i>
+              <span>Clear All</span>
+            </button>
+
             <!-- Owner Auth / PIN Login Button -->
             <button class="btn-owner-auth" id="btn-owner-auth" aria-label="Toggle Abhishek Reply Mode">
               <i data-lucide="shield-check" class="owner-btn-icon" id="owner-auth-icon"></i>
@@ -1998,7 +2004,7 @@
         <h3 class="owner-modal-title">Abhishek Tripathi</h3>
         <span class="owner-modal-email"><i data-lucide="mail"></i> at180887@gmail.com</span>
         <span class="owner-verified-pill"><i data-lucide="shield-check"></i> Verified Portfolio Owner</span>
-        <p class="owner-modal-desc">Enter your 4-digit Owner PIN to activate direct replies on your website.</p>
+        <p class="owner-modal-desc">Enter your 4-digit Owner PIN to manage, reply to, and delete direct messages on your website.</p>
       </div>
 
       <form id="owner-pin-form">

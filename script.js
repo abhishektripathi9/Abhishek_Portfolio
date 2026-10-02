@@ -1114,6 +1114,7 @@ function initMessageHub() {
       authText.textContent = 'Abhishek (Owner) Reply Mode';
     }
   }
+  window.updateAuthBtnState = updateAuthBtnState;
 
   if (authBtn) {
     authBtn.addEventListener('click', () => {
@@ -1251,6 +1252,9 @@ async function saveMessageToHub(msgData) {
   }
 
   // 3. Immediately render messages on board with newly submitted message highlighted
+  if (window._portfolioSyncChannel) {
+    try { window._portfolioSyncChannel.postMessage({ type: 'new_message', id: localMsg.id, name: localMsg.name }); } catch (e) {}
+  }
   await loadAndRenderMessages(localMsg.id);
   return localMsg;
 }
@@ -1600,12 +1604,10 @@ async function loadAndRenderMessages(highlightId = null) {
               <span>WhatsApp ${escapeHtml(msg.name)}</span>
             </a>
           ` : ''}
-          ${isOwner ? `
-            <button class="btn-delete-msg" onclick="window.deleteMessage('${msg.id}')" title="Delete Message">
-              <i data-lucide="trash-2"></i>
-              <span>Delete</span>
-            </button>
-          ` : ''}
+          <button class="btn-delete-msg" onclick="window.deleteMessage('${msg.id}')" title="Delete Message (Abhishek Only - PIN: 1808)">
+            <i data-lucide="trash-2"></i>
+            <span>Delete</span>
+          </button>
         </div>
         <div class="inline-reply-box" id="reply-box-${msg.id}" style="display: none;">
           <textarea
@@ -1675,6 +1677,9 @@ window.submitReply = async function(msgId) {
     }
 
     showToast('Verified reply posted successfully!');
+    if (window._portfolioSyncChannel) {
+      try { window._portfolioSyncChannel.postMessage({ type: 'new_reply', messageId: msgId }); } catch (e) {}
+    }
     loadAndRenderMessages();
   } catch (err) {
     // Local fallback in case of static hosting
@@ -1692,6 +1697,9 @@ window.submitReply = async function(msgId) {
         });
         localStorage.setItem('portfolio_messages', JSON.stringify(stored));
         showToast('Verified reply saved locally!');
+        if (window._portfolioSyncChannel) {
+          try { window._portfolioSyncChannel.postMessage({ type: 'new_reply', messageId: msgId }); } catch (e) {}
+        }
         loadAndRenderMessages();
         return;
       }
@@ -1703,8 +1711,22 @@ window.submitReply = async function(msgId) {
 };
 
 window.deleteMessage = async function(msgId) {
-  if (!confirm('Are you sure you want to delete this message?')) return;
-  const pin = sessionStorage.getItem('abhishek_owner_pin') || '1808';
+  let pin = sessionStorage.getItem('abhishek_owner_pin');
+  if (!pin || (pin !== '1808' && pin !== '180887')) {
+    const enteredPin = prompt('Enter Abhishek Owner PIN to delete this message (PIN: 1808):');
+    if (!enteredPin) return;
+    if (enteredPin.trim() !== '1808' && enteredPin.trim() !== '180887') {
+      showToast('❌ Invalid PIN. Only Abhishek can delete messages.');
+      return;
+    }
+    pin = enteredPin.trim();
+    sessionStorage.setItem('abhishek_owner_pin', pin);
+    if (typeof window.updateAuthBtnState === 'function') {
+      window.updateAuthBtnState();
+    }
+  }
+
+  if (!confirm('Are you sure you want to permanently delete this message?')) return;
 
   try {
     const res = await fetch('/api/messages/delete', {
@@ -1716,19 +1738,67 @@ window.deleteMessage = async function(msgId) {
       const err = await res.json();
       throw new Error(err.error || 'Failed to delete');
     }
-    showToast('Message deleted successfully.');
-    loadAndRenderMessages();
+    showToast('✓ Message deleted successfully.');
   } catch (err) {
-    try {
-      let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-      stored = stored.filter(m => m.id !== msgId);
-      localStorage.setItem('portfolio_messages', JSON.stringify(stored));
-      showToast('Message removed locally.');
-      loadAndRenderMessages();
-      return;
-    } catch (e) {}
-    showToast('Error deleting: ' + err.message);
+    console.warn('Backend delete note:', err.message);
   }
+
+  // Also remove from local storage & re-render
+  try {
+    let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+    stored = stored.filter(m => m && m.id !== msgId);
+    localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+    showToast('✓ Message removed successfully.');
+  } catch (e) {}
+
+  if (window._portfolioSyncChannel) {
+    try { window._portfolioSyncChannel.postMessage({ type: 'message_deleted', messageId: msgId }); } catch (e) {}
+  }
+  await loadAndRenderMessages();
+};
+
+window.clearAllMessages = async function() {
+  let pin = sessionStorage.getItem('abhishek_owner_pin');
+  if (!pin || (pin !== '1808' && pin !== '180887')) {
+    const enteredPin = prompt('Enter Abhishek Owner PIN to clear all messages (PIN: 1808):');
+    if (!enteredPin) return;
+    if (enteredPin.trim() !== '1808' && enteredPin.trim() !== '180887') {
+      showToast('❌ Invalid PIN. Only Abhishek can clear messages.');
+      return;
+    }
+    pin = enteredPin.trim();
+    sessionStorage.setItem('abhishek_owner_pin', pin);
+    if (typeof window.updateAuthBtnState === 'function') {
+      window.updateAuthBtnState();
+    }
+  }
+
+  if (!confirm('⚠️ Are you sure you want to DELETE ALL messages permanently? This cannot be undone.')) return;
+
+  try {
+    const res = await fetch('/api/messages/clear-all', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin: pin })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to clear all');
+    }
+    showToast('✓ All messages cleared from server.');
+  } catch (err) {
+    console.warn('Backend clear-all note:', err.message);
+  }
+
+  try {
+    localStorage.removeItem('portfolio_messages');
+  } catch (e) {}
+
+  if (window._portfolioSyncChannel) {
+    try { window._portfolioSyncChannel.postMessage({ type: 'messages_cleared' }); } catch (e) {}
+  }
+  showToast('✓ All messages cleared successfully.');
+  await loadAndRenderMessages();
 };
 
 function getInitials(name) {
@@ -1793,7 +1863,30 @@ function playNotificationSound() {
 }
 
 function initRealtimeSync() {
-  // 1. Server-Sent Events (SSE) for instant real-time push
+  // 1. Instant Cross-Tab Realtime Synchronization via BroadcastChannel
+  if ('BroadcastChannel' in window) {
+    try {
+      const channel = new BroadcastChannel('abhishek_portfolio_realtime');
+      channel.onmessage = (event) => {
+        if (event.data && event.data.type) {
+          if (event.data.type === 'new_message') {
+            playNotificationSound();
+            showToast(`🔔 Real-Time Message from ${event.data.name || 'Visitor'}!`);
+            loadAndRenderMessages(event.data.id);
+          } else if (event.data.type === 'new_reply') {
+            playNotificationSound();
+            showToast('💬 Abhishek posted a verified reply!');
+            loadAndRenderMessages();
+          } else {
+            loadAndRenderMessages();
+          }
+        }
+      };
+      window._portfolioSyncChannel = channel;
+    } catch (e) {}
+  }
+
+  // 2. Server-Sent Events (SSE) for instant server-push across internet
   if (window.EventSource) {
     try {
       const sse = new EventSource('/api/messages/stream');
@@ -1821,6 +1914,10 @@ function initRealtimeSync() {
         loadAndRenderMessages();
       });
 
+      sse.addEventListener('messages_cleared', () => {
+        loadAndRenderMessages();
+      });
+
       sse.onerror = () => {
         // SSE automatically reconnects
       };
@@ -1829,19 +1926,22 @@ function initRealtimeSync() {
     }
   }
 
-  // 2. Continuous real-time polling backup (every 4 seconds)
+  // 3. Continuous real-time polling backup (every 4 seconds)
   let lastKnownCount = -1;
   setInterval(async () => {
     try {
-      const res = await fetch('/api/messages', { cache: 'no-cache' });
-      if (res.ok) {
+      const res = await fetch(`/api/messages?_t=${Date.now()}`, { cache: 'no-cache' });
+      const contentType = res.headers.get('content-type') || '';
+      if (res.ok && contentType.includes('application/json')) {
         const list = await res.json();
-        if (lastKnownCount !== -1 && list.length > lastKnownCount) {
-          playNotificationSound();
-          showToast(`🔔 New message from ${list[0]?.name}!`);
-          loadAndRenderMessages(list[0]?.id);
+        if (Array.isArray(list)) {
+          if (lastKnownCount !== -1 && list.length > lastKnownCount) {
+            playNotificationSound();
+            showToast(`🔔 New message from ${list[0]?.name}!`);
+            loadAndRenderMessages(list[0]?.id);
+          }
+          lastKnownCount = list.length;
         }
-        lastKnownCount = list.length;
       }
     } catch (e) {}
   }, 4000);

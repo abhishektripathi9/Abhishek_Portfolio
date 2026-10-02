@@ -63,20 +63,36 @@ function broadcastEvent(eventType, data) {
 }
 
 const server = http.createServer((req, res) => {
+  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  const pathname = decodeURIComponent(parsedUrl.pathname);
+
+  // Handle CORS Preflight for all endpoints
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Max-Age': '86400'
+    });
+    res.end();
+    return;
+  }
+
   // Health check endpoint for Render
-  if (req.url === '/healthz') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+  if (pathname === '/healthz') {
+    res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' });
     res.end('OK');
     return;
   }
 
   // API: Real-time SSE stream for instant message & reply synchronization
-  if (req.method === 'GET' && req.url === '/api/messages/stream') {
+  if (req.method === 'GET' && pathname === '/api/messages/stream') {
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache, no-transform',
       'Connection': 'keep-alive',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'X-Accel-Buffering': 'no'
     });
     res.write(`data: ${JSON.stringify({ type: 'connected', time: Date.now() })}\n\n`);
     sseClients.add(res);
@@ -98,7 +114,7 @@ const server = http.createServer((req, res) => {
   }
 
   // API: Get all messages
-  if (req.method === 'GET' && req.url === '/api/messages') {
+  if (req.method === 'GET' && pathname === '/api/messages') {
     const msgs = getMessages();
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=utf-8',
@@ -110,14 +126,14 @@ const server = http.createServer((req, res) => {
   }
 
   // API: Post new message
-  if (req.method === 'POST' && req.url === '/api/messages') {
+  if (req.method === 'POST' && pathname === '/api/messages') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
       try {
-        const data = JSON.parse(body);
+        const data = JSON.parse(body || '{}');
         if (!data.name || !data.message) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ error: 'Name and message required' }));
           return;
         }
@@ -125,11 +141,11 @@ const server = http.createServer((req, res) => {
         const msgs = getMessages();
         const newMsg = {
           id: 'msg-' + Date.now(),
-          name: data.name.trim(),
-          email: (data.email || '').trim(),
-          phone: (data.phone || '').trim(),
-          subject: (data.subject || 'Portfolio Inquiry').trim(),
-          message: data.message.trim(),
+          name: String(data.name).trim(),
+          email: String(data.email || '').trim(),
+          phone: String(data.phone || '').trim(),
+          subject: String(data.subject || 'Portfolio Inquiry').trim(),
+          message: String(data.message).trim(),
           createdAt: new Date().toISOString(),
           replies: []
         };
@@ -145,7 +161,7 @@ const server = http.createServer((req, res) => {
         });
         res.end(JSON.stringify({ success: true, message: newMsg }));
       } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.writeHead(500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         res.end(JSON.stringify({ error: err.message }));
       }
     });
@@ -153,20 +169,20 @@ const server = http.createServer((req, res) => {
   }
 
   // API: Reply to a message (Abhishek verification via PIN 1808)
-  if (req.method === 'POST' && req.url === '/api/messages/reply') {
+  if (req.method === 'POST' && pathname === '/api/messages/reply') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
       try {
-        const data = JSON.parse(body);
+        const data = JSON.parse(body || '{}');
         if (data.pin !== '1808' && data.pin !== '180887') {
-          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.writeHead(401, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ error: 'Invalid PIN. Only Abhishek can post verified replies.' }));
           return;
         }
 
         if (!data.messageId || !data.text) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ error: 'MessageId and reply text required' }));
           return;
         }
@@ -174,7 +190,7 @@ const server = http.createServer((req, res) => {
         const msgs = getMessages();
         const target = msgs.find(m => m.id === data.messageId);
         if (!target) {
-          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.writeHead(404, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ error: 'Message not found' }));
           return;
         }
@@ -184,7 +200,7 @@ const server = http.createServer((req, res) => {
           id: 'rep-' + Date.now(),
           author: 'Abhishek Tripathi',
           isOwner: true,
-          text: data.text.trim(),
+          text: String(data.text).trim(),
           createdAt: new Date().toISOString()
         };
         target.replies.push(reply);
@@ -199,7 +215,7 @@ const server = http.createServer((req, res) => {
         });
         res.end(JSON.stringify({ success: true, reply, target }));
       } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.writeHead(500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         res.end(JSON.stringify({ error: err.message }));
       }
     });
@@ -207,20 +223,20 @@ const server = http.createServer((req, res) => {
   }
 
   // API: Delete message (Abhishek verification via PIN 1808)
-  if (req.method === 'POST' && req.url === '/api/messages/delete') {
+  if (req.method === 'POST' && pathname === '/api/messages/delete') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
       try {
-        const data = JSON.parse(body);
+        const data = JSON.parse(body || '{}');
         if (data.pin !== '1808' && data.pin !== '180887') {
-          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.writeHead(401, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ error: 'Invalid PIN. Only Abhishek can delete messages.' }));
           return;
         }
 
         if (!data.messageId) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ error: 'MessageId required' }));
           return;
         }
@@ -238,22 +254,47 @@ const server = http.createServer((req, res) => {
         });
         res.end(JSON.stringify({ success: true, messageId: data.messageId }));
       } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.writeHead(500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         res.end(JSON.stringify({ error: err.message }));
       }
     });
     return;
   }
 
-  // Parse URL and strip query params
-  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  let pathname = decodeURIComponent(parsedUrl.pathname);
+  // API: Clear all messages (Abhishek verification via PIN 1808)
+  if (req.method === 'POST' && pathname === '/api/messages/clear-all') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body || '{}');
+        if (data.pin !== '1808' && data.pin !== '180887') {
+          res.writeHead(401, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+          res.end(JSON.stringify({ error: 'Invalid PIN. Only Abhishek can clear messages.' }));
+          return;
+        }
 
-  if (pathname === '/') {
-    pathname = '/index.html';
+        saveMessages([]);
+
+        // Broadcast deletion of all messages to all active clients in real-time
+        broadcastEvent('messages_cleared', {});
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(JSON.stringify({ success: true, count: 0 }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
   }
 
-  const safePath = path.normalize(path.join(PUBLIC_DIR, pathname));
+  // Static File Serving
+  const filePath = pathname === '/' ? '/index.html' : pathname;
+  const safePath = path.normalize(path.join(PUBLIC_DIR, filePath));
 
   // Security check: ensure path is within PUBLIC_DIR
   if (!safePath.startsWith(PUBLIC_DIR)) {
