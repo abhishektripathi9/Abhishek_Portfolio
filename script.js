@@ -1159,6 +1159,60 @@ async function saveMessageToHub(msgData) {
   return created;
 }
 
+function cleanPhone(num) {
+  if (!num) return '';
+  let digits = String(num).replace(/\D/g, '');
+  if (digits.length === 11 && digits.startsWith('0')) {
+    digits = digits.substring(1);
+  }
+  if (digits.length === 10) {
+    return '91' + digits;
+  }
+  return digits;
+}
+
+function formatExactDateTime(isoString) {
+  if (!isoString) return '';
+  const date = new Date(isoString);
+  if (isNaN(date.getTime())) return '';
+  return date.toLocaleString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+}
+
+window.copyToClipboard = function(text, label) {
+  if (!text) return;
+  const showFeedback = () => showToast(`✓ Copied ${label}: ${text}`);
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(showFeedback).catch(() => fallbackCopy(text, label));
+  } else {
+    fallbackCopy(text, label);
+  }
+};
+
+function fallbackCopy(text, label) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(`✓ Copied ${label}: ${text}`);
+  } catch (e) {
+    showToast(`Could not copy: ${text}`);
+  }
+}
+
 async function loadAndRenderMessages(highlightId = null) {
   const container = document.getElementById('messages-feed');
   if (!container) return;
@@ -1225,7 +1279,12 @@ async function loadAndRenderMessages(highlightId = null) {
   container.innerHTML = messages.map(msg => {
     const senderInitials = getInitials(msg.name || 'Visitor');
     const timeFormatted = formatTimeAgo(msg.createdAt);
+    const exactTimeFormatted = formatExactDateTime(msg.createdAt);
     const isNewArrival = msg.id === highlightId;
+    const cleanedPhone = cleanPhone(msg.phone);
+    const gmailUrl = msg.email ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(msg.email)}&su=${encodeURIComponent('Re: ' + (msg.subject || 'Portfolio Inquiry'))}&body=${encodeURIComponent('Hi ' + (msg.name || 'there') + ',\n\nThank you for reaching out to me through my portfolio.\n\nBest regards,\nAbhishek Tripathi\nPhone: +91 9595347836')}` : '#';
+    const waUrl = cleanedPhone ? `https://wa.me/${cleanedPhone}?text=${encodeURIComponent('Hi ' + (msg.name || 'there') + ', Abhishek Tripathi here regarding your message on my portfolio: "' + (msg.subject || 'Inquiry') + '"')}` : '#';
+    const telUrl = cleanedPhone ? `tel:+${cleanedPhone}` : '#';
 
     const repliesHtml = (msg.replies && msg.replies.length > 0)
       ? `
@@ -1266,24 +1325,6 @@ async function loadAndRenderMessages(highlightId = null) {
         </button>
       `;
 
-    const emailBtn = msg.email
-      ? `
-        <a href="mailto:${encodeURIComponent(msg.email)}?subject=${encodeURIComponent('Re: ' + (msg.subject || 'Portfolio Inquiry'))}" class="btn-email-reply" title="Direct Email">
-          <i data-lucide="mail"></i>
-          <span>Email ${escapeHtml(msg.name)} (${escapeHtml(msg.email)})</span>
-        </a>
-      `
-      : '';
-
-    const whatsappBtn = msg.phone
-      ? `
-        <a href="https://wa.me/${escapeHtml(cleanPhone(msg.phone))}?text=Hi%20${encodeURIComponent(msg.name)}%2C%20Abhishek%20here%20regarding%20your%20message%20on%20my%20portfolio" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-mini" title="Direct WhatsApp Chat with ${escapeHtml(msg.name)}">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
-          <span>WhatsApp ${escapeHtml(msg.name)}</span>
-        </a>
-      `
-      : '';
-
     return `
       <div class="message-card glass-panel ${isNewArrival ? 'just-arrived' : ''}" id="card-${msg.id}">
         <div class="msg-header">
@@ -1297,51 +1338,147 @@ async function loadAndRenderMessages(highlightId = null) {
               <span class="msg-subject-tag"><i data-lucide="bookmark"></i> ${escapeHtml(msg.subject || 'Portfolio Inquiry')}</span>
             </div>
           </div>
-          <span class="msg-time">${timeFormatted}</span>
+          <div class="msg-timestamp-badge" title="Received at: ${exactTimeFormatted}">
+            <span class="msg-relative-time"><i data-lucide="clock"></i> ${timeFormatted}</span>
+            <span class="msg-exact-time">${exactTimeFormatted}</span>
+          </div>
         </div>
 
-        <!-- Prominently Visible Sender Details (Naam, Email & Phone Right in Front) -->
+        <!-- SENDER DETAILS DOSSIER (Full uncut data, 100% visible, real-life actionable) -->
         <div class="msg-sender-details-card">
-          <div class="msg-detail-item">
-            <span class="detail-label"><i data-lucide="user"></i> Sender Name:</span>
-            <span class="detail-value name-value">${escapeHtml(msg.name || 'Anonymous')}</span>
-          </div>
-          <div class="msg-detail-item">
-            <span class="detail-label"><i data-lucide="mail"></i> Sender Email:</span>
-            <a href="mailto:${escapeHtml(msg.email)}" class="detail-value email-link" title="Click to email ${escapeHtml(msg.name)}">
-              ${escapeHtml(msg.email || 'Email not provided')}
-            </a>
-            ${msg.email ? `
+          <!-- Row 1: Sender Full Name -->
+          <div class="msg-detail-row">
+            <div class="detail-row-left">
+              <span class="detail-label-tag"><i data-lucide="user"></i> Full Name:</span>
+              <span class="detail-full-value name-value">${escapeHtml(msg.name || 'Anonymous')}</span>
+            </div>
+            <div class="detail-actions-group">
               <button
-                class="btn-copy-mini"
-                onclick="navigator.clipboard.writeText('${escapeHtml(msg.email)}'); showToast('Copied email: ${escapeHtml(msg.email)}');"
-                title="Copy email to clipboard"
-                aria-label="Copy email"
+                class="btn-action-chip btn-chip-copy"
+                onclick="window.copyToClipboard('${escapeHtml(msg.name || '')}', 'Name')"
+                title="Copy Name"
               >
                 <i data-lucide="copy"></i>
+                <span>Copy</span>
               </button>
+            </div>
+          </div>
+
+          <!-- Row 2: Sender Email with Direct Gmail & Mailto Actions -->
+          <div class="msg-detail-row">
+            <div class="detail-row-left">
+              <span class="detail-label-tag"><i data-lucide="mail"></i> Email Address:</span>
+              ${msg.email ? `
+                <a
+                  href="mailto:${escapeHtml(msg.email)}?subject=Re:%20${encodeURIComponent(msg.subject || 'Portfolio Inquiry')}"
+                  class="detail-full-value email-value"
+                  title="Click to open default mail client"
+                >
+                  ${escapeHtml(msg.email)}
+                </a>
+              ` : `
+                <span class="detail-full-value muted-value">No email provided</span>
+              `}
+            </div>
+            ${msg.email ? `
+              <div class="detail-actions-group">
+                <a
+                  href="${gmailUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-action-chip btn-chip-gmail"
+                  title="Directly compose email in Gmail"
+                >
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                  <span>Open in Gmail</span>
+                </a>
+                <button
+                  class="btn-action-chip btn-chip-copy"
+                  onclick="window.copyToClipboard('${escapeHtml(msg.email)}', 'Email')"
+                  title="Copy Email Address"
+                >
+                  <i data-lucide="copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
             ` : ''}
           </div>
-          ${msg.phone ? `
-            <div class="msg-detail-item">
-              <span class="detail-label"><i data-lucide="phone"></i> Phone / WhatsApp:</span>
-              <a href="https://wa.me/${escapeHtml(cleanPhone(msg.phone))}?text=Hi%20${encodeURIComponent(msg.name)}%2C%20Abhishek%20here%20from%20my%20portfolio" target="_blank" rel="noopener noreferrer" class="detail-value phone-link" title="Chat on WhatsApp">
-                ${escapeHtml(msg.phone)}
-              </a>
+
+          <!-- Row 3: Phone / WhatsApp with Direct WhatsApp & Dialer Actions -->
+          <div class="msg-detail-row">
+            <div class="detail-row-left">
+              <span class="detail-label-tag"><i data-lucide="phone"></i> Phone / WhatsApp:</span>
+              ${msg.phone ? `
+                <a
+                  href="${telUrl}"
+                  class="detail-full-value phone-value"
+                  title="Click to dial on phone"
+                >
+                  ${escapeHtml(msg.phone)}
+                </a>
+              ` : `
+                <span class="detail-full-value muted-value">Not provided (visitor left blank)</span>
+              `}
             </div>
-          ` : ''}
+            ${msg.phone ? `
+              <div class="detail-actions-group">
+                <a
+                  href="${waUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-action-chip btn-chip-wa"
+                  title="Open direct WhatsApp chat"
+                >
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+                  <span>WhatsApp</span>
+                </a>
+                <a
+                  href="${telUrl}"
+                  class="btn-action-chip btn-chip-call"
+                  title="Direct phone dialer"
+                >
+                  <i data-lucide="phone"></i>
+                  <span>Call</span>
+                </a>
+                <button
+                  class="btn-action-chip btn-chip-copy"
+                  onclick="window.copyToClipboard('${escapeHtml(msg.phone)}', 'Phone Number')"
+                  title="Copy Phone Number"
+                >
+                  <i data-lucide="copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+            ` : ''}
+          </div>
         </div>
 
+        <!-- Full Message Content (No line cutoff, no ellipsis) -->
         <div class="msg-body-wrapper">
+          <div class="msg-body-title">
+            <i data-lucide="message-square"></i>
+            <span>Message Content:</span>
+          </div>
           <p class="msg-text">${escapeHtml(msg.message)}</p>
         </div>
 
         ${repliesHtml}
 
+        <!-- Bottom Quick Actions Bar -->
         <div class="msg-actions-bar">
           ${ownerReplyBtn}
-          ${emailBtn}
-          ${whatsappBtn}
+          ${msg.email ? `
+            <a href="${gmailUrl}" target="_blank" rel="noopener noreferrer" class="btn-email-reply" title="Direct Email via Gmail">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <span>Email ${escapeHtml(msg.name)}</span>
+            </a>
+          ` : ''}
+          ${msg.phone ? `
+            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-mini" title="Direct WhatsApp Chat with ${escapeHtml(msg.name)}">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+              <span>WhatsApp ${escapeHtml(msg.name)}</span>
+            </a>
+          ` : ''}
           ${isOwner ? `
             <button class="btn-delete-msg" onclick="window.deleteMessage('${msg.id}')" title="Delete Message">
               <i data-lucide="trash-2"></i>
@@ -1349,7 +1486,6 @@ async function loadAndRenderMessages(highlightId = null) {
             </button>
           ` : ''}
         </div>
-
         <div class="inline-reply-box" id="reply-box-${msg.id}" style="display: none;">
           <textarea
             class="reply-textarea"
@@ -1533,13 +1669,6 @@ function playNotificationSound() {
   } catch (e) {
     // Autoplay policy fallback
   }
-}
-
-function cleanPhone(num) {
-  if (!num) return '';
-  const digits = String(num).replace(/\D/g, '');
-  if (digits.length === 10) return '91' + digits;
-  return digits;
 }
 
 function initRealtimeSync() {
