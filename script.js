@@ -802,8 +802,63 @@ function initContactActions() {
     // 1. Immediately save to Live Hub & broadcast to Abhishek in real-time
     const newSavedMsg = await saveMessageToHub({ name, email, phone, subject, message: msg });
 
-    // 2. Play sound feedback & show success
+    // 2. Play sound feedback & show celebration Thank You modal
     playNotificationSound();
+
+    // Open Thank You Celebration Modal with Complete Details
+    const thankYouModal = document.getElementById('thank-you-modal');
+    if (thankYouModal) {
+      const tyName = document.getElementById('thank-you-name');
+      const tySumName = document.getElementById('thank-you-summary-name');
+      const tySumEmail = document.getElementById('thank-you-summary-email');
+      const tyPhoneRow = document.getElementById('thank-you-phone-row');
+      const tySumPhone = document.getElementById('thank-you-summary-phone');
+      const tySumSubject = document.getElementById('thank-you-summary-subject');
+      const tySumMsg = document.getElementById('thank-you-summary-msg');
+
+      if (tyName) tyName.textContent = name;
+      if (tySumName) tySumName.textContent = name;
+      if (tySumEmail) tySumEmail.textContent = email;
+      if (tyPhoneRow && tySumPhone) {
+        if (phone) {
+          tyPhoneRow.style.display = 'flex';
+          tySumPhone.textContent = phone;
+        } else {
+          tyPhoneRow.style.display = 'none';
+        }
+      }
+      if (tySumSubject) tySumSubject.textContent = subject || 'Portfolio Inquiry';
+      if (tySumMsg) tySumMsg.textContent = msg;
+
+      thankYouModal.classList.add('open');
+      thankYouModal.setAttribute('aria-hidden', 'false');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      const closeTyModal = () => {
+        thankYouModal.classList.remove('open');
+        thankYouModal.setAttribute('aria-hidden', 'true');
+      };
+
+      const tyCloseBtn = document.getElementById('thank-you-close');
+      const tyOkayBtn = document.getElementById('thank-you-okay-btn');
+      const tyBackdrop = document.getElementById('thank-you-backdrop');
+      const tyViewOnBoard = document.getElementById('btn-view-on-board');
+
+      if (tyCloseBtn) tyCloseBtn.onclick = closeTyModal;
+      if (tyOkayBtn) tyOkayBtn.onclick = closeTyModal;
+      if (tyBackdrop) tyBackdrop.onclick = closeTyModal;
+
+      if (tyViewOnBoard) {
+        tyViewOnBoard.onclick = () => {
+          closeTyModal();
+          const targetCard = newSavedMsg?.id ? document.getElementById(`card-${newSavedMsg.id}`) : document.getElementById('message-hub');
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetCard.classList.add('just-arrived');
+          }
+        };
+      }
+    }
 
     if (successBanner) {
       successBanner.innerHTML = `
@@ -1095,8 +1150,13 @@ function initMessageHub() {
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('open')) closeModal();
+      const tyModal = document.getElementById('thank-you-modal');
+      if (tyModal && tyModal.classList.contains('open')) {
+        tyModal.classList.remove('open');
+        tyModal.setAttribute('aria-hidden', 'true');
+      }
     }
   });
 
@@ -1116,6 +1176,26 @@ function initMessageHub() {
           pinInput.value = '';
           pinInput.focus();
         }
+      }
+    });
+  }
+
+  const refreshBtn = document.getElementById('btn-refresh-messages');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', async () => {
+      refreshBtn.classList.add('loading');
+      refreshBtn.disabled = true;
+      showToast('🔄 Reloading messages from live server...');
+      try {
+        await loadAndRenderMessages();
+        showToast('✓ Messages reloaded successfully!');
+      } catch (err) {
+        showToast('Could not reload: ' + err.message);
+      } finally {
+        setTimeout(() => {
+          refreshBtn.classList.remove('loading');
+          refreshBtn.disabled = false;
+        }, 500);
       }
     });
   }
@@ -1220,13 +1300,13 @@ async function loadAndRenderMessages(highlightId = null) {
   let messages = [];
 
   try {
-    const res = await fetch('/api/messages', { cache: 'no-cache' });
+    const res = await fetch(`/api/messages?_t=${Date.now()}`, { cache: 'no-cache' });
     const contentType = res.headers.get('content-type') || '';
     if (res.ok && contentType.includes('application/json')) {
       messages = await res.json();
       localStorage.setItem('portfolio_messages', JSON.stringify(messages));
     } else {
-      const staticRes = await fetch('./messages.json', { cache: 'no-cache' });
+      const staticRes = await fetch(`./messages.json?_t=${Date.now()}`, { cache: 'no-cache' });
       if (staticRes.ok) {
         messages = await staticRes.json();
       } else {
