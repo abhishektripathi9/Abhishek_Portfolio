@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProfileFallback();
   initMessageHub();
   initRealtimeSync();
+  initGoogleAiSearch();
 });
 
 /* =====================================================
@@ -320,9 +321,9 @@ function initTypewriter() {
   if (!textElement) return;
 
   const roles = [
-    'Full Stack Developer',
-    'Web3 & Blockchain Builder',
+    'MERN Stack Developer',
     'Data Analytics Enthusiast',
+    'Full Stack Engineer',
     'Java & Python Specialist',
     'Machine Learning Builder',
     'Creative 3D Web Engineer'
@@ -1946,4 +1947,383 @@ function initRealtimeSync() {
     } catch (e) {}
   }, 4000);
 }
+
+/* =====================================================
+   20. GOOGLE AI OVERVIEW & SEARCH ENGINE LOGIC
+   ===================================================== */
+function initGoogleAiSearch() {
+  const modal = document.getElementById('google-search-modal');
+  if (!modal) return;
+
+  const btnOpenNav = document.getElementById('btn-open-google-search');
+  const btnOpenHero = document.getElementById('hero-google-search-bar');
+  const btnFloating = document.getElementById('floating-google-ai-btn');
+  const btnClose = document.getElementById('google-search-close-btn');
+  const queryInput = document.getElementById('google-query-input');
+  const clearBtn = document.getElementById('google-input-clear');
+  const micBtn = document.getElementById('g-mic-btn');
+  const ttsBtn = document.getElementById('google-tts-btn');
+  const speakerLabel = document.getElementById('speaker-label');
+  const tabsContainer = document.getElementById('google-search-tabs');
+  const heroChips = document.querySelectorAll('.hero-query-chip');
+  const suggestedQueries = document.querySelectorAll('.g-query-item');
+  const copyBtn = document.getElementById('btn-copy-g-summary');
+  const copyText = document.getElementById('copy-summary-text');
+  const btnViewEdu = document.getElementById('btn-g-view-education');
+  const linkCic = document.getElementById('link-cic-school');
+  const chipEdu = document.getElementById('g-chip-education-link');
+  const timeDisplay = document.getElementById('g-current-time');
+
+  // Overview dynamic content elements
+  const headlineEl = document.getElementById('google-ai-headline');
+  const para1El = document.getElementById('google-ai-paragraph-1');
+  const para2El = document.getElementById('google-ai-paragraph-2');
+
+  // Search Knowledge Database
+  const searchDB = {
+    all: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> is <span class="g-ai-highlight">connected to the United Institute of Technology (UIT) in Prayagraj (Allahabad), Uttar Pradesh, India</span>.`,
+      p1: `Based on public professional records, he is a <strong>MERN Stack Developer</strong> and <strong>Data Analytics Enthusiast</strong> who completed his intermediate schooling at <a href="#education" class="g-text-link" id="link-cic-school">Chitrakoot Inter College in Karwi, Chitrakoot</a> and is pursuing his Bachelor of Technology (B.Tech) degree in <strong>Computer Science and Engineering</strong> from the <a href="https://uitprayagraj.org" target="_blank" rel="noopener noreferrer" class="g-text-link">United Institute of Technology</a>.`,
+      p2: `During his academic journey, he has developed strong proficiency in MERN stack development (MongoDB, Express.js, React.js, Node.js), machine learning, and data analytics in Python, engineering scalable web platforms and predictive models with clean code principles.`,
+      speech: `Abhishek Tripathi is connected to the United Institute of Technology in Prayagraj, Uttar Pradesh, India. He is a MERN Stack Developer and Data Analytics Enthusiast who completed his intermediate schooling at Chitrakoot Inter College in Karwi, Chitrakoot.`
+    },
+    chitrakoot: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> completed his intermediate schooling from <span class="g-ai-highlight">Chitrakoot Inter College, Karwi, Chitrakoot</span>.`,
+      p1: `Academic records verify that Abhishek Tripathi pursued his intermediate schooling (10+2) at <strong>Chitrakoot Inter College, Karwi, Chitrakoot</strong> under the Uttar Pradesh State Board, graduating with distinction in the Science Stream.`,
+      p2: `His studies focused on <strong>Physics, Chemistry, and Mathematics (PCM)</strong> along with introductory computer science fundamentals, building the strong mathematical and analytical problem-solving foundation that led to his admission in Computer Science &amp; Engineering at UIT Prayagraj.`,
+      speech: `Abhishek Tripathi completed his intermediate education at Chitrakoot Inter College, Karwi, Chitrakoot in the Science stream with Physics, Chemistry, and Mathematics.`
+    },
+    uit: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> is pursuing B.Tech in Computer Science at <span class="g-ai-highlight">United Institute of Technology (UIT), Prayagraj</span>.`,
+      p1: `He is currently in his undergraduate degree pursuing a <strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering (Batch 2023–2027)</strong> at United Institute of Technology, Prayagraj (affiliated with AKTU Lucknow).`,
+      p2: `He maintains a cumulative academic score of <strong>CGPA 7.5 / 10</strong>, with intensive coursework in Data Structures, Database Systems, Object-Oriented Java, Operating Systems, and Advanced Web Development.`,
+      speech: `Abhishek Tripathi is pursuing his B.Tech degree in Computer Science and Engineering from United Institute of Technology, Prayagraj, holding a 7.5 CGPA.`
+    },
+    skills: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> specializes in <span class="g-ai-highlight">MERN Stack Development, Data Analytics, Python, and Machine Learning</span>.`,
+      p1: `His primary technical arsenal comprises the <strong>MERN Stack (MongoDB, Express.js, React.js, Node.js)</strong>, <strong>Java &amp; Python</strong>, <strong>SQL/MySQL</strong>, and <strong>Three.js / WebGL 3D UI engineering</strong>.`,
+      p2: `In addition to web development, he has hands-on experience in <strong>Data Analytics and Predictive Modeling</strong> with Python (Pandas, Scikit-learn) and Power BI, creating analytical dashboards and regression predictors.`,
+      speech: `Abhishek Tripathi specializes in MERN stack web development, data analytics with Python, and machine learning.`
+    },
+    projects: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> has engineered <span class="g-ai-highlight">interactive 3D web platforms and predictive ML models</span>.`,
+      p1: `Key featured software projects include: <strong>Real-Time 3D Weather Forecast Platform</strong> with Three.js WebGL effects, <strong>Predictive Salary Machine Learning Model</strong> with interactive analytics, <strong>Blockchain-Inspired Land Registry System</strong>, and an <strong>E-Commerce Application clone</strong>.`,
+      p2: `All applications emphasize responsive design, clean modular architecture, API performance, and engaging visual aesthetics.`,
+      speech: `Abhishek Tripathi has engineered several projects including a 3D Weather platform, a Salary Predictor ML model, and an enterprise Land Registry platform.`
+    },
+    contact: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> is open for <span class="g-ai-highlight">Software Engineering roles, internships, and freelance projects</span>.`,
+      p1: `He can be contacted directly via email at <a href="mailto:at180887@gmail.com" class="g-text-link">at180887@gmail.com</a> or via phone &amp; WhatsApp at <a href="https://wa.me/919595347836" class="g-text-link">+91 9595347836</a>.`,
+      p2: `His verified code repositories and professional background are publicly accessible on GitHub at <strong>github.com/abhishektripathi9</strong> and LinkedIn at <strong>linkedin.com/in/abhishek-tripathi-a2a35a307/</strong>.`,
+      speech: `You can contact Abhishek Tripathi via email at at180887@gmail.com or on WhatsApp at +91 9595347836.`
+    }
+  };
+
+  let currentTopic = 'all';
+  let isSpeaking = false;
+
+  // 1. Clock initialization
+  function updateClock() {
+    if (timeDisplay) {
+      const now = new Date();
+      timeDisplay.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // 2. Open Modal
+  function openGoogleModal(initialQuery = 'Abhishek Tripathi') {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+
+    if (queryInput) {
+      queryInput.value = initialQuery;
+      toggleClearBtn();
+    }
+
+    determineTopicFromQuery(initialQuery);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // 3. Close Modal
+  function closeGoogleModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    stopSpeech();
+  }
+
+  // 4. Update Topic & UI
+  function setTopic(topicKey) {
+    if (!searchDB[topicKey]) topicKey = 'all';
+    currentTopic = topicKey;
+
+    const data = searchDB[topicKey];
+    if (headlineEl) headlineEl.innerHTML = data.headline;
+    if (para1El) para1El.innerHTML = data.p1;
+    if (para2El) para2El.innerHTML = data.p2;
+
+    // Update active tab pill
+    const tabPills = tabsContainer ? tabsContainer.querySelectorAll('.g-tab-pill') : [];
+    tabPills.forEach(pill => {
+      pill.classList.toggle('active', pill.getAttribute('data-filter') === topicKey);
+    });
+
+    // Re-bind inline links
+    const inlineCic = document.getElementById('link-cic-school');
+    if (inlineCic) {
+      inlineCic.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateToEducation();
+      });
+    }
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // 5. Intelligent Query Recognition
+  function determineTopicFromQuery(q) {
+    const s = (q || '').toLowerCase();
+    if (s.includes('chitra') || s.includes('inter') || s.includes('karwi') || s.includes('school') || s.includes('10+2') || s.includes('12th')) {
+      setTopic('chitrakoot');
+    } else if (s.includes('uit') || s.includes('united') || s.includes('prayagraj') || s.includes('allahabad') || s.includes('aktu') || s.includes('btech') || s.includes('college')) {
+      setTopic('uit');
+    } else if (s.includes('skill') || s.includes('tech') || s.includes('java') || s.includes('python') || s.includes('react') || s.includes('stack') || s.includes('code') || s.includes('three')) {
+      setTopic('skills');
+    } else if (s.includes('project') || s.includes('weather') || s.includes('salary') || s.includes('registry') || s.includes('work') || s.includes('build')) {
+      setTopic('projects');
+    } else if (s.includes('contact') || s.includes('phone') || s.includes('email') || s.includes('whatsapp') || s.includes('hire') || s.includes('reach') || s.includes('linkedin')) {
+      setTopic('contact');
+    } else {
+      setTopic('all');
+    }
+  }
+
+  // 6. Text-to-Speech (TTS)
+  function toggleSpeech() {
+    if (isSpeaking) {
+      stopSpeech();
+    } else {
+      startSpeech();
+    }
+  }
+
+  function startSpeech() {
+    if (!('speechSynthesis' in window)) {
+      if (typeof showToast === 'function') showToast('Speech synthesis is not supported on this browser.');
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const data = searchDB[currentTopic] || searchDB.all;
+    const utterance = new SpeechSynthesisUtterance(data.speech);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    // Pick English Voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const naturalVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('India') || v.name.includes('Samantha')));
+    if (naturalVoice) utterance.voice = naturalVoice;
+
+    utterance.onstart = () => {
+      isSpeaking = true;
+      if (ttsBtn) ttsBtn.classList.add('playing');
+      if (speakerLabel) speakerLabel.textContent = 'Playing...';
+    };
+
+    utterance.onend = () => {
+      stopSpeech();
+    };
+
+    utterance.onerror = () => {
+      stopSpeech();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function stopSpeech() {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    isSpeaking = false;
+    if (ttsBtn) ttsBtn.classList.remove('playing');
+    if (speakerLabel) speakerLabel.textContent = 'Listen';
+  }
+
+  // 7. Clear Button handling
+  function toggleClearBtn() {
+    if (!clearBtn || !queryInput) return;
+    clearBtn.style.display = queryInput.value.trim() ? 'block' : 'none';
+  }
+
+  // 8. Navigate to Education with pulse animation
+  function navigateToEducation() {
+    closeGoogleModal();
+    const eduSection = document.getElementById('education');
+    const cicCard = document.getElementById('chitrakoot-inter-college-card');
+    const target = cicCard || eduSection;
+
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (cicCard) {
+        cicCard.classList.remove('edu-card-highlighted');
+        void cicCard.offsetWidth; // trigger reflow
+        cicCard.classList.add('edu-card-highlighted');
+        setTimeout(() => cicCard.classList.remove('edu-card-highlighted'), 4500);
+      }
+    }
+  }
+
+  // 9. Voice Recognition (Speech to Text)
+  if (micBtn) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+
+      micBtn.addEventListener('click', () => {
+        try {
+          micBtn.style.color = '#ea4335';
+          if (queryInput) queryInput.placeholder = 'Listening to your voice...';
+          recognition.start();
+        } catch (e) {
+          recognition.stop();
+        }
+      });
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (queryInput) {
+          queryInput.value = transcript;
+          toggleClearBtn();
+          determineTopicFromQuery(transcript);
+        }
+        micBtn.style.color = '';
+        if (queryInput) queryInput.placeholder = 'Search Abhishek Tripathi, Chitrakoot, UIT...';
+      };
+
+      recognition.onerror = () => {
+        micBtn.style.color = '';
+        if (queryInput) queryInput.placeholder = 'Search Abhishek Tripathi, Chitrakoot, UIT...';
+      };
+
+      recognition.onend = () => {
+        micBtn.style.color = '';
+        if (queryInput) queryInput.placeholder = 'Search Abhishek Tripathi, Chitrakoot, UIT...';
+      };
+    } else {
+      micBtn.addEventListener('click', () => {
+        if (typeof showToast === 'function') showToast('Voice search is not supported in this browser.');
+      });
+    }
+  }
+
+  // 10. Copy Summary
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      const data = searchDB[currentTopic] || searchDB.all;
+      const plainText = `${data.headline.replace(/<[^>]+>/g, '')}\n\n${data.p1.replace(/<[^>]+>/g, '')}\n\n${data.p2.replace(/<[^>]+>/g, '')}\n\nSource: Abhishek Tripathi Official Portfolio (United Institute of Technology & Chitrakoot Inter College)`;
+
+      try {
+        await navigator.clipboard.writeText(plainText);
+        if (copyText) copyText.textContent = 'Copied!';
+        if (typeof showToast === 'function') showToast('📋 Google AI summary copied to clipboard!');
+        setTimeout(() => {
+          if (copyText) copyText.textContent = 'Copy Summary';
+        }, 2500);
+      } catch (err) {
+        if (typeof showToast === 'function') showToast('Could not copy to clipboard.');
+      }
+    });
+  }
+
+  // Event Listeners
+  if (btnOpenNav) btnOpenNav.addEventListener('click', () => openGoogleModal('Abhishek Tripathi'));
+  if (btnOpenHero) btnOpenHero.addEventListener('click', () => openGoogleModal('Abhishek Tripathi'));
+  if (btnFloating) btnFloating.addEventListener('click', () => openGoogleModal('Abhishek Tripathi'));
+  if (btnClose) btnClose.addEventListener('click', closeGoogleModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeGoogleModal();
+  });
+
+  if (ttsBtn) ttsBtn.addEventListener('click', toggleSpeech);
+
+  if (queryInput) {
+    queryInput.addEventListener('input', (e) => {
+      toggleClearBtn();
+      determineTopicFromQuery(e.target.value);
+    });
+
+    queryInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeGoogleModal();
+      if (e.key === 'Enter') determineTopicFromQuery(e.target.value);
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (queryInput) {
+        queryInput.value = '';
+        queryInput.focus();
+        toggleClearBtn();
+        setTopic('all');
+      }
+    });
+  }
+
+  if (tabsContainer) {
+    tabsContainer.querySelectorAll('.g-tab-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const filter = pill.getAttribute('data-filter');
+        setTopic(filter);
+      });
+    });
+  }
+
+  heroChips.forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const q = chip.getAttribute('data-query') || chip.textContent.trim();
+      openGoogleModal(q);
+    });
+  });
+
+  suggestedQueries.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-search') || btn.textContent.trim();
+      if (queryInput) {
+        queryInput.value = q;
+        toggleClearBtn();
+      }
+      determineTopicFromQuery(q);
+    });
+  });
+
+  if (btnViewEdu) btnViewEdu.addEventListener('click', navigateToEducation);
+  if (linkCic) linkCic.addEventListener('click', (e) => { e.preventDefault(); navigateToEducation(); });
+  if (chipEdu) chipEdu.addEventListener('click', (e) => { e.preventDefault(); navigateToEducation(); });
+
+  // Keyboard shortcut: Ctrl + K or Cmd + K or /
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (modal.classList.contains('open')) {
+        closeGoogleModal();
+      } else {
+        openGoogleModal('Abhishek Tripathi');
+      }
+    } else if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      e.preventDefault();
+      openGoogleModal('Abhishek Tripathi');
+    } else if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeGoogleModal();
+    }
+  });
+}
+
 

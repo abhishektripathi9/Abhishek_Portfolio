@@ -2,12 +2,13 @@
 
   <!-- Animated Typing SVG Header -->
   <a href="https://abhishek-portfolio-uir4.onrender.com/">
-    <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&size=32&duration=3000&pause=1000&color=00F0FF&center=true&vCenter=true&width=650&height=70&lines=Full+Stack+Developer;Java+%26+Python+Engineer;3D+Interactive+Web+Creator;Data+Analytics+Enthusiast" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&size=32&duration=3000&pause=1000&color=00F0FF&center=true&vCenter=true&width=650&height=70&lines=MERN+Stack+Developer;Data+Analytics+Enthusiast;Python+%26+Java+Engineer;3D+Interactive+Web+Creator" alt="Typing SVG" />
   </a>
 
   <p align="center">
-    <strong>🚀 Full Stack Developer | ☕ Java &amp; Spring Boot | 🐍 Python &amp; Data Analytics | ⚛️ React.js &amp; Three.js</strong><br>
+    <strong>🚀 MERN Stack Developer | 📊 Data Analytics Enthusiast | ☕ Java &amp; Python | ⚛️ React.js &amp; Three.js</strong><br>
     🎓 <em>B.Tech CSE (2023–2027) &bull; United Institute of Technology, Prayagraj</em><br>
+    🏫 <em>Intermediate (10+2 PCM) &bull; Chitrakoot Inter College, Karwi, Chitrakoot</em><br>
     📍 <em>Uttar Pradesh, India &bull; Available for Internships &amp; Engineering Roles</em>
   </p>
 
@@ -34,8 +35,10 @@
 ### 🧠 About Me
 
 - 💼 Pre-final year **Computer Science & Engineering** student at **United Institute of Technology, Prayagraj**.
-- 🛠️ Practical industry internship experience in **Python & Data Analytics** (*Techie Technologies*) and full-stack web solutions (*IBM PBEL*).
-- 🔭 Passionate about architecting high-performance web systems with **Java, Spring Boot & React.js**, building interactive **3D spatial WebGL** applications, and training machine learning models in **Python**.
+- 🏫 Completed Senior Secondary / Intermediate (10+2 Science Stream) schooling from **Chitrakoot Inter College, Karwi, Chitrakoot**.
+- 💻 Passionate **MERN Stack Developer & Data Analytics Enthusiast** building production-grade web applications with MongoDB, Express.js, React.js, and Node.js.
+- 🛠️ Practical industry internship experience in **Python & Data Analytics** (*Techie Technologies*) and web solutions (*IBM PBEL*).
+- 🔭 Skilled in designing robust backend systems with **Java, Python & REST APIs**, creating interactive **3D spatial WebGL** experiences, and training ML regression models.
 - 🌐 Explored **Web3 & Blockchain** development by creating decentralized, tamper-proof title deed applications with **Solidity, IPFS, and MetaMask**.
 - 🤝 Actively looking for **Software Engineering / Full Stack Internships & Open-Source Collaborations**.
 - ⚡ **Fun Fact:** I love turning raw code and data into immersive, 60fps 3D visual experiences that run directly in the browser!
