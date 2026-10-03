@@ -1983,9 +1983,15 @@ function initGoogleAiSearch() {
   const searchDB = {
     all: {
       headline: `<span class="g-name-bold">Abhishek Tripathi</span> is <span class="g-ai-highlight">connected to the United Institute of Technology (UIT) in Prayagraj (Allahabad), Uttar Pradesh, India</span>.`,
-      p1: `Based on public professional records, he is a <strong>MERN Stack Developer</strong> and <strong>Data Analytics Enthusiast</strong> who completed his intermediate schooling at <a href="#education" class="g-text-link" id="link-cic-school">Chitrakoot Inter College in Karwi, Chitrakoot</a> and is pursuing his Bachelor of Technology (B.Tech) degree in <strong>Computer Science and Engineering</strong> from the <a href="https://uitprayagraj.org" target="_blank" rel="noopener noreferrer" class="g-text-link">United Institute of Technology</a>.`,
+      p1: `Based on public professional records, he is a <strong>MERN Stack Developer</strong> and <strong>Data Analytics Enthusiast</strong> who completed his intermediate schooling at <a href="#education" class="g-text-link" id="link-cic-school">Chitrakoot Inter College in Karwi, Chitrakoot</a> and is pursuing his Bachelor of Technology (B.Tech) degree in <strong>Computer Science and Engineering (Batch 2023–2027)</strong> from the <a href="https://uitprayagraj.org" target="_blank" rel="noopener noreferrer" class="g-text-link">United Institute of Technology</a>.`,
       p2: `During his academic journey, he has developed strong proficiency in MERN stack development (MongoDB, Express.js, React.js, Node.js), machine learning, and data analytics in Python, engineering scalable web platforms and predictive models with clean code principles.`,
-      speech: `Abhishek Tripathi is connected to the United Institute of Technology in Prayagraj, Uttar Pradesh, India. He is a MERN Stack Developer and Data Analytics Enthusiast who completed his intermediate schooling at Chitrakoot Inter College in Karwi, Chitrakoot.`
+      speech: `Abhishek Tripathi is connected to the United Institute of Technology in Prayagraj, Uttar Pradesh, India, pursuing B.Tech CSE Batch 2023 to 2027. He is a MERN Stack Developer and Data Analytics Enthusiast who completed his intermediate schooling at Chitrakoot Inter College in Karwi, Chitrakoot.`
+    },
+    batch: {
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span>'s official academic batch is <span class="g-ai-highlight">B.Tech CSE (Batch 2023–2027)</span> at UIT Prayagraj.`,
+      p1: `Academic records verify that Abhishek Tripathi is enrolled in the four-year undergraduate degree <strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering (Batch 2023–2027)</strong> at United Institute of Technology, Prayagraj, affiliated with Dr. A.P.J. Abdul Kalam Technical University (AKTU Lucknow).`,
+      p2: `His engineering program spans from <strong>2023 to 2027</strong>. He maintains a cumulative score of <strong>CGPA 7.5 / 10.0</strong>, with intensive specialization in MERN Stack Development, Python, and Data Analytics.`,
+      speech: `Abhishek Tripathi belongs to the B.Tech Computer Science and Engineering Batch 2023 to 2027 at United Institute of Technology, Prayagraj.`
     },
     chitrakoot: {
       headline: `<span class="g-name-bold">Abhishek Tripathi</span> completed his intermediate schooling from <span class="g-ai-highlight">Chitrakoot Inter College, Karwi, Chitrakoot</span>.`,
@@ -1994,10 +2000,10 @@ function initGoogleAiSearch() {
       speech: `Abhishek Tripathi completed his intermediate education at Chitrakoot Inter College, Karwi, Chitrakoot in the Science stream with Physics, Chemistry, and Mathematics.`
     },
     uit: {
-      headline: `<span class="g-name-bold">Abhishek Tripathi</span> is pursuing B.Tech in Computer Science at <span class="g-ai-highlight">United Institute of Technology (UIT), Prayagraj</span>.`,
+      headline: `<span class="g-name-bold">Abhishek Tripathi</span> is pursuing B.Tech in Computer Science (Batch 2023–2027) at <span class="g-ai-highlight">United Institute of Technology (UIT), Prayagraj</span>.`,
       p1: `He is currently in his undergraduate degree pursuing a <strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering (Batch 2023–2027)</strong> at United Institute of Technology, Prayagraj (affiliated with AKTU Lucknow).`,
       p2: `He maintains a cumulative academic score of <strong>CGPA 7.5 / 10</strong>, with intensive coursework in Data Structures, Database Systems, Object-Oriented Java, Operating Systems, and Advanced Web Development.`,
-      speech: `Abhishek Tripathi is pursuing his B.Tech degree in Computer Science and Engineering from United Institute of Technology, Prayagraj, holding a 7.5 CGPA.`
+      speech: `Abhishek Tripathi is pursuing his B.Tech degree in Computer Science and Engineering, Batch 2023 to 2027, from United Institute of Technology, Prayagraj, holding a 7.5 CGPA.`
     },
     skills: {
       headline: `<span class="g-name-bold">Abhishek Tripathi</span> specializes in <span class="g-ai-highlight">MERN Stack Development, Data Analytics, Python, and Machine Learning</span>.`,
@@ -2086,7 +2092,9 @@ function initGoogleAiSearch() {
   // 5. Intelligent Query Recognition
   function determineTopicFromQuery(q) {
     const s = (q || '').toLowerCase();
-    if (s.includes('chitra') || s.includes('inter') || s.includes('karwi') || s.includes('school') || s.includes('10+2') || s.includes('12th')) {
+    if (s.includes('batch') || s.includes('2023') || s.includes('2027') || s.includes('2026') || s.includes('session') || s.includes('graduat')) {
+      setTopic('batch');
+    } else if (s.includes('chitra') || s.includes('inter') || s.includes('karwi') || s.includes('school') || s.includes('10+2') || s.includes('12th')) {
       setTopic('chitrakoot');
     } else if (s.includes('uit') || s.includes('united') || s.includes('prayagraj') || s.includes('allahabad') || s.includes('aktu') || s.includes('btech') || s.includes('college')) {
       setTopic('uit');

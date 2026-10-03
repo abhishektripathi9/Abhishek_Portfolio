@@ -7,7 +7,7 @@
 
   <p align="center">
     <strong>🚀 MERN Stack Developer | 📊 Data Analytics Enthusiast | ☕ Java &amp; Python | ⚛️ React.js &amp; Three.js</strong><br>
-    🎓 <em>Final Year B.Tech CSE &bull; United Institute of Technology, Prayagraj</em><br>
+    🎓 <em>B.Tech CSE (Batch 2023–2027) &bull; United Institute of Technology, Prayagraj</em><br>
     🏫 <em>Intermediate (10+2 PCM) &bull; Chitrakoot Inter College, Karwi, Chitrakoot</em><br>
     📍 <em>Uttar Pradesh, India &bull; Available for Internships &amp; Engineering Roles</em>
   </p>
@@ -34,7 +34,7 @@
 
 ### 🧠 About Me
 
-- 💼 Final Year **Computer Science & Engineering** student at **United Institute of Technology, Prayagraj**.
+- 💼 **Computer Science & Engineering** student (**Batch 2023–2027**) at **United Institute of Technology, Prayagraj**.
 - 🏫 Completed Senior Secondary / Intermediate (10+2 Science Stream) schooling from **Chitrakoot Inter College, Karwi, Chitrakoot**.
 - 💻 Passionate **MERN Stack Developer & Data Analytics Enthusiast** building production-grade web applications with MongoDB, Express.js, React.js, and Node.js.
 - 🛠️ Practical industry internship experience in **Python & Data Analytics** (*Techie Technologies*) and web solutions (*IBM PBEL*).
