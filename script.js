@@ -504,21 +504,56 @@ function initProjectFilters() {
    ===================================================== */
 const projectData = {
   'amazon-clone': {
-    title: 'Amazon 2.0 – 3D Interactive E-Commerce Platform',
+    title: 'E-Commerce Marketplace & Order Processing System (Amazon 2.0)',
     year: '2026',
-    category: 'Full Stack & 3D WebGL E-Commerce',
+    category: 'Full Stack MERN & 3D WebGL',
     image: 'assets/project-amazon-clone.jpg',
-    desc: 'An enterprise-grade, ultra-modern Amazon Clone powered by Three.js WebGL 3D spatial product inspection, 60fps card tilt physics, 1-Click Express Buy, UPI/Multi-Currency payment gateway, and village doorstep logistics across 155,000+ PIN codes. Engineered as a flagship showcase for freelancing clients and production e-commerce.',
+    desc: 'Scalable full-stack e-commerce web application featuring dynamic product catalogs, persistent shopping cart, and authenticated checkout flows. Engineered with 12+ RESTful APIs with request validation, role-based JWT authorization, automated invoice generation, and relational MySQL transactional ACID safety.',
     highlights: [
+      'Architected a scalable full-stack web application featuring dynamic product catalogs, persistent shopping cart, and authenticated checkout flows.',
+      'Engineered 12+ RESTful API endpoints with request validation, role-based JWT authorization, and automated invoice generation.',
+      'Designed an indexed relational MySQL schema with transactional safety to prevent inventory concurrency errors and double-booking.',
       'Interactive 3D Three.js Spatial Arena with 360° spherical orbit drag, rotational inertia, and animated pulsing feature hotspots.',
-      'Physics-driven 60fps CSS 3D perspective card tilt with dynamic specular cursor glare and layered spatial depth.',
       'Village & Rural Doorstep Delivery engine supporting 155,000+ India Post PIN codes, Gram Panchayats, and global postal routes.',
-      'Instant UPI payment engine (Google Pay, PhonePe, Paytm, BHIM QR generator) + real-time multi-currency converter (INR, USD, EUR, GBP).',
-      '1-Click Express Checkout modal, dynamic reactive cart, and Seller Central Studio product management.'
+      'Instant UPI payment engine (Google Pay, PhonePe, Paytm, BHIM QR generator) + real-time multi-currency converter (INR, USD, EUR, GBP).'
     ],
-    tech: ['Three.js', 'WebGL', 'JavaScript (ES6+)', 'UPI Payments', 'CSS 3D Transforms', 'LocalStorage', 'Responsive UI'],
+    tech: ['React.js', 'Node.js', 'Express.js', 'MySQL', 'JWT Authentication', 'Three.js', 'RESTful APIs'],
     github: 'https://github.com/abhishektripathi9/Amazon-clone-',
     liveDemo: './amazon-clone/index.html'
+  },
+  'quiz-portal': {
+    title: 'Student Quiz & Course Learning Portal',
+    year: '2026',
+    category: 'Full Stack & EdTech',
+    image: 'assets/project-quiz-portal.jpg',
+    desc: 'An end-to-end full-stack e-learning platform supporting student authentication, dynamic course catalogs, and automated quiz scoring. Engineered with 8+ secure REST APIs in Express.js with input validation, token-based authentication, and instant result calculation, backed by an optimized React frontend guaranteeing sub-100ms UI transitions.',
+    highlights: [
+      'Developed an end-to-end e-learning platform supporting student authentication, dynamic course catalogs, and automated quiz scoring.',
+      'Implemented 8+ secure REST APIs in Express.js with input validation, token-based authentication, and instant result calculation.',
+      'Constructed an optimized React frontend with client-side state handling, guaranteeing sub-100ms UI transitions.',
+      'Real-time automated evaluation engine with question telemetry, timing countdowns, and performance metrics analytics.',
+      'Relational MySQL schema storing students, enrolled modules, quiz questions, and cryptographic session tokens.'
+    ],
+    tech: ['React.js', 'Node.js', 'Express.js', 'MySQL', 'REST APIs', 'JWT', 'Context API'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './quiz-portal/index.html'
+  },
+  'banking-system': {
+    title: 'Enterprise Banking Management System',
+    year: '2025',
+    category: 'Java & Enterprise Architecture',
+    image: 'assets/project-banking-system.jpg',
+    desc: 'Desktop and web enterprise banking software engineered with MVC architecture and OOP principles to manage secure customer accounts and ledger transactions. Integrates JDBC with PreparedStatements to sanitize inputs and eliminate SQL injection, with strict ACID transaction management and automated rollback handlers.',
+    highlights: [
+      'Built a desktop banking software following MVC patterns and OOP principles to manage secure customer accounts and ledger transactions.',
+      'Integrated JDBC using PreparedStatements to sanitize inputs and eliminate SQL injection vulnerabilities.',
+      'Enforced strict ACID transaction management with automated rollbacks to guarantee ledger consistency during failed transfers.',
+      'Real-time transaction audit ledger logging customer balances, debit/credit events, and cluster node synchronization.',
+      'High-concurrency connection pooling ensuring sub-50ms query response times under high transaction volume.'
+    ],
+    tech: ['Java', 'JDBC', 'MySQL', 'OOP Architecture', 'MVC Pattern', 'ACID Transactions', 'PreparedStatements'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './banking-system/index.html'
   },
   'land-registry': {
     title: 'Advanced Land Registry DApp – Web3 & Blockchain Platform',

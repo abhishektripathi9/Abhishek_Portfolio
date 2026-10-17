@@ -15,7 +15,10 @@
   <!-- Social & Portfolio Badges -->
   <p align="center">
     <a href="https://abhishek-portfolio-uir4.onrender.com/" target="_blank">
-      <img src="https://img.shields.io/badge/🌐_Live_Portfolio-00F0FF?style=for-the-badge&logoColor=040711&labelColor=040711" alt="Portfolio" />
+      <img src="https://img.shields.io/badge/🌐_Live_Portfolio-00F5FF?style=for-the-badge&logoColor=040711&labelColor=040711" alt="Portfolio" />
+    </a>
+    <a href="Abhishek_Tripathi_Resume.pdf" target="_blank">
+      <img src="https://img.shields.io/badge/📄_View_Resume-FF007F?style=for-the-badge&logoColor=white&labelColor=040711" alt="Resume PDF" />
     </a>
     <a href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
@@ -37,7 +40,7 @@
 - 💼 **Computer Science & Engineering** student (**Batch 2023–2027**) at **United Institute of Technology, Prayagraj**.
 - 🏫 Completed Senior Secondary / Intermediate (10+2 Science Stream) schooling from **Chitrakoot Inter College, Karwi, Chitrakoot**.
 - 💻 Passionate **MERN Stack Developer & Data Analytics Enthusiast** building production-grade web applications with MongoDB, Express.js, React.js, and Node.js.
-- 🛠️ Practical industry internship experience in **Python & Data Analytics** (*Techie Technologies*) and web solutions (*IBM PBEL*).
+- 🛠️ Practical industry internship experience in **Python & Data Analytics** (*Techpile Technology*) and web solutions (*IBM PBEL*).
 - 🔭 Skilled in designing robust backend systems with **Java, Python & REST APIs**, creating interactive **3D spatial WebGL** experiences, and training ML regression models.
 - 🌐 Explored **Web3 & Blockchain** development by creating decentralized, tamper-proof title deed applications with **Solidity, IPFS, and MetaMask**.
 - 🤝 Actively looking for **Software Engineering / Full Stack Internships & Open-Source Collaborations**.
@@ -101,9 +104,11 @@
 
 | Project | Tech Stack | Highlights | Links |
 | :--- | :--- | :--- | :---: |
-| 🛍️ **Amazon 2.0 3D E-Commerce** | Three.js &bull; WebGL &bull; UPI &bull; CSS 3D | 360° interactive product inspection, 60fps card physics, and multi-currency UPI checkout. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/amazon-clone/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9/Amazon-clone-) |
+| 🛍️ **E-Commerce Marketplace (Amazon 2.0)** | React.js &bull; Node.js &bull; Express &bull; MySQL &bull; JWT | Scalable marketplace with dynamic catalogs, persistent cart, 12+ REST APIs, and transactional ACID safety. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/amazon-clone/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9/Amazon-clone-) |
+| 🎓 **Student Quiz &amp; Course Learning Portal** | React.js &bull; Express.js &bull; MySQL &bull; REST APIs | E-learning portal with student auth, dynamic courses, automated quiz evaluation, and sub-100ms state updates. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/quiz-portal/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
+| 🏛️ **Enterprise Banking Management System** | Java &bull; JDBC &bull; MySQL &bull; OOP Architecture | Desktop &amp; web banking software following MVC patterns, PreparedStatements sanitization, and strict ACID rollbacks. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/banking-system/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
 | 📜 **Advanced Land Registry DApp** | Solidity &bull; Ethereum &bull; Web3.js &bull; IPFS | Tamper-proof land title transfer and fraud prevention on blockchain with MetaMask authentication. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/land-registry/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp) |
-| 🏠 **RentEase – PG & Room Finder** | React.js &bull; Java &bull; Spring Boot &bull; MySQL | Full-stack student PG room finder with city filters, amenity tags, and token booking advance. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/rentease/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
+| 🏠 **RentEase – PG &amp; Room Finder** | React.js &bull; Java &bull; Spring Boot &bull; MySQL | Full-stack student PG room finder with city filters, amenity tags, and token booking advance. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/rentease/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
 | ⛅ **AuraWeather Atmospheric Telemetry** | React &bull; OpenWeather API &bull; Canvas | Live radar, 7-day multi-tier projections, dynamic atmospheric gradients, and 24h temp trend curves. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/weather/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
 | 📈 **PayPulse ML Salary Predictor** | Python &bull; Scikit-learn &bull; Pandas &bull; Stats | Gaussian regression prediction engine calculating real-time tech CTC and percentile curves. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/salary/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
 

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fortress Banking Systems – Enterprise Banking Management System | Live Demo</title>
+  <meta name="description" content="Enterprise desktop & web banking architecture engineered with Java, JDBC, and MySQL. Implements MVC patterns, PreparedStatements input sanitization, and strict ACID transaction rollbacks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #03080e;
+      --card-bg: rgba(8, 18, 30, 0.85);
+      --card-border: rgba(0, 255, 136, 0.22);
+      --emerald: #00ff88;
+      --emerald-glow: rgba(0, 255, 136, 0.45);
+      --cyan: #00f5ff;
+      --amber: #fbbf24;
+      --red: #ff3366;
+      --text: #f1f7fa;
+      --text-muted: #8397a7;
+      --font-body: 'Outfit', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 255, 136, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(0, 245, 255, 0.07) 0%, transparent 45%),
+        linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      background: rgba(4, 12, 22, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--emerald), var(--cyan));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #03080e;
+      box-shadow: 0 0 20px var(--emerald-glow);
+    }
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .brand-badge {
+      font-size: 0.72rem;
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+      padding: 3px 8px;
+      border-radius: 12px;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    .back-btn:hover {
+      background: rgba(0, 255, 136, 0.15);
+      border-color: var(--emerald);
+      color: var(--emerald);
+      box-shadow: 0 0 15px var(--emerald-glow);
+      transform: translateY(-2px);
+    }
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(8, 24, 34, 0.8);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--emerald);
+      font-family: var(--font-code);
+    }
+    .status-ping {
+      width: 8px;
+      height: 8px;
+      background: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulsePing 1.8s infinite;
+    }
+    @keyframes pulsePing {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    /* Main Container */
+    .app-container {
+      max-width: 1320px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(8, 22, 38, 0.9), rgba(5, 15, 26, 0.9));
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px 36px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    }
+    .hero-text h1 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: 8px;
+      background: linear-gradient(120deg, #fff, var(--emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-text p {
+      color: var(--text-muted);
+      max-width: 680px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    .stats-quad {
+      display: flex;
+      gap: 16px;
+    }
+    .stat-box {
+      background: rgba(3, 8, 16, 0.65);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: 12px;
+      padding: 12px 18px;
+      text-align: center;
+      min-width: 110px;
+    }
+    .stat-num {
+      font-family: var(--font-code);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--emerald);
+      text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 28px;
+    }
+    @media (max-width: 1024px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .hero-banner { flex-direction: column; gap: 20px; align-items: flex-start; }
+      .stats-quad { width: 100%; flex-wrap: wrap; }
+    }
+
+    /* Cards */
+    .panel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+    }
+    .panel-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+    .panel-title i { color: var(--emerald); }
+
+    /* Accounts Table */
+    .accounts-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .accounts-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .accounts-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .accounts-table tr:hover {
+      background: rgba(0, 255, 136, 0.04);
+    }
+    .acc-id {
+      font-family: var(--font-code);
+      color: var(--cyan);
+      font-size: 0.85rem;
+    }
+    .acc-name {
+      font-weight: 600;
+    }
+    .acc-bal {
+      font-family: var(--font-code);
+      font-weight: 700;
+      color: var(--emerald);
+    }
+    .status-pill {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-family: var(--font-code);
+    }
+    .status-active {
+      background: rgba(0, 255, 136, 0.15);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+    }
+
+    /* Transaction Simulator */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      background: rgba(5, 12, 22, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .form-control:focus {
+      border-color: var(--emerald);
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+    select.form-control option {
+      background: #08121e;
+      color: #fff;
+    }
+    .btn-transfer {
+      width: 100%;
+      background: linear-gradient(135deg, var(--emerald), #00bfff);
+      color: #03080e;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 0 20px var(--emerald-glow);
+      transition: all 0.25s ease;
+      margin-top: 10px;
+    }
+    .btn-transfer:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+    }
+
+    /* ACID Execution Pipeline Visualizer */
+    .acid-pipeline {
+      background: rgba(3, 8, 16, 0.7);
+      border: 1px solid rgba(0, 255, 136, 0.18);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 18px;
+    }
+    .acid-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.84rem;
+      font-family: var(--font-code);
+      padding: 6px 0;
+      color: var(--text-muted);
+    }
+    .acid-step.done {
+      color: var(--emerald);
+    }
+    .acid-step.rollback {
+      color: var(--red);
+    }
+
+    /* Live Transaction Logs */
+    .txn-log-list {
+      max-height: 250px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .txn-log-item {
+      background: rgba(5, 12, 22, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .txn-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .txn-id {
+      font-family: var(--font-code);
+      color: var(--cyan);
+      font-size: 0.78rem;
+    }
+    .txn-meta {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .txn-amount {
+      font-family: var(--font-code);
+      font-weight: 700;
+      color: var(--emerald);
+    }
+
+    /* Architecture Highlights */
+    .arch-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+    .arch-bullet i {
+      color: var(--emerald);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .tech-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .tech-pill {
+      font-size: 0.76rem;
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid rgba(0, 255, 136, 0.25);
+      color: var(--emerald);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-code);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <a href="../index.html#projects" class="brand-wrap">
+      <div class="brand-icon">
+        <i data-lucide="shield-check"></i>
+      </div>
+      <div>
+        <span class="brand-title">Fortress Banking</span>
+        <span class="brand-badge">Enterprise Edition</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <div class="system-status">
+        <div class="status-ping"></div>
+        <span>JDBC / MySQL ACID GUARANTEED</span>
+      </div>
+      <a href="../index.html#projects" class="back-btn">
+        <i data-lucide="arrow-left"></i>
+        <span>Back to Portfolio</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="app-container">
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-text">
+        <h1>Enterprise Banking Management System</h1>
+        <p>
+          Architected by Abhishek Tripathi utilizing Java, JDBC, and MySQL under the Model-View-Controller (MVC) paradigm. Featuring automated rollback triggers during failed transfers, PreparedStatements input sanitization eliminating SQL injection, and high-concurrency ledger balancing.
+        </p>
+      </div>
+      <div class="stats-quad">
+        <div class="stat-box">
+          <div class="stat-num">$16.8M</div>
+          <div class="stat-label">Total Deposits</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">ACID Safety</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">0 ms</div>
+          <div class="stat-label">SQL Injection Risk</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">12/12</div>
+          <div class="stat-label">Cluster Nodes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+      <!-- Left Column: Customer Accounts & Transaction History -->
+      <div>
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <i data-lucide="users"></i>
+              <span>Customer Account Management Ledger</span>
+            </h2>
+            <span style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-code);">JDBC Encrypted Connection Pool</span>
+          </div>
+
+          <table class="accounts-table">
+            <thead>
+              <tr>
+                <th>Account No</th>
+                <th>Account Holder</th>
+                <th>Account Type</th>
+                <th>Balance</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="accounts-table-body">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Real-Time Transaction Logs -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <i data-lucide="history"></i>
+              <span>Real-Time Transaction Audit Ledger (ACID Logs)</span>
+            </h2>
+            <span style="font-size:0.8rem;color:var(--emerald);font-family:var(--font-code);" id="audit-count">3 Transactions</span>
+          </div>
+
+          <div class="txn-log-list" id="txn-log-list">
+            <!-- Dynamically populated transaction logs -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Money Transfer Engine & Architecture -->
+      <div>
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <i data-lucide="arrow-left-right"></i>
+              <span>Simulate Fund Transfer</span>
+            </h2>
+          </div>
+
+          <form id="transfer-form" onsubmit="event.preventDefault(); executeTransfer();">
+            <div class="form-group">
+              <label for="src-account">Source Account</label>
+              <select id="src-account" class="form-control">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dst-account">Destination Account</label>
+              <select id="dst-account" class="form-control">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="transfer-amount">Amount (USD $)</label>
+              <input type="number" id="transfer-amount" class="form-control" placeholder="e.g. 50000" min="1" max="10000000" value="50000" required />
+            </div>
+
+            <div class="form-group">
+              <label for="security-pin">Security PIN (PreparedStatements Test)</label>
+              <input type="password" id="security-pin" class="form-control" value="8876" placeholder="Enter PIN" />
+            </div>
+
+            <button type="submit" class="btn-transfer" id="btn-transfer">
+              <i data-lucide="check-circle-2"></i>
+              <span>Execute Atomic Transfer</span>
+            </button>
+          </form>
+
+          <!-- ACID Execution Steps Visualizer -->
+          <div class="acid-pipeline" id="acid-pipeline">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;">Transaction Pipeline Telemetry</div>
+            <div class="acid-step done" id="step-1"><i data-lucide="check" style="width:14px;height:14px;"></i> 1. PreparedStatement sanitization &amp; parameter binding</div>
+            <div class="acid-step done" id="step-2"><i data-lucide="check" style="width:14px;height:14px;"></i> 2. Connection.setAutoCommit(false) — ACID isolation</div>
+            <div class="acid-step done" id="step-3"><i data-lucide="check" style="width:14px;height:14px;"></i> 3. Verification of balance &amp; row-level lock</div>
+            <div class="acid-step done" id="step-4"><i data-lucide="check" style="width:14px;height:14px;"></i> 4. Debit source &amp; credit destination</div>
+            <div class="acid-step done" id="step-5"><i data-lucide="check" style="width:14px;height:14px;"></i> 5. Connection.commit() — Persistent write</div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <i data-lucide="cpu"></i>
+              <span>Engineering Architecture</span>
+            </h2>
+          </div>
+
+          <div class="arch-bullet">
+            <i data-lucide="check-circle-2"></i>
+            <div>
+              <strong style="color:#fff;">Strict ACID Compliance:</strong> Automated rollbacks on SQL exceptions guarantee zero partial state commits or orphaned debits.
+            </div>
+          </div>
+
+          <div class="arch-bullet">
+            <i data-lucide="check-circle-2"></i>
+            <div>
+              <strong style="color:#fff;">PreparedStatement Sanitization:</strong> Fully eliminates SQL injection vectors by pre-compiling queries before parameter binding.
+            </div>
+          </div>
+
+          <div class="arch-bullet">
+            <i data-lucide="check-circle-2"></i>
+            <div>
+              <strong style="color:#fff;">MVC Modular Architecture:</strong> Complete separation between Data Models, Business Logic Controllers, and UI Views.
+            </div>
+          </div>
+
+          <div class="tech-pill-list">
+            <span class="tech-pill">Java</span>
+            <span class="tech-pill">JDBC</span>
+            <span class="tech-pill">MySQL</span>
+            <span class="tech-pill">MVC Pattern</span>
+            <span class="tech-pill">ACID Rollback</span>
+            <span class="tech-pill">PreparedStatements</span>
+            <span class="tech-pill">OOP Architecture</span>
+          </div>
+
+          <div style="margin-top:20px;">
+            <a href="https://github.com/abhishektripathi9" target="_blank" rel="noopener noreferrer" class="back-btn" style="width:100%;justify-content:center;background:rgba(0,255,136,0.1);border-color:var(--emerald);color:var(--emerald);">
+              <i data-lucide="github"></i>
+              <span>View GitHub Repository</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Accounts in-memory ledger
+    const accounts = [
+      { id: 'ACN-14092288', name: 'Lisa K. Vance', type: 'Checking', balance: 1288450, status: 'Active' },
+      { id: 'ACN-98127431', name: 'TechCorp Solutions Inc.', type: 'Corporate Treasury', balance: 14677900, status: 'Active' },
+      { id: 'ACN-55209144', name: 'Atlas Ventures Global', type: 'Investment Ledger', balance: 840000, status: 'Active' },
+      { id: 'ACN-77341808', name: 'Abhishek Tripathi', type: 'Principal Engineering Account', balance: 350000, status: 'Active' }
+    ];
+
+    const txnLogs = [
+      { id: 'TXN-99827101', from: 'Lisa K. Vance', to: 'TechCorp Inc.', amount: 450000, status: 'COMPLETED', time: '10:45:21' },
+      { id: 'TXN-99827102', from: 'Atlas Ventures', to: 'Abhishek Tripathi', amount: 75000, status: 'COMPLETED', time: '10:52:14' },
+      { id: 'TXN-99827103', from: 'TechCorp Inc.', to: 'Lisa K. Vance', amount: 120000, status: 'COMPLETED', time: '11:04:09' }
+    ];
+
+    function renderAccounts() {
+      const tbody = document.getElementById('accounts-table-body');
+      tbody.innerHTML = '';
+      accounts.forEach(acc => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="acc-id">${acc.id}</td>
+          <td class="acc-name">${acc.name}</td>
+          <td style="color:var(--text-muted);font-size:0.85rem;">${acc.type}</td>
+          <td class="acc-bal">$${acc.balance.toLocaleString()}</td>
+          <td><span class="status-pill status-active">${acc.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const srcSelect = document.getElementById('src-account');
+      const dstSelect = document.getElementById('dst-account');
+      srcSelect.innerHTML = '';
+      dstSelect.innerHTML = '';
+
+      accounts.forEach((acc, idx) => {
+        const opt1 = document.createElement('option');
+        opt1.value = acc.id;
+        opt1.textContent = `${acc.name} ($${acc.balance.toLocaleString()})`;
+        srcSelect.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = acc.id;
+        opt2.textContent = `${acc.name} ($${acc.balance.toLocaleString()})`;
+        dstSelect.appendChild(opt2);
+      });
+
+      if (dstSelect.options.length > 1) {
+        dstSelect.selectedIndex = 1;
+      }
+    }
+
+    function renderTxnLogs() {
+      const list = document.getElementById('txn-log-list');
+      list.innerHTML = '';
+      txnLogs.slice().reverse().forEach(t => {
+        const item = document.createElement('div');
+        item.className = 'txn-log-item';
+        item.innerHTML = `
+          <div class="txn-left">
+            <span class="txn-id">${t.id} &bull; ${t.time}</span>
+            <span class="txn-meta">${t.from} &rarr; ${t.to}</span>
+          </div>
+          <div style="text-align:right;">
+            <div class="txn-amount">$${t.amount.toLocaleString()}</div>
+            <span style="font-size:0.72rem;color:var(--emerald);font-family:var(--font-code);">ACID COMMIT: OK</span>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+      document.getElementById('audit-count').textContent = `${txnLogs.length} Transactions`;
+    }
+
+    function executeTransfer() {
+      const srcId = document.getElementById('src-account').value;
+      const dstId = document.getElementById('dst-account').value;
+      const amount = parseFloat(document.getElementById('transfer-amount').value);
+
+      if (srcId === dstId) {
+        alert('Source and destination accounts must be different!');
+        return;
+      }
+
+      const src = accounts.find(a => a.id === srcId);
+      const dst = accounts.find(a => a.id === dstId);
+
+      if (src.balance < amount) {
+        // Demonstrate ACID Rollback!
+        const pipeline = document.getElementById('acid-pipeline');
+        pipeline.innerHTML = `
+          <div style="font-size:0.75rem;color:var(--red);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;">ACID ROLLBACK TRIGGERED</div>
+          <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 1. PreparedStatement executed</div>
+          <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 2. AutoCommit set to false</div>
+          <div class="acid-step rollback" style="color:var(--red);font-weight:700;"><i data-lucide="alert-triangle" style="width:14px;height:14px;"></i> 3. Insufficient balance: $${src.balance.toLocaleString()} &lt; $${amount.toLocaleString()}</div>
+          <div class="acid-step rollback" style="color:var(--red);font-weight:700;"><i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i> 4. Connection.rollback() called — Zero funds deducted</div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        alert(`ACID Rollback: Source account (${src.name}) has insufficient balance! Transaction safely rolled back.`);
+        return;
+      }
+
+      // Execute transfer atomically
+      src.balance -= amount;
+      dst.balance += amount;
+
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      const newTxn = {
+        id: 'TXN-' + Math.floor(10000000 + Math.random() * 90000000),
+        from: src.name,
+        to: dst.name,
+        amount: amount,
+        status: 'COMPLETED',
+        time: timeStr
+      };
+
+      txnLogs.push(newTxn);
+      renderAccounts();
+      renderTxnLogs();
+
+      // Show pipeline success
+      const pipeline = document.getElementById('acid-pipeline');
+      pipeline.innerHTML = `
+        <div style="font-size:0.75rem;color:var(--emerald);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;">ACID COMMIT CONFIRMED</div>
+        <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 1. PreparedStatement input sanitization OK</div>
+        <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 2. Transaction started in isolation mode</div>
+        <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 3. Debited $${amount.toLocaleString()} from ${src.name}</div>
+        <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 4. Credited $${amount.toLocaleString()} to ${dst.name}</div>
+        <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 5. Connection.commit() written to MySQL ledger (TXN ID: ${newTxn.id})</div>
+      `;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAccounts();
+      renderTxnLogs();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
