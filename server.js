@@ -113,15 +113,32 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // API: Get all messages
+  // API: Get messages (Strict Privacy Protection)
   if (req.method === 'GET' && pathname === '/api/messages') {
-    const msgs = getMessages();
+    const pin = parsedUrl.searchParams.get('pin') || (req.headers['x-owner-pin'] || '');
+    const idsParam = parsedUrl.searchParams.get('ids') || '';
+    const isOwner = (pin === '1808' || pin === '180887');
+    const allMsgs = getMessages();
+
+    let filteredMsgs = [];
+    if (isOwner) {
+      // Abhishek (Owner) sees all incoming client inquiries
+      filteredMsgs = allMsgs;
+    } else if (idsParam) {
+      // Senders see ONLY their own messages that they submitted from their browser
+      const allowedIds = new Set(idsParam.split(',').map(s => s.trim()).filter(Boolean));
+      filteredMsgs = allMsgs.filter(m => allowedIds.has(m.id));
+    } else {
+      // Third-party visitors receive an empty array to guarantee absolute privacy
+      filteredMsgs = [];
+    }
+
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'no-cache',
       'Access-Control-Allow-Origin': '*'
     });
-    res.end(JSON.stringify(msgs));
+    res.end(JSON.stringify(filteredMsgs));
     return;
   }
 
@@ -152,8 +169,8 @@ const server = http.createServer((req, res) => {
         msgs.unshift(newMsg);
         saveMessages(msgs);
 
-        // Broadcast to all active browsers in real-time
-        broadcastEvent('new_message', newMsg);
+        // Broadcast notification with message ID and sender ID for real-time triggers
+        broadcastEvent('new_message', { id: newMsg.id, name: newMsg.name, createdAt: newMsg.createdAt });
 
         res.writeHead(201, {
           'Content-Type': 'application/json; charset=utf-8',
@@ -207,7 +224,7 @@ const server = http.createServer((req, res) => {
         saveMessages(msgs);
 
         // Broadcast to all active browsers in real-time
-        broadcastEvent('new_reply', { reply, target });
+        broadcastEvent('new_reply', { reply, target, messageId: target.id });
 
         res.writeHead(200, {
           'Content-Type': 'application/json; charset=utf-8',

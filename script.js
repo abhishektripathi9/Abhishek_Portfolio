@@ -1079,6 +1079,53 @@ function initProfileFallback() {
 /* =====================================================
    19. INTERACTIVE MESSAGE HUB & ABHISHEK VERIFIED REPLIES
    ===================================================== */
+function getMySentMessageIds() {
+  try {
+    const raw = localStorage.getItem('my_sent_message_ids');
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function addMySentMessageId(id) {
+  if (!id) return;
+  try {
+    const list = getMySentMessageIds();
+    if (!list.includes(id)) {
+      list.unshift(id);
+      localStorage.setItem('my_sent_message_ids', JSON.stringify(list));
+    }
+  } catch (e) {}
+}
+
+function getMyPrivateMessages() {
+  try {
+    const raw = localStorage.getItem('my_private_messages');
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return [];
+}
+
+function saveMyPrivateMessages(messages) {
+  try {
+    localStorage.setItem('my_private_messages', JSON.stringify(messages));
+  } catch (e) {}
+}
+
+// Purge legacy public messages from previous portfolio versions if they don't belong to this user
+try {
+  if (localStorage.getItem('portfolio_messages')) {
+    const legacy = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+    const myIds = new Set(getMySentMessageIds());
+    const valid = legacy.filter(m => m && myIds.has(m.id));
+    if (valid.length > 0) {
+      saveMyPrivateMessages(valid);
+    }
+    localStorage.removeItem('portfolio_messages');
+  }
+} catch (e) {}
+
 function isOwnerVerified() {
   const pin = sessionStorage.getItem('abhishek_owner_pin');
   return pin === '1808' || pin === '180887';
@@ -1087,19 +1134,25 @@ function isOwnerVerified() {
 function initMessageHub() {
   const authBtn = document.getElementById('btn-owner-auth');
   const authText = document.getElementById('owner-auth-text');
+  const clearBtn = document.getElementById('btn-clear-all-messages');
   const modal = document.getElementById('owner-pin-modal');
   const closeBtn = document.getElementById('owner-pin-close');
   const pinForm = document.getElementById('owner-pin-form');
   const pinInput = document.getElementById('owner-pin-input');
 
   function updateAuthBtnState() {
-    if (!authBtn || !authText) return;
-    if (isOwnerVerified()) {
-      authBtn.classList.add('active');
-      authText.textContent = 'Abhishek Mode: Active (Click to Logout)';
-    } else {
-      authBtn.classList.remove('active');
-      authText.textContent = 'Abhishek (Owner) Reply Mode';
+    const isOwner = isOwnerVerified();
+    if (authBtn && authText) {
+      if (isOwner) {
+        authBtn.classList.add('active');
+        authText.textContent = 'Abhishek Mode: Active (Click to Logout)';
+      } else {
+        authBtn.classList.remove('active');
+        authText.textContent = 'Abhishek (Owner) Reply Mode';
+      }
+    }
+    if (clearBtn) {
+      clearBtn.style.display = isOwner ? 'inline-flex' : 'none';
     }
   }
   window.updateAuthBtnState = updateAuthBtnState;
@@ -1207,17 +1260,19 @@ async function saveMessageToHub(msgData) {
     replies: []
   };
 
-  // 1. Immediately store in localStorage so it appears right in front of the sender
+  // 1. Mark this message ID as belonging exclusively to this visitor's browser
+  addMySentMessageId(localMsg.id);
+
+  // 2. Store in visitor's private messages cache
   try {
-    let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-    stored = stored.filter(m => m && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel');
-    stored.unshift(localMsg);
-    localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+    let myMsgs = getMyPrivateMessages();
+    myMsgs.unshift(localMsg);
+    saveMyPrivateMessages(myMsgs);
   } catch (e) {
     console.error('LocalStorage write error', e);
   }
 
-  // 2. Also sync to dynamic server API if available
+  // 3. Sync to dynamic server API
   try {
     const res = await fetch('/api/messages', {
       method: 'POST',
@@ -1228,10 +1283,11 @@ async function saveMessageToHub(msgData) {
     if (res.ok && contentType.includes('application/json')) {
       const data = await res.json();
       if (data && data.message) {
+        addMySentMessageId(data.message.id);
         try {
-          let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-          stored = stored.map(m => m.id === localMsg.id ? data.message : m);
-          localStorage.setItem('portfolio_messages', JSON.stringify(stored));
+          let myMsgs = getMyPrivateMessages();
+          myMsgs = myMsgs.map(m => m.id === localMsg.id ? data.message : m);
+          saveMyPrivateMessages(myMsgs);
         } catch (e) {}
       }
     }
@@ -1239,7 +1295,7 @@ async function saveMessageToHub(msgData) {
     // Static hosting fallback
   }
 
-  // 3. Immediately render messages on board with newly submitted message highlighted
+  // 4. Broadcast on local tab channel
   if (window._portfolioSyncChannel) {
     try { window._portfolioSyncChannel.postMessage({ type: 'new_message', id: localMsg.id, name: localMsg.name }); } catch (e) {}
   }
@@ -1305,12 +1361,25 @@ async function loadAndRenderMessages(highlightId = null) {
   const container = document.getElementById('messages-feed');
   if (!container) return;
 
+  const isOwner = isOwnerVerified();
+  const ownerPin = sessionStorage.getItem('abhishek_owner_pin') || '';
+  const myIds = getMySentMessageIds();
+
   let messages = [];
   let serverMessages = [];
 
-  // 1. Attempt to fetch from dynamic server API
+  // 1. Fetch from dynamic server API with strict privacy protection
   try {
-    const res = await fetch(`/api/messages?_t=${Date.now()}`, { cache: 'no-cache' });
+    let apiUrl = `/api/messages?_t=${Date.now()}`;
+    if (isOwner) {
+      apiUrl += `&pin=${encodeURIComponent(ownerPin || '1808')}`;
+    } else if (myIds.length > 0) {
+      apiUrl += `&ids=${encodeURIComponent(myIds.join(','))}`;
+    } else {
+      apiUrl += `&ids=none`;
+    }
+
+    const res = await fetch(apiUrl, { cache: 'no-cache' });
     const contentType = res.headers.get('content-type') || '';
     if (res.ok && contentType.includes('application/json')) {
       serverMessages = await res.json();
@@ -1319,24 +1388,29 @@ async function loadAndRenderMessages(highlightId = null) {
     // Dynamic server offline or running on static CDN
   }
 
-  // 2. Load locally stored messages
+  // 2. Load locally stored private messages
   let localMessages = [];
   try {
-    const localRaw = localStorage.getItem('portfolio_messages');
-    if (localRaw) {
-      localMessages = JSON.parse(localRaw);
+    if (isOwner) {
+      localMessages = getMyPrivateMessages();
+    } else {
+      const myIdSet = new Set(myIds);
+      localMessages = getMyPrivateMessages().filter(m => m && myIdSet.has(m.id));
     }
   } catch (e) {
     localMessages = [];
   }
 
-  // 3. Deduplicate and merge: Server + Local
+  // 3. Deduplicate and merge: Server + Local (Strict Privacy Enforcement)
   const messageMap = new Map();
 
   if (Array.isArray(serverMessages)) {
     serverMessages.forEach(m => {
       if (m && m.id && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel') {
-        messageMap.set(m.id, m);
+        // Double-check: must be owner or match this visitor's sent message IDs
+        if (isOwner || myIds.includes(m.id)) {
+          messageMap.set(m.id, m);
+        }
       }
     });
   }
@@ -1344,13 +1418,14 @@ async function loadAndRenderMessages(highlightId = null) {
   if (Array.isArray(localMessages)) {
     localMessages.forEach(m => {
       if (m && m.id && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel') {
-        if (!messageMap.has(m.id)) {
-          messageMap.set(m.id, m);
-        } else {
-          // If message exists in both, preserve local replies
-          const existing = messageMap.get(m.id);
-          if ((!existing.replies || existing.replies.length === 0) && (m.replies && m.replies.length > 0)) {
-            existing.replies = m.replies;
+        if (isOwner || myIds.includes(m.id)) {
+          if (!messageMap.has(m.id)) {
+            messageMap.set(m.id, m);
+          } else {
+            const existing = messageMap.get(m.id);
+            if ((!existing.replies || existing.replies.length === 0) && (m.replies && m.replies.length > 0)) {
+              existing.replies = m.replies;
+            }
           }
         }
       }
@@ -1358,36 +1433,43 @@ async function loadAndRenderMessages(highlightId = null) {
   }
 
   messages = Array.from(messageMap.values());
-  // Sort descending by createdAt (newest first)
   messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-  // Keep local storage updated with merged messages
-  if (messages.length > 0) {
-    try {
-      localStorage.setItem('portfolio_messages', JSON.stringify(messages));
-    } catch (e) {}
+  // Sync visitor's private messages storage
+  if (!isOwner && messages.length > 0) {
+    saveMyPrivateMessages(messages);
   }
 
-  // Clean professional empty state when no messages have been sent yet
+  // 4. Confidential empty state when visitor has no messages sent
   if (!messages || messages.length === 0) {
-    container.innerHTML = `
-      <div class="messages-empty-state">
-        <div class="empty-icon-ring">
-          <i data-lucide="message-square-dashed"></i>
+    if (isOwner) {
+      container.innerHTML = `
+        <div class="messages-empty-state">
+          <div class="empty-icon-ring">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <h4>No Direct Messages Yet</h4>
+          <p>Incoming client inquiries and direct messages to Abhishek Tripathi will appear here in real-time with instant chime notification.</p>
         </div>
-        <h4>No Direct Messages Yet</h4>
-        <p>Real-time incoming messages from your portfolio visitors will appear here automatically with instant chime notification.</p>
-        <button class="btn btn-outline btn-sm" onclick="document.getElementById('form-name')?.focus()">
-          <i data-lucide="send"></i>
-          <span>Send First Message Above</span>
-        </button>
-      </div>
-    `;
+      `;
+    } else {
+      container.innerHTML = `
+        <div class="messages-empty-state private-channel-state">
+          <div class="empty-icon-ring">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <h4>Confidential &amp; Private Communication</h4>
+          <p>Messages submitted to Abhishek Tripathi are strictly confidential. Only you on this device and Abhishek can view your messages and replies. No other visitor will see your note or details.</p>
+          <button class="btn btn-primary btn-sm" onclick="document.getElementById('form-name')?.focus(); document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})">
+            <i data-lucide="send"></i>
+            <span>Send a Private Message to Abhishek</span>
+          </button>
+        </div>
+      `;
+    }
     if (typeof lucide !== 'undefined') lucide.createIcons();
     return;
   }
-
-  const isOwner = isOwnerVerified();
 
   container.innerHTML = messages.map(msg => {
     const senderInitials = getInitials(msg.name || 'Visitor');
@@ -1398,8 +1480,9 @@ async function loadAndRenderMessages(highlightId = null) {
     const gmailUrl = msg.email ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(msg.email)}&su=${encodeURIComponent('Re: ' + (msg.subject || 'Portfolio Inquiry'))}&body=${encodeURIComponent('Hi ' + (msg.name || 'there') + ',\n\nThank you for reaching out to me through my portfolio.\n\nBest regards,\nAbhishek Tripathi\nPhone: +91 9595347836')}` : '#';
     const waUrl = cleanedPhone ? `https://wa.me/${cleanedPhone}?text=${encodeURIComponent('Hi ' + (msg.name || 'there') + ', Abhishek Tripathi here regarding your message on my portfolio: "' + (msg.subject || 'Inquiry') + '"')}` : '#';
     const telUrl = cleanedPhone ? `tel:+${cleanedPhone}` : '#';
+    const hasReplies = msg.replies && msg.replies.length > 0;
 
-    const repliesHtml = (msg.replies && msg.replies.length > 0)
+    const repliesHtml = hasReplies
       ? `
         <div class="replies-container">
           ${msg.replies.map(rep => `
@@ -1422,7 +1505,15 @@ async function loadAndRenderMessages(highlightId = null) {
           `).join('')}
         </div>
       `
-      : '';
+      : (!isOwner
+          ? `
+            <div class="awaiting-reply-notice">
+              <i data-lucide="clock"></i>
+              <span>Delivered in real-time to Abhishek Tripathi (at180887@gmail.com). Awaiting Abhishek's verified response.</span>
+            </div>
+          `
+          : ''
+        );
 
     const ownerReplyBtn = isOwner
       ? `
@@ -1431,11 +1522,59 @@ async function loadAndRenderMessages(highlightId = null) {
           <span>Reply as Abhishek</span>
         </button>
       `
+      : '';
+
+    const roleBadge = isOwner
+      ? `<span class="msg-visitor-pill"><i data-lucide="user"></i> Client Inquiry</span>`
+      : `<span class="msg-visitor-pill private-pill"><i data-lucide="lock"></i> Private &bull; Visible only to You &amp; Abhishek</span>`;
+
+    const bottomActions = isOwner
+      ? `
+        <div class="msg-actions-bar">
+          ${ownerReplyBtn}
+          ${msg.email ? `
+            <a href="${gmailUrl}" target="_blank" rel="noopener noreferrer" class="btn-email-reply" title="Direct Email via Gmail">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <span>Email ${escapeHtml(msg.name)}</span>
+            </a>
+          ` : ''}
+          ${msg.phone ? `
+            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-mini" title="Direct WhatsApp Chat with ${escapeHtml(msg.name)}">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+              <span>WhatsApp ${escapeHtml(msg.name)}</span>
+            </a>
+          ` : ''}
+          <button class="btn-delete-msg" onclick="window.deleteMessage('${msg.id}')" title="Delete Message (Abhishek PIN: 1808)">
+            <i data-lucide="trash-2"></i>
+            <span>Delete</span>
+          </button>
+        </div>
+      `
       : `
-        <button class="btn-reply-action" onclick="document.getElementById('btn-owner-auth').click()" aria-label="Abhishek Reply Mode">
-          <i data-lucide="lock"></i>
-          <span>Abhishek: Unlock to Reply</span>
-        </button>
+        <div class="msg-actions-bar">
+          <a
+            href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20following%20up%20on%20my%20portfolio%20message%20(ID:%20${encodeURIComponent(msg.id)})"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-whatsapp-mini"
+            title="Instant WhatsApp follow-up with Abhishek"
+          >
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+            <span>WhatsApp Abhishek</span>
+          </a>
+          <a
+            href="mailto:at180887@gmail.com?subject=Regarding%20Portfolio%20Inquiry%20(${encodeURIComponent(msg.subject || 'Direct Message')})"
+            class="btn-email-reply"
+            title="Direct Email to Abhishek"
+          >
+            <i data-lucide="mail"></i>
+            <span>Email Abhishek</span>
+          </a>
+          <button class="btn-delete-msg" onclick="window.deleteMyMessage('${msg.id}')" title="Remove this message from your board">
+            <i data-lucide="trash-2"></i>
+            <span>Remove from My Board</span>
+          </button>
+        </div>
       `;
 
     return `
@@ -1446,7 +1585,7 @@ async function loadAndRenderMessages(highlightId = null) {
             <div class="msg-sender-meta">
               <div class="msg-name-badge-row">
                 <span class="msg-sender-name">${escapeHtml(msg.name || 'Anonymous')}</span>
-                <span class="msg-visitor-pill"><i data-lucide="user"></i> Sender</span>
+                ${roleBadge}
               </div>
               <span class="msg-subject-tag"><i data-lucide="bookmark"></i> ${escapeHtml(msg.subject || 'Portfolio Inquiry')}</span>
             </div>
@@ -1457,7 +1596,7 @@ async function loadAndRenderMessages(highlightId = null) {
           </div>
         </div>
 
-        <!-- SENDER DETAILS DOSSIER (Full uncut data, 100% visible, real-life actionable) -->
+        <!-- SENDER DETAILS DOSSIER -->
         <div class="msg-sender-details-card">
           <!-- Row 1: Sender Full Name -->
           <div class="msg-detail-row">
@@ -1477,7 +1616,7 @@ async function loadAndRenderMessages(highlightId = null) {
             </div>
           </div>
 
-          <!-- Row 2: Sender Email with Direct Gmail & Mailto Actions -->
+          <!-- Row 2: Sender Email with Direct Actions -->
           <div class="msg-detail-row">
             <div class="detail-row-left">
               <span class="detail-label-tag"><i data-lucide="mail"></i> Email Address:</span>
@@ -1495,16 +1634,6 @@ async function loadAndRenderMessages(highlightId = null) {
             </div>
             ${msg.email ? `
               <div class="detail-actions-group">
-                <a
-                  href="${gmailUrl}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-action-chip btn-chip-gmail"
-                  title="Directly compose email in Gmail"
-                >
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                  <span>Open in Gmail</span>
-                </a>
                 <button
                   class="btn-action-chip btn-chip-copy"
                   onclick="window.copyToClipboard('${escapeHtml(msg.email)}', 'Email')"
@@ -1517,7 +1646,7 @@ async function loadAndRenderMessages(highlightId = null) {
             ` : ''}
           </div>
 
-          <!-- Row 3: Phone / WhatsApp with Direct WhatsApp & Dialer Actions -->
+          <!-- Row 3: Phone / WhatsApp -->
           <div class="msg-detail-row">
             <div class="detail-row-left">
               <span class="detail-label-tag"><i data-lucide="phone"></i> Phone / WhatsApp:</span>
@@ -1535,24 +1664,6 @@ async function loadAndRenderMessages(highlightId = null) {
             </div>
             ${msg.phone ? `
               <div class="detail-actions-group">
-                <a
-                  href="${waUrl}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-action-chip btn-chip-wa"
-                  title="Open direct WhatsApp chat"
-                >
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
-                  <span>WhatsApp</span>
-                </a>
-                <a
-                  href="${telUrl}"
-                  class="btn-action-chip btn-chip-call"
-                  title="Direct phone dialer"
-                >
-                  <i data-lucide="phone"></i>
-                  <span>Call</span>
-                </a>
                 <button
                   class="btn-action-chip btn-chip-copy"
                   onclick="window.copyToClipboard('${escapeHtml(msg.phone)}', 'Phone Number')"
@@ -1566,7 +1677,7 @@ async function loadAndRenderMessages(highlightId = null) {
           </div>
         </div>
 
-        <!-- Full Message Content (No line cutoff, no ellipsis) -->
+        <!-- Full Message Content -->
         <div class="msg-body-wrapper">
           <div class="msg-body-title">
             <i data-lucide="message-square"></i>
@@ -1577,43 +1688,27 @@ async function loadAndRenderMessages(highlightId = null) {
 
         ${repliesHtml}
 
-        <!-- Bottom Quick Actions Bar -->
-        <div class="msg-actions-bar">
-          ${ownerReplyBtn}
-          ${msg.email ? `
-            <a href="${gmailUrl}" target="_blank" rel="noopener noreferrer" class="btn-email-reply" title="Direct Email via Gmail">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              <span>Email ${escapeHtml(msg.name)}</span>
-            </a>
-          ` : ''}
-          ${msg.phone ? `
-            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-mini" title="Direct WhatsApp Chat with ${escapeHtml(msg.name)}">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
-              <span>WhatsApp ${escapeHtml(msg.name)}</span>
-            </a>
-          ` : ''}
-          <button class="btn-delete-msg" onclick="window.deleteMessage('${msg.id}')" title="Delete Message (Abhishek Only - PIN: 1808)">
-            <i data-lucide="trash-2"></i>
-            <span>Delete</span>
-          </button>
-        </div>
-        <div class="inline-reply-box" id="reply-box-${msg.id}" style="display: none;">
-          <textarea
-            class="reply-textarea"
-            id="reply-text-${msg.id}"
-            placeholder="Write your verified response as Abhishek Tripathi to ${escapeHtml(msg.name)} (${escapeHtml(msg.email || '')})..."
-            rows="3"
-          ></textarea>
-          <div class="reply-box-btns">
-            <button class="btn btn-primary btn-sm" onclick="window.submitReply('${msg.id}')">
-              <i data-lucide="send"></i>
-              <span>Post Verified Reply</span>
-            </button>
-            <button class="btn btn-glass btn-sm" onclick="window.toggleReplyBox('${msg.id}')">
-              <span>Cancel</span>
-            </button>
+        ${bottomActions}
+
+        ${isOwner ? `
+          <div class="inline-reply-box" id="reply-box-${msg.id}" style="display: none;">
+            <textarea
+              class="reply-textarea"
+              id="reply-text-${msg.id}"
+              placeholder="Write your verified response as Abhishek Tripathi to ${escapeHtml(msg.name)} (${escapeHtml(msg.email || '')})..."
+              rows="3"
+            ></textarea>
+            <div class="reply-box-btns">
+              <button class="btn btn-primary btn-sm" onclick="window.submitReply('${msg.id}')">
+                <i data-lucide="send"></i>
+                <span>Post Verified Reply</span>
+              </button>
+              <button class="btn btn-glass btn-sm" onclick="window.toggleReplyBox('${msg.id}')">
+                <span>Cancel</span>
+              </button>
+            </div>
           </div>
-        </div>
+        ` : ''}
       </div>
     `;
   }).join('');
@@ -1622,6 +1717,18 @@ async function loadAndRenderMessages(highlightId = null) {
     lucide.createIcons();
   }
 }
+
+window.deleteMyMessage = function(msgId) {
+  if (!confirm('Remove this message from your board?')) return;
+  try {
+    let myIds = getMySentMessageIds().filter(id => id !== msgId);
+    localStorage.setItem('my_sent_message_ids', JSON.stringify(myIds));
+    let myMsgs = getMyPrivateMessages().filter(m => m.id !== msgId);
+    saveMyPrivateMessages(myMsgs);
+    showToast('✓ Message removed from your board.');
+  } catch (e) {}
+  loadAndRenderMessages();
+};
 
 window.toggleReplyBox = function(msgId) {
   const box = document.getElementById(`reply-box-${msgId}`);
@@ -1670,30 +1777,6 @@ window.submitReply = async function(msgId) {
     }
     loadAndRenderMessages();
   } catch (err) {
-    // Local fallback in case of static hosting
-    try {
-      const stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-      const target = stored.find(m => m.id === msgId);
-      if (target) {
-        if (!target.replies) target.replies = [];
-        target.replies.push({
-          id: 'rep-' + Date.now(),
-          author: 'Abhishek Tripathi',
-          isOwner: true,
-          text: replyText,
-          createdAt: new Date().toISOString()
-        });
-        localStorage.setItem('portfolio_messages', JSON.stringify(stored));
-        showToast('Verified reply saved locally!');
-        if (window._portfolioSyncChannel) {
-          try { window._portfolioSyncChannel.postMessage({ type: 'new_reply', messageId: msgId }); } catch (e) {}
-        }
-        loadAndRenderMessages();
-        return;
-      }
-    } catch (localErr) {
-      console.error(localErr);
-    }
     showToast('Error: ' + err.message);
   }
 };
@@ -1731,12 +1814,9 @@ window.deleteMessage = async function(msgId) {
     console.warn('Backend delete note:', err.message);
   }
 
-  // Also remove from local storage & re-render
   try {
-    let stored = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-    stored = stored.filter(m => m && m.id !== msgId);
-    localStorage.setItem('portfolio_messages', JSON.stringify(stored));
-    showToast('✓ Message removed successfully.');
+    let myMsgs = getMyPrivateMessages().filter(m => m && m.id !== msgId);
+    saveMyPrivateMessages(myMsgs);
   } catch (e) {}
 
   if (window._portfolioSyncChannel) {
@@ -1779,7 +1859,7 @@ window.clearAllMessages = async function() {
   }
 
   try {
-    localStorage.removeItem('portfolio_messages');
+    localStorage.removeItem('my_private_messages');
   } catch (e) {}
 
   if (window._portfolioSyncChannel) {
@@ -1857,15 +1937,26 @@ function initRealtimeSync() {
       const channel = new BroadcastChannel('abhishek_portfolio_realtime');
       channel.onmessage = (event) => {
         if (event.data && event.data.type) {
+          const isOwner = isOwnerVerified();
+          const myIds = getMySentMessageIds();
+
           if (event.data.type === 'new_message') {
-            playNotificationSound();
-            showToast(`🔔 Real-Time Message from ${event.data.name || 'Visitor'}!`);
-            loadAndRenderMessages(event.data.id);
+            if (isOwner) {
+              playNotificationSound();
+              showToast(`🔔 Real-Time Inquiry from ${event.data.name || 'Visitor'}!`);
+              loadAndRenderMessages(event.data.id);
+            } else if (myIds.includes(event.data.id)) {
+              loadAndRenderMessages(event.data.id);
+            }
           } else if (event.data.type === 'new_reply') {
-            playNotificationSound();
-            showToast('💬 Abhishek posted a verified reply!');
-            loadAndRenderMessages();
-          } else {
+            if (isOwner) {
+              loadAndRenderMessages();
+            } else if (myIds.includes(event.data.messageId)) {
+              playNotificationSound();
+              showToast('💬 Abhishek Tripathi posted a verified reply to your inquiry!');
+              loadAndRenderMessages(event.data.messageId);
+            }
+          } else if (event.data.type === 'message_deleted' || event.data.type === 'messages_cleared') {
             loadAndRenderMessages();
           }
         }
@@ -1882,20 +1973,34 @@ function initRealtimeSync() {
       sse.addEventListener('new_message', (e) => {
         try {
           const newMsg = JSON.parse(e.data);
-          playNotificationSound();
-          showToast(`🔔 Real-Time Message from ${newMsg.name}!`);
-          loadAndRenderMessages(newMsg.id);
-        } catch (err) {
-          loadAndRenderMessages();
-        }
+          const isOwner = isOwnerVerified();
+          const myIds = getMySentMessageIds();
+
+          if (isOwner) {
+            playNotificationSound();
+            showToast(`🔔 New client inquiry from ${newMsg.name}!`);
+            loadAndRenderMessages(newMsg.id);
+          } else if (myIds.includes(newMsg.id)) {
+            loadAndRenderMessages(newMsg.id);
+          }
+        } catch (err) {}
       });
 
       sse.addEventListener('new_reply', (e) => {
         try {
-          playNotificationSound();
-          showToast('💬 Abhishek posted a verified reply!');
+          const data = JSON.parse(e.data);
+          const isOwner = isOwnerVerified();
+          const myIds = getMySentMessageIds();
+          const targetMsgId = data.messageId || data.target?.id;
+
+          if (isOwner) {
+            loadAndRenderMessages();
+          } else if (myIds.includes(targetMsgId)) {
+            playNotificationSound();
+            showToast('💬 Abhishek Tripathi replied to your message!');
+            loadAndRenderMessages(targetMsgId);
+          }
         } catch (err) {}
-        loadAndRenderMessages();
       });
 
       sse.addEventListener('message_deleted', () => {
@@ -1914,25 +2019,43 @@ function initRealtimeSync() {
     }
   }
 
-  // 3. Continuous real-time polling backup (every 4 seconds)
+  // 3. Continuous real-time polling backup (every 5 seconds)
   let lastKnownCount = -1;
   setInterval(async () => {
     try {
-      const res = await fetch(`/api/messages?_t=${Date.now()}`, { cache: 'no-cache' });
+      const isOwner = isOwnerVerified();
+      const myIds = getMySentMessageIds();
+
+      // Third-party visitors who haven't sent any messages do not poll
+      if (!isOwner && myIds.length === 0) return;
+
+      let url = `/api/messages?_t=${Date.now()}`;
+      if (isOwner) {
+        const pin = sessionStorage.getItem('abhishek_owner_pin') || '1808';
+        url += `&pin=${encodeURIComponent(pin)}`;
+      } else {
+        url += `&ids=${encodeURIComponent(myIds.join(','))}`;
+      }
+
+      const res = await fetch(url, { cache: 'no-cache' });
       const contentType = res.headers.get('content-type') || '';
       if (res.ok && contentType.includes('application/json')) {
         const list = await res.json();
         if (Array.isArray(list)) {
           if (lastKnownCount !== -1 && list.length > lastKnownCount) {
-            playNotificationSound();
-            showToast(`🔔 New message from ${list[0]?.name}!`);
-            loadAndRenderMessages(list[0]?.id);
+            if (isOwner) {
+              playNotificationSound();
+              showToast(`🔔 New inquiry from ${list[0]?.name}!`);
+              loadAndRenderMessages(list[0]?.id);
+            } else if (myIds.includes(list[0]?.id)) {
+              loadAndRenderMessages(list[0]?.id);
+            }
           }
           lastKnownCount = list.length;
         }
       }
     } catch (e) {}
-  }, 4000);
+  }, 5000);
 }
 
 /* =====================================================
