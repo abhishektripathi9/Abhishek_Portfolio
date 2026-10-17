@@ -586,54 +586,6 @@ const projectData = {
     tech: ['React.js', 'Java', 'Spring Boot', 'MySQL', 'REST APIs', 'CSS3 Grid'],
     github: 'https://github.com/abhishektripathi9',
     liveDemo: './rentease/index.html'
-  },
-  weather: {
-    title: 'Real-Time Weather Forecast Application',
-    year: '2025',
-    category: 'Web Application & API Telemetry',
-    image: 'assets/project-weather.jpg',
-    desc: 'An ultra-responsive telemetry web application delivering hyper-accurate weather reports using OpenWeather API integration. Styled with glassmorphism aesthetics and animated weather icons matching current meteorological conditions.',
-    highlights: [
-      'Live OpenWeather API integration providing current temp, precipitation, wind speed, and humidity.',
-      'Interactive radar preview with dynamic atmospheric gradients corresponding to local conditions.',
-      '7-day multi-tier forecast cards and interactive hourly telemetry charts.',
-      'Location auto-detection via browser Geolocation API with city search autocomplete.'
-    ],
-    tech: ['React.js', 'JavaScript (ES6+)', 'OpenWeather API', 'HTML5', 'CSS3 Glassmorphism'],
-    github: 'https://github.com/abhishektripathi9',
-    liveDemo: './weather/index.html'
-  },
-  salary: {
-    title: 'Salary Prediction & Compensation Analytics',
-    year: '2024',
-    category: 'Machine Learning & Data Science',
-    image: 'assets/project-salary.jpg',
-    desc: 'A machine learning regression system engineered to accurately predict software engineer compensation based on years of experience, skill ratings, education tier, and tech stack demand.',
-    highlights: [
-      'Engineered with Scikit-learn, Pandas, and NumPy for comprehensive data preprocessing and outlier filtering.',
-      'Trained and evaluated multiple regression models (Linear, Polynomial, Random Forest) with R² metric tracking.',
-      'Interactive dashboard featuring sliders for real-time compensation projections and feature importance ranking.',
-      'Visualized distribution plots and variance curves illustrating salary density across roles.'
-    ],
-    tech: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'Regression Analysis', 'Matplotlib'],
-    github: 'https://github.com/abhishektripathi9',
-    liveDemo: './salary/index.html'
-  },
-  portfolio: {
-    title: '3D Holographic Developer Portfolio',
-    year: '2026',
-    category: 'Creative Web & 3D Graphics',
-    image: 'assets/project-portfolio.jpg',
-    desc: 'A cutting-edge developer portfolio designed with modern WebGL capabilities. Features an interactive 3D particle constellation using Three.js, realistic 3D mouse tilt with dynamic specular glare, cyber-glassmorphism tokens, and seamless micro-animations.',
-    highlights: [
-      'Interactive Three.js 3D background with particle constellations reacting to cursor momentum.',
-      'Physics-based CSS 3D perspective tilt on cards with dynamic cursor-following specular sheen.',
-      'Custom cyber glowing cursor follower and scroll progress telemetry indicators.',
-      'Fully responsive, accessible, and high-performance WebGL rendering with automated off-screen pause.'
-    ],
-    tech: ['Three.js', 'WebGL', 'JavaScript (ES6+)', 'HTML5', 'CSS 3D Transforms'],
-    github: 'https://github.com/abhishektripathi9',
-    liveDemo: './index.html'
   }
 };
 

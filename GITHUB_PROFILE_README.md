@@ -109,8 +109,6 @@
 | 🏛️ **Enterprise Banking Management System** | Java &bull; JDBC &bull; MySQL &bull; OOP Architecture | Desktop &amp; web banking software following MVC patterns, PreparedStatements sanitization, and strict ACID rollbacks. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/banking-system/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
 | 📜 **Advanced Land Registry DApp** | Solidity &bull; Ethereum &bull; Web3.js &bull; IPFS | Tamper-proof land title transfer and fraud prevention on blockchain with MetaMask authentication. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/land-registry/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp) |
 | 🏠 **RentEase – PG &amp; Room Finder** | React.js &bull; Java &bull; Spring Boot &bull; MySQL | Full-stack student PG room finder with city filters, amenity tags, and token booking advance. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/rentease/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
-| ⛅ **AuraWeather Atmospheric Telemetry** | React &bull; OpenWeather API &bull; Canvas | Live radar, 7-day multi-tier projections, dynamic atmospheric gradients, and 24h temp trend curves. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/weather/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
-| 📈 **PayPulse ML Salary Predictor** | Python &bull; Scikit-learn &bull; Pandas &bull; Stats | Gaussian regression prediction engine calculating real-time tech CTC and percentile curves. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/salary/index.html) &bull; [💻 Code](https://github.com/abhishektripathi9) |
 
 ---
 
