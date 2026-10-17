@@ -64,59 +64,59 @@ function initThreeJsHero() {
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // 1. Floating 3D Geometric Torus Knot Wireframe
+  // 1. Floating 3D Geometric Torus Knot Wireframe (Electric Neon Cyan)
   const torusGeometry = new THREE.TorusKnotGeometry(9, 2.2, 120, 24, 2, 3);
   const torusMaterial = new THREE.MeshBasicMaterial({
-    color: 0x00f0ff,
+    color: 0x00f5ff,
     wireframe: true,
     transparent: true,
-    opacity: 0.18
+    opacity: 0.28
   });
   const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial);
   torusMesh.position.set(12, -2, -5);
   scene.add(torusMesh);
 
   // 2. 3D Particle Starfield & Constellation
-  const particleCount = 180;
+  const particleCount = 200;
   const particlePositions = new Float32Array(particleCount * 3);
   const particleVelocities = [];
 
   for (let i = 0; i < particleCount; i++) {
-    const x = (Math.random() - 0.5) * 70;
-    const y = (Math.random() - 0.5) * 50;
-    const z = (Math.random() - 0.5) * 40;
+    const x = (Math.random() - 0.5) * 75;
+    const y = (Math.random() - 0.5) * 55;
+    const z = (Math.random() - 0.5) * 45;
 
     particlePositions[i * 3] = x;
     particlePositions[i * 3 + 1] = y;
     particlePositions[i * 3 + 2] = z;
 
     particleVelocities.push({
-      vx: (Math.random() - 0.5) * 0.02,
-      vy: (Math.random() - 0.5) * 0.02,
-      vz: (Math.random() - 0.5) * 0.02
+      vx: (Math.random() - 0.5) * 0.025,
+      vy: (Math.random() - 0.5) * 0.025,
+      vz: (Math.random() - 0.5) * 0.025
     });
   }
 
   const particleGeometry = new THREE.BufferGeometry();
   particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
 
-  // Particle Material (Dual colors using point texture or sprite)
+  // Particle Material (Neon Cyan Stars)
   const particleMaterial = new THREE.PointsMaterial({
-    color: 0x00f0ff,
-    size: 0.8,
+    color: 0x00f5ff,
+    size: 1.1,
     transparent: true,
-    opacity: 0.75,
+    opacity: 0.85,
     blending: THREE.AdditiveBlending
   });
 
   const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
   scene.add(particleSystem);
 
-  // 3. Dynamic Connecting Lines between nearby 3D points
+  // 3. Dynamic Connecting Lines between nearby 3D points (Neon Magenta Laser Beams)
   const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x8b5cf6,
+    color: 0xff007f,
     transparent: true,
-    opacity: 0.12,
+    opacity: 0.2,
     blending: THREE.AdditiveBlending
   });
 
@@ -628,7 +628,7 @@ function initProjectModal() {
             <h3 class="modal-title">${data.title}</h3>
             <p class="modal-desc">${data.desc}</p>
             
-            <h4 style="color:#00f0ff;font-family:var(--font-heading);margin-bottom:12px;font-size:1.05rem;">Key Architecture Highlights</h4>
+            <h4 style="color:#00f5ff;font-family:var(--font-heading);margin-bottom:12px;font-size:1.05rem;text-shadow:0 0 10px rgba(0,245,255,0.6);">Key Architecture Highlights</h4>
             <div class="modal-feature-list">
               ${data.highlights.map(h => `
                 <div class="modal-feature-item">
@@ -644,7 +644,7 @@ function initProjectModal() {
 
             <div class="modal-actions">
               ${data.liveDemo ? `
-                <a href="${data.liveDemo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-3d" style="background:linear-gradient(135deg,#10b981,#00f0ff);color:#040711;font-weight:700;">
+                <a href="${data.liveDemo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-3d" style="background:linear-gradient(135deg,#00ff88,#00f5ff);color:#03050e;font-weight:800;box-shadow:0 0 25px rgba(0,255,136,0.6);">
                   <i data-lucide="external-link"></i>
                   <span>Launch Live Demo</span>
                 </a>
