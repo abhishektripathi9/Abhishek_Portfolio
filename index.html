@@ -311,18 +311,6 @@
             <i data-lucide="arrow-right" class="btn-icon-xs"></i>
           </a>
         </li>
-        <li class="nav-search-item">
-          <button class="nav-google-btn" id="btn-open-google-search" aria-label="Search Abhishek on Google AI" title="Search Abhishek Tripathi on Google AI (Ctrl + K)">
-            <svg class="google-g-sm" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.66-5.17 3.66-9.09z"/>
-              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.1C3.27 21.46 7.33 24 12 24z"/>
-              <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.1z"/>
-              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.54 1.25 6.58l4.03 3.1c.95-2.83 3.6-4.93 6.72-4.93z"/>
-            </svg>
-            <span class="nav-google-text">AI Search</span>
-            <kbd class="nav-search-kbd">Ctrl K</kbd>
-          </button>
-        </li>
       </ul>
     </div>
   </nav>
@@ -331,17 +319,10 @@
        HERO SECTION
        ===================================================== -->
   <section class="hero" id="home">
-    <!-- Three.js 3D Interactive WebGL Canvas -->
-    <div class="hero-3d-wrapper">
-      <canvas id="hero-3d-canvas"></canvas>
-    </div>
-
-    <!-- Hero Background Watermark Typography & Accents (matching reference screenshot) -->
+    <!-- Hero Background Watermark Typography (clean static reference layout) -->
     <div class="hero-bg-watermark" aria-hidden="true">
       <span class="watermark-word watermark-word-vision">VISION</span>
       <span class="watermark-word watermark-word-aim">LLM</span>
-      <span class="watermark-circle-ring"></span>
-      <span class="watermark-dot"></span>
     </div>
 
     <div class="hero-container">
@@ -400,37 +381,6 @@
               <i data-lucide="send" class="btn-icon"></i>
               <span>Contact Me</span>
             </a>
-          </div>
-
-          <!-- Interactive Google AI Search Bar in Hero -->
-          <div class="hero-google-search-widget reveal" id="hero-google-search-widget">
-            <div class="hero-google-search-bar" id="hero-google-search-bar" role="button" tabindex="0" aria-label="Open Google AI Overview">
-              <div class="hero-g-icon-wrap">
-                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.66-5.17 3.66-9.09z"/>
-                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.1C3.27 21.46 7.33 24 12 24z"/>
-                  <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.1z"/>
-                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.54 1.25 6.58l4.03 3.1c.95-2.83 3.6-4.93 6.72-4.93z"/>
-                </svg>
-              </div>
-              <div class="hero-g-input-mock">
-                <span class="g-mock-text">Search Abhishek Tripathi on Google AI...</span>
-              </div>
-              <div class="hero-g-badge">
-                <span class="g-sparkle-pill"><i data-lucide="sparkles"></i> AI Overview</span>
-                <kbd class="g-kbd-hint">Ctrl K</kbd>
-              </div>
-            </div>
-
-            <!-- Quick Suggested Searches -->
-            <div class="hero-g-queries">
-              <span class="hero-queries-label">Popular queries:</span>
-              <button class="hero-query-chip" data-query="Who is Abhishek Tripathi?">Who is Abhishek Tripathi?</button>
-              <button class="hero-query-chip" data-query="Abhishek Tripathi BTech CSE Batch 2023-2027 UIT Prayagraj">Batch 2023–2027</button>
-              <button class="hero-query-chip" data-query="Abhishek Tripathi intermediate Chitrakoot Inter College">Chitrakoot Inter College</button>
-              <button class="hero-query-chip" data-query="Abhishek Tripathi United Institute of Technology BTech CSE">UIT Prayagraj</button>
-              <button class="hero-query-chip" data-query="Abhishek Tripathi Full Stack Developer Computer Science">Computer Science &amp; Skills</button>
-            </div>
           </div>
 
           <!-- Hero Social Icons -->
@@ -2246,238 +2196,6 @@
       </div>
     </div>
   </div>
-
-  <!-- =====================================================
-       GOOGLE AI OVERVIEW & SEARCH MODAL (AUTHENTIC GOOGLE UI)
-       ===================================================== -->
-  <div class="modal-overlay google-search-overlay" id="google-search-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="google-modal-dialog">
-      <!-- Google Top Search App Bar (Matches Screenshot Header) -->
-      <div class="google-modal-topbar">
-        <div class="google-top-meta">
-          <span class="g-phone-time" id="g-current-time">11:46</span>
-          <div class="g-phone-status">
-            <span class="g-network-pill">5G</span>
-            <i data-lucide="wifi" class="g-status-icon"></i>
-            <i data-lucide="battery" class="g-status-icon"></i>
-          </div>
-        </div>
-
-        <div class="google-brand-header">
-          <div class="google-brand-center">
-            <svg class="google-g-logo" viewBox="0 0 24 24" width="38" height="38" aria-hidden="true">
-              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.66-5.17 3.66-9.09z"/>
-              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.1C3.27 21.46 7.33 24 12 24z"/>
-              <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.1z"/>
-              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.54 1.25 6.58l4.03 3.1c.95-2.83 3.6-4.93 6.72-4.93z"/>
-            </svg>
-          </div>
-          <button class="google-modal-close" id="google-search-close-btn" aria-label="Close Google Search Overview">
-            <i data-lucide="x"></i>
-          </button>
-        </div>
-
-        <!-- Google Search Input Bar -->
-        <div class="google-search-bar-wrap">
-          <div class="google-search-input-pill">
-            <i data-lucide="search" class="g-search-leading-icon"></i>
-            <input
-              type="text"
-              id="google-query-input"
-              class="google-query-input"
-              value="Abhishek Tripathi"
-              placeholder="Search Abhishek Tripathi, Chitrakoot, UIT Prayagraj..."
-              autocomplete="off"
-              spellcheck="false"
-            />
-            <button class="g-clear-query-btn" id="google-input-clear" aria-label="Clear query">
-              <i data-lucide="x"></i>
-            </button>
-            <div class="g-input-trailing-icons">
-              <button class="g-icon-tool-btn" id="g-mic-btn" title="Voice Search / Dictate" aria-label="Voice Search">
-                <i data-lucide="mic"></i>
-              </button>
-              <button class="g-icon-tool-btn" id="g-lens-btn" title="Visual Search" aria-label="Visual Search">
-                <i data-lucide="camera"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Search Filter Tabs -->
-        <div class="google-search-tabs" id="google-search-tabs">
-          <button class="g-tab-pill active" data-filter="all">All</button>
-          <button class="g-tab-pill" data-filter="batch">Batch 2023–2027</button>
-          <button class="g-tab-pill" data-filter="uit">UIT Prayagraj</button>
-          <button class="g-tab-pill" data-filter="chitrakoot">Chitrakoot Inter College</button>
-          <button class="g-tab-pill" data-filter="skills">Computer Science &amp; Skills</button>
-          <button class="g-tab-pill" data-filter="projects">Projects</button>
-          <button class="g-tab-pill" data-filter="contact">Contact &amp; Profiles</button>
-        </div>
-      </div>
-
-      <!-- Google AI Overview Body (Matches Screenshot Layout & Typography) -->
-      <div class="google-modal-body">
-        <div class="google-ai-overview-card" id="google-ai-overview-card">
-          
-          <!-- Audio Speaker Button (Exactly as in screenshot!) -->
-          <div class="google-speaker-row">
-            <button class="google-speaker-btn" id="google-tts-btn" aria-label="Listen to Google AI Overview" title="Click to listen">
-              <div class="speaker-circle">
-                <i data-lucide="volume-2" id="speaker-icon"></i>
-                <div class="equalizer-bars" id="equalizer-bars">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <span class="speaker-label" id="speaker-label">Listen</span>
-            </button>
-            <div class="ai-overview-badge">
-              <i data-lucide="sparkles"></i>
-              <span>AI Overview</span>
-            </div>
-          </div>
-
-          <!-- Dynamic Headline with Soft Blue Highlight (Exact Match to Screenshot!) -->
-          <h2 class="google-ai-headline" id="google-ai-headline">
-            <span class="g-name-bold">Abhishek Tripathi</span> is <span class="g-ai-highlight" id="google-ai-highlight">connected to the United Institute of Technology (UIT) in Prayagraj (Allahabad), Uttar Pradesh, India</span>.
-          </h2>
-
-          <!-- Dynamic Overview Paragraph (Matches Screenshot!) -->
-          <div class="google-ai-content" id="google-ai-content">
-            <p id="google-ai-paragraph-1">
-              Based on public professional records, he is a <strong>MERN Stack Developer</strong> and <strong>Data Analytics Enthusiast</strong> who completed his intermediate schooling at <a href="#education" class="g-text-link" id="link-cic-school">Chitrakoot Inter College in Karwi, Chitrakoot</a> and is pursuing his Bachelor of Technology (B.Tech) degree in <strong>Computer Science and Engineering (Batch 2023–2027)</strong> from the <a href="https://uitprayagraj.org" target="_blank" rel="noopener noreferrer" class="g-text-link">United Institute of Technology</a>.
-            </p>
-            <p id="google-ai-paragraph-2">
-              During his academic journey, he has developed strong proficiency in MERN stack development (MongoDB, Express.js, React.js, Node.js), machine learning, and data analytics in Python, engineering scalable web platforms and predictive models with clean code principles.
-            </p>
-          </div>
-
-          <!-- Source Citation Chips (Matches Screenshot!) -->
-          <div class="google-sources-strip" id="google-sources-strip">
-            <a href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/" target="_blank" rel="noopener noreferrer" class="g-source-chip in-chip">
-              <span class="g-source-badge">in</span>
-              <span class="g-source-text">LinkedIn India &bull; Abhishek Tripathi &bull; +1</span>
-            </a>
-
-            <a href="https://www.linkedin.com/in/abhishek-tripathi-a2a35a307/recent-activity/all/" target="_blank" rel="noopener noreferrer" class="g-source-chip in-chip" title="View Abhishek Tripathi LinkedIn Posts &amp; Updates">
-              <span class="g-source-badge">⚡</span>
-              <span class="g-source-text">LinkedIn Posts &bull; Activity</span>
-            </a>
-
-            <a href="https://github.com/abhishektripathi9" target="_blank" rel="noopener noreferrer" class="g-source-chip gh-chip">
-              <img src="assets/github-logo.png" alt="GitHub" class="g-chip-img" width="16" height="16" />
-              <span class="g-source-text">GitHub &bull; abhishektripathi9</span>
-            </a>
-
-            <a href="#education" class="g-source-chip edu-chip" id="g-chip-education-link">
-              <i data-lucide="graduation-cap" class="g-chip-lucide"></i>
-              <span class="g-source-text">Chitrakoot Inter College &bull; UIT</span>
-            </a>
-          </div>
-
-          <!-- Knowledge Panel / Facts Grid -->
-          <div class="google-knowledge-grid">
-            <div class="g-fact-card">
-              <div class="g-fact-icon cyan"><i data-lucide="graduation-cap"></i></div>
-              <div class="g-fact-info">
-                <span class="g-fact-title">Current Higher Education</span>
-                <strong>United Institute of Technology (UIT), Prayagraj</strong>
-                <p>B.Tech CSE &bull; <strong>Batch 2023–2027</strong> &bull; CGPA: 6.8 / 10</p>
-              </div>
-            </div>
-
-            <div class="g-fact-card">
-              <div class="g-fact-icon purple"><i data-lucide="school"></i></div>
-              <div class="g-fact-info">
-                <span class="g-fact-title">Intermediate Schooling (10+2)</span>
-                <strong>Chitrakoot Inter College, Karwi, Chitrakoot</strong>
-                <p>Science Stream (PCM) &bull; UP Board &bull; Foundational Computing</p>
-              </div>
-            </div>
-
-            <div class="g-fact-card">
-              <div class="g-fact-icon green"><i data-lucide="code-2"></i></div>
-              <div class="g-fact-info">
-                <span class="g-fact-title">Core Competencies</span>
-                <strong>MERN Stack &amp; Data Analytics Enthusiast</strong>
-                <p>MongoDB, Express.js, React.js, Node.js, Python ML &amp; SQL</p>
-              </div>
-            </div>
-
-            <div class="g-fact-card">
-              <div class="g-fact-icon amber"><i data-lucide="map-pin"></i></div>
-              <div class="g-fact-info">
-                <span class="g-fact-title">Hometown &amp; Region</span>
-                <strong>Chitrakoot &bull; Banda &bull; Prayagraj</strong>
-                <p>Uttar Pradesh, India</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- People Also Ask / Suggested Questions -->
-          <div class="google-suggested-queries">
-            <h4 class="g-suggested-title">
-              <i data-lucide="help-circle"></i>
-              <span>People also search for:</span>
-            </h4>
-            <div class="g-query-list">
-              <button class="g-query-item" data-search="Abhishek Tripathi BTech CSE Batch 2023-2027">
-                <span>What is Abhishek Tripathi's academic batch? (Batch 2023–2027)</span>
-                <i data-lucide="chevron-right"></i>
-              </button>
-              <button class="g-query-item" data-search="Abhishek Tripathi Chitrakoot Inter College Karwi">
-                <span>Where did Abhishek Tripathi complete his intermediate education?</span>
-                <i data-lucide="chevron-right"></i>
-              </button>
-              <button class="g-query-item" data-search="Abhishek Tripathi United Institute of Technology BTech CSE">
-                <span>Which college is Abhishek pursuing Computer Science Engineering in?</span>
-                <i data-lucide="chevron-right"></i>
-              </button>
-              <button class="g-query-item" data-search="Abhishek Tripathi technical skills projects">
-                <span>What are Abhishek Tripathi's skills and web development projects?</span>
-                <i data-lucide="chevron-right"></i>
-              </button>
-              <button class="g-query-item" data-search="Abhishek Tripathi contact LinkedIn GitHub">
-                <span>How to contact Abhishek Tripathi or view LinkedIn profile?</span>
-                <i data-lucide="chevron-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Bottom Footer Bar -->
-          <div class="google-card-footer">
-            <div class="g-footer-meta">
-              <i data-lucide="shield-check" class="g-verify-icon"></i>
-              <span>Live Portfolio Data &bull; Render Cloud &bull; Schema.org Structured Data</span>
-            </div>
-            <div class="g-footer-actions">
-              <button class="btn btn-outline btn-sm" id="btn-copy-g-summary">
-                <i data-lucide="copy"></i>
-                <span id="copy-summary-text">Copy Summary</span>
-              </button>
-              <button class="btn btn-primary btn-sm" id="btn-g-view-education">
-                <i data-lucide="book-open"></i>
-                <span>View In Education</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Floating Quick Google AI Search Button -->
-  <button class="floating-google-ai-btn" id="floating-google-ai-btn" aria-label="Open Google AI Overview" title="Google AI Overview (Ctrl + K)">
-    <div class="floating-btn-glow"></div>
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.66-5.17 3.66-9.09z"/>
-      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.1C3.27 21.46 7.33 24 12 24z"/>
-      <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.1z"/>
-      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.54 1.25 6.58l4.03 3.1c.95-2.83 3.6-4.93 6.72-4.93z"/>
-    </svg>
-    <span class="floating-btn-text">Google AI</span>
-  </button>
 
   <!-- Floating Chat Button (Matching reference portfolio bottom-right corner) -->
   <a href="#contact" class="floating-ref-chat-btn" id="floating-ref-chat-btn" aria-label="Open Chat / Contact Abhishek" title="Chat with Abhishek">

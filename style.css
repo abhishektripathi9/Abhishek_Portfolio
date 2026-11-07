@@ -798,18 +798,11 @@ ul {
 }
 
 .hero-3d-wrapper {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
+  display: none !important;
 }
 
 #hero-3d-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
+  display: none !important;
 }
 
 /* =====================================================
@@ -1359,13 +1352,15 @@ ul {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  filter: grayscale(1);
-  transition: transform 0.5s ease, filter 0.4s ease;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transition: transform 0.5s ease;
 }
 
 .hologram-card:hover .hero-avatar-img {
   transform: scale(1.04);
-  filter: grayscale(0.2);
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 .avatar-fallback {
@@ -5719,6 +5714,13 @@ ul {
   background: #f4f4f5;
   border: 1px solid #e4e4e7;
   color: #525252;
+}
+
+.nav-search-item,
+.hero-google-search-widget,
+.google-search-overlay,
+.floating-google-ai-btn {
+  display: none !important;
 }
 
 /* 2. Hero Google Search Widget (Clean White Minimal Shell) */

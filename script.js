@@ -4,7 +4,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initLucideIcons();
-  initThreeJsHero();
   init3DTilt();
   initCustomCursor();
   initTypewriter();
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initProfileFallback();
   initMessageHub();
   initRealtimeSync();
-  initGoogleAiSearch();
 });
 
 /* =====================================================
@@ -39,172 +37,11 @@ function initLucideIcons() {
 }
 
 /* =====================================================
-   2. THREE.JS 3D INTERACTIVE HERO BACKGROUND
+   2. THREE.JS 3D HERO BACKGROUND (DISABLED)
    ===================================================== */
 function initThreeJsHero() {
-  const canvas = document.getElementById('hero-3d-canvas');
-  if (!canvas || typeof THREE === 'undefined') return;
-
-  const wrapper = canvas.parentElement;
-  let width = wrapper.offsetWidth;
-  let height = wrapper.offsetHeight;
-
-  // Scene & Camera
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-  camera.position.z = 32;
-
-  // Renderer
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    alpha: true,
-    antialias: true,
-    powerPreference: 'high-performance'
-  });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  // 1. Floating 3D Geometric Torus Knot Wireframe (Subtle Graphite on Light Grid)
-  const torusGeometry = new THREE.TorusKnotGeometry(9, 2.2, 120, 24, 2, 3);
-  const torusMaterial = new THREE.MeshBasicMaterial({
-    color: 0x0f172a,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.12
-  });
-  const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial);
-  torusMesh.position.set(12, -2, -5);
-  scene.add(torusMesh);
-
-  // 2. 3D Particle Starfield & Constellation
-  const particleCount = 200;
-  const particlePositions = new Float32Array(particleCount * 3);
-  const particleVelocities = [];
-
-  for (let i = 0; i < particleCount; i++) {
-    const x = (Math.random() - 0.5) * 75;
-    const y = (Math.random() - 0.5) * 55;
-    const z = (Math.random() - 0.5) * 45;
-
-    particlePositions[i * 3] = x;
-    particlePositions[i * 3 + 1] = y;
-    particlePositions[i * 3 + 2] = z;
-
-    particleVelocities.push({
-      vx: (Math.random() - 0.5) * 0.025,
-      vy: (Math.random() - 0.5) * 0.025,
-      vz: (Math.random() - 0.5) * 0.025
-    });
-  }
-
-  const particleGeometry = new THREE.BufferGeometry();
-  particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-
-  // Particle Material (Clean Slate Points)
-  const particleMaterial = new THREE.PointsMaterial({
-    color: 0x334155,
-    size: 1.3,
-    transparent: true,
-    opacity: 0.35,
-    blending: THREE.NormalBlending
-  });
-
-  const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-  scene.add(particleSystem);
-
-  // 3. Dynamic Connecting Lines between nearby 3D points
-  const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x94a3b8,
-    transparent: true,
-    opacity: 0.18,
-    blending: THREE.NormalBlending
-  });
-
-  // Mouse Interaction Variables
-  let mouseX = 0;
-  let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
-  const windowHalfX = window.innerWidth / 2;
-  const windowHalfY = window.innerHeight / 2;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX - windowHalfX) * 0.015;
-    mouseY = (e.clientY - windowHalfY) * 0.015;
-  }, { passive: true });
-
-  // Animation Loop
-  let animationFrameId;
-  let isRunning = true;
-
-  function animate() {
-    if (!isRunning) return;
-
-    // Smooth inertia camera motion
-    targetX += (mouseX - targetX) * 0.05;
-    targetY += (mouseY - targetY) * 0.05;
-
-    camera.position.x = targetX * 1.5;
-    camera.position.y = -targetY * 1.5;
-    camera.lookAt(scene.position);
-
-    // Rotate Torus Knot
-    torusMesh.rotation.x += 0.003;
-    torusMesh.rotation.y += 0.005;
-
-    // Update particles
-    const positions = particleGeometry.attributes.position.array;
-    for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] += particleVelocities[i].vx;
-      positions[i * 3 + 1] += particleVelocities[i].vy;
-      positions[i * 3 + 2] += particleVelocities[i].vz;
-
-      // Wrap around bounds
-      if (Math.abs(positions[i * 3]) > 35) particleVelocities[i].vx *= -1;
-      if (Math.abs(positions[i * 3 + 1]) > 25) particleVelocities[i].vy *= -1;
-      if (Math.abs(positions[i * 3 + 2]) > 20) particleVelocities[i].vz *= -1;
-    }
-    particleGeometry.attributes.position.needsUpdate = true;
-
-    // Slow rotation of entire particle cluster
-    particleSystem.rotation.y += 0.001;
-
-    renderer.render(scene, camera);
-    animationFrameId = requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  // Resize Handler
-  function onWindowResize() {
-    width = wrapper.offsetWidth;
-    height = wrapper.offsetHeight;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-  }
-
-  window.addEventListener('resize', onWindowResize);
-
-  // Performance Optimizer: Pause when hero is out of view
-  const heroSection = document.getElementById('home');
-  if (heroSection) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!isRunning) {
-            isRunning = true;
-            animate();
-          }
-        } else {
-          isRunning = false;
-          cancelAnimationFrame(animationFrameId);
-        }
-      });
-    }, { threshold: 0.05 });
-    observer.observe(heroSection);
-  }
+  // Static clean background grid per user preference
+  return;
 }
 
 /* =====================================================
@@ -2062,6 +1899,7 @@ function initRealtimeSync() {
    20. GOOGLE AI OVERVIEW & SEARCH ENGINE LOGIC
    ===================================================== */
 function initGoogleAiSearch() {
+  return;
   const modal = document.getElementById('google-search-modal');
   if (!modal) return;
 
