@@ -1656,68 +1656,78 @@ ul {
   color: var(--cyan);
 }
 
-/* Freelance Deliverables Value Grid */
-.freelance-deliverables-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin: 22px 0 20px;
+/* Clean Scannable Focus List */
+.bio-lead {
+  font-size: 1.05rem !important;
+  color: #0f172a !important;
+  font-weight: 500;
+  line-height: 1.65 !important;
+  margin-bottom: 12px !important;
 }
 
-.freelance-deliverable-item {
+.bio-focus-list {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 10px;
-  padding: 12px 14px;
+  margin: 18px 0 20px;
+}
+
+.bio-focus-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
-  font-size: 0.88rem;
-  color: #1e293b;
-  line-height: 1.45;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition: all 0.2s ease;
 }
 
-.freelance-deliverable-item:hover {
+.bio-focus-item:hover {
   background: #ffffff;
   border-color: #000000;
+  transform: translateX(3px);
 }
 
-.freelance-deliverable-item i {
-  color: #059669;
-  width: 18px;
-  height: 18px;
+.focus-bullet {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #000000;
+  background: #e2e8f0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
   flex-shrink: 0;
-  margin-top: 2px;
 }
 
-.freelance-item-content strong {
+.bio-focus-item strong {
   display: block;
-  font-size: 0.88rem;
-  color: #0f172a;
+  font-size: 0.9rem;
   font-weight: 700;
-  margin-bottom: 2px;
+  color: #0f172a;
+  line-height: 1.3;
 }
 
-.freelance-item-content span {
+.bio-focus-item span {
   display: block;
   font-size: 0.8rem;
   color: #64748b;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .bio-freelance-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 26px;
+  gap: 12px;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
 
 @media (max-width: 640px) {
-  .freelance-deliverables-grid {
-    grid-template-columns: 1fr;
-  }
   .bio-freelance-actions {
     flex-direction: column;
     width: 100%;
