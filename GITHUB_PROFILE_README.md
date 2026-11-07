@@ -7,9 +7,9 @@
 
   <p align="center">
     <strong>🚀 MERN Stack Developer | 📊 Data Analytics Enthusiast | ☕ Java &amp; Python | ⚛️ React.js &amp; Three.js</strong><br>
-    🎓 <em>B.Tech CSE (Batch 2023–2027) &bull; United Institute of Technology, Prayagraj</em><br>
+    🎓 <em>B.Tech in Computer Science &amp; Engineering &bull; United Institute of Technology, Prayagraj</em><br>
     🏫 <em>Intermediate (10+2 PCM) &bull; Chitrakoot Inter College, Karwi, Chitrakoot</em><br>
-    📍 <em>Uttar Pradesh, India &bull; Available for Internships &amp; Engineering Roles</em>
+    📍 <em>Prayagraj, India &bull; Available for Freelance &amp; Engineering Contracts</em>
   </p>
 
   <!-- Social & Portfolio Badges -->
@@ -37,13 +37,13 @@
 
 ### 🧠 About Me
 
-- 💼 **Computer Science & Engineering** student (**Batch 2023–2027**) at **United Institute of Technology, Prayagraj**.
+- 💼 **Computer Science & Engineering** at **United Institute of Technology, Prayagraj**.
 - 🏫 Completed Senior Secondary / Intermediate (10+2 Science Stream) schooling from **Chitrakoot Inter College, Karwi, Chitrakoot**.
-- 💻 Passionate **MERN Stack Developer & Data Analytics Enthusiast** building production-grade web applications with MongoDB, Express.js, React.js, and Node.js.
-- 🛠️ Practical industry internship experience in **Python & Data Analytics** (*Techpile Technology*) and web solutions (*IBM PBEL*).
+- 💻 Passionate **MERN Stack Developer & Machine Learning Engineer** building production-grade web applications with MongoDB, Express.js, React.js, and Node.js.
+- 🛠️ Practical industry experience in **Python & Data Analytics** (*Techpile Technology*) and web solutions (*IBM PBEL*).
 - 🔭 Skilled in designing robust backend systems with **Java, Python & REST APIs**, creating interactive **3D spatial WebGL** experiences, and training ML regression models.
 - 🌐 Explored **Web3 & Blockchain** development by creating decentralized, tamper-proof title deed applications with **Solidity, IPFS, and MetaMask**.
-- 🤝 Actively looking for **Software Engineering / Full Stack Internships & Open-Source Collaborations**.
+- 🤝 Actively available for **Freelance Web Development, MVP Engineering, & Contract Software Roles**.
 - ⚡ **Fun Fact:** I love turning raw code and data into immersive, 60fps 3D visual experiences that run directly in the browser!
 
 ---
