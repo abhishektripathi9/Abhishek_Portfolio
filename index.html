@@ -293,7 +293,7 @@
         </div>
       </div>
 
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" title="Open Navigation Menu">
         <span class="hamburger"></span>
       </button>
 
@@ -311,9 +311,161 @@
             <i data-lucide="arrow-right" class="btn-icon-xs"></i>
           </a>
         </li>
+        <li class="nav-menu-btn-item">
+          <button class="btn-side-menu-trigger" id="btn-desktop-menu" aria-label="Open Navigation Menu" title="Explore All Sections">
+            <span class="side-3lines-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="menu-label">Menu</span>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
+
+  <!-- =====================================================
+       SIDEBAR NAVIGATION DRAWER (3-Line Menu / Side Drawer)
+       ===================================================== -->
+  <div class="side-drawer-backdrop" id="side-drawer-backdrop"></div>
+  <aside class="side-drawer-panel" id="side-drawer-panel" aria-label="Side Navigation Menu" aria-hidden="true">
+    <!-- Drawer Header -->
+    <div class="side-drawer-header">
+      <div class="drawer-brand">
+        <span class="drawer-badge-square">AT</span>
+        <div>
+          <h4 class="drawer-title">Abhishek Tripathi</h4>
+          <span class="drawer-subtitle">MERN Stack Developer</span>
+        </div>
+      </div>
+      <button class="side-drawer-close" id="side-drawer-close" aria-label="Close navigation menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <!-- Quick Status Pill in Drawer -->
+    <div class="drawer-status-bar">
+      <span class="drawer-pulse-dot"></span>
+      <span>Available for Freelance &amp; Projects</span>
+    </div>
+
+    <!-- Navigation List (Jisme jo dekhna ho vo turant dikhe) -->
+    <div class="side-drawer-body">
+      <span class="drawer-nav-heading">Explore Portfolio Sections</span>
+      <ul class="drawer-nav-list">
+        <li>
+          <a href="#home" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="home"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Home</span>
+              <span class="drawer-nav-desc">Hero, Introduction &amp; Vision</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="user"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">About Me</span>
+              <span class="drawer-nav-desc">Bio, Philosophy &amp; Core Pillars</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#skills" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="code-2"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Skills &amp; Arsenal</span>
+              <span class="drawer-nav-desc">MERN, Python, Java &amp; ML</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#projects" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="layers"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Featured Projects</span>
+              <span class="drawer-nav-desc">Amazon Clone, Quiz, Weather 3D, RentEase</span>
+            </div>
+            <span class="drawer-badge-count">5+</span>
+          </a>
+        </li>
+        <li>
+          <a href="#experience" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="briefcase"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Work &amp; Experience</span>
+              <span class="drawer-nav-desc">Techpile &amp; IBM Internships</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#education" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="graduation-cap"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Education</span>
+              <span class="drawer-nav-desc">UIT Prayagraj &amp; Chitrakoot</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="drawer-nav-item" id="drawer-resume-link">
+            <span class="drawer-nav-icon"><i data-lucide="file-text"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Resume &amp; CV</span>
+              <span class="drawer-nav-desc">Interactive Preview &amp; PDF Download</span>
+            </div>
+            <span class="drawer-badge-pill">PDF</span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="mail"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Contact &amp; Hire</span>
+              <span class="drawer-nav-desc">Direct Message &amp; Channels</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#message-hub" class="drawer-nav-item">
+            <span class="drawer-nav-icon"><i data-lucide="messages-square"></i></span>
+            <div class="drawer-nav-text">
+              <span class="drawer-nav-title">Live Message Board</span>
+              <span class="drawer-nav-desc">Real-Time Client Inquiries</span>
+            </div>
+            <i data-lucide="chevron-right" class="drawer-nav-arrow"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Drawer Footer Quick Actions -->
+    <div class="side-drawer-footer">
+      <a href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20I%20saw%20your%20portfolio" target="_blank" rel="noopener noreferrer" class="btn-drawer-wa">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+        <span>Instant WhatsApp Chat</span>
+      </a>
+      <div class="drawer-socials">
+        <a href="https://github.com/abhishektripathi9" target="_blank" rel="noopener noreferrer me" class="drawer-social-link" title="GitHub">
+          <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
+        </a>
+        <a href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/" target="_blank" rel="noopener noreferrer me" class="drawer-social-link" title="LinkedIn">
+          <img src="assets/linkedin-logo.avif" alt="LinkedIn" width="18" height="18" />
+        </a>
+        <a href="mailto:at180887@gmail.com" class="drawer-social-link" title="Email">
+          <i data-lucide="mail"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
 
   <!-- =====================================================
        HERO SECTION

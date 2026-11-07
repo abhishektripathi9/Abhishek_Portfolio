@@ -864,33 +864,99 @@ function initNavbarScroll() {
 }
 
 /* =====================================================
-   17. MOBILE NAVIGATION DRAWER
+   17. SIDEBAR NAVIGATION DRAWER (3-Line Menu / Side Drawer)
    ===================================================== */
 function initMobileNav() {
-  const toggle = document.getElementById('nav-toggle');
-  const links = document.getElementById('nav-links');
-  if (!toggle || !links) return;
+  const toggleMobile = document.getElementById('nav-toggle');
+  const toggleDesktop = document.getElementById('btn-desktop-menu');
+  const drawerPanel = document.getElementById('side-drawer-panel');
+  const drawerBackdrop = document.getElementById('side-drawer-backdrop');
+  const drawerClose = document.getElementById('side-drawer-close');
+  const drawerLinks = document.querySelectorAll('.drawer-nav-item');
+  const drawerResumeLink = document.getElementById('drawer-resume-link');
 
-  toggle.addEventListener('click', () => {
-    const isOpen = links.classList.toggle('open');
-    toggle.classList.toggle('active', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+  if (!drawerPanel) return;
 
-  links.querySelectorAll('.nav-link, .btn-nav-cta').forEach(link => {
-    link.addEventListener('click', () => {
-      toggle.classList.remove('active');
-      links.classList.remove('open');
-      document.body.style.overflow = '';
+  function openDrawer() {
+    drawerPanel.classList.add('open');
+    drawerPanel.setAttribute('aria-hidden', 'false');
+    if (drawerBackdrop) drawerBackdrop.classList.add('open');
+    if (toggleMobile) toggleMobile.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  function closeDrawer() {
+    drawerPanel.classList.remove('open');
+    drawerPanel.setAttribute('aria-hidden', 'true');
+    if (drawerBackdrop) drawerBackdrop.classList.remove('open');
+    if (toggleMobile) toggleMobile.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Toggle triggers (both desktop 3-line button and mobile hamburger)
+  if (toggleMobile) {
+    toggleMobile.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (drawerPanel.classList.contains('open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
     });
+  }
+
+  if (toggleDesktop) {
+    toggleDesktop.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (drawerPanel.classList.contains('open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+  }
+
+  if (drawerClose) {
+    drawerClose.addEventListener('click', closeDrawer);
+  }
+
+  if (drawerBackdrop) {
+    drawerBackdrop.addEventListener('click', closeDrawer);
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawerPanel.classList.contains('open')) {
+      closeDrawer();
+    }
   });
 
-  document.addEventListener('click', (e) => {
-    if (!toggle.contains(e.target) && !links.contains(e.target) && links.classList.contains('open')) {
-      toggle.classList.remove('active');
-      links.classList.remove('open');
-      document.body.style.overflow = '';
-    }
+  // Handle drawer navigation links
+  drawerLinks.forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (item === drawerResumeLink) {
+        e.preventDefault();
+        closeDrawer();
+        const resumeModal = document.getElementById('resume-modal');
+        if (resumeModal) {
+          resumeModal.classList.add('open');
+          resumeModal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+        return;
+      }
+
+      const href = item.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        closeDrawer();
+        const targetEl = document.querySelector(href);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
   });
 }
 
