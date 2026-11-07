@@ -334,17 +334,18 @@ function initProjectFilters() {
         }
       });
 
-      // Reset carousel position and synchronize dots
-      const grid = document.getElementById('projects-grid');
-      if (grid) {
-        grid.scrollTo({ left: 0, behavior: 'smooth' });
-      }
+      // Reset carousel spotlight position and synchronize dots
+      setTimeout(() => {
+        if (typeof window.setCarouselActiveCard === 'function') {
+          window.setCarouselActiveCard(0, true);
+        }
+      }, 300);
     });
   });
 }
 
 /* =====================================================
-   9B. PROJECTS AUTOMATIC SCROLLING CAROUSEL
+   9B. PROJECTS ONE-BY-ONE SPOTLIGHT AUTO-SCROLL CAROUSEL
    ===================================================== */
 function initProjectsAutoScroll() {
   const grid = document.getElementById('projects-grid');
@@ -352,57 +353,73 @@ function initProjectsAutoScroll() {
   const prevBtn = document.getElementById('carousel-prev-btn');
   const nextBtn = document.getElementById('carousel-next-btn');
   const toggleBtn = document.getElementById('carousel-toggle-btn');
-  const playIcon = document.getElementById('carousel-play-icon');
   const statusPill = document.querySelector('.carousel-status-pill');
   const statusText = document.getElementById('carousel-status-text');
   const dots = document.querySelectorAll('.carousel-dot');
 
   if (!grid) return;
 
+  let currentActiveIndex = 0;
   let autoScrollTimer = null;
   let isManuallyPaused = false;
   let isHovered = false;
   let isTouching = false;
-  const SCROLL_INTERVAL = 3000; // Exact 3 seconds per slide
+  const SCROLL_INTERVAL = 3000; // Exact 3 seconds per featured project slide
 
-  function getStepWidth() {
-    const card = grid.querySelector('.project-card:not([style*="display: none"])');
-    if (!card) return 400;
-    const style = window.getComputedStyle(grid);
-    const gap = parseFloat(style.columnGap || style.gap) || 28;
-    return card.offsetWidth + gap;
+  function getVisibleCards() {
+    return Array.from(grid.querySelectorAll('.project-card')).filter(c => c.style.display !== 'none');
   }
 
-  function scrollNext() {
-    const step = getStepWidth();
-    const maxScroll = grid.scrollWidth - grid.clientWidth;
-    // When reached end of list, smoothly loop back to first project card
-    if (grid.scrollLeft >= maxScroll - 15) {
-      grid.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-      const nextPos = Math.min(maxScroll, grid.scrollLeft + step);
-      grid.scrollTo({ left: nextPos, behavior: 'smooth' });
+  function setActiveCard(index, shouldScroll = true) {
+    const visibleCards = getVisibleCards();
+    if (visibleCards.length === 0) return;
+
+    currentActiveIndex = (index + visibleCards.length) % visibleCards.length;
+
+    // Apply active spotlight class (enlarged & highlighted) to current card, normalize others
+    visibleCards.forEach((card, idx) => {
+      if (idx === currentActiveIndex) {
+        card.classList.add('is-active-spotlight');
+      } else {
+        card.classList.remove('is-active-spotlight');
+      }
+    });
+
+    // Update progress dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentActiveIndex);
+    });
+
+    // Center active card directly in the carousel view
+    if (shouldScroll) {
+      const activeCard = visibleCards[currentActiveIndex];
+      if (activeCard) {
+        const cardLeft = activeCard.offsetLeft;
+        const cardWidth = activeCard.offsetWidth;
+        const gridWidth = grid.clientWidth;
+        const targetScroll = cardLeft - (gridWidth / 2) + (cardWidth / 2);
+        grid.scrollTo({
+          left: Math.max(0, targetScroll),
+          behavior: 'smooth'
+        });
+      }
     }
+  }
+
+  window.setCarouselActiveCard = setActiveCard;
+
+  function scrollNext() {
+    const visibleCards = getVisibleCards();
+    if (visibleCards.length === 0) return;
+    const nextIndex = (currentActiveIndex + 1) % visibleCards.length;
+    setActiveCard(nextIndex, true);
   }
 
   function scrollPrev() {
-    const step = getStepWidth();
-    const maxScroll = grid.scrollWidth - grid.clientWidth;
-    if (grid.scrollLeft <= 15) {
-      grid.scrollTo({ left: maxScroll, behavior: 'smooth' });
-    } else {
-      const prevPos = Math.max(0, grid.scrollLeft - step);
-      grid.scrollTo({ left: prevPos, behavior: 'smooth' });
-    }
-  }
-
-  function updateDots() {
-    if (!dots || dots.length === 0) return;
-    const step = getStepWidth();
-    const activeIndex = Math.min(dots.length - 1, Math.max(0, Math.round(grid.scrollLeft / step)));
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === activeIndex);
-    });
+    const visibleCards = getVisibleCards();
+    if (visibleCards.length === 0) return;
+    const prevIndex = (currentActiveIndex - 1 + visibleCards.length) % visibleCards.length;
+    setActiveCard(prevIndex, true);
   }
 
   function startAutoScroll() {
@@ -505,11 +522,28 @@ function initProjectsAutoScroll() {
     });
   }
 
+  // Direct click on any card in the carousel track brings it to active spotlight
+  grid.addEventListener('click', (e) => {
+    const clickedCard = e.target.closest('.project-card');
+    if (!clickedCard) return;
+    // Allow links and interactive action buttons to work normally
+    if (e.target.closest('a') || e.target.closest('button')) return;
+
+    const visibleCards = getVisibleCards();
+    const cardIdx = visibleCards.indexOf(clickedCard);
+    if (cardIdx !== -1 && cardIdx !== currentActiveIndex) {
+      setActiveCard(cardIdx, true);
+      if (!isManuallyPaused) {
+        stopAutoScroll(false);
+        setTimeout(startAutoScroll, 3000);
+      }
+    }
+  });
+
   // Pagination Dot navigation
   dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
-      const step = getStepWidth();
-      grid.scrollTo({ left: index * step, behavior: 'smooth' });
+      setActiveCard(index, true);
       if (!isManuallyPaused) {
         stopAutoScroll(false);
         setTimeout(startAutoScroll, 3000);
@@ -517,16 +551,37 @@ function initProjectsAutoScroll() {
     });
   });
 
-  // Keep dots in sync with user scrolling
+  // Track active center card dynamically on user manual drag/scroll
   let scrollTimeout;
   grid.addEventListener('scroll', () => {
     clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(updateDots, 60);
+    scrollTimeout = setTimeout(() => {
+      const visibleCards = getVisibleCards();
+      if (visibleCards.length === 0) return;
+      const gridCenter = grid.scrollLeft + (grid.clientWidth / 2);
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      visibleCards.forEach((card, idx) => {
+        const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+        const diff = Math.abs(gridCenter - cardCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = idx;
+        }
+      });
+      if (closestIdx !== currentActiveIndex) {
+        currentActiveIndex = closestIdx;
+        visibleCards.forEach((c, i) => c.classList.toggle('is-active-spotlight', i === currentActiveIndex));
+        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === currentActiveIndex));
+      }
+    }, 60);
   }, { passive: true });
 
-  // Kickoff on load
+  // Initial setup: Focus first card and start auto-scroll
+  setTimeout(() => {
+    setActiveCard(0, true);
+  }, 250);
   startAutoScroll();
-  updateDots();
 }
 
 /* =====================================================
