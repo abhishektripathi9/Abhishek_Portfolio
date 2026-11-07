@@ -363,7 +363,7 @@ function initProjectsAutoScroll() {
   let isManuallyPaused = false;
   let isHovered = false;
   let isTouching = false;
-  const SCROLL_INTERVAL = 3600; // 3.6 seconds per project slide
+  const SCROLL_INTERVAL = 3000; // Exact 3 seconds per slide
 
   function getStepWidth() {
     const card = grid.querySelector('.project-card:not([style*="display: none"])');
@@ -376,21 +376,23 @@ function initProjectsAutoScroll() {
   function scrollNext() {
     const step = getStepWidth();
     const maxScroll = grid.scrollWidth - grid.clientWidth;
-    // If within 15px of end, smoothly loop back to the start
-    if (grid.scrollLeft + step >= maxScroll - 15) {
+    // When reached end of list, smoothly loop back to first project card
+    if (grid.scrollLeft >= maxScroll - 15) {
       grid.scrollTo({ left: 0, behavior: 'smooth' });
     } else {
-      grid.scrollBy({ left: step, behavior: 'smooth' });
+      const nextPos = Math.min(maxScroll, grid.scrollLeft + step);
+      grid.scrollTo({ left: nextPos, behavior: 'smooth' });
     }
   }
 
   function scrollPrev() {
     const step = getStepWidth();
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
     if (grid.scrollLeft <= 15) {
-      const maxScroll = grid.scrollWidth - grid.clientWidth;
       grid.scrollTo({ left: maxScroll, behavior: 'smooth' });
     } else {
-      grid.scrollBy({ left: -step, behavior: 'smooth' });
+      const prevPos = Math.max(0, grid.scrollLeft - step);
+      grid.scrollTo({ left: prevPos, behavior: 'smooth' });
     }
   }
 
@@ -416,7 +418,7 @@ function initProjectsAutoScroll() {
 
     // Update status indicator UI
     if (statusPill) statusPill.classList.remove('paused');
-    if (statusText) statusText.textContent = 'Auto-Scroll Active';
+    if (statusText) statusText.textContent = 'Auto-Scroll (3s)';
     if (toggleBtn) {
       toggleBtn.classList.remove('is-paused');
       toggleBtn.setAttribute('title', 'Pause Auto-Scroll');
@@ -465,7 +467,7 @@ function initProjectsAutoScroll() {
   grid.addEventListener('touchend', () => {
     isTouching = false;
     if (!isManuallyPaused) {
-      setTimeout(startAutoScroll, 1500);
+      setTimeout(startAutoScroll, 1200);
     }
   }, { passive: true });
 
@@ -475,7 +477,7 @@ function initProjectsAutoScroll() {
       scrollPrev();
       if (!isManuallyPaused) {
         stopAutoScroll(false);
-        setTimeout(startAutoScroll, 4000);
+        setTimeout(startAutoScroll, 3000);
       }
     });
   }
@@ -485,7 +487,7 @@ function initProjectsAutoScroll() {
       scrollNext();
       if (!isManuallyPaused) {
         stopAutoScroll(false);
-        setTimeout(startAutoScroll, 4000);
+        setTimeout(startAutoScroll, 3000);
       }
     });
   }
@@ -510,7 +512,7 @@ function initProjectsAutoScroll() {
       grid.scrollTo({ left: index * step, behavior: 'smooth' });
       if (!isManuallyPaused) {
         stopAutoScroll(false);
-        setTimeout(startAutoScroll, 4000);
+        setTimeout(startAutoScroll, 3000);
       }
     });
   });
