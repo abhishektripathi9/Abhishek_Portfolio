@@ -1515,10 +1515,47 @@ ul {
 .terminal-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 24px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.terminal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.freelance-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.status-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
 .term-dot {
@@ -1617,6 +1654,78 @@ ul {
   width: 14px;
   height: 14px;
   color: var(--cyan);
+}
+
+/* Freelance Deliverables Value Grid */
+.freelance-deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 22px 0 20px;
+}
+
+.freelance-deliverable-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: #1e293b;
+  line-height: 1.45;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.freelance-deliverable-item:hover {
+  background: #ffffff;
+  border-color: #000000;
+}
+
+.freelance-deliverable-item i {
+  color: #059669;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.freelance-item-content strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #0f172a;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.freelance-item-content span {
+  display: block;
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.bio-freelance-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .freelance-deliverables-grid {
+    grid-template-columns: 1fr;
+  }
+  .bio-freelance-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .bio-freelance-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* About Stats Grid */
