@@ -1938,7 +1938,7 @@ function initGoogleAiSearch() {
     batch: {
       headline: `<span class="g-name-bold">Abhishek Tripathi</span>'s official academic batch is <span class="g-ai-highlight">B.Tech CSE (Batch 2023–2027)</span> at UIT Prayagraj.`,
       p1: `Academic records verify that Abhishek Tripathi is enrolled in the four-year undergraduate degree <strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering (Batch 2023–2027)</strong> at United Institute of Technology, Prayagraj, affiliated with Dr. A.P.J. Abdul Kalam Technical University (AKTU Lucknow).`,
-      p2: `His engineering program spans from <strong>2023 to 2027</strong>. He maintains a cumulative score of <strong>CGPA 7.5 / 10.0</strong>, with intensive specialization in MERN Stack Development, Python, and Data Analytics.`,
+      p2: `His engineering program spans from <strong>2023 to 2027</strong>, with intensive specialization in MERN Stack Development, Python, and Data Analytics.`,
       speech: `Abhishek Tripathi belongs to the B.Tech Computer Science and Engineering Batch 2023 to 2027 at United Institute of Technology, Prayagraj.`
     },
     chitrakoot: {
@@ -1950,8 +1950,8 @@ function initGoogleAiSearch() {
     uit: {
       headline: `<span class="g-name-bold">Abhishek Tripathi</span> is pursuing B.Tech in Computer Science (Batch 2023–2027) at <span class="g-ai-highlight">United Institute of Technology (UIT), Prayagraj</span>.`,
       p1: `He is currently in his undergraduate degree pursuing a <strong>Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering (Batch 2023–2027)</strong> at United Institute of Technology, Prayagraj (affiliated with AKTU Lucknow).`,
-      p2: `He maintains a cumulative academic score of <strong>CGPA 7.5 / 10</strong>, with intensive coursework in Data Structures, Database Systems, Object-Oriented Java, Operating Systems, and Advanced Web Development.`,
-      speech: `Abhishek Tripathi is pursuing his B.Tech degree in Computer Science and Engineering, Batch 2023 to 2027, from United Institute of Technology, Prayagraj, holding a 7.5 CGPA.`
+      p2: `He has completed intensive coursework in Data Structures, Database Systems, Object-Oriented Java, Operating Systems, and Advanced Web Development.`,
+      speech: `Abhishek Tripathi is pursuing his B.Tech degree in Computer Science and Engineering, Batch 2023 to 2027, from United Institute of Technology, Prayagraj.`
     },
     skills: {
       headline: `<span class="g-name-bold">Abhishek Tripathi</span> specializes in <span class="g-ai-highlight">MERN Stack Development, Data Analytics, Python, and Machine Learning</span>.`,
