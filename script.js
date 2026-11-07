@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLaserTimeline();
   initStatCounters();
   initProjectFilters();
+  initProjectsAutoScroll();
   initProjectModal();
   initResumeModal();
   initCertViewer();
@@ -332,8 +333,203 @@ function initProjectFilters() {
           setTimeout(() => { card.style.display = 'none'; }, 250);
         }
       });
+
+      // Reset carousel position and synchronize dots
+      if (typeof window.resetProjectsCarousel === 'function') {
+        window.resetProjectsCarousel();
+      }
     });
   });
+}
+
+/* =====================================================
+   9B. PROJECTS AUTOMATIC SLIDING CAROUSEL (3s GAP)
+   ===================================================== */
+function initProjectsAutoScroll() {
+  const grid = document.getElementById('projects-grid');
+  const wrapper = document.getElementById('projects-carousel-wrapper');
+  const prevBtn = document.getElementById('carousel-prev-btn');
+  const nextBtn = document.getElementById('carousel-next-btn');
+  const toggleBtn = document.getElementById('carousel-toggle-btn');
+  const statusPill = document.querySelector('.carousel-status-pill');
+  const statusText = document.getElementById('carousel-status-text');
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  if (!grid) return;
+
+  let autoScrollTimer = null;
+  let isManuallyPaused = false;
+  let isHovered = false;
+  let isTouching = false;
+  const SLIDE_INTERVAL = 3000; // Exact 3-second gap between slides
+
+  function getStepWidth() {
+    const card = grid.querySelector('.project-card:not([style*="display: none"])');
+    if (!card) return 408;
+    const style = window.getComputedStyle(grid);
+    const gap = parseFloat(style.columnGap || style.gap) || 28;
+    return card.offsetWidth + gap;
+  }
+
+  function scrollNext() {
+    const step = getStepWidth();
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    // When reached end of track, smoothly loop back to start
+    if (grid.scrollLeft >= maxScroll - 20) {
+      grid.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      const target = Math.min(maxScroll, grid.scrollLeft + step);
+      grid.scrollTo({ left: target, behavior: 'smooth' });
+    }
+  }
+
+  function scrollPrev() {
+    const step = getStepWidth();
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    if (grid.scrollLeft <= 20) {
+      grid.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } else {
+      const target = Math.max(0, grid.scrollLeft - step);
+      grid.scrollTo({ left: target, behavior: 'smooth' });
+    }
+  }
+
+  function updateDots() {
+    if (!dots || dots.length === 0) return;
+    const step = getStepWidth();
+    const activeIndex = Math.min(dots.length - 1, Math.max(0, Math.round(grid.scrollLeft / step)));
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeIndex);
+    });
+  }
+
+  function startAutoSlide() {
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+      autoScrollTimer = null;
+    }
+    if (isManuallyPaused || isHovered || isTouching) return;
+
+    autoScrollTimer = setInterval(() => {
+      scrollNext();
+    }, SLIDE_INTERVAL);
+
+    if (statusPill) statusPill.classList.remove('paused');
+    if (statusText) statusText.textContent = 'Auto-Slide (3s)';
+    if (toggleBtn) {
+      toggleBtn.classList.remove('is-paused');
+      toggleBtn.setAttribute('title', 'Pause Auto-Slide');
+      toggleBtn.setAttribute('aria-label', 'Pause Auto-Slide');
+      toggleBtn.innerHTML = '<i data-lucide="pause"></i>';
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  }
+
+  function stopAutoSlide(manual = false) {
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+      autoScrollTimer = null;
+    }
+    if (manual) {
+      if (statusPill) statusPill.classList.add('paused');
+      if (statusText) statusText.textContent = 'Auto-Slide Paused';
+      if (toggleBtn) {
+        toggleBtn.classList.add('is-paused');
+        toggleBtn.setAttribute('title', 'Play Auto-Slide');
+        toggleBtn.setAttribute('aria-label', 'Play Auto-Slide');
+        toggleBtn.innerHTML = '<i data-lucide="play"></i>';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+    }
+  }
+
+  // Hover detection: pause auto-slide when hovering card so user can click Live Demo / GitHub
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => {
+      isHovered = true;
+      if (!isManuallyPaused) stopAutoSlide(false);
+    });
+    wrapper.addEventListener('mouseleave', () => {
+      isHovered = false;
+      if (!isManuallyPaused) startAutoSlide();
+    });
+  }
+
+  // Touch swipe support for mobile
+  grid.addEventListener('touchstart', () => {
+    isTouching = true;
+    if (!isManuallyPaused) stopAutoSlide(false);
+  }, { passive: true });
+
+  grid.addEventListener('touchend', () => {
+    isTouching = false;
+    if (!isManuallyPaused) {
+      setTimeout(startAutoSlide, 1500);
+    }
+  }, { passive: true });
+
+  // Prev / Next button actions
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      scrollPrev();
+      if (!isManuallyPaused) {
+        stopAutoSlide(false);
+        setTimeout(startAutoSlide, 3000);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      scrollNext();
+      if (!isManuallyPaused) {
+        stopAutoSlide(false);
+        setTimeout(startAutoSlide, 3000);
+      }
+    });
+  }
+
+  // Manual Play/Pause toggle
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      if (isManuallyPaused) {
+        isManuallyPaused = false;
+        startAutoSlide();
+      } else {
+        isManuallyPaused = true;
+        stopAutoSlide(true);
+      }
+    });
+  }
+
+  // Dots navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      const step = getStepWidth();
+      grid.scrollTo({ left: index * step, behavior: 'smooth' });
+      if (!isManuallyPaused) {
+        stopAutoSlide(false);
+        setTimeout(startAutoSlide, 3000);
+      }
+    });
+  });
+
+  // Track scroll position to update dots
+  let scrollDebounce;
+  grid.addEventListener('scroll', () => {
+    clearTimeout(scrollDebounce);
+    scrollDebounce = setTimeout(updateDots, 60);
+  }, { passive: true });
+
+  // Category filter integration
+  window.resetProjectsCarousel = () => {
+    grid.scrollTo({ left: 0, behavior: 'smooth' });
+    updateDots();
+  };
+
+  // Kickoff
+  startAutoSlide();
+  updateDots();
 }
 
 /* =====================================================
