@@ -1167,7 +1167,28 @@
         <button class="filter-btn" data-project-filter="blockchain">Web3 &amp; Blockchain</button>
       </div>
 
-      <div class="projects-grid">
+      <!-- Projects Auto-Scroll Header Controls -->
+      <div class="projects-carousel-bar reveal">
+        <div class="carousel-status-pill">
+          <span class="carousel-pulse-dot"></span>
+          <span class="carousel-status-text" id="carousel-status-text">Auto-Scroll Active</span>
+          <span class="carousel-status-hint">(Hover card to pause)</span>
+        </div>
+        <div class="carousel-nav-controls">
+          <button class="carousel-nav-btn" id="carousel-prev-btn" aria-label="Previous project" title="Previous Project">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <button class="carousel-nav-btn carousel-play-btn" id="carousel-toggle-btn" aria-label="Pause Auto-Scroll" title="Pause / Play Auto-Scroll">
+            <i data-lucide="pause" id="carousel-play-icon"></i>
+          </button>
+          <button class="carousel-nav-btn" id="carousel-next-btn" aria-label="Next project" title="Next Project">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="projects-carousel-wrapper" id="projects-carousel-wrapper">
+        <div class="projects-grid" id="projects-grid">
         <!-- RESUME PROJECT 1: E-Commerce Marketplace & Order Processing System (Amazon 2.0) -->
         <div class="project-card glass-panel reveal" data-category="fullstack web" data-tilt>
           <div class="project-media-wrap">
@@ -1516,6 +1537,16 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Carousel Progress Dots -->
+    <div class="projects-carousel-dots" id="projects-carousel-dots">
+      <button class="carousel-dot active" data-index="0" aria-label="Go to project 1"></button>
+      <button class="carousel-dot" data-index="1" aria-label="Go to project 2"></button>
+      <button class="carousel-dot" data-index="2" aria-label="Go to project 3"></button>
+      <button class="carousel-dot" data-index="3" aria-label="Go to project 4"></button>
+      <button class="carousel-dot" data-index="4" aria-label="Go to project 5"></button>
+    </div>
 
       <!-- GitHub Repositories Showcase Banner -->
       <div class="projects-more-cta reveal">

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLaserTimeline();
   initStatCounters();
   initProjectFilters();
+  initProjectsAutoScroll();
   initProjectModal();
   initResumeModal();
   initCertViewer();
@@ -332,8 +333,198 @@ function initProjectFilters() {
           setTimeout(() => { card.style.display = 'none'; }, 250);
         }
       });
+
+      // Reset carousel position and synchronize dots
+      const grid = document.getElementById('projects-grid');
+      if (grid) {
+        grid.scrollTo({ left: 0, behavior: 'smooth' });
+      }
     });
   });
+}
+
+/* =====================================================
+   9B. PROJECTS AUTOMATIC SCROLLING CAROUSEL
+   ===================================================== */
+function initProjectsAutoScroll() {
+  const grid = document.getElementById('projects-grid');
+  const wrapper = document.getElementById('projects-carousel-wrapper');
+  const prevBtn = document.getElementById('carousel-prev-btn');
+  const nextBtn = document.getElementById('carousel-next-btn');
+  const toggleBtn = document.getElementById('carousel-toggle-btn');
+  const playIcon = document.getElementById('carousel-play-icon');
+  const statusPill = document.querySelector('.carousel-status-pill');
+  const statusText = document.getElementById('carousel-status-text');
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  if (!grid) return;
+
+  let autoScrollTimer = null;
+  let isManuallyPaused = false;
+  let isHovered = false;
+  let isTouching = false;
+  const SCROLL_INTERVAL = 3600; // 3.6 seconds per project slide
+
+  function getStepWidth() {
+    const card = grid.querySelector('.project-card:not([style*="display: none"])');
+    if (!card) return 400;
+    const style = window.getComputedStyle(grid);
+    const gap = parseFloat(style.columnGap || style.gap) || 28;
+    return card.offsetWidth + gap;
+  }
+
+  function scrollNext() {
+    const step = getStepWidth();
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    // If within 15px of end, smoothly loop back to the start
+    if (grid.scrollLeft + step >= maxScroll - 15) {
+      grid.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      grid.scrollBy({ left: step, behavior: 'smooth' });
+    }
+  }
+
+  function scrollPrev() {
+    const step = getStepWidth();
+    if (grid.scrollLeft <= 15) {
+      const maxScroll = grid.scrollWidth - grid.clientWidth;
+      grid.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } else {
+      grid.scrollBy({ left: -step, behavior: 'smooth' });
+    }
+  }
+
+  function updateDots() {
+    if (!dots || dots.length === 0) return;
+    const step = getStepWidth();
+    const activeIndex = Math.min(dots.length - 1, Math.max(0, Math.round(grid.scrollLeft / step)));
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeIndex);
+    });
+  }
+
+  function startAutoScroll() {
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+      autoScrollTimer = null;
+    }
+    if (isManuallyPaused || isHovered || isTouching) return;
+
+    autoScrollTimer = setInterval(() => {
+      scrollNext();
+    }, SCROLL_INTERVAL);
+
+    // Update status indicator UI
+    if (statusPill) statusPill.classList.remove('paused');
+    if (statusText) statusText.textContent = 'Auto-Scroll Active';
+    if (toggleBtn) {
+      toggleBtn.classList.remove('is-paused');
+      toggleBtn.setAttribute('title', 'Pause Auto-Scroll');
+      toggleBtn.setAttribute('aria-label', 'Pause Auto-Scroll');
+      toggleBtn.innerHTML = '<i data-lucide="pause"></i>';
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  }
+
+  function stopAutoScroll(manual = false) {
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+      autoScrollTimer = null;
+    }
+    if (manual) {
+      if (statusPill) statusPill.classList.add('paused');
+      if (statusText) statusText.textContent = 'Auto-Scroll Paused';
+      if (toggleBtn) {
+        toggleBtn.classList.add('is-paused');
+        toggleBtn.setAttribute('title', 'Play Auto-Scroll');
+        toggleBtn.setAttribute('aria-label', 'Play Auto-Scroll');
+        toggleBtn.innerHTML = '<i data-lucide="play"></i>';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+    }
+  }
+
+  // Hover detection: pause auto-scroll when user inspects a card
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => {
+      isHovered = true;
+      if (!isManuallyPaused) stopAutoScroll(false);
+    });
+    wrapper.addEventListener('mouseleave', () => {
+      isHovered = false;
+      if (!isManuallyPaused) startAutoScroll();
+    });
+  }
+
+  // Touch swipe support for phones and tablets
+  grid.addEventListener('touchstart', () => {
+    isTouching = true;
+    if (!isManuallyPaused) stopAutoScroll(false);
+  }, { passive: true });
+
+  grid.addEventListener('touchend', () => {
+    isTouching = false;
+    if (!isManuallyPaused) {
+      setTimeout(startAutoScroll, 1500);
+    }
+  }, { passive: true });
+
+  // Prev / Next button actions
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      scrollPrev();
+      if (!isManuallyPaused) {
+        stopAutoScroll(false);
+        setTimeout(startAutoScroll, 4000);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      scrollNext();
+      if (!isManuallyPaused) {
+        stopAutoScroll(false);
+        setTimeout(startAutoScroll, 4000);
+      }
+    });
+  }
+
+  // Manual Play / Pause toggle
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      if (isManuallyPaused) {
+        isManuallyPaused = false;
+        startAutoScroll();
+      } else {
+        isManuallyPaused = true;
+        stopAutoScroll(true);
+      }
+    });
+  }
+
+  // Pagination Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      const step = getStepWidth();
+      grid.scrollTo({ left: index * step, behavior: 'smooth' });
+      if (!isManuallyPaused) {
+        stopAutoScroll(false);
+        setTimeout(startAutoScroll, 4000);
+      }
+    });
+  });
+
+  // Keep dots in sync with user scrolling
+  let scrollTimeout;
+  grid.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateDots, 60);
+  }, { passive: true });
+
+  // Kickoff on load
+  startAutoScroll();
+  updateDots();
 }
 
 /* =====================================================
