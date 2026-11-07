@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhishek_Tripathi_CountryEdu_BDM_Resume</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 12mm 6mm 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      font-family: 'Segoe UI', Arial, -apple-system, sans-serif;
+      color: #1a1a1a;
+      background-color: #f8fafc;
+      line-height: 1.28;
+      font-size: 8.8pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page-container {
+      width: 100%;
+      max-width: 210mm;
+      margin: 15px auto;
+      background: #ffffff;
+      padding: 24px 32px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    @media print {
+      body {
+        background-color: #ffffff;
+      }
+      .page-container {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+    
+    /* Header */
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 5px;
+      margin-bottom: 7px;
+    }
+    .name {
+      font-size: 17pt;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #000000;
+      text-transform: uppercase;
+      margin-bottom: 1px;
+    }
+    .headline {
+      font-size: 9.3pt;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 3px;
+    }
+    .contact-info {
+      font-size: 8.3pt;
+      color: #4b5563;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .contact-info a {
+      color: #000000;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Section Headings */
+    .section {
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 9.6pt;
+      font-weight: 800;
+      color: #000000;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid #000000;
+      padding-bottom: 1px;
+      margin-bottom: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 8.5pt;
+      color: #2d3748;
+      text-align: justify;
+      line-height: 1.32;
+    }
+
+    /* Skills */
+    .skills-block {
+      font-size: 8.4pt;
+      line-height: 1.32;
+    }
+    .skills-group {
+      margin-bottom: 2px;
+    }
+    .skills-group strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    /* Experience & Projects */
+    .item {
+      margin-bottom: 4px;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.8pt;
+    }
+    .item-title {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .item-company {
+      font-weight: 700;
+      color: #000000;
+    }
+    .item-date {
+      font-size: 8pt;
+      color: #64748b;
+      font-style: italic;
+      font-weight: 500;
+    }
+    ul.item-bullets {
+      margin-top: 1px;
+      padding-left: 15px;
+      font-size: 8.3pt;
+      color: #334155;
+    }
+    ul.item-bullets li {
+      margin-bottom: 1.5px;
+      line-height: 1.28;
+      text-align: justify;
+    }
+    ul.item-bullets li strong {
+      color: #0f172a;
+    }
+
+    /* Education */
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.5pt;
+      margin-bottom: 2px;
+    }
+    .edu-school {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .edu-degree {
+      color: #334155;
+    }
+    .edu-date {
+      font-size: 8pt;
+      color: #64748b;
+      font-style: italic;
+      text-align: right;
+    }
+
+    /* Action bar */
+    .action-bar {
+      max-width: 210mm;
+      margin: 10px auto 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000000;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .btn-print {
+      background: #22c55e;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      font-size: 9.5pt;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="action-bar no-print">
+    <div>
+      <strong>CountryEdu BDM Role - Tailored ATS Resume</strong>
+      <span style="font-size: 8pt; opacity: 0.9; margin-left: 10px;">(Single Page Optimized)</span>
+    </div>
+    <button class="btn-print" onclick="window.print()">
+      🖨️ Print / Save as PDF
+    </button>
+  </div>
+
+  <div class="page-container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="name">ABHISHEK TRIPATHI</h1>
+      <div class="headline">Techno-Commercial Graduate Trainee | Business Development & Technology Solutions</div>
+      <div class="contact-info">
+        <span>📍 Prayagraj, UP (Open to Relocate to Gurugram)</span>
+        <span>📞 +91 9595347836</span>
+        <span>✉️ <a href="mailto:at180887@gmail.com">at180887@gmail.com</a></span>
+        <span>🔗 <a href="https://linkedin.com/in/abhishek-tripathi-a2a35a307/" target="_blank">LinkedIn</a></span>
+        <span>🌐 <a href="https://abhishek-portfolio-uir4.onrender.com/" target="_blank">Live Portfolio</a></span>
+      </div>
+    </header>
+
+    <!-- Professional Summary -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        Result-driven <strong>B.Tech Computer Science graduate</strong> with an exceptional blend of <strong>technical acumen, institutional outreach, and client-facing communication skills</strong>. Proven track record in requirement gathering, delivering high-impact product presentations, and coordinating cross-functional software initiatives. Adept at bridging the gap between business objectives and technology solutions through structured outreach, CRM lead tracking, and analytical reporting. Seeking to accelerate corporate growth at <strong>CountryEdu</strong> as a Business Development Manager / Graduate Trainee.
+      </p>
+    </section>
+
+    <!-- Key Competencies & Skills -->
+    <section class="section">
+      <h2 class="section-title">Core Competencies & Skills</h2>
+      <div class="skills-block">
+        <div class="skills-group">
+          <strong>Business Development & Outreach:</strong> Institutional Sales & Outreach, Client Acquisition, Stakeholder Engagement, Lead Qualification & Pipeline Tracking, B2B Relationship Building, Cold Calling & Email Outreach.
+        </div>
+        <div class="skills-group">
+          <strong>Pre-Sales & Solution Delivery:</strong> Client Requirement Analysis, Technical Solution Mapping, Product Demos & Presentations, Project Documentation, Proposal & Report Preparation, Commercial Pitching.
+        </div>
+        <div class="skills-group">
+          <strong>Project & Operations Coordination:</strong> Cross-Functional Alignment, Sprint & Milestone Tracking, Campaign Monitoring, Campus Drive & Recruitment Coordination, Performance Reporting.
+        </div>
+        <div class="skills-group">
+          <strong>Technical Acumen & Tools:</strong> Web Applications (JavaScript, React.js, HTML5/CSS3), Python Analytics, RESTful APIs, SQL/MySQL Database Reporting, Microsoft Excel / PPT, Google Workspace, Postman, Git.
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="section">
+      <h2 class="section-title">Professional Experience & Internships</h2>
+
+      <!-- Role 1 -->
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Software Engineering Intern – Python & Systems</span> | 
+            <span class="item-company">Techpile Technology Pvt. Ltd.</span>
+          </div>
+          <div class="item-date">May 2026 – Jul 2026 | Offline</div>
+        </div>
+        <ul class="item-bullets">
+          <li><strong>Client & Requirement Analysis:</strong> Collaborated with team leads and client stakeholders to gather operational requirements and translate complex business needs into streamlined technical workflows.</li>
+          <li><strong>Performance Dashboards:</strong> Designed automated data-processing utilities and interactive KPI tracking dashboards, cutting down manual reporting time by <strong>30%</strong> for internal decision-makers.</li>
+          <li><strong>Stakeholder Presentation:</strong> Prepared weekly project progress reports, technical documentation, and demonstrated working module demos to cross-functional teams and management.</li>
+        </ul>
+      </div>
+
+      <!-- Role 2 -->
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Frontend Web Solutions Intern</span> | 
+            <span class="item-company">IBM PBEL Program</span>
+          </div>
+          <div class="item-date">Jul 2025 – Aug 2025 | Remote</div>
+        </div>
+        <ul class="item-bullets">
+          <li><strong>Product Delivery & Testing:</strong> Developed responsive web modules using JavaScript; tested asynchronous REST APIs to ensure high system reliability and smooth user experience.</li>
+          <li><strong>Cross-Team Coordination:</strong> Participated in daily standups and agile reviews, ensuring 100% adherence to project delivery timelines and specifications; earned a <strong>merit performance stipend</strong>.</li>
+        </ul>
+      </div>
+
+      <!-- Role 3 -->
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Technical Project Trainee & Coordinator</span> | 
+            <span class="item-company">United Institute of Technology</span>
+          </div>
+          <div class="item-date">Jul 2024 – Aug 2024 | Prayagraj, UP</div>
+        </div>
+        <ul class="item-bullets">
+          <li><strong>Campus & Event Engagement:</strong> Assisted faculty coordinators in organizing departmental technical sessions and workshops, coordinating logistics, participant registrations, and communications.</li>
+          <li><strong>Technical Problem Solving:</strong> Spearheaded architectural modularization for team academic systems, mentoring junior peers in Object-Oriented paradigms and debugging best practices.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Key Projects -->
+    <section class="section">
+      <h2 class="section-title">Key Projects & Techno-Commercial Solutions</h2>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Student Learning & Quiz Assessment Portal</span>
+            <span style="font-size: 7.8pt; color: #475569;">(React.js, Node.js, Express, MySQL, REST APIs)</span>
+          </div>
+          <div class="item-date">2026</div>
+        </div>
+        <ul class="item-bullets">
+          <li>Conceptualized and built an institutional EdTech platform with real-time test evaluation and automated performance tracking.</li>
+          <li>Conducted user-need evaluation across 100+ students, aligning course delivery modules with actual learner engagement patterns.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <div>
+            <span class="item-title">Commercial E-Commerce Platform & Order Management System</span>
+            <span style="font-size: 7.8pt; color: #475569;">(React.js, Express, MySQL)</span>
+          </div>
+          <div class="item-date">2026</div>
+        </div>
+        <ul class="item-bullets">
+          <li>Architected an end-to-end multi-category marketplace featuring secure JWT authentication, cart persistence, and 12+ API endpoints.</li>
+          <li>Engineered dynamic filtering and analytics features designed to maximize user session retention and reduce funnel abandonment.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2 class="section-title">Education</h2>
+      <div class="edu-item">
+        <div>
+          <span class="edu-school">United Institute of Technology, Prayagraj, India</span> – 
+          <span class="edu-degree">B.Tech in Computer Science & Engineering</span>
+        </div>
+        <div class="edu-date">
+          <strong>Batch 2023 – 2027</strong> | CGPA: 6.8 / 10.0
+        </div>
+      </div>
+      <div class="edu-item">
+        <div>
+          <span class="edu-school">Chitrakoot Inter College, Karwi, Chitrakoot</span> – 
+          <span class="edu-degree">Intermediate (Class XII, PCM Science Stream)</span>
+        </div>
+        <div class="edu-date">Completed</div>
+      </div>
+    </section>
+
+    <!-- Institutional Leadership & Extracurriculars -->
+    <section class="section" style="margin-bottom: 0;">
+      <h2 class="section-title">Institutional Leadership & Extracurriculars</h2>
+      <ul class="item-bullets" style="padding-left: 15px;">
+        <li><strong>Campus Drive & Peer Outreach:</strong> Supported student coordination for college placement drives, briefing candidates on eligibility criteria and managing registration documentation.</li>
+        <li><strong>Technical Presentations & Hackathons:</strong> Regularly delivered live demonstrations of software architectures and tech prototypes to panels of professors and external evaluators.</li>
+      </ul>
+    </section>
+  </div>
+
+</body>
+</html>

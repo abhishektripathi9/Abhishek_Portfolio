@@ -64,13 +64,13 @@ function initThreeJsHero() {
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // 1. Floating 3D Geometric Torus Knot Wireframe (Electric Neon Cyan)
+  // 1. Floating 3D Geometric Torus Knot Wireframe (Subtle Graphite on Light Grid)
   const torusGeometry = new THREE.TorusKnotGeometry(9, 2.2, 120, 24, 2, 3);
   const torusMaterial = new THREE.MeshBasicMaterial({
-    color: 0x00f5ff,
+    color: 0x0f172a,
     wireframe: true,
     transparent: true,
-    opacity: 0.28
+    opacity: 0.12
   });
   const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial);
   torusMesh.position.set(12, -2, -5);
@@ -100,24 +100,24 @@ function initThreeJsHero() {
   const particleGeometry = new THREE.BufferGeometry();
   particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
 
-  // Particle Material (Neon Cyan Stars)
+  // Particle Material (Clean Slate Points)
   const particleMaterial = new THREE.PointsMaterial({
-    color: 0x00f5ff,
-    size: 1.1,
+    color: 0x334155,
+    size: 1.3,
     transparent: true,
-    opacity: 0.85,
-    blending: THREE.AdditiveBlending
+    opacity: 0.35,
+    blending: THREE.NormalBlending
   });
 
   const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
   scene.add(particleSystem);
 
-  // 3. Dynamic Connecting Lines between nearby 3D points (Neon Magenta Laser Beams)
+  // 3. Dynamic Connecting Lines between nearby 3D points
   const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0xff007f,
+    color: 0x94a3b8,
     transparent: true,
-    opacity: 0.2,
-    blending: THREE.AdditiveBlending
+    opacity: 0.18,
+    blending: THREE.NormalBlending
   });
 
   // Mouse Interaction Variables

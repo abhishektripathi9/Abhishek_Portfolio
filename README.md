@@ -1,6 +1,6 @@
-# Abhishek Tripathi — 3D & Animated Developer Portfolio
+# Abhishek Tripathi — Modern Technical Developer Portfolio
 
-A state-of-the-art developer portfolio engineered with **Three.js WebGL**, **CSS 3D perspective tilt**, **cyber-glassmorphism aesthetics**, and real-time interactive showcases.
+A modern developer portfolio engineered with **clean white technical grid aesthetics**, **bold black typography**, **Three.js WebGL 3D interactive canvas**, live project showcases, and communication hub.
 
 ---
 
