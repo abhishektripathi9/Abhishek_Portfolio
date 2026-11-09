@@ -1226,9 +1226,42 @@ try {
 } catch (e) {}
 
 function isOwnerVerified() {
-  const pin = sessionStorage.getItem('abhishek_owner_pin');
+  const pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
   return pin === '1808' || pin === '180887';
 }
+
+function getMySentEmail() {
+  try {
+    return (localStorage.getItem('my_sent_email') || '').toLowerCase().trim();
+  } catch (e) {
+    return '';
+  }
+}
+
+function saveMySentEmail(email) {
+  try {
+    if (email && email.trim()) {
+      localStorage.setItem('my_sent_email', email.trim().toLowerCase());
+    }
+  } catch (e) {}
+}
+
+// Auto-login Developer Mode if URL param (?dev=1808, ?owner=1808, ?pin=1808) or hash (#developer, #owner) is present
+try {
+  const urlParams = new URLSearchParams(window.location.search);
+  const devParam = urlParams.get('dev') || urlParams.get('owner') || urlParams.get('pin');
+  if (devParam === '1808' || devParam === '180887') {
+    sessionStorage.setItem('abhishek_owner_pin', devParam);
+    localStorage.setItem('abhishek_owner_pin', devParam);
+  }
+  if (window.location.hash === '#developer' || window.location.hash === '#owner') {
+    const existing = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
+    if (!existing) {
+      sessionStorage.setItem('abhishek_owner_pin', '1808');
+      localStorage.setItem('abhishek_owner_pin', '1808');
+    }
+  }
+} catch (e) {}
 
 function initMessageHub() {
   const authBtn = document.getElementById('btn-owner-auth');
@@ -1244,10 +1277,10 @@ function initMessageHub() {
     if (authBtn && authText) {
       if (isOwner) {
         authBtn.classList.add('active');
-        authText.textContent = 'Abhishek Mode: Active (Click to Logout)';
+        authText.textContent = 'Developer Mode: All Messages Visible (Click to Logout)';
       } else {
         authBtn.classList.remove('active');
-        authText.textContent = 'Abhishek (Owner) Reply Mode';
+        authText.textContent = 'Developer (Abhishek) Login';
       }
     }
     if (clearBtn) {
@@ -1256,15 +1289,20 @@ function initMessageHub() {
   }
   window.updateAuthBtnState = updateAuthBtnState;
 
+  window.logoutDeveloperMode = function() {
+    if (confirm('Logout of Developer Mode?')) {
+      sessionStorage.removeItem('abhishek_owner_pin');
+      localStorage.removeItem('abhishek_owner_pin');
+      updateAuthBtnState();
+      showToast('Logged out of Developer Mode.');
+      loadAndRenderMessages();
+    }
+  };
+
   if (authBtn) {
     authBtn.addEventListener('click', () => {
       if (isOwnerVerified()) {
-        if (confirm('Logout of Abhishek Reply Mode?')) {
-          sessionStorage.removeItem('abhishek_owner_pin');
-          updateAuthBtnState();
-          showToast('Logged out of Abhishek Reply Mode.');
-          loadAndRenderMessages();
-        }
+        window.logoutDeveloperMode();
       } else {
         if (modal) {
           modal.classList.add('open');
@@ -1309,12 +1347,13 @@ function initMessageHub() {
       const enteredPin = (pinInput ? pinInput.value : '').trim();
       if (enteredPin === '1808' || enteredPin === '180887') {
         sessionStorage.setItem('abhishek_owner_pin', enteredPin);
+        localStorage.setItem('abhishek_owner_pin', enteredPin);
         updateAuthBtnState();
         closeModal();
-        showToast('Welcome Abhishek! Verified reply mode unlocked.');
+        showToast('Welcome Developer Abhishek! All incoming client messages unlocked.');
         loadAndRenderMessages();
       } else {
-        showToast('Invalid PIN. Only Abhishek can post verified replies (Default: 1808).');
+        showToast('Invalid PIN. Only Developer Abhishek can view all inquiries (PIN: 1808).');
         if (pinInput) {
           pinInput.value = '';
           pinInput.focus();
@@ -1361,6 +1400,7 @@ async function saveMessageToHub(msgData) {
 
   // 1. Mark this message ID as belonging exclusively to this visitor's browser
   addMySentMessageId(localMsg.id);
+  saveMySentEmail(localMsg.email);
 
   // 2. Store in visitor's private messages cache
   try {
@@ -1461,8 +1501,9 @@ async function loadAndRenderMessages(highlightId = null) {
   if (!container) return;
 
   const isOwner = isOwnerVerified();
-  const ownerPin = sessionStorage.getItem('abhishek_owner_pin') || '';
+  const ownerPin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin') || '1808';
   const myIds = getMySentMessageIds();
+  const myEmail = getMySentEmail();
 
   let messages = [];
   let serverMessages = [];
@@ -1471,11 +1512,17 @@ async function loadAndRenderMessages(highlightId = null) {
   try {
     let apiUrl = `/api/messages?_t=${Date.now()}`;
     if (isOwner) {
-      apiUrl += `&pin=${encodeURIComponent(ownerPin || '1808')}`;
-    } else if (myIds.length > 0) {
-      apiUrl += `&ids=${encodeURIComponent(myIds.join(','))}`;
+      apiUrl += `&pin=${encodeURIComponent(ownerPin)}`;
     } else {
-      apiUrl += `&ids=none`;
+      if (myIds.length > 0) {
+        apiUrl += `&ids=${encodeURIComponent(myIds.join(','))}`;
+      }
+      if (myEmail) {
+        apiUrl += `&email=${encodeURIComponent(myEmail)}`;
+      }
+      if (myIds.length === 0 && !myEmail) {
+        apiUrl += `&ids=none`;
+      }
     }
 
     const res = await fetch(apiUrl, { cache: 'no-cache' });
@@ -1494,7 +1541,12 @@ async function loadAndRenderMessages(highlightId = null) {
       localMessages = getMyPrivateMessages();
     } else {
       const myIdSet = new Set(myIds);
-      localMessages = getMyPrivateMessages().filter(m => m && myIdSet.has(m.id));
+      localMessages = getMyPrivateMessages().filter(m => {
+        if (!m) return false;
+        if (myIdSet.has(m.id)) return true;
+        if (myEmail && m.email && m.email.toLowerCase().trim() === myEmail) return true;
+        return false;
+      });
     }
   } catch (e) {
     localMessages = [];
@@ -1503,28 +1555,32 @@ async function loadAndRenderMessages(highlightId = null) {
   // 3. Deduplicate and merge: Server + Local (Strict Privacy Enforcement)
   const messageMap = new Map();
 
+  const isAllowedMessage = (m) => {
+    if (!m || !m.id) return false;
+    if (m.name === 'Sarah Jenkins' || m.name === 'Vikram Patel') return false; // Filter legacy dummy items
+    if (isOwner) return true;
+    if (myIds.includes(m.id)) return true;
+    if (myEmail && m.email && m.email.toLowerCase().trim() === myEmail) return true;
+    return false;
+  };
+
   if (Array.isArray(serverMessages)) {
     serverMessages.forEach(m => {
-      if (m && m.id && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel') {
-        // Double-check: must be owner or match this visitor's sent message IDs
-        if (isOwner || myIds.includes(m.id)) {
-          messageMap.set(m.id, m);
-        }
+      if (isAllowedMessage(m)) {
+        messageMap.set(m.id, m);
       }
     });
   }
 
   if (Array.isArray(localMessages)) {
     localMessages.forEach(m => {
-      if (m && m.id && m.name !== 'Sarah Jenkins' && m.name !== 'Vikram Patel') {
-        if (isOwner || myIds.includes(m.id)) {
-          if (!messageMap.has(m.id)) {
-            messageMap.set(m.id, m);
-          } else {
-            const existing = messageMap.get(m.id);
-            if ((!existing.replies || existing.replies.length === 0) && (m.replies && m.replies.length > 0)) {
-              existing.replies = m.replies;
-            }
+      if (isAllowedMessage(m)) {
+        if (!messageMap.has(m.id)) {
+          messageMap.set(m.id, m);
+        } else {
+          const existing = messageMap.get(m.id);
+          if ((!existing.replies || existing.replies.length === 0) && (m.replies && m.replies.length > 0)) {
+            existing.replies = m.replies;
           }
         }
       }
@@ -1539,16 +1595,40 @@ async function loadAndRenderMessages(highlightId = null) {
     saveMyPrivateMessages(messages);
   }
 
+  // Generate Status Alert Banner
+  let statusBannerHtml = '';
+  if (isOwner) {
+    statusBannerHtml = `
+      <div class="hub-status-alert dev-mode-alert">
+        <div class="status-info">
+          <i data-lucide="shield-check"></i>
+          <span><strong>Developer Mode Active:</strong> All incoming client messages visible (${messages.length} inquiries received).</span>
+        </div>
+        <button class="btn-alert-logout" onclick="window.logoutDeveloperMode()">Logout Developer Mode</button>
+      </div>
+    `;
+  } else if (messages.length > 0) {
+    statusBannerHtml = `
+      <div class="hub-status-alert sender-mode-alert">
+        <div class="status-info">
+          <i data-lucide="lock"></i>
+          <span><strong>Your Private Messages (${messages.length}):</strong> Strictly confidential — only you and Developer Abhishek Tripathi can view your sent messages and replies.</span>
+        </div>
+      </div>
+    `;
+  }
+
   // 4. Confidential empty state when visitor has no messages sent
   if (!messages || messages.length === 0) {
     if (isOwner) {
       container.innerHTML = `
+        ${statusBannerHtml}
         <div class="messages-empty-state">
           <div class="empty-icon-ring">
             <i data-lucide="shield-check"></i>
           </div>
-          <h4>No Direct Messages Yet</h4>
-          <p>Incoming client inquiries and direct messages to Abhishek Tripathi will appear here in real-time with instant chime notification.</p>
+          <h4>No Direct Client Messages Yet</h4>
+          <p>Incoming client inquiries and direct messages sent to Abhishek Tripathi will appear here in real-time with instant chime notification.</p>
         </div>
       `;
     } else {
@@ -1558,7 +1638,7 @@ async function loadAndRenderMessages(highlightId = null) {
             <i data-lucide="shield-check"></i>
           </div>
           <h4>Confidential &amp; Private Communication</h4>
-          <p>Messages submitted to Abhishek Tripathi are strictly confidential. Only you on this device and Abhishek can view your messages and replies. No other visitor will see your note or details.</p>
+          <p>Messages submitted to Abhishek Tripathi are strictly confidential. Only you on this device and Developer Abhishek can view your messages and replies. No other visitor will see your note or details.</p>
           <button class="btn btn-primary btn-sm" onclick="document.getElementById('form-name')?.focus(); document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})">
             <i data-lucide="send"></i>
             <span>Send a Private Message to Abhishek</span>
@@ -1570,7 +1650,7 @@ async function loadAndRenderMessages(highlightId = null) {
     return;
   }
 
-  container.innerHTML = messages.map(msg => {
+  container.innerHTML = statusBannerHtml + messages.map(msg => {
     const senderInitials = getInitials(msg.name || 'Visitor');
     const timeFormatted = formatTimeAgo(msg.createdAt);
     const exactTimeFormatted = formatExactDateTime(msg.createdAt);
@@ -1841,7 +1921,7 @@ window.toggleReplyBox = function(msgId) {
 };
 
 window.submitReply = async function(msgId) {
-  const pin = sessionStorage.getItem('abhishek_owner_pin') || '1808';
+  const pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin') || '1808';
   const textarea = document.getElementById(`reply-text-${msgId}`);
   if (!textarea) return;
 
@@ -1881,7 +1961,7 @@ window.submitReply = async function(msgId) {
 };
 
 window.deleteMessage = async function(msgId) {
-  let pin = sessionStorage.getItem('abhishek_owner_pin');
+  let pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
   if (!pin || (pin !== '1808' && pin !== '180887')) {
     const enteredPin = prompt('Enter Abhishek Owner PIN to delete this message (PIN: 1808):');
     if (!enteredPin) return;
@@ -1925,7 +2005,7 @@ window.deleteMessage = async function(msgId) {
 };
 
 window.clearAllMessages = async function() {
-  let pin = sessionStorage.getItem('abhishek_owner_pin');
+  let pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
   if (!pin || (pin !== '1808' && pin !== '180887')) {
     const enteredPin = prompt('Enter Abhishek Owner PIN to clear all messages (PIN: 1808):');
     if (!enteredPin) return;
@@ -2130,7 +2210,7 @@ function initRealtimeSync() {
 
       let url = `/api/messages?_t=${Date.now()}`;
       if (isOwner) {
-        const pin = sessionStorage.getItem('abhishek_owner_pin') || '1808';
+        const pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin') || '1808';
         url += `&pin=${encodeURIComponent(pin)}`;
       } else {
         url += `&ids=${encodeURIComponent(myIds.join(','))}`;

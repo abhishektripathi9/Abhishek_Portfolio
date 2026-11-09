@@ -113,23 +113,29 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // API: Get messages (Strict Privacy Protection)
+  // API: Get messages (Strict Privacy Protection: Developer sees ALL, Sender sees ONLY their own)
   if (req.method === 'GET' && pathname === '/api/messages') {
     const pin = parsedUrl.searchParams.get('pin') || (req.headers['x-owner-pin'] || '');
     const idsParam = parsedUrl.searchParams.get('ids') || '';
+    const emailParam = (parsedUrl.searchParams.get('email') || '').toLowerCase().trim();
     const isOwner = (pin === '1808' || pin === '180887');
     const allMsgs = getMessages();
 
     let filteredMsgs = [];
     if (isOwner) {
-      // Abhishek (Owner) sees all incoming client inquiries
+      // Abhishek (Developer / Owner) sees all incoming client inquiries
       filteredMsgs = allMsgs;
-    } else if (idsParam) {
-      // Senders see ONLY their own messages that they submitted from their browser
+    } else if (idsParam || emailParam) {
+      // Senders see ONLY their own messages that they submitted
       const allowedIds = new Set(idsParam.split(',').map(s => s.trim()).filter(Boolean));
-      filteredMsgs = allMsgs.filter(m => allowedIds.has(m.id));
+      filteredMsgs = allMsgs.filter(m => {
+        if (!m) return false;
+        if (allowedIds.has(m.id)) return true;
+        if (emailParam && m.email && m.email.toLowerCase().trim() === emailParam) return true;
+        return false;
+      });
     } else {
-      // Third-party visitors receive an empty array to guarantee absolute privacy
+      // Third-party visitors who haven't sent any messages receive an empty array to guarantee absolute privacy
       filteredMsgs = [];
     }
 
