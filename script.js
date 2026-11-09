@@ -1063,8 +1063,7 @@ function initNavbarScroll() {
    17. SIDEBAR NAVIGATION DRAWER (3-Line Menu / Side Drawer)
    ===================================================== */
 function initMobileNav() {
-  const toggleMobile = document.getElementById('nav-toggle');
-  const toggleDesktop = document.getElementById('btn-desktop-menu');
+  const triggers = document.querySelectorAll('#btn-menu-left, #btn-desktop-menu, #nav-toggle, .btn-side-menu-trigger');
   const drawerPanel = document.getElementById('side-drawer-panel');
   const drawerBackdrop = document.getElementById('side-drawer-backdrop');
   const drawerClose = document.getElementById('side-drawer-close');
@@ -1077,7 +1076,7 @@ function initMobileNav() {
     drawerPanel.classList.add('open');
     drawerPanel.setAttribute('aria-hidden', 'false');
     if (drawerBackdrop) drawerBackdrop.classList.add('open');
-    if (toggleMobile) toggleMobile.classList.add('active');
+    triggers.forEach(t => t.classList.add('active'));
     document.body.style.overflow = 'hidden';
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
@@ -1086,13 +1085,13 @@ function initMobileNav() {
     drawerPanel.classList.remove('open');
     drawerPanel.setAttribute('aria-hidden', 'true');
     if (drawerBackdrop) drawerBackdrop.classList.remove('open');
-    if (toggleMobile) toggleMobile.classList.remove('active');
+    triggers.forEach(t => t.classList.remove('active'));
     document.body.style.overflow = '';
   }
 
-  // Toggle triggers (both desktop 3-line button and mobile hamburger)
-  if (toggleMobile) {
-    toggleMobile.addEventListener('click', (e) => {
+  // Toggle triggers (Left-side 3-line menu button, desktop, and mobile)
+  triggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (drawerPanel.classList.contains('open')) {
         closeDrawer();
@@ -1100,18 +1099,7 @@ function initMobileNav() {
         openDrawer();
       }
     });
-  }
-
-  if (toggleDesktop) {
-    toggleDesktop.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (drawerPanel.classList.contains('open')) {
-        closeDrawer();
-      } else {
-        openDrawer();
-      }
-    });
-  }
+  });
 
   if (drawerClose) {
     drawerClose.addEventListener('click', closeDrawer);

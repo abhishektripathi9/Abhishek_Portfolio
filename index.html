@@ -253,7 +253,7 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=3.2" />
+  <link rel="stylesheet" href="style.css?v=3.3" />
 </head>
 <body>
 
@@ -277,25 +277,33 @@
        ===================================================== -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <div class="nav-brand-wrapper">
-        <a href="#home" class="nav-brand-group" aria-label="Abhishek Tripathi">
-          <span class="nav-badge-square">AT</span>
-          <div class="nav-brand-text">
-            <span class="nav-brand-name">Abhishek Tripathi</span>
-            <span class="nav-brand-sub">FREELANCER &bull; MERN STACK &bull; AI/ML &bull; BDM</span>
-          </div>
-        </a>
+      <!-- Left Side Group: 3-Line Menu Trigger + Brand Group -->
+      <div class="nav-left-wrapper">
+        <button class="btn-side-menu-trigger btn-menu-left" id="btn-menu-left" aria-label="Open Navigation Menu" title="Explore All Sections">
+          <span class="side-3lines-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="menu-label">Menu</span>
+        </button>
 
-        <!-- Reference Availability Pill in Navbar -->
-        <div class="nav-freelance-pill">
-          <span class="nav-freelance-dot"></span>
-          <span>Available for Freelance</span>
+        <div class="nav-brand-wrapper">
+          <a href="#home" class="nav-brand-group" aria-label="Abhishek Tripathi">
+            <span class="nav-badge-square">AT</span>
+            <div class="nav-brand-text">
+              <span class="nav-brand-name">Abhishek Tripathi</span>
+              <span class="nav-brand-sub">FREELANCER &bull; MERN STACK &bull; AI/ML &bull; BDM</span>
+            </div>
+          </a>
+
+          <!-- Reference Availability Pill in Navbar -->
+          <div class="nav-freelance-pill">
+            <span class="nav-freelance-dot"></span>
+            <span>Available for Freelance</span>
+          </div>
         </div>
       </div>
-
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" title="Open Navigation Menu">
-        <span class="hamburger"></span>
-      </button>
 
       <ul class="nav-links" id="nav-links">
         <li><a href="#skills" class="nav-link">Skills</a></li>
@@ -310,16 +318,6 @@
             <span>Contact</span>
             <i data-lucide="arrow-right" class="btn-icon-xs"></i>
           </a>
-        </li>
-        <li class="nav-menu-btn-item">
-          <button class="btn-side-menu-trigger" id="btn-desktop-menu" aria-label="Open Navigation Menu" title="Explore All Sections">
-            <span class="side-3lines-icon" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-            <span class="menu-label">Menu</span>
-          </button>
         </li>
       </ul>
     </div>
@@ -2450,6 +2448,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=3.2"></script>
+  <script src="script.js?v=3.3"></script>
 </body>
 </html>
