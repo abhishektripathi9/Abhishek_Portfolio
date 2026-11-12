@@ -238,22 +238,25 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 
-  <!-- Google Fonts: Space Grotesk, Outfit, Inter & JetBrains Mono -->
+  <!-- High Performance Resource Hints (DNS Prefetch & Preload) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="preload" as="image" href="assets/abhishek-tripathi.jpeg" fetchpriority="high" />
+
+  <!-- Google Fonts: Space Grotesk, Outfit, Inter & JetBrains Mono -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Three.js CDN for 3D WebGL background -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <!-- Lucide Icons -->
+  <!-- Lucide Icons (Deferred for Non-Blocking Ultra-Fast Page Render) -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=3.8" />
+  <link rel="stylesheet" href="style.css?v=3.9" />
 </head>
 <body>
 
@@ -2779,6 +2782,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=3.8"></script>
+  <script src="script.js?v=3.9"></script>
 </body>
 </html>
