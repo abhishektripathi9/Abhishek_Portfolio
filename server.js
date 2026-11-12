@@ -71,10 +71,20 @@ const server = http.createServer((req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, X-Owner-Pin',
       'Access-Control-Max-Age': '86400'
     });
     res.end();
+    return;
+  }
+
+  // Security: Block direct public access to messages.json database file
+  if (pathname === '/messages.json' || pathname === '/messages' || pathname.toLowerCase().endsWith('/messages.json')) {
+    res.writeHead(403, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify({ error: 'Direct access to messages database is strictly forbidden.' }));
     return;
   }
 
@@ -117,7 +127,6 @@ const server = http.createServer((req, res) => {
   if (req.method === 'GET' && pathname === '/api/messages') {
     const pin = parsedUrl.searchParams.get('pin') || (req.headers['x-owner-pin'] || '');
     const idsParam = parsedUrl.searchParams.get('ids') || '';
-    const emailParam = (parsedUrl.searchParams.get('email') || '').toLowerCase().trim();
     const isOwner = (pin === '1808' || pin === '180887');
     const allMsgs = getMessages();
 
@@ -125,15 +134,10 @@ const server = http.createServer((req, res) => {
     if (isOwner) {
       // Abhishek (Developer / Owner) sees all incoming client inquiries
       filteredMsgs = allMsgs;
-    } else if (idsParam || emailParam) {
-      // Senders see ONLY their own messages that they submitted
+    } else if (idsParam && idsParam !== 'none') {
+      // Senders see ONLY their own messages that they submitted on their device
       const allowedIds = new Set(idsParam.split(',').map(s => s.trim()).filter(Boolean));
-      filteredMsgs = allMsgs.filter(m => {
-        if (!m) return false;
-        if (allowedIds.has(m.id)) return true;
-        if (emailParam && m.email && m.email.toLowerCase().trim() === emailParam) return true;
-        return false;
-      });
+      filteredMsgs = allMsgs.filter(m => m && allowedIds.has(m.id));
     } else {
       // Third-party visitors who haven't sent any messages receive an empty array to guarantee absolute privacy
       filteredMsgs = [];
@@ -141,7 +145,9 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-cache',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
       'Access-Control-Allow-Origin': '*'
     });
     res.end(JSON.stringify(filteredMsgs));
@@ -175,8 +181,8 @@ const server = http.createServer((req, res) => {
         msgs.unshift(newMsg);
         saveMessages(msgs);
 
-        // Broadcast notification with message ID and sender ID for real-time triggers
-        broadcastEvent('new_message', { id: newMsg.id, name: newMsg.name, createdAt: newMsg.createdAt });
+        // Broadcast notification with message ID only (Strict Privacy: no client names or data leaked over SSE)
+        broadcastEvent('new_message', { id: newMsg.id, createdAt: newMsg.createdAt });
 
         res.writeHead(201, {
           'Content-Type': 'application/json; charset=utf-8',
@@ -334,6 +340,13 @@ const server = http.createServer((req, res) => {
       if (fs.existsSync(indexPath)) {
         targetPath = indexPath;
       }
+    }
+
+    // Never serve messages.json or dotfiles statically
+    if (path.basename(targetPath).toLowerCase() === 'messages.json' || path.basename(targetPath).startsWith('.')) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Direct file access is forbidden.' }));
+      return;
     }
 
     fs.stat(targetPath, (fileErr, fileStats) => {

@@ -1200,16 +1200,16 @@ function saveMyPrivateMessages(messages) {
   } catch (e) {}
 }
 
-// Purge legacy public messages from previous portfolio versions if they don't belong to this user
+// Strict Zero-Leak Privacy Migration: Purge old test messages, stale caches, and accidental hash logins
 try {
-  if (localStorage.getItem('portfolio_messages')) {
-    const legacy = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-    const myIds = new Set(getMySentMessageIds());
-    const valid = legacy.filter(m => m && myIds.has(m.id));
-    if (valid.length > 0) {
-      saveMyPrivateMessages(valid);
-    }
+  if (!localStorage.getItem('v35_strict_privacy_enforced_v1')) {
+    localStorage.removeItem('abhishek_owner_pin');
+    sessionStorage.removeItem('abhishek_owner_pin');
     localStorage.removeItem('portfolio_messages');
+    localStorage.removeItem('my_private_messages');
+    localStorage.removeItem('my_sent_message_ids');
+    localStorage.removeItem('my_sent_email');
+    localStorage.setItem('v35_strict_privacy_enforced_v1', 'true');
   }
 } catch (e) {}
 
@@ -1234,20 +1234,14 @@ function saveMySentEmail(email) {
   } catch (e) {}
 }
 
-// Auto-login Developer Mode if URL param (?dev=1808, ?owner=1808, ?pin=1808) or hash (#developer, #owner) is present
+// Developer Mode activation via explicit URL param (?dev=1808, ?owner=1808, ?pin=1808)
+// Note: Hash auto-login (#developer, #owner) is deliberately removed to protect client confidentiality
 try {
   const urlParams = new URLSearchParams(window.location.search);
   const devParam = urlParams.get('dev') || urlParams.get('owner') || urlParams.get('pin');
   if (devParam === '1808' || devParam === '180887') {
     sessionStorage.setItem('abhishek_owner_pin', devParam);
     localStorage.setItem('abhishek_owner_pin', devParam);
-  }
-  if (window.location.hash === '#developer' || window.location.hash === '#owner') {
-    const existing = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
-    if (!existing) {
-      sessionStorage.setItem('abhishek_owner_pin', '1808');
-      localStorage.setItem('abhishek_owner_pin', '1808');
-    }
   }
 } catch (e) {}
 
@@ -1491,7 +1485,6 @@ async function loadAndRenderMessages(highlightId = null) {
   const isOwner = isOwnerVerified();
   const ownerPin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin') || '1808';
   const myIds = getMySentMessageIds();
-  const myEmail = getMySentEmail();
 
   let messages = [];
   let serverMessages = [];
@@ -1504,16 +1497,12 @@ async function loadAndRenderMessages(highlightId = null) {
     } else {
       if (myIds.length > 0) {
         apiUrl += `&ids=${encodeURIComponent(myIds.join(','))}`;
-      }
-      if (myEmail) {
-        apiUrl += `&email=${encodeURIComponent(myEmail)}`;
-      }
-      if (myIds.length === 0 && !myEmail) {
+      } else {
         apiUrl += `&ids=none`;
       }
     }
 
-    const res = await fetch(apiUrl, { cache: 'no-cache' });
+    const res = await fetch(apiUrl, { cache: 'no-store' });
     const contentType = res.headers.get('content-type') || '';
     if (res.ok && contentType.includes('application/json')) {
       serverMessages = await res.json();
@@ -1522,19 +1511,14 @@ async function loadAndRenderMessages(highlightId = null) {
     // Dynamic server offline or running on static CDN
   }
 
-  // 2. Load locally stored private messages
+  // 2. Load locally stored private messages (Strict: only matching myIds for non-owners)
   let localMessages = [];
   try {
     if (isOwner) {
       localMessages = getMyPrivateMessages();
     } else {
       const myIdSet = new Set(myIds);
-      localMessages = getMyPrivateMessages().filter(m => {
-        if (!m) return false;
-        if (myIdSet.has(m.id)) return true;
-        if (myEmail && m.email && m.email.toLowerCase().trim() === myEmail) return true;
-        return false;
-      });
+      localMessages = getMyPrivateMessages().filter(m => m && myIdSet.has(m.id));
     }
   } catch (e) {
     localMessages = [];
@@ -1547,9 +1531,7 @@ async function loadAndRenderMessages(highlightId = null) {
     if (!m || !m.id) return false;
     if (m.name === 'Sarah Jenkins' || m.name === 'Vikram Patel') return false; // Filter legacy dummy items
     if (isOwner) return true;
-    if (myIds.includes(m.id)) return true;
-    if (myEmail && m.email && m.email.toLowerCase().trim() === myEmail) return true;
-    return false;
+    return myIds.includes(m.id);
   };
 
   if (Array.isArray(serverMessages)) {
@@ -1744,8 +1726,67 @@ async function loadAndRenderMessages(highlightId = null) {
         </div>
       `;
 
+    if (!isOwner) {
+      return `
+        <div class="message-card personal-sender-card glass-panel ${isNewArrival ? 'just-arrived' : ''}" id="card-${msg.id}">
+          <div class="personal-note-top-bar">
+            <div class="personal-pill-group">
+              <span class="personal-confidential-pill">
+                <i data-lucide="lock"></i>
+                <span>Your Private Message Note</span>
+              </span>
+              <span class="personal-subject-badge">
+                <i data-lucide="bookmark"></i> ${escapeHtml(msg.subject || 'Portfolio Inquiry')}
+              </span>
+            </div>
+            <div class="msg-timestamp-badge" title="Sent at: ${exactTimeFormatted}">
+              <span class="msg-relative-time"><i data-lucide="clock"></i> ${timeFormatted}</span>
+              <span class="msg-exact-time">${exactTimeFormatted}</span>
+            </div>
+          </div>
+
+          <!-- Clean Personal Message Note Bubble (No exposed contact data fields) -->
+          <div class="personal-note-content-box">
+            <p class="personal-note-text">${escapeHtml(msg.message)}</p>
+          </div>
+
+          <div class="personal-privacy-guarantee">
+            <i data-lucide="shield-check"></i>
+            <span>Strictly Confidential &bull; Delivered safely to Abhishek Tripathi. Invisible to all other visitors.</span>
+          </div>
+
+          ${repliesHtml}
+
+          <div class="msg-actions-bar personal-actions-bar">
+            <a
+              href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20following%20up%20on%20my%20portfolio%20message%20(ID:%20${encodeURIComponent(msg.id)})"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-whatsapp-mini"
+              title="Instant WhatsApp follow-up with Abhishek"
+            >
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+              <span>WhatsApp Abhishek</span>
+            </a>
+            <a
+              href="mailto:at180887@gmail.com?subject=Regarding%20Portfolio%20Inquiry%20(${encodeURIComponent(msg.subject || 'Direct Message')})"
+              class="btn-email-reply"
+              title="Direct Email to Abhishek"
+            >
+              <i data-lucide="mail"></i>
+              <span>Email Abhishek</span>
+            </a>
+            <button class="btn-delete-msg" onclick="window.deleteMyMessage('${msg.id}')" title="Remove this note from your device">
+              <i data-lucide="trash-2"></i>
+              <span>Remove from My Device</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
     return `
-      <div class="message-card glass-panel ${isNewArrival ? 'just-arrived' : ''}" id="card-${msg.id}">
+      <div class="message-card dev-inquiry-card glass-panel ${isNewArrival ? 'just-arrived' : ''}" id="card-${msg.id}">
         <div class="msg-header">
           <div class="msg-sender-info">
             <div class="msg-avatar">${senderInitials}</div>
@@ -1763,7 +1804,7 @@ async function loadAndRenderMessages(highlightId = null) {
           </div>
         </div>
 
-        <!-- SENDER DETAILS DOSSIER -->
+        <!-- SENDER DETAILS DOSSIER (Visible only to Developer Abhishek) -->
         <div class="msg-sender-details-card">
           <!-- Row 1: Sender Full Name -->
           <div class="msg-detail-row">
@@ -2145,7 +2186,7 @@ function initRealtimeSync() {
 
           if (isOwner) {
             playNotificationSound();
-            showToast(`🔔 New client inquiry from ${newMsg.name}!`);
+            showToast('🔔 New client inquiry received!');
             loadAndRenderMessages(newMsg.id);
           } else if (myIds.includes(newMsg.id)) {
             loadAndRenderMessages(newMsg.id);
