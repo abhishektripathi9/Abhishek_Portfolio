@@ -619,6 +619,38 @@ const projectData = {
     tech: ['React.js', 'Java', 'Spring Boot', 'MySQL', 'REST APIs', 'CSS3 Grid'],
     github: 'https://github.com/abhishektripathi9',
     liveDemo: './rentease/index.html'
+  },
+  weather: {
+    title: 'AuraWeather – Real-Time Atmospheric & Pollution Telemetry',
+    year: '2026',
+    category: 'Frontend & API Integration',
+    image: 'assets/project-weather.jpg',
+    desc: 'Glassmorphic atmospheric telemetry application integrating live weather and AQI telemetry with 7-day projections, dynamic atmospheric gradients, and hourly wind velocity analysis.',
+    highlights: [
+      'Live atmospheric data ingestion with automated geolocation and fallback city radar.',
+      'Real-time Air Quality Index (AQI) radar tracking PM2.5, PM10, and ozone particulate concentrations.',
+      'Dynamic background atmosphere generator shifting ambient lighting based on sun position and weather conditions.',
+      'Hourly wind telemetry, humidity sensors, barometric pressure, and visibility metrics.'
+    ],
+    tech: ['React.js', 'JavaScript ES6+', 'REST APIs', 'OpenWeather API', 'CSS3 Glassmorphism'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './weather/index.html'
+  },
+  salary: {
+    title: 'PayPulse – ML Compensation Predictor & Analytics',
+    year: '2026',
+    category: 'Machine Learning & Predictive Analytics',
+    image: 'assets/project-salary.jpg',
+    desc: 'Predictive machine learning regression engine analyzing experience, technical specialization, geography, and equity data to calculate real-time compensation benchmarks with feature-importance visualizations.',
+    highlights: [
+      'Interactive salary distribution engine trained with Scikit-learn Random Forest regression models.',
+      'Real-time compensation benchmark estimator with dynamic percentiles (25th, 50th, 75th, 90th).',
+      'Interactive radar analytics comparing developer base, bonus, stock grants, and career growth trajectories.',
+      'Automated input validation and instantaneous salary curve updates.'
+    ],
+    tech: ['Python', 'Scikit-Learn', 'FastAPI', 'Pandas', 'NumPy', 'Chart.js', 'Bootstrap'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './salary/index.html'
   }
 };
 
