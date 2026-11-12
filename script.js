@@ -536,6 +536,23 @@ function initProjectsAutoScroll() {
    10. PROJECT QUICK-VIEW MODAL
    ===================================================== */
 const projectData = {
+  'smart-billing': {
+    title: 'smartBiz – Smart Billing & Inventory Management System',
+    year: '2026',
+    category: 'Full Stack POS & Enterprise Systems',
+    image: 'assets/project-smart-billing.jpg',
+    desc: 'High-performance Point of Sale (POS), Indian GST Billing, and Inventory Management platform engineered with React.js, Tailwind CSS, Spring Boot 3, and MySQL. Features high-speed barcode scanning, automated CGST/SGST/IGST tax splits, dual-format thermal slip & A4 GST tax invoices, customer credit ledger (Khata book), and financial analytics.',
+    highlights: [
+      'Engineered high-speed POS billing interface with instant barcode scanner (F2) and SKU auto-completion.',
+      'Automated Indian GST computation engine supporting 0%, 5%, 12%, 18%, and 28% tax slabs with HSN/SAC code tracking.',
+      'Dual-format invoice generation supporting 80mm thermal retail roll slips and official A4 GST tax invoices with 1-click print.',
+      'Real-time customer credit ledger (Khata Book) managing dues, payment settlements, and customer profiles.',
+      'Spring Boot 3 REST backend with JPA data layer, MySQL 8.0 ACID compliance, and low-stock reorder alerts.'
+    ],
+    tech: ['React.js', 'Spring Boot 3', 'Java 17', 'MySQL', 'Tailwind CSS', 'REST APIs', 'Indian GST'],
+    github: 'https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System',
+    liveDemo: './smart-billing/index.html'
+  },
   'amazon-clone': {
     title: 'E-Commerce Marketplace & Order Processing System (Amazon 2.0)',
     year: '2026',

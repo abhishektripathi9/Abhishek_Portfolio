@@ -253,7 +253,7 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=3.7" />
+  <link rel="stylesheet" href="style.css?v=3.8" />
 </head>
 <body>
 
@@ -1056,7 +1056,7 @@
 
       <!-- Project Filter Tabs -->
       <div class="filter-tabs reveal">
-        <button class="filter-btn active" data-project-filter="all">All Freelance Projects (7)</button>
+        <button class="filter-btn active" data-project-filter="all">All Freelance Projects (8)</button>
         <button class="filter-btn" data-project-filter="fullstack">MERN Stack</button>
         <button class="filter-btn" data-project-filter="software">Java &amp; Enterprise</button>
         <button class="filter-btn" data-project-filter="blockchain">Web3 &amp; Blockchain</button>
@@ -1085,6 +1085,107 @@
 
       <div class="projects-carousel-wrapper" id="projects-carousel-wrapper">
         <div class="projects-grid" id="projects-grid">
+        <!-- NEWEST FLAGSHIP PROJECT: Smart Billing & Inventory Management System (smartBiz) -->
+        <div class="project-card glass-panel reveal" data-category="software fullstack" data-tilt>
+          <div class="project-media-wrap">
+            <img
+              src="assets/project-smart-billing.jpg"
+              alt="smartBiz Smart Billing &amp; Inventory Management POS System Mockup"
+              class="project-img"
+              loading="lazy"
+            />
+            <span class="live-demo-tag">
+              <span class="pulse-indicator-live"></span>
+              Live Demo
+            </span>
+            <span class="project-badge">Spring Boot 3 / React POS</span>
+
+            <div class="project-overlay-3d">
+              <button
+                class="btn-quick-view"
+                data-project-id="smart-billing"
+                aria-label="Quick View Smart Billing System"
+              >
+                <i data-lucide="eye"></i>
+                <span>Quick View</span>
+              </button>
+              <div class="overlay-links">
+                <a
+                  href="./smart-billing/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-live-demo-pill"
+                  aria-label="Launch Live Demo"
+                  title="Launch Live Demo"
+                >
+                  <i data-lucide="external-link"></i>
+                  <span>Live Demo</span>
+                </a>
+                <a
+                  href="https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link-btn"
+                  aria-label="GitHub Repository"
+                  title="GitHub Repository"
+                >
+                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-body">
+            <div class="project-header-meta">
+              <span class="project-year">2026</span>
+              <span class="project-stars"><i data-lucide="sparkles"></i> New Flagship</span>
+            </div>
+            <h3 class="project-title">Smart Billing &amp; Inventory POS (smartBiz)</h3>
+            <p class="project-desc">
+              High-performance Point of Sale (POS) and inventory platform with Indian GST engine (CGST/SGST/IGST), barcode scanning, 80mm thermal &amp; A4 invoicing, and customer credit ledger (Khata book).
+            </p>
+            <div class="project-tech-tags">
+              <span class="tech-tag">React.js</span>
+              <span class="tech-tag">Spring Boot 3</span>
+              <span class="tech-tag">Java 17</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">Indian GST</span>
+              <span class="tech-tag">Tailwind</span>
+            </div>
+            <div class="project-card-actions">
+              <a
+                href="./smart-billing/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-card-live-demo"
+                title="Launch Live Demo in new tab"
+              >
+                <i data-lucide="external-link"></i>
+                <span>Live Demo</span>
+              </a>
+              <button
+                class="btn-card-quick-view"
+                data-project-id="smart-billing"
+                aria-label="Quick View Smart Billing System"
+                title="View Full Architecture Specs"
+              >
+                <i data-lucide="eye"></i>
+                <span>Details</span>
+              </button>
+              <a
+                href="https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-card-github"
+                aria-label="GitHub Repository"
+                title="View Source on GitHub"
+              >
+                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- RESUME PROJECT 1: E-Commerce Marketplace & Order Processing System (Amazon 2.0) -->
         <div class="project-card glass-panel reveal" data-category="fullstack web" data-tilt>
           <div class="project-media-wrap">
@@ -1799,6 +1900,7 @@
       <button class="carousel-dot" data-index="4" aria-label="Go to project 5"></button>
       <button class="carousel-dot" data-index="5" aria-label="Go to project 6"></button>
       <button class="carousel-dot" data-index="6" aria-label="Go to project 7"></button>
+      <button class="carousel-dot" data-index="7" aria-label="Go to project 8"></button>
     </div>
 
       <!-- GitHub Repositories Showcase Banner -->
@@ -2677,6 +2779,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=3.7"></script>
+  <script src="script.js?v=3.8"></script>
 </body>
 </html>
