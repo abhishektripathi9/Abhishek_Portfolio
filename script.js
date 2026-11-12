@@ -868,17 +868,8 @@ function initContactActions() {
       if (tyCloseBtn) tyCloseBtn.onclick = closeTyModal;
       if (tyOkayBtn) tyOkayBtn.onclick = closeTyModal;
       if (tyBackdrop) tyBackdrop.onclick = closeTyModal;
-
-      if (tyViewOnBoard) {
-        tyViewOnBoard.onclick = () => {
-          closeTyModal();
-          const targetCard = newSavedMsg?.id ? document.getElementById(`card-${newSavedMsg.id}`) : document.getElementById('message-hub');
-          if (targetCard) {
-            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            targetCard.classList.add('just-arrived');
-          }
-        };
-      }
+      const okayBtn = document.getElementById('thank-you-okay-btn');
+      if (okayBtn) okayBtn.onclick = closeTyModal;
     }
 
     if (successBanner) {
@@ -887,16 +878,12 @@ function initContactActions() {
           <i data-lucide="check-circle-2"></i>
         </div>
         <div>
-          <h4>Message Received from ${escapeHtml(name)}!</h4>
-          <p style="margin:2px 0 4px;color:var(--text-primary);font-size:0.86rem;">
-            Sender Email: <strong style="color:var(--cyan);font-family:var(--font-mono);">${escapeHtml(email)}</strong>
-            ${phone ? ` | Phone: <strong style="color:#34d399;font-family:var(--font-mono);">${escapeHtml(phone)}</strong>` : ''}
-          </p>
-          <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:8px;">
-            Delivered in real-time to Abhishek's communication board and transmitted to at180887@gmail.com.
+          <h4>Message Sent to Abhishek Tripathi!</h4>
+          <p style="margin:2px 0 6px;color:#3f3f46;font-size:0.86rem;">
+            Thank you, ${escapeHtml(name)}! Your message has been privately transmitted to Abhishek.
           </p>
           <a
-            href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20I%20just%20sent%20you%20a%20direct%20message%20from%20your%20portfolio.%20Name:%20${encodeURIComponent(name)}%2C%20Message:%20${encodeURIComponent(msg)}"
+            href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20I%20just%20sent%20you%20a%20message%20from%20your%20portfolio.%20Name:%20${encodeURIComponent(name)}"
             target="_blank"
             rel="noopener noreferrer"
             class="btn-banner-wa"
@@ -915,17 +902,7 @@ function initContactActions() {
     }
 
     form.reset();
-    showToast(`Direct message from ${name} sent! Live on board & delivered.`);
-
-    // If thank you modal didn't open, scroll to board directly
-    if (!thankYouModal) {
-      const hub = document.getElementById('message-hub');
-      if (hub) {
-        setTimeout(() => {
-          hub.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 300);
-      }
-    }
+    showToast(`✓ Message sent privately to Abhishek Tripathi.`);
 
     // 3. Asynchronously transmit to FormSubmit for Gmail inbox delivery
     try {
@@ -1256,6 +1233,10 @@ function initMessageHub() {
 
   function updateAuthBtnState() {
     const isOwner = isOwnerVerified();
+    const hubWrapper = document.getElementById('message-hub');
+    if (hubWrapper) {
+      hubWrapper.style.display = isOwner ? 'block' : 'none';
+    }
     if (authBtn && authText) {
       if (isOwner) {
         authBtn.classList.add('active');
@@ -1271,13 +1252,34 @@ function initMessageHub() {
   }
   window.updateAuthBtnState = updateAuthBtnState;
 
+  window.openOwnerModal = function() {
+    if (isOwnerVerified()) {
+      const hub = document.getElementById('message-hub');
+      if (hub) {
+        hub.style.display = 'block';
+        hub.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      showToast('Developer Mode is active. All inquiries visible.');
+    } else {
+      if (modal) {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        if (pinInput) {
+          pinInput.value = '';
+          setTimeout(() => pinInput.focus(), 150);
+        }
+      }
+    }
+  };
+
   window.logoutDeveloperMode = function() {
     if (confirm('Logout of Developer Mode?')) {
       sessionStorage.removeItem('abhishek_owner_pin');
       localStorage.removeItem('abhishek_owner_pin');
       updateAuthBtnState();
-      showToast('Logged out of Developer Mode.');
-      loadAndRenderMessages();
+      showToast('Logged out of Developer Mode. Messages are now hidden.');
+      const hub = document.getElementById('message-hub');
+      if (hub) hub.style.display = 'none';
     }
   };
 
@@ -1333,6 +1335,13 @@ function initMessageHub() {
         updateAuthBtnState();
         closeModal();
         showToast('Welcome Developer Abhishek! All incoming client messages unlocked.');
+        const hub = document.getElementById('message-hub');
+        if (hub) {
+          hub.style.display = 'block';
+          setTimeout(() => {
+            hub.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+        }
         loadAndRenderMessages();
       } else {
         showToast('Invalid PIN. Only Developer Abhishek can view all inquiries (PIN: 1808).');
@@ -1480,9 +1489,17 @@ function fallbackCopy(text, label) {
 
 async function loadAndRenderMessages(highlightId = null) {
   const container = document.getElementById('messages-feed');
+  const hubWrapper = document.getElementById('message-hub');
   if (!container) return;
 
   const isOwner = isOwnerVerified();
+  if (!isOwner) {
+    if (hubWrapper) hubWrapper.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+  if (hubWrapper) hubWrapper.style.display = 'block';
+
   const ownerPin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin') || '1808';
   const myIds = getMySentMessageIds();
 

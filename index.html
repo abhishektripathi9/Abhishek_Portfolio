@@ -253,7 +253,7 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=3.5" />
+  <link rel="stylesheet" href="style.css?v=3.6" />
 </head>
 <body>
 
@@ -801,224 +801,121 @@
        ===================================================== -->
   <section class="section section--alt" id="skills">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-subtitle">CAPABILITIES</span>
-        <h2 class="section-title">
-          Technical <span class="highlight">Arsenal</span>
-        </h2>
-        <div class="section-title-bar"></div>
+      <div class="stack-craft-header reveal">
+        <div class="stack-header-left">
+          <div class="stack-section-pill">
+            <span class="pill-dot"></span>
+            <span>02 &mdash; STACK &amp; CRAFT</span>
+          </div>
+          <h2 class="stack-main-title">Stack that ships.</h2>
+        </div>
+        <div class="stack-header-right">
+          <p class="stack-header-desc">
+            <strong>React &amp; Modern Web</strong> for frontend, <strong>Java &amp; Python</strong> for resilient backend systems, <strong>Machine Learning &amp; Analytics</strong> for intelligence &mdash; one cohesive stack across web, systems, and data engineering. Production projects are the proof.
+          </p>
+        </div>
       </div>
 
-      <!-- Skill Category Filter Tabs -->
-      <div class="filter-tabs reveal">
-        <button class="filter-btn active" data-filter="all">All Skills</button>
-        <button class="filter-btn" data-filter="frontend">Frontend</button>
-        <button class="filter-btn" data-filter="backend">Backend &amp; DB</button>
-        <button class="filter-btn" data-filter="data">Data &amp; AI</button>
-        <button class="filter-btn" data-filter="tools">Tools &amp; Core</button>
-      </div>
+      <!-- Modern Stack & Capabilities Bento Grid (Inspired by Reference) -->
+      <div class="stack-bento-grid" id="skills-grid">
+        <!-- Card 1: AI, Machine Learning & Analytics -->
+        <div class="stack-bento-card glass-panel reveal" data-tilt>
+          <div class="stack-card-icon-box">
+            <i data-lucide="cpu"></i>
+          </div>
+          <h3 class="stack-card-title">AI, Machine Learning &amp; Analytics</h3>
+          <span class="stack-card-action">TRAIN &bull; ANALYZE &bull; DEPLOY</span>
+          
+          <div class="stack-tags-row">
+            <span class="stack-tech-pill">Python</span>
+            <span class="stack-tech-pill">Pandas</span>
+            <span class="stack-tech-pill">NumPy</span>
+            <span class="stack-tech-pill">Scikit-learn</span>
+            <span class="stack-tech-pill">Power BI</span>
+            <span class="stack-tech-pill">Regression ML</span>
+            <span class="stack-tech-pill">Data Cleaning</span>
+          </div>
 
-      <div class="skills-grid" id="skills-grid">
-        <!-- Frontend -->
-        <div class="skill-category-card glass-panel reveal" data-category="frontend" data-tilt>
-          <div class="cat-header">
-            <div class="cat-icon-box cyan">
-              <i data-lucide="layout"></i>
-            </div>
-            <div>
-              <h3 class="cat-title">Frontend Development</h3>
-              <span class="cat-subtitle">Modern Responsive Interfaces</span>
-            </div>
-          </div>
-          <div class="skill-meter-list">
-            <div class="skill-item">
-              <div class="skill-meta"><span>React.js</span><span>85%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 85%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>JavaScript (ES6+)</span><span>88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 88%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>HTML5 &amp; Modern CSS3</span><span>92%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 92%;"></div></div>
-            </div>
-          </div>
-          <div class="skill-tag-pills">
-            <span class="tag-pill">React.js</span>
-            <span class="tag-pill">ES6+</span>
-            <span class="tag-pill">CSS Flex/Grid</span>
-            <span class="tag-pill">Responsive Design</span>
-            <span class="tag-pill">DOM APIs</span>
-          </div>
+          <ul class="stack-bullets-list">
+            <li>Custom predictive ML regression, classification &amp; model evaluation pipelines</li>
+            <li>Interactive KPI analytics dashboards cutting reporting time by 30% (Techpile)</li>
+            <li>Exploratory data analysis, statistical modeling, and automated CSV/SQL insights</li>
+          </ul>
         </div>
 
-        <!-- Programming -->
-        <div class="skill-category-card glass-panel reveal" data-category="backend" data-tilt>
-          <div class="cat-header">
-            <div class="cat-icon-box purple">
-              <i data-lucide="code-2"></i>
-            </div>
-            <div>
-              <h3 class="cat-title">Core Programming</h3>
-              <span class="cat-subtitle">Languages &amp; Logic</span>
-            </div>
+        <!-- Card 2: Full-Stack Web Development -->
+        <div class="stack-bento-card glass-panel reveal" data-tilt>
+          <div class="stack-card-icon-box">
+            <i data-lucide="layout"></i>
           </div>
-          <div class="skill-meter-list">
-            <div class="skill-item">
-              <div class="skill-meta"><span>Java (OOP &amp; Collections)</span><span>86%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 86%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>Python</span><span>84%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 84%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>C / C++ Basics</span><span>75%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 75%;"></div></div>
-            </div>
+          <h3 class="stack-card-title">Full-Stack Web Development</h3>
+          <span class="stack-card-action">REACT &bull; NODE.JS &bull; EXPRESS &bull; TAILWIND</span>
+          
+          <div class="stack-tags-row">
+            <span class="stack-tech-pill">React.js</span>
+            <span class="stack-tech-pill">JavaScript (ES6+)</span>
+            <span class="stack-tech-pill">Node.js</span>
+            <span class="stack-tech-pill">Express.js</span>
+            <span class="stack-tech-pill">Tailwind CSS</span>
+            <span class="stack-tech-pill">HTML5/CSS3</span>
+            <span class="stack-tech-pill">Vercel</span>
           </div>
-          <div class="skill-tag-pills">
-            <span class="tag-pill">Java</span>
-            <span class="tag-pill">Python</span>
-            <span class="tag-pill">OOP Concepts</span>
-            <span class="tag-pill">Exception Handling</span>
-          </div>
+
+          <ul class="stack-bullets-list">
+            <li>Production-grade responsive web apps &amp; SPAs (Amazon 2.0 Marketplace, Quiz Portal)</li>
+            <li>Component-driven state architecture, responsive design &amp; sub-100ms fluid UI interactions</li>
+            <li>Clean, mobile-first accessible interfaces with cross-browser compatibility (IBM PBEL)</li>
+          </ul>
         </div>
 
-        <!-- Data Analytics -->
-        <div class="skill-category-card glass-panel reveal" data-category="data" data-tilt>
-          <div class="cat-header">
-            <div class="cat-icon-box blue">
-              <i data-lucide="bar-chart-3"></i>
-            </div>
-            <div>
-              <h3 class="cat-title">Data Analytics &amp; ML</h3>
-              <span class="cat-subtitle">Insights, Modeling &amp; BI</span>
-            </div>
+        <!-- Card 3: Backend Systems & Architecture -->
+        <div class="stack-bento-card glass-panel reveal" data-tilt>
+          <div class="stack-card-icon-box">
+            <i data-lucide="server"></i>
           </div>
-          <div class="skill-meter-list">
-            <div class="skill-item">
-              <div class="skill-meta"><span>Pandas &amp; NumPy</span><span>82%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 82%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>Scikit-learn (Regression/ML)</span><span>78%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 78%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>Power BI &amp; Visualization</span><span>80%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 80%;"></div></div>
-            </div>
+          <h3 class="stack-card-title">Backend Systems &amp; Architecture</h3>
+          <span class="stack-card-action">JAVA &bull; SPRING BOOT &bull; REST APIS &bull; MYSQL</span>
+          
+          <div class="stack-tags-row">
+            <span class="stack-tech-pill">Java</span>
+            <span class="stack-tech-pill">Spring Boot</span>
+            <span class="stack-tech-pill">RESTful APIs</span>
+            <span class="stack-tech-pill">MySQL</span>
+            <span class="stack-tech-pill">JDBC</span>
+            <span class="stack-tech-pill">OOP &amp; Collections</span>
+            <span class="stack-tech-pill">ACID Transactions</span>
           </div>
-          <div class="skill-tag-pills">
-            <span class="tag-pill">Pandas</span>
-            <span class="tag-pill">NumPy</span>
-            <span class="tag-pill">Scikit-learn</span>
-            <span class="tag-pill">Power BI</span>
-            <span class="tag-pill">Data Cleaning</span>
-          </div>
+
+          <ul class="stack-bullets-list">
+            <li>Enterprise software architecture (Banking Management System with ACID safety)</li>
+            <li>Secure RESTful APIs with JWT auth, PreparedStatement sanitization &amp; RBAC</li>
+            <li>Relational schema modeling, query optimization, indexing &amp; transactional rollbacks</li>
+          </ul>
         </div>
 
-        <!-- Backend & Databases -->
-        <div class="skill-category-card glass-panel reveal" data-category="backend" data-tilt>
-          <div class="cat-header">
-            <div class="cat-icon-box emerald">
-              <i data-lucide="database"></i>
-            </div>
-            <div>
-              <h3 class="cat-title">Backend &amp; Databases</h3>
-              <span class="cat-subtitle">Services, APIs &amp; Storage</span>
-            </div>
+        <!-- Card 4: Cloud Deployments, DevOps & Web3 -->
+        <div class="stack-bento-card glass-panel reveal" data-tilt>
+          <div class="stack-card-icon-box">
+            <i data-lucide="cloud"></i>
           </div>
-          <div class="skill-meter-list">
-            <div class="skill-item">
-              <div class="skill-meta"><span>RESTful API Design</span><span>84%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 84%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>SQL &amp; MySQL</span><span>82%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 82%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>Spring Boot (Basics)</span><span>74%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 74%;"></div></div>
-            </div>
+          <h3 class="stack-card-title">Cloud, DevOps &amp; Web3 Solutions</h3>
+          <span class="stack-card-action">RENDER &bull; DOCKER &bull; GIT &bull; SOLIDITY</span>
+          
+          <div class="stack-tags-row">
+            <span class="stack-tech-pill">Git &amp; GitHub</span>
+            <span class="stack-tech-pill">Render</span>
+            <span class="stack-tech-pill">Docker Basics</span>
+            <span class="stack-tech-pill">Postman</span>
+            <span class="stack-tech-pill">Solidity</span>
+            <span class="stack-tech-pill">Web3.js</span>
+            <span class="stack-tech-pill">MetaMask</span>
           </div>
-          <div class="skill-tag-pills">
-            <span class="tag-pill">REST APIs</span>
-            <span class="tag-pill">Spring Boot</span>
-            <span class="tag-pill">MySQL</span>
-            <span class="tag-pill">CRUD Ops</span>
-            <span class="tag-pill">JSON Integration</span>
-          </div>
-        </div>
 
-        <!-- Tools & Workflow -->
-        <div class="skill-category-card glass-panel reveal" data-category="tools" data-tilt>
-          <div class="cat-header">
-            <div class="cat-icon-box amber">
-              <i data-lucide="wrench"></i>
-            </div>
-            <div>
-              <h3 class="cat-title">Tools &amp; Environments</h3>
-              <span class="cat-subtitle">Dev Workflows &amp; Versioning</span>
-            </div>
-          </div>
-          <div class="skill-meter-list">
-            <div class="skill-item">
-              <div class="skill-meta"><span>Git &amp; GitHub</span><span>88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 88%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>VS Code &amp; IntelliJ IDEA</span><span>90%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 90%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>Jupyter &amp; Postman</span><span>80%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 80%;"></div></div>
-            </div>
-          </div>
-          <div class="skill-tag-pills">
-            <span class="tag-pill">Git</span>
-            <span class="tag-pill">GitHub</span>
-            <span class="tag-pill">VS Code</span>
-            <span class="tag-pill">IntelliJ</span>
-            <span class="tag-pill">Postman</span>
-          </div>
-        </div>
-
-        <!-- Core Concepts -->
-        <div class="skill-category-card glass-panel reveal" data-category="tools" data-tilt>
-          <div class="cat-header">
-            <div class="cat-icon-box pink">
-              <i data-lucide="brain"></i>
-            </div>
-            <div>
-              <h3 class="cat-title">Core Computer Science</h3>
-              <span class="cat-subtitle">Foundations &amp; Problem Solving</span>
-            </div>
-          </div>
-          <div class="skill-meter-list">
-            <div class="skill-item">
-              <div class="skill-meta"><span>Object-Oriented Programming</span><span>88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 88%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>Data Structures (Basics)</span><span>76%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 76%;"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-meta"><span>DBMS Concepts</span><span>82%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="--percent: 82%;"></div></div>
-            </div>
-          </div>
-          <div class="skill-tag-pills">
-            <span class="tag-pill">OOP</span>
-            <span class="tag-pill">Arrays &amp; Lists</span>
-            <span class="tag-pill">Relational Schema</span>
-            <span class="tag-pill">Algorithm Design</span>
-          </div>
+          <ul class="stack-bullets-list">
+            <li>Continuous cloud deployments on Render with health-checks, SSL &amp; live monitoring</li>
+            <li>Tamper-proof decentralized applications on Ethereum &amp; IPFS (Land Registry DApp)</li>
+            <li>Agile development workflows, Postman API contract testing &amp; collaborative Git CI</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -2022,9 +1919,9 @@
       </div>
 
       <!-- =====================================================
-           LIVE INTERACTIVE COMMUNICATION HUB & REPLIES
+           LIVE INTERACTIVE COMMUNICATION HUB & REPLIES (DEVELOPER ABHISHEK INBOX ONLY)
            ===================================================== -->
-      <div class="message-hub-wrapper glass-panel reveal" id="message-hub">
+      <div class="message-hub-wrapper glass-panel" id="message-hub" style="display: none;">
         <div class="hub-glow-line"></div>
         <div class="message-hub-header">
           <div class="hub-header-left">
@@ -2149,9 +2046,15 @@
         <p class="footer-copyright">
           &copy; <span id="current-year">2026</span> Abhishek Tripathi. All rights reserved.
         </p>
-        <div class="footer-meta-badge">
-          <span class="footer-status-dot"></span>
-          <span>Crafted with Three.js &amp; Pure Web Tech</span>
+        <div class="footer-bottom-actions">
+          <div class="footer-meta-badge">
+            <span class="footer-status-dot"></span>
+            <span>Crafted with Pure Web Tech</span>
+          </div>
+          <button class="footer-dev-portal-btn" onclick="window.openOwnerModal()" title="Developer Admin Portal (PIN: 1808)">
+            <i data-lucide="shield"></i>
+            <span>Developer Portal</span>
+          </button>
         </div>
       </div>
     </div>
@@ -2381,7 +2284,7 @@
       </div>
 
       <span class="thank-you-badge">
-        <i data-lucide="check-circle-2"></i> Message Sent Successfully!
+        <i data-lucide="shield-check"></i> 100% Confidential &bull; Sent to Abhishek
       </span>
 
       <h3 class="thank-you-title" id="thank-you-title">
@@ -2389,44 +2292,12 @@
       </h3>
 
       <p class="thank-you-subtitle">
-        Your message has been delivered directly and safely to Abhishek Tripathi. Abhishek has received your notification and will review and respond promptly!
+        Your message has been securely delivered directly to Abhishek Tripathi. Abhishek has received your notification and will review and respond promptly via Email or WhatsApp!
       </p>
-
-      <!-- Submitted Details Summary Dossier -->
-      <div class="thank-you-summary-card">
-        <div class="summary-field">
-          <span class="summary-label"><i data-lucide="user"></i> Sender Name:</span>
-          <span class="summary-val" id="thank-you-summary-name"></span>
-        </div>
-        <div class="summary-field">
-          <span class="summary-label"><i data-lucide="mail"></i> Email Address:</span>
-          <span class="summary-val cyan" id="thank-you-summary-email"></span>
-        </div>
-        <div class="summary-field" id="thank-you-phone-row">
-          <span class="summary-label"><i data-lucide="phone"></i> Phone / WhatsApp:</span>
-          <span class="summary-val green" id="thank-you-summary-phone"></span>
-        </div>
-        <div class="summary-field">
-          <span class="summary-label"><i data-lucide="tag"></i> Subject:</span>
-          <span class="summary-val" id="thank-you-summary-subject"></span>
-        </div>
-        <div class="summary-field summary-field-msg">
-          <span class="summary-label"><i data-lucide="message-square"></i> Your Message:</span>
-          <p class="summary-msg-text" id="thank-you-summary-msg"></p>
-        </div>
-        <div class="summary-delivery-status">
-          <i data-lucide="check-check"></i>
-          <span>✓ Message Confirmed: Delivered Directly to Abhishek Tripathi (at180887@gmail.com)</span>
-        </div>
-      </div>
 
       <!-- Quick Action Buttons -->
       <div class="thank-you-actions">
-        <button class="btn btn-primary" id="btn-view-on-board">
-          <i data-lucide="eye"></i>
-          <span>View Your Private Message on Board</span>
-        </button>
-        <a href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20I%20just%20sent%20you%20a%20message%20from%20your%20portfolio" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-wa-quick">
+        <a href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20I%20just%20sent%20you%20a%20message%20from%20your%20portfolio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-wa-quick">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
           <span>Instant WhatsApp Ping</span>
         </a>
@@ -2448,6 +2319,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=3.5"></script>
+  <script src="script.js?v=3.6"></script>
 </body>
 </html>
