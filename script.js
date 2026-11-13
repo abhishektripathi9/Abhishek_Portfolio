@@ -576,13 +576,13 @@ const projectData = {
     year: '2026',
     category: 'Power BI & Business Intelligence',
     image: 'assets/project-flipkart-powerbi.jpg',
-    desc: 'Enterprise Power BI business intelligence dashboard developed during Techpile Technology data analytics training. Features end-to-end telemetry on ₹18.4M+ sales turnover, 142k+ orders, top category performance, zonal geographic mapping, payment gateway behavioral distribution, and customer satisfaction metrics.',
+    desc: 'Original Microsoft Power BI business intelligence dashboard developed by Abhishek Tripathi during Techpile Technology Data Analytics training (Certificate ID: TechpileST260067). Features end-to-end analytics on 10M total sales, 10.09K average ticket size, 5K orders, product category revenue volume, and payment method behavior.',
     highlights: [
-      'Multi-table relational data modeling in Power BI connecting transactions, product categories, regions, and ratings.',
-      'Complex DAX measures calculating total turnover, average order value, margin splits, and YoY trajectory.',
-      'Geospatial zonal mapping visualizing sales distribution across North, South, East, and West India.',
-      'Payment gateway analytics breaking down volume across UPI instant payments (42%), Cards (34%), and COD (18%).',
-      'Downloadable .pbix production data model with full pre-calculated aggregations and interactive slicers.'
+      'Multi-table relational star-schema data modeling in Power BI connecting orders, categories, regions, and ratings.',
+      'DAX measures computing Total Sales (10M), Average Sales (10.09K), Customer Rating (3.02K), and Total Orders (5K).',
+      'Category performance tracking across Grocery (1.6M), Electronics (1.5M), Home (1.5M), Fashion (1.4M), Beauty (1.4M), and Books.',
+      'Payment method analysis breaking down transaction split across UPI, COD, Credit Card, Debit Card, and Net Banking.',
+      'Full downloadable .pbix production data model with original dashboard screenshots and official certification.'
     ],
     tech: ['Power BI', 'DAX Measures', 'Power Query ETL', 'Data Modeling', 'Business Intelligence', 'Analytics'],
     github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects',

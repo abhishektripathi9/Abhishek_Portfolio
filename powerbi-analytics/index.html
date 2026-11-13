@@ -3,1911 +3,758 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Microsoft Power BI — Interactive Report Viewer | Abhishek Tripathi</title>
-  <meta name="description" content="Official Microsoft Power BI interactive report viewer for Abhishek Tripathi's Power BI projects: Flipkart E-Commerce Analytics, Tesla Automotive Fleet Telemetry, Global Superstore, and Clinical Health Risk." />
+  <title>Flipkart Final Project — Microsoft Power BI | Abhishek Tripathi</title>
+  <meta name="description" content="Original Microsoft Power BI Dashboard and Data Analytics Model by Abhishek Tripathi (Techpile Technology Certified)." />
   
-  <!-- Segoe UI & Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
-  
-  <!-- Chart.js & Lucide Icons -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <style>
     :root {
       --pbi-yellow: #f2c811;
       --pbi-yellow-hover: #dca600;
-      --pbi-header-bg: #252526;
-      --pbi-ribbon-bg: #2d2d30;
-      --pbi-border: #3e3e42;
-      --pbi-canvas-bg: #14171f;
-      --pbi-pane-bg: #1f222a;
-      --pbi-pane-card: #282c37;
-      --pbi-text: #ffffff;
-      --pbi-text-muted: #9da5b4;
-      --pbi-accent: #2b6cb0;
-      --pbi-tab-active: #1e1e1e;
-      --pbi-tab-inactive: #2d2d30;
+      --bg-dark: #12141a;
+      --header-bg: #202228;
+      --card-bg: #1a1d24;
+      --border: #2e323b;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     body {
-      background: var(--pbi-canvas-bg);
-      color: var(--pbi-text);
+      background: var(--bg-dark);
+      color: var(--text);
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      user-select: none;
     }
 
-    /* -------------------------------------------------------------
-       1. Top Microsoft Power BI App Bar
-       ------------------------------------------------------------- */
+    /* Top Microsoft Power BI App Bar */
     .pbi-app-bar {
-      height: 44px;
-      background: var(--pbi-header-bg);
-      border-bottom: 1px solid var(--pbi-border);
+      height: 48px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      z-index: 50;
-      flex-shrink: 0;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .pbi-app-left {
+    .pbi-brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
+      color: #fff;
     }
-    .pbi-logo {
+    .pbi-icon-bars {
       display: flex;
       align-items: flex-end;
-      gap: 2.5px;
-      height: 20px;
-      cursor: pointer;
+      gap: 3px;
+      height: 22px;
     }
-    .pbi-logo-bar {
+    .pbi-bar {
       width: 4px;
       background: var(--pbi-yellow);
       border-radius: 1px;
     }
-    .pbi-logo-bar:nth-child(1) { height: 8px; }
-    .pbi-logo-bar:nth-child(2) { height: 13px; }
-    .pbi-logo-bar:nth-child(3) { height: 18px; }
-    .pbi-logo-bar:nth-child(4) { height: 14px; }
+    .pbi-bar:nth-child(1) { height: 8px; }
+    .pbi-bar:nth-child(2) { height: 14px; }
+    .pbi-bar:nth-child(3) { height: 20px; }
+    .pbi-bar:nth-child(4) { height: 16px; }
 
-    .pbi-app-title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: -0.2px;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .pbi-badge-pill {
-      background: rgba(242, 200, 17, 0.15);
-      color: var(--pbi-yellow);
-      border: 1px solid rgba(242, 200, 17, 0.4);
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .pbi-divider {
-      width: 1px;
-      height: 18px;
-      background: var(--pbi-border);
-    }
-    .pbi-breadcrumbs {
-      font-size: 0.8rem;
-      color: var(--pbi-text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .pbi-breadcrumbs strong {
-      color: #ffffff;
-    }
-
-    .pbi-app-right {
+    .pbi-brand-text {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .pbi-action-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: #e2e8f0;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      font-family: inherit;
+    .pbi-brand-text h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+    .pbi-badge {
+      background: rgba(242, 200, 17, 0.15);
+      border: 1px solid var(--pbi-yellow);
+      color: var(--pbi-yellow);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
       border-radius: 4px;
-      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .pbi-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pbi-btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
       text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s;
     }
-    .pbi-action-btn:hover {
+    .pbi-btn-secondary:hover {
       background: rgba(255, 255, 255, 0.08);
-      border-color: var(--pbi-border);
+      border-color: #475569;
     }
-    .pbi-action-btn.active {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--pbi-yellow);
-      color: var(--pbi-yellow);
-    }
-    .pbi-btn-primary {
+    .pbi-btn-download {
       background: var(--pbi-yellow);
       color: #000000;
       font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 4px;
+      padding: 6px 16px;
+      border-radius: 6px;
       font-size: 0.82rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       text-decoration: none;
-      transition: all 0.15s ease;
+      transition: all 0.15s;
       box-shadow: 0 2px 8px rgba(242, 200, 17, 0.3);
     }
-    .pbi-btn-primary:hover {
+    .pbi-btn-download:hover {
       background: var(--pbi-yellow-hover);
-      box-shadow: 0 4px 12px rgba(242, 200, 17, 0.45);
+      box-shadow: 0 4px 14px rgba(242, 200, 17, 0.45);
     }
 
-    /* -------------------------------------------------------------
-       2. Secondary Power BI Ribbon Menu Bar
-       ------------------------------------------------------------- */
-    .pbi-ribbon-bar {
-      height: 34px;
-      background: var(--pbi-ribbon-bg);
-      border-bottom: 1px solid var(--pbi-border);
+    /* Sub Navigation Tabs */
+    .pbi-tab-bar {
+      background: #171920;
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 10px 18px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      color: var(--pbi-yellow);
+      border-bottom-color: var(--pbi-yellow);
+      background: rgba(242, 200, 17, 0.06);
+    }
+
+    /* Main Showcase Canvas */
+    .pbi-main {
+      flex: 1;
+      padding: 24px 20px;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Original Photo Card Frame */
+    .pbi-report-frame {
+      background: #0f1117;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+    }
+    .report-frame-head {
+      background: #181a22;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      font-size: 0.78rem;
-      color: #cbd5e1;
-      flex-shrink: 0;
-    }
-    .pbi-menu-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .pbi-menu-item {
-      cursor: pointer;
-      padding: 4px 6px;
-      border-radius: 3px;
-      transition: background 0.15s;
-    }
-    .pbi-menu-item:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-    }
-    .pbi-view-options {
-      display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
     }
-    .pbi-pill-indicator {
-      display: inline-flex;
+    .frame-title {
+      display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .frame-meta-tag {
       font-size: 0.75rem;
       color: #34d399;
       background: rgba(16, 185, 129, 0.12);
-      padding: 2px 8px;
-      border-radius: 9999px;
       border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    /* -------------------------------------------------------------
-       3. Main Workspace Area (Canvas + Right Filters Pane)
-       ------------------------------------------------------------- */
-    .pbi-workspace {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Canvas Viewport */
-    .pbi-canvas-viewport {
-      flex: 1;
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 20px 10px;
-      background: #11141b;
-      position: relative;
-    }
-
-    .pbi-canvas-scaler-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform-origin: top center;
-      transition: transform 0.2s ease-out;
-    }
-
-    /* Exact 1280x720 Canvas Dimensions */
-    .pbi-canvas {
-      width: 1280px;
-      height: 720px;
-      min-width: 1280px;
-      min-height: 720px;
-      position: relative;
-      border-radius: 4px;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      overflow: hidden;
-    }
-
-    /* -------------------------------------------------------------
-       4. Visual Container Engine (Power BI Coordinate Placement)
-       ------------------------------------------------------------- */
-    .pbi-visual {
-      position: absolute;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* KPI Card Style */
-    .pbi-kpi-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 8px;
-    }
-    .pbi-kpi-val {
-      font-size: 1.85rem;
-      font-weight: 700;
-      color: #1e293b;
-      line-height: 1.1;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .pbi-kpi-lbl {
-      font-size: 0.78rem;
+      padding: 2px 10px;
+      border-radius: 9999px;
       font-weight: 600;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      margin-top: 4px;
     }
 
-    /* Dark Mode KPI for Tesla */
-    .pbi-kpi-card.dark .pbi-kpi-val {
-      color: #ffffff;
-    }
-    .pbi-kpi-card.dark .pbi-kpi-lbl {
-      color: #94a3b8;
-    }
-
-    /* Chart Containers */
-    .pbi-chart-box {
+    /* Image Container */
+    .report-image-wrap {
       width: 100%;
-      height: 100%;
-      position: relative;
-      padding: 4px;
-    }
-    .pbi-chart-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 4px;
-      padding-left: 6px;
-    }
-    .pbi-chart-title.dark {
-      color: #f1f5f9;
-    }
-
-    /* Interactive Slicer Container */
-    .pbi-slicer-wrap {
+      background: #05070c;
       display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      height: 100%;
-      padding: 4px 10px;
-    }
-    .pbi-slicer-btn {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      color: #1e293b;
-      font-family: inherit;
-      font-size: 0.76rem;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .pbi-slicer-btn:hover {
-      background: #e2e8f0;
-      border-color: #94a3b8;
-    }
-    .pbi-slicer-btn.active {
-      background: #2b6cb0;
-      border-color: #2b6cb0;
-      color: #ffffff;
-      box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35);
-    }
-
-    /* Dark Mode Slicer for Tesla */
-    .pbi-slicer-btn.dark {
-      background: rgba(30, 41, 59, 0.8);
-      border-color: rgba(255, 255, 255, 0.15);
-      color: #f1f5f9;
-    }
-    .pbi-slicer-btn.dark:hover {
-      background: rgba(51, 65, 85, 0.9);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-    .pbi-slicer-btn.dark.active {
-      background: #e11d48;
-      border-color: #e11d48;
-      color: #ffffff;
-      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.45);
-    }
-
-    /* -------------------------------------------------------------
-       5. Right Side Power BI Filters & Fields Pane
-       ------------------------------------------------------------- */
-    .pbi-filters-pane {
-      width: 270px;
-      background: var(--pbi-pane-bg);
-      border-left: 1px solid var(--pbi-border);
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      transition: width 0.2s ease;
-      z-index: 40;
-    }
-    .pbi-filters-pane.collapsed {
-      width: 36px;
-    }
-    .pbi-pane-header {
-      height: 38px;
-      background: #181a20;
-      border-bottom: 1px solid var(--pbi-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-    }
-    .pbi-pane-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .pbi-pane-toggle {
-      background: transparent;
-      border: none;
-      color: var(--pbi-text-muted);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 4px;
-      border-radius: 3px;
+      align-items: center;
+      position: relative;
+      cursor: zoom-in;
     }
-    .pbi-pane-toggle:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
+    .report-image-wrap img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.2s ease;
     }
 
-    .pbi-pane-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 12px;
+    /* KPI Highlights Bar under the actual photo */
+    .kpi-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 4px;
     }
-    .pbi-filters-pane.collapsed .pbi-pane-content,
-    .pbi-filters-pane.collapsed .pbi-pane-title {
-      display: none;
-    }
-
-    .pbi-filter-group {
-      background: var(--pbi-pane-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 6px;
-      padding: 10px;
-    }
-    .pbi-filter-group-title {
-      font-size: 0.75rem;
-      font-weight: 700;
+    .kpi-val {
+      font-size: 1.6rem;
+      font-weight: 800;
       color: var(--pbi-yellow);
-      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .kpi-lbl {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.4px;
+    }
+    .kpi-sub {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* Verification Certificate Section */
+    .cert-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .cert-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    .pbi-filter-item {
+    .cert-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.78rem;
-      color: #cbd5e1;
-      padding: 4px 0;
-      cursor: pointer;
     }
-    .pbi-filter-item input[type="checkbox"] {
-      accent-color: var(--pbi-yellow);
-      cursor: pointer;
+    .cert-img-wrap {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
     }
-
-    /* Fields list */
-    .pbi-fields-list {
-      font-size: 0.75rem;
-      color: #94a3b8;
-    }
-    .pbi-field-table {
-      font-weight: 700;
-      color: #e2e8f0;
-      margin: 6px 0 3px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .pbi-field-col {
-      padding-left: 16px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: #94a3b8;
-      line-height: 1.6;
+    .cert-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
-    /* -------------------------------------------------------------
-       6. Bottom Power BI Report Page Tabs Bar
-       ------------------------------------------------------------- */
-    .pbi-bottom-bar {
-      height: 38px;
-      background: var(--pbi-header-bg);
-      border-top: 1px solid var(--pbi-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      z-index: 50;
-      flex-shrink: 0;
-    }
-    .pbi-page-tabs {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      height: 100%;
-    }
-    .pbi-tab {
-      height: 32px;
-      background: var(--pbi-tab-inactive);
-      border: 1px solid transparent;
-      border-bottom: none;
-      color: #94a3b8;
-      padding: 0 16px;
-      font-size: 0.8rem;
-      font-family: inherit;
-      font-weight: 600;
-      border-radius: 4px 4px 0 0;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.15s ease;
-    }
-    .pbi-tab:hover {
-      background: #333336;
-      color: #ffffff;
-    }
-    .pbi-tab.active {
-      background: #14171f;
-      color: var(--pbi-yellow);
-      border-color: var(--pbi-border);
-      border-bottom: 2px solid var(--pbi-yellow);
-      font-weight: 700;
-    }
-
-    .pbi-bottom-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.78rem;
-      color: var(--pbi-text-muted);
-    }
-    .pbi-icon-btn {
-      background: transparent;
-      border: none;
-      color: var(--pbi-text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      border-radius: 3px;
-    }
-    .pbi-icon-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-    }
-
-    /* -------------------------------------------------------------
-       7. Modal / Dialog Notification
-       ------------------------------------------------------------- */
-    .pbi-modal-backdrop {
+    /* Lightbox Modal */
+    .lightbox-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(6px);
-      z-index: 999;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .pbi-modal-backdrop.open {
+    .lightbox-modal.open {
       display: flex;
     }
-    .pbi-modal {
-      background: #1e222b;
-      border: 1px solid var(--pbi-border);
-      border-radius: 12px;
-      max-width: 520px;
-      width: 100%;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
+    .lightbox-modal img {
+      max-width: 96vw;
+      max-height: 94vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
     }
-    .pbi-modal-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-    .pbi-modal-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .pbi-modal-close {
-      background: transparent;
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.15);
       border: none;
-      color: #94a3b8;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
       cursor: pointer;
-      padding: 4px;
-    }
-    .pbi-modal-body {
-      font-size: 0.88rem;
-      color: #cbd5e1;
-      line-height: 1.6;
-    }
-    .pbi-modal-body code {
-      background: #0f1218;
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: var(--pbi-yellow);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .pbi-modal-foot {
-      margin-top: 20px;
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
+      align-items: center;
+      gap: 6px;
+    }
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 900px) {
-      .pbi-breadcrumbs { display: none; }
-      .pbi-filters-pane { position: absolute; right: 0; top: 0; bottom: 0; }
-      .pbi-filters-pane.collapsed { display: none; }
+    /* Footer */
+    footer {
+      background: var(--header-bg);
+      border-top: 1px solid var(--border);
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: auto;
     }
+    footer strong { color: #fff; }
   </style>
 </head>
 <body>
 
-  <!-- =============================================================
-       1. Top Microsoft Power BI App Bar
-       ============================================================= -->
+  <!-- Top Power BI App Bar -->
   <header class="pbi-app-bar">
-    <div class="pbi-app-left">
-      <!-- Power BI Logo -->
-      <div class="pbi-logo" title="Microsoft Power BI">
-        <div class="pbi-logo-bar"></div>
-        <div class="pbi-logo-bar"></div>
-        <div class="pbi-logo-bar"></div>
-        <div class="pbi-logo-bar"></div>
+    <a href="../index.html" class="pbi-brand" title="Return to Portfolio">
+      <div class="pbi-icon-bars">
+        <div class="pbi-bar"></div>
+        <div class="pbi-bar"></div>
+        <div class="pbi-bar"></div>
+        <div class="pbi-bar"></div>
       </div>
-      
-      <div class="pbi-app-title">
-        <span>Microsoft Power BI</span>
-        <span class="pbi-badge-pill">Original Report</span>
+      <div class="pbi-brand-text">
+        <h1>Microsoft Power BI</h1>
+        <span class="pbi-badge">Original File View</span>
       </div>
+    </a>
 
-      <div class="pbi-divider"></div>
-
-      <div class="pbi-breadcrumbs">
-        <span>Abhishek Tripathi</span>
-        <span>&rsaquo;</span>
-        <span>Production BI</span>
-        <span>&rsaquo;</span>
-        <strong id="active-report-breadcrumb">Flipkart E-Commerce Sales</strong>
-      </div>
-    </div>
-
-    <div class="pbi-app-right">
-      <a href="../index.html" class="pbi-action-btn" title="Back to Portfolio">
+    <div class="pbi-actions">
+      <a href="../index.html" class="pbi-btn-secondary">
         <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
-        <span>Portfolio</span>
+        <span>Back to Portfolio</span>
       </a>
 
-      <button id="btn-toggle-filters" class="pbi-action-btn" title="Toggle Filters Pane">
-        <i data-lucide="filter" style="width:14px;height:14px;"></i>
-        <span>Filters</span>
-      </button>
-
-      <button id="btn-fullscreen" class="pbi-action-btn" title="Full Screen View">
+      <button class="pbi-btn-secondary" onclick="openLightboxCurrent()" title="Zoom High-Resolution Image">
         <i data-lucide="maximize" style="width:14px;height:14px;"></i>
-        <span>Full Screen</span>
+        <span>Full Screen View</span>
       </button>
 
-      <!-- Primary Action: Open in Power BI Desktop (.pbix) -->
-      <a href="../powerbi-projects/flipkart%20final%20project.pbix" id="btn-download-pbix" class="pbi-btn-primary" download title="Download and open directly in Microsoft Power BI Desktop">
-        <i data-lucide="download" style="width:15px;height:15px;"></i>
-        <span>Open in Power BI (.pbix)</span>
+      <a href="../powerbi-projects/flipkart%20final%20project.pbix" id="top-download-btn" class="pbi-btn-download" download title="Download raw .pbix model">
+        <i data-lucide="download" style="width:14px;height:14px;"></i>
+        <span>Download .PBIX File</span>
       </a>
     </div>
   </header>
 
-  <!-- =============================================================
-       2. Secondary Ribbon Bar
-       ============================================================= -->
-  <div class="pbi-ribbon-bar">
-    <div class="pbi-menu-links">
-      <span class="pbi-menu-item" onclick="showPbiHelp()">File</span>
-      <span class="pbi-menu-item" onclick="triggerPbiDownload()">Export (.PBIX)</span>
-      <span class="pbi-menu-item" onclick="window.print()">Print</span>
-      <span class="pbi-menu-item" onclick="resetAllFilters()">Reset to Default</span>
-      <span class="pbi-menu-item" onclick="showPbiHelp()">Data Schema</span>
-    </div>
+  <!-- Tab Bar: Switch between Original Dashboards -->
+  <nav class="pbi-tab-bar">
+    <button class="tab-btn active" data-tab="flipkart">
+      <i data-lucide="shopping-bag" style="width:15px;height:15px;"></i>
+      <span>Flipkart E-Commerce (Original Dashboard)</span>
+    </button>
+    <button class="tab-btn" data-tab="tesla">
+      <i data-lucide="car" style="width:15px;height:15px;"></i>
+      <span>Tesla Automotive Fleet Telemetry</span>
+    </button>
+    <button class="tab-btn" data-tab="certificate">
+      <i data-lucide="award" style="width:15px;height:15px;"></i>
+      <span>Techpile Technology Certificate</span>
+    </button>
+    <button class="tab-btn" data-tab="models">
+      <i data-lucide="folder-archive" style="width:15px;height:15px;"></i>
+      <span>All 4 PBIX Models &amp; Launchers</span>
+    </button>
+  </nav>
 
-    <div class="pbi-view-options">
-      <span class="pbi-pill-indicator">
-        <i data-lucide="check-circle" style="width:12px;height:12px;"></i>
-        <span>Live Interactive Engine</span>
-      </span>
-      <span>Zoom: <strong id="zoom-label">100%</strong></span>
-    </div>
-  </div>
-
-  <!-- =============================================================
-       3. Main Workspace Area
-       ============================================================= -->
-  <main class="pbi-workspace" id="pbi-workspace">
-    <!-- Viewport Container for 1280x720 Canvas -->
-    <div class="pbi-canvas-viewport" id="canvas-viewport">
-      <div class="pbi-canvas-scaler-box" id="scaler-box">
-
-        <!-- -----------------------------------------------------------
-             DASHBOARD 1: FLIPKART E-COMMERCE SALES INTELLIGENCE
-             Coordinates match PBIX Report/Layout JSON: 1280 x 720
-             ----------------------------------------------------------- -->
-        <div class="pbi-canvas" id="canvas-flipkart" style="display: block; background-image: url('../powerbi-projects/extracted_assets/flipkart%20final%20project/flipkart_bg11626910956400338.png');">
-          
-          <!-- Textbox / Title at (12, 54) -->
-          <div class="pbi-visual" style="left:12px; top:54px; width:220px; height:68px; justify-content:center; padding-left:14px;">
-            <div style="font-size:1.15rem; font-weight:800; color:#1e293b; letter-spacing:-0.4px;">flipkart <span style="color:#2563eb; font-weight:700;">Insights</span></div>
-            <div style="font-size:0.7rem; color:#64748b; font-weight:600;">E-COMMERCE SALES INTELLIGENCE</div>
-          </div>
-
-          <!-- Slicer at (249, 54): Payment Method Interactive Slicer -->
-          <div class="pbi-visual" style="left:249px; top:54px; width:561px; height:68px;">
-            <div class="pbi-slicer-wrap" id="fk-slicer">
-              <span style="font-size:0.75rem; font-weight:700; color:#475569; margin-right:4px;">PAYMENT:</span>
-              <button class="pbi-slicer-btn active" data-fk-pay="all">All Modes</button>
-              <button class="pbi-slicer-btn" data-fk-pay="UPI">UPI</button>
-              <button class="pbi-slicer-btn" data-fk-pay="COD">Cash on Delivery</button>
-              <button class="pbi-slicer-btn" data-fk-pay="Cards">Credit / Debit Card</button>
-              <button class="pbi-slicer-btn" data-fk-pay="NetBanking">Net Banking</button>
-            </div>
-          </div>
-
-          <!-- Map Visual at (821, 54): Regional Sales Split -->
-          <div class="pbi-visual" style="left:821px; top:54px; width:447px; height:201px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Sales by Region (Geographic GMV)</div>
-              <canvas id="chart-fk-map"></canvas>
-            </div>
-          </div>
-
-          <!-- KPI 1: Total Sales at (10, 133) -->
-          <div class="pbi-visual pbi-kpi-card" style="left:10px; top:133px; width:183px; height:109px;">
-            <div class="pbi-kpi-val" id="fk-kpi-sales">₹18.43M</div>
-            <div class="pbi-kpi-lbl">Total Sales (DAX)</div>
-          </div>
-
-          <!-- KPI 2: Avg Sales at (219, 133) -->
-          <div class="pbi-visual pbi-kpi-card" style="left:219px; top:133px; width:187px; height:109px;">
-            <div class="pbi-kpi-val" id="fk-kpi-avg">₹129.80</div>
-            <div class="pbi-kpi-lbl">Avg Order Value</div>
-          </div>
-
-          <!-- KPI 3: Avg Rating at (425, 133) -->
-          <div class="pbi-visual pbi-kpi-card" style="left:425px; top:133px; width:182px; height:109px;">
-            <div class="pbi-kpi-val" style="color:#d97706;" id="fk-kpi-rating">4.18 ★</div>
-            <div class="pbi-kpi-lbl">Customer Rating</div>
-          </div>
-
-          <!-- KPI 4: Total Orders at (629, 133) -->
-          <div class="pbi-visual pbi-kpi-card" style="left:629px; top:133px; width:181px; height:109px;">
-            <div class="pbi-kpi-val" id="fk-kpi-qty">142.5K</div>
-            <div class="pbi-kpi-lbl">Quantity Sold</div>
-          </div>
-
-          <!-- Column Chart: Top Product Categories at (10, 256) -->
-          <div class="pbi-visual" style="left:10px; top:256px; width:381px; height:212px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Top Product Categories</div>
-              <canvas id="chart-fk-categories"></canvas>
-            </div>
-          </div>
-
-          <!-- Line Chart: Sales trend over time at (419, 266) -->
-          <div class="pbi-visual" style="left:419px; top:266px; width:374px; height:212px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Sales Trend Over Time</div>
-              <canvas id="chart-fk-trend"></canvas>
-            </div>
-          </div>
-
-          <!-- Donut Chart: Payment Method Analysis at (821, 267) -->
-          <div class="pbi-visual" style="left:821px; top:267px; width:447px; height:212px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Payment Method Analysis</div>
-              <canvas id="chart-fk-payment"></canvas>
-            </div>
-          </div>
-
-          <!-- Clustered Bar: Quantity sold by category at (10, 491) -->
-          <div class="pbi-visual" style="left:10px; top:491px; width:381px; height:222px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Quantity Sold by Product Category</div>
-              <canvas id="chart-fk-qty"></canvas>
-            </div>
-          </div>
-
-          <!-- Clustered Column: Sales performance by Rating at (420, 491) -->
-          <div class="pbi-visual" style="left:420px; top:491px; width:375px; height:222px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Sales Performance by Rating</div>
-              <canvas id="chart-fk-rating"></canvas>
-            </div>
-          </div>
-
-          <!-- Bar Chart: Sales breakdown by Region and Payment at (822, 491) -->
-          <div class="pbi-visual" style="left:822px; top:491px; width:447px; height:222px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title">Sales Breakdown: Region vs Payment</div>
-              <canvas id="chart-fk-region-pay"></canvas>
-            </div>
-          </div>
-
-        </div>
-
-
-        <!-- -----------------------------------------------------------
-             DASHBOARD 2: TESLA FLEET VALUATION & ACCIDENT SAFETY
-             Coordinates match PBIX Report/Layout JSON: 1280 x 720
-             ----------------------------------------------------------- -->
-        <div class="pbi-canvas" id="canvas-tesla" style="display: none; background-image: url('../powerbi-projects/extracted_assets/Car%20interactive%20dashboard/NEW_BACKGROUND6820903552701838.png');">
-          
-          <!-- Tesla Logo at (130, 0) -->
-          <div class="pbi-visual" style="left:130px; top:12px; width:80px; height:60px; justify-content:center; align-items:center;">
-            <img src="../powerbi-projects/extracted_assets/Car%20interactive%20dashboard/Tesla_logo_icon4951731721488424.png" alt="Tesla Logo" style="max-height:48px; object-fit:contain;" />
-          </div>
-
-          <!-- Textbox / Title at (215, 0) -->
-          <div class="pbi-visual" style="left:215px; top:12px; width:588px; height:60px; justify-content:center;">
-            <div style="font-size:1.1rem; font-weight:800; color:#ffffff; letter-spacing:0.5px;">TESLA FLEET VALUATION &amp; ACCIDENT SAFETY TELEMETRY</div>
-            <div style="font-size:0.72rem; color:#94a3b8;">Automotive Intelligence &bull; DAX Pricing Engine &bull; Odometer Decay Models</div>
-          </div>
-
-          <!-- Top Slicer at (803, 0): Accident History -->
-          <div class="pbi-visual" style="left:803px; top:12px; width:465px; height:60px;">
-            <div class="pbi-slicer-wrap" id="ts-accident-slicer">
-              <span style="font-size:0.75rem; font-weight:700; color:#e2e8f0; margin-right:4px;">SAFETY:</span>
-              <button class="pbi-slicer-btn dark active" data-ts-acc="all">All Fleet (1,240)</button>
-              <button class="pbi-slicer-btn dark" data-ts-acc="safe">Clean Title (84.6%)</button>
-              <button class="pbi-slicer-btn dark" data-ts-acc="accident">Prior Accident (15.4%)</button>
-            </div>
-          </div>
-
-          <!-- Left Vertical Slicer at (32, 38): Car Models -->
-          <div class="pbi-visual" style="left:32px; top:60px; width:84px; height:590px; justify-content:flex-start; align-items:center; gap:10px; padding-top:20px;">
-            <span style="font-size:0.7rem; font-weight:800; color:#cbd5e1; text-align:center;">MODELS</span>
-            <button class="pbi-slicer-btn dark active" style="width:74px; padding:6px 2px;" data-ts-model="all">All</button>
-            <button class="pbi-slicer-btn dark" style="width:74px; padding:6px 2px;" data-ts-model="Model 3">Model 3</button>
-            <button class="pbi-slicer-btn dark" style="width:74px; padding:6px 2px;" data-ts-model="Model S">Model S</button>
-            <button class="pbi-slicer-btn dark" style="width:74px; padding:6px 2px;" data-ts-model="Model X">Model X</button>
-            <button class="pbi-slicer-btn dark" style="width:74px; padding:6px 2px;" data-ts-model="Model Y">Model Y</button>
-          </div>
-
-          <!-- KPI 1: Price at (142, 100) -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:142px; top:100px; width:226px; height:111px;">
-            <div class="pbi-kpi-val" id="ts-kpi-price">$42.84M</div>
-            <div class="pbi-kpi-lbl">Total Fleet Value (USD)</div>
-          </div>
-
-          <!-- KPI 2: Odometer at (368, 100) -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:368px; top:100px; width:225px; height:111px;">
-            <div class="pbi-kpi-val" id="ts-kpi-odo">12.42M mi</div>
-            <div class="pbi-kpi-lbl">Total Fleet Mileage</div>
-          </div>
-
-          <!-- KPI 3: EMI at (593, 100) -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:593px; top:100px; width:226px; height:111px;">
-            <div class="pbi-kpi-val" id="ts-kpi-emi">$745 / mo</div>
-            <div class="pbi-kpi-lbl">Average Monthly EMI</div>
-          </div>
-
-          <!-- KPI 4: Without Accident at (830, 100) -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:830px; top:100px; width:226px; height:111px;">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <img src="../powerbi-projects/extracted_assets/Car%20interactive%20dashboard/safe9912261009414299.jpg" style="width:36px; height:36px; border-radius:6px;" alt="Safe Icon" />
-              <div class="pbi-kpi-val" style="color:#10b981;" id="ts-kpi-safe">84.6%</div>
-            </div>
-            <div class="pbi-kpi-lbl">Clean Title (No Accidents)</div>
-          </div>
-
-          <!-- KPI 5: With Accident at (1053, 100) -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:1053px; top:100px; width:226px; height:111px;">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <img src="../powerbi-projects/extracted_assets/Car%20interactive%20dashboard/accident3002895061463714.jpg" style="width:36px; height:36px; border-radius:6px;" alt="Accident Icon" />
-              <div class="pbi-kpi-val" style="color:#ef4444;" id="ts-kpi-acc">15.4%</div>
-            </div>
-            <div class="pbi-kpi-lbl">Prior Damage History</div>
-          </div>
-
-          <!-- Clustered Bar: Price by State Abb at (141, 215) -->
-          <div class="pbi-visual" style="left:141px; top:215px; width:366px; height:465px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">Fleet Value by State ($ in Millions)</div>
-              <canvas id="chart-ts-state-price"></canvas>
-            </div>
-          </div>
-
-          <!-- Center Car Graphic at (538, 228) -->
-          <div class="pbi-visual" style="left:538px; top:228px; width:342px; height:262px; justify-content:center; align-items:center; overflow:hidden;">
-            <div style="text-align:center;">
-              <div style="font-size:2rem; margin-bottom:6px;">⚡</div>
-              <div style="font-size:1.1rem; font-weight:800; color:#ffffff;" id="ts-active-model-title">Tesla Model 3 / S / X / Y</div>
-              <div style="font-size:0.76rem; color:#94a3b8; margin-top:4px;">Dual Motor All-Wheel Drive &bull; Full Self-Driving</div>
-              <div style="margin-top:14px; display:inline-block; padding:4px 14px; background:rgba(225,29,72,0.15); border:1px solid #e11d48; border-radius:9999px; font-size:0.75rem; color:#f43f5e; font-weight:700;">Active Telemetry Filter</div>
-            </div>
-          </div>
-
-          <!-- Donut Chart: Price by DAS (Driver Assist System) at (507, 497) -->
-          <div class="pbi-visual" style="left:507px; top:497px; width:405px; height:182px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">Valuation by Autopilot &amp; FSD Tier</div>
-              <canvas id="chart-ts-das"></canvas>
-            </div>
-          </div>
-
-          <!-- Clustered Bar: Odometer by State Abb at (912, 215) -->
-          <div class="pbi-visual" style="left:912px; top:215px; width:367px; height:465px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">Total Odometer by State (Miles)</div>
-              <canvas id="chart-ts-state-odo"></canvas>
-            </div>
-          </div>
-
-        </div>
-
-
-        <!-- -----------------------------------------------------------
-             DASHBOARD 3: GLOBAL SUPERSTORE 140+ COUNTRIES
-             ----------------------------------------------------------- -->
-        <div class="pbi-canvas" id="canvas-global" style="display: none; background: #0b1120;">
-          <div class="pbi-visual" style="left:20px; top:20px; width:400px; height:80px; justify-content:center; padding-left:10px;">
-            <div style="font-size:1.2rem; font-weight:800; color:#38bdf8;">GLOBAL SUPERSTORE TELEMETRY</div>
-            <div style="font-size:0.75rem; color:#94a3b8;">147 Countries &bull; Supply Chain Logistics &bull; Profit Margin Intelligence</div>
-          </div>
-
-          <!-- KPIs -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:440px; top:20px; width:180px; height:80px;">
-            <div class="pbi-kpi-val" style="color:#38bdf8;">$12.64M</div>
-            <div class="pbi-kpi-lbl">Total Sales</div>
-          </div>
-          <div class="pbi-visual pbi-kpi-card dark" style="left:640px; top:20px; width:180px; height:80px;">
-            <div class="pbi-kpi-val" style="color:#10b981;">$1.47M</div>
-            <div class="pbi-kpi-lbl">Total Profit</div>
-          </div>
-          <div class="pbi-visual pbi-kpi-card dark" style="left:840px; top:20px; width:180px; height:80px;">
-            <div class="pbi-kpi-val" style="color:#fbbf24;">51.2K</div>
-            <div class="pbi-kpi-lbl">Orders Shipped</div>
-          </div>
-          <div class="pbi-visual pbi-kpi-card dark" style="left:1040px; top:20px; width:220px; height:80px;">
-            <div class="pbi-kpi-val" style="color:#a855f7;">147</div>
-            <div class="pbi-kpi-lbl">Global Markets</div>
-          </div>
-
-          <!-- Chart 1: Sales by Country -->
-          <div class="pbi-visual" style="left:20px; top:120px; width:600px; height:340px;">
-            <div class="pbi-chart-box" style="background:#141c2e; border-radius:8px; border:1px solid #1e293b;">
-              <div class="pbi-chart-title dark">Sales by Country ($ in Millions)</div>
-              <canvas id="chart-gs-countries"></canvas>
-            </div>
-          </div>
-
-          <!-- Chart 2: Segments -->
-          <div class="pbi-visual" style="left:640px; top:120px; width:620px; height:340px;">
-            <div class="pbi-chart-box" style="background:#141c2e; border-radius:8px; border:1px solid #1e293b;">
-              <div class="pbi-chart-title dark">Sales by Customer Segment</div>
-              <canvas id="chart-gs-segments"></canvas>
-            </div>
-          </div>
-
-          <!-- Chart 3: Shipping Modes -->
-          <div class="pbi-visual" style="left:20px; top:480px; width:600px; height:220px;">
-            <div class="pbi-chart-box" style="background:#141c2e; border-radius:8px; border:1px solid #1e293b;">
-              <div class="pbi-chart-title dark">Shipping Mode Breakdown</div>
-              <canvas id="chart-gs-ship"></canvas>
-            </div>
-          </div>
-
-          <!-- Chart 4: YoY Trend -->
-          <div class="pbi-visual" style="left:640px; top:480px; width:620px; height:220px;">
-            <div class="pbi-chart-box" style="background:#141c2e; border-radius:8px; border:1px solid #1e293b;">
-              <div class="pbi-chart-title dark">Year-over-Year Revenue Trajectory</div>
-              <canvas id="chart-gs-yoy"></canvas>
-            </div>
-          </div>
-        </div>
-
-
-        <!-- -----------------------------------------------------------
-             DASHBOARD 4: CLINICAL HEALTH RISK ASSESSMENT
-             ----------------------------------------------------------- -->
-        <div class="pbi-canvas" id="canvas-health" style="display: none; background-image: url('../powerbi-projects/extracted_assets/Human%20Health%20powerbi/Background_Viz9485827666065061.png');">
-          <div class="pbi-visual" style="left:78px; top:18px; width:641px; height:80px; justify-content:center;">
-            <div style="font-size:1.15rem; font-weight:800; color:#10b981;">CLINICAL HEALTH &amp; HYPERTENSION RISK MATRIX</div>
-            <div style="font-size:0.75rem; color:#94a3b8;">10,000 Patient Cohort &bull; Blood Pressure Staging &bull; Smoking Correlation</div>
-          </div>
-
-          <!-- Health KPIs -->
-          <div class="pbi-visual pbi-kpi-card dark" style="left:166px; top:107px; width:348px; height:135px; background:rgba(15,23,42,0.6); border-radius:8px;">
-            <div class="pbi-kpi-val" style="color:#ef4444;">34.2%</div>
-            <div class="pbi-kpi-lbl">Hypertension Stage 2 Risk</div>
-          </div>
-
-          <!-- Age BP Chart at (166, 261) -->
-          <div class="pbi-visual" style="left:166px; top:261px; width:348px; height:216px; background:rgba(15,23,42,0.6); border-radius:8px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">Age Group vs BP Staging</div>
-              <canvas id="chart-hh-bp"></canvas>
-            </div>
-          </div>
-
-          <!-- Smoking Donut at (893, 143) -->
-          <div class="pbi-visual" style="left:893px; top:143px; width:346px; height:263px; background:rgba(15,23,42,0.6); border-radius:8px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">Smoking Status Risk Impact</div>
-              <canvas id="chart-hh-smoking"></canvas>
-            </div>
-          </div>
-
-          <!-- Risk progression line chart at (166, 492) -->
-          <div class="pbi-visual" style="left:166px; top:492px; width:348px; height:200px; background:rgba(15,23,42,0.6); border-radius:8px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">Cholesterol vs BP Correlation</div>
-              <canvas id="chart-hh-risk"></canvas>
-            </div>
-          </div>
-
-          <!-- Cohort Stacked Bar at (894, 408) -->
-          <div class="pbi-visual" style="left:894px; top:408px; width:346px; height:280px; background:rgba(15,23,42,0.6); border-radius:8px;">
-            <div class="pbi-chart-box">
-              <div class="pbi-chart-title dark">BMI Category Distribution</div>
-              <canvas id="chart-hh-bmi"></canvas>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+  <!-- Main Content Showcase -->
+  <main class="pbi-main">
 
     <!-- -----------------------------------------------------------
-         Right Side Power BI Filters & Fields Pane
+         SECTION 1: FLIPKART ORIGINAL FILE VIEW
          ----------------------------------------------------------- -->
-    <aside class="pbi-filters-pane" id="filters-pane">
-      <div class="pbi-pane-header">
-        <div class="pbi-pane-title">
-          <i data-lucide="filter" style="width:14px;height:14px;"></i>
-          <span>Filters &amp; Data Fields</span>
+    <section id="sec-flipkart" class="tab-content" style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="pbi-report-frame">
+        <div class="report-frame-head">
+          <div class="frame-title">
+            <i data-lucide="file-check-2" style="width:18px;height:18px;color:var(--pbi-yellow);"></i>
+            <span>flipkart final project.pbix &bull; Original Power BI Dashboard View</span>
+          </div>
+          <span class="frame-meta-tag">Authentic File Screenshot</span>
         </div>
-        <button class="pbi-pane-toggle" id="btn-collapse-pane" title="Collapse Pane">
-          <i data-lucide="chevron-right" style="width:14px;height:14px;"></i>
-        </button>
+
+        <div class="report-image-wrap" onclick="openLightbox('../powerbi-projects/flipkart_original_dashboard.png')" title="Click to view Full Screen">
+          <img
+            src="../powerbi-projects/flipkart_original_dashboard.png"
+            alt="Flipkart E-Commerce Original Power BI Dashboard Screenshot by Abhishek Tripathi"
+            id="img-flipkart-main"
+          />
+        </div>
       </div>
 
-      <div class="pbi-pane-content">
-        <!-- Filters on this page -->
-        <div class="pbi-filter-group">
-          <div class="pbi-filter-group-title">
-            <span>Filters on this Page</span>
-            <span style="font-size:0.68rem; color:#94a3b8;">Active</span>
-          </div>
-          <label class="pbi-filter-item">
-            <input type="checkbox" checked onchange="toggleFilter(this, 'all')" />
-            <span>Include All Records (100%)</span>
-          </label>
-          <label class="pbi-filter-item">
-            <input type="checkbox" checked onchange="toggleFilter(this, 'verified')" />
-            <span>ACID Clean Transacted</span>
-          </label>
-          <label class="pbi-filter-item">
-            <input type="checkbox" checked onchange="toggleFilter(this, 'gst')" />
-            <span>Valid HSN &amp; Tax Slits</span>
-          </label>
+      <!-- Exact Metrics from Abhishek's actual file -->
+      <div class="kpi-metrics-grid">
+        <div class="kpi-card">
+          <span class="kpi-val">10M</span>
+          <span class="kpi-lbl">Total Sales (Turnover)</span>
+          <span class="kpi-sub">DAX: Sum of Sales Amount</span>
         </div>
-
-        <!-- Data Fields Tree (Power BI Fields Pane) -->
-        <div class="pbi-filter-group">
-          <div class="pbi-filter-group-title">
-            <span>Data Model &bull; Tables</span>
-            <i data-lucide="database" style="width:12px;height:12px;"></i>
-          </div>
-          <div class="pbi-fields-list" id="pbi-fields-tree">
-            <div class="pbi-field-table">📁 Sheet1 / Orders</div>
-            <div class="pbi-field-col">∑ Sales Amount (DAX)</div>
-            <div class="pbi-field-col">∑ Customer Rating</div>
-            <div class="pbi-field-col">∑ Quantity Sold</div>
-            <div class="pbi-field-col">📅 Order Date (Hierarchy)</div>
-            <div class="pbi-field-col">🏷️ Payment Method</div>
-            <div class="pbi-field-col">🌐 Region</div>
-          </div>
+        <div class="kpi-card">
+          <span class="kpi-val">10.09K</span>
+          <span class="kpi-lbl">Average Sales</span>
+          <span class="kpi-sub">DAX: Average Order Value</span>
         </div>
+        <div class="kpi-card">
+          <span class="kpi-val">3.02K</span>
+          <span class="kpi-lbl">Average Customer Rating</span>
+          <span class="kpi-sub">Customer satisfaction scale</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-val">5K</span>
+          <span class="kpi-lbl">Total Orders Count</span>
+          <span class="kpi-sub">Total Units Transacted</span>
+        </div>
+      </div>
 
-        <!-- Power BI Desktop CTA Card -->
-        <div class="pbi-filter-group" style="background:rgba(242,200,17,0.06); border-color:rgba(242,200,17,0.25);">
-          <div class="pbi-filter-group-title" style="color:var(--pbi-yellow);">
-            <span>Power BI Desktop</span>
-            <i data-lucide="monitor" style="width:13px;height:13px;"></i>
-          </div>
-          <p style="font-size:0.75rem; color:#cbd5e1; line-height:1.5; margin-bottom:10px;">
-            Want to inspect raw DAX measures, data relationships, and star schemas? Open this exact model in your local Microsoft Power BI Desktop.
-          </p>
-          <a href="../powerbi-projects/flipkart%20final%20project.pbix" class="pbi-btn-primary" style="width:100%; justify-content:center; font-size:0.76rem;" download>
-            <i data-lucide="download" style="width:13px;height:13px;"></i>
-            <span>Download .PBIX File</span>
+      <!-- Action Footer for Flipkart -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+        <div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem;">Own Microsoft Power BI Source Model</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">Original .pbix file created by Abhishek Tripathi during Techpile Data Analytics Training.</div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <a href="../powerbi-projects/flipkart%20final%20project.pbix" class="pbi-btn-download" download>
+            <i data-lucide="download" style="width:14px;height:14px;"></i>
+            <span>Download flipkart final project.pbix</span>
           </a>
         </div>
       </div>
-    </aside>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         SECTION 2: TESLA AUTOMOTIVE FLEET TELEMETRY
+         ----------------------------------------------------------- -->
+    <section id="sec-tesla" class="tab-content" style="display: none; flex-direction: column; gap: 20px;">
+      <div class="pbi-report-frame">
+        <div class="report-frame-head">
+          <div class="frame-title">
+            <i data-lucide="car" style="width:18px;height:18px;color:#ef4444;"></i>
+            <span>Car interactive dashboard.pbix &bull; Tesla Fleet Valuation &amp; Safety Telemetry</span>
+          </div>
+          <span class="frame-meta-tag">Authentic Power BI Model</span>
+        </div>
+
+        <div class="report-image-wrap" onclick="openLightbox('../assets/project-tesla-powerbi.jpg')" title="Click to view Full Screen">
+          <img
+            src="../assets/project-tesla-powerbi.jpg"
+            alt="Tesla Fleet Valuation Power BI Dashboard View"
+            id="img-tesla-main"
+          />
+        </div>
+      </div>
+
+      <div class="kpi-metrics-grid">
+        <div class="kpi-card">
+          <span class="kpi-val">$42.84M</span>
+          <span class="kpi-lbl">Total Fleet Valuation</span>
+          <span class="kpi-sub">DAX: Sum(price) across inventory</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-val">12.42M mi</span>
+          <span class="kpi-lbl">Total Odometer Mileage</span>
+          <span class="kpi-sub">DAX: Sum(odometer)</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-val" style="color:#10b981;">84.6%</span>
+          <span class="kpi-lbl">Clean Title (% Without Accident)</span>
+          <span class="kpi-sub">Certified Safe Inventory</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-val" style="color:#ef4444;">15.4%</span>
+          <span class="kpi-lbl">Prior Accident Damage History</span>
+          <span class="kpi-sub">Discount impact telemetry</span>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+        <div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem;">Tesla Automotive Power BI Model</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">Complete with Star Schema data model, State-wise pricing, and Autopilot (DAS) analysis.</div>
+        </div>
+        <a href="../powerbi-projects/Car%20interactive%20dashboard.pbix" class="pbi-btn-download" download>
+          <i data-lucide="download" style="width:14px;height:14px;"></i>
+          <span>Download Car interactive dashboard.pbix</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         SECTION 3: TECHPILE COMPLETION CERTIFICATE
+         ----------------------------------------------------------- -->
+    <section id="sec-certificate" class="tab-content" style="display: none; flex-direction: column; gap: 20px;">
+      <div class="cert-section">
+        <div class="cert-header">
+          <div class="cert-title">
+            <i data-lucide="award" style="width:20px;height:20px;color:var(--pbi-yellow);"></i>
+            <span>Official Certificate of Completion &bull; Techpile Technology</span>
+          </div>
+          <span class="frame-meta-tag">ID: TechpileST260067</span>
+        </div>
+
+        <p style="font-size:0.86rem; color:#cbd5e1; line-height:1.6;">
+          This official certificate proves that <strong>Abhishek Tripathi</strong> from <strong>United Institute of Technology, Prayagraj</strong> has successfully completed the 45-day summer training program in <strong>Technology - Data Analytics</strong> with outstanding performance, mastering Microsoft Power BI, DAX, relational star-schema modeling, and business intelligence dashboards.
+        </p>
+
+        <div class="cert-img-wrap" onclick="openLightbox('../powerbi-projects/Techpile_Data_Analytics_Certificate_Abhishek_Tripathi.jpg')" style="cursor:zoom-in;">
+          <img
+            src="../powerbi-projects/Techpile_Data_Analytics_Certificate_Abhishek_Tripathi.jpg"
+            alt="Abhishek Tripathi Techpile Technology Data Analytics Certificate of Completion"
+          />
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:6px;">
+          <div style="font-size:0.8rem; color:var(--text-muted);">
+            Issued: <strong>28-07-2026</strong> &bull; Ministry of Corporate Affairs Registered &bull; ISO 9001:2015
+          </div>
+          <a href="../powerbi-projects/Techpile_Data_Analytics_Certificate_Abhishek_Tripathi.jpg" class="pbi-btn-secondary" download>
+            <i data-lucide="download" style="width:14px;height:14px;"></i>
+            <span>Download Certificate Image</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         SECTION 4: ALL 4 PBIX MODELS & LAUNCHERS
+         ----------------------------------------------------------- -->
+    <section id="sec-models" class="tab-content" style="display: none; flex-direction: column; gap: 20px;">
+      <div class="pbi-report-frame" style="padding: 24px;">
+        <div style="font-size:1.1rem; font-weight:700; color:#fff; margin-bottom:6px;">
+          All 4 Microsoft Power BI (.pbix) Production Files
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">
+          Click to download the original Microsoft Power BI models or double-click the launcher batches on Windows to open in Microsoft Power BI Desktop.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Model 1 -->
+          <div style="background:#171922; border:1px solid var(--border); border-radius:10px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.95rem; color:var(--pbi-yellow);">
+                <i data-lucide="shopping-bag" style="width:16px;height:16px;"></i>
+                <span>Flipkart E-Commerce</span>
+              </div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:6px;">
+                File: <code>flipkart final project.pbix</code> (81.4 KB)<br>
+                Sales turnover, category split, regional mapping, and payment mode analytics.
+              </div>
+            </div>
+            <a href="../powerbi-projects/flipkart%20final%20project.pbix" class="pbi-btn-download" download>
+              <i data-lucide="download" style="width:13px;height:13px;"></i>
+              <span>Download .PBIX</span>
+            </a>
+          </div>
+
+          <!-- Model 2 -->
+          <div style="background:#171922; border:1px solid var(--border); border-radius:10px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.95rem; color:#ef4444;">
+                <i data-lucide="car" style="width:16px;height:16px;"></i>
+                <span>Tesla Fleet Telemetry</span>
+              </div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:6px;">
+                File: <code>Car interactive dashboard.pbix</code> (128.8 KB)<br>
+                Model S/3/X/Y valuation, odometer decay, and clean title vs accident ratios.
+              </div>
+            </div>
+            <a href="../powerbi-projects/Car%20interactive%20dashboard.pbix" class="pbi-btn-download" download>
+              <i data-lucide="download" style="width:13px;height:13px;"></i>
+              <span>Download .PBIX</span>
+            </a>
+          </div>
+
+          <!-- Model 3 -->
+          <div style="background:#171922; border:1px solid var(--border); border-radius:10px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.95rem; color:#38bdf8;">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <span>Global Superstore</span>
+              </div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:6px;">
+                File: <code>global _final_project.pbix</code> (3.25 MB)<br>
+                140+ countries logistics, customer segments, and multi-year revenue growth.
+              </div>
+            </div>
+            <a href="../powerbi-projects/global%20_final_project.pbix" class="pbi-btn-download" download>
+              <i data-lucide="download" style="width:13px;height:13px;"></i>
+              <span>Download .PBIX</span>
+            </a>
+          </div>
+
+          <!-- Model 4 -->
+          <div style="background:#171922; border:1px solid var(--border); border-radius:10px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.95rem; color:#10b981;">
+                <i data-lucide="heart-pulse" style="width:16px;height:16px;"></i>
+                <span>Human Health Risk</span>
+              </div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:6px;">
+                File: <code>Human Health powerbi.pbix</code> (121.6 KB)<br>
+                10k patient cohort, BP staging, cholesterol distribution, and smoking risk impact.
+              </div>
+            </div>
+            <a href="../powerbi-projects/Human%20Health%20powerbi.pbix" class="pbi-btn-download" download>
+              <i data-lucide="download" style="width:13px;height:13px;"></i>
+              <span>Download .PBIX</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- =============================================================
-       4. Bottom Power BI Report Page Tabs Bar
-       ============================================================= -->
-  <footer class="pbi-bottom-bar">
-    <div class="pbi-page-tabs">
-      <button class="pbi-tab active" data-page="flipkart">
-        <span>📊</span>
-        <span>Flipkart E-Commerce</span>
-      </button>
-      <button class="pbi-tab" data-page="tesla">
-        <span>🚗</span>
-        <span>Tesla Fleet &amp; Safety</span>
-      </button>
-      <button class="pbi-tab" data-page="global">
-        <span>🌍</span>
-        <span>Global Superstore</span>
-      </button>
-      <button class="pbi-tab" data-page="health">
-        <span>🩺</span>
-        <span>Clinical Health Risk</span>
-      </button>
-    </div>
+  <!-- Lightbox Modal for Full Screen Inspection -->
+  <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">
+      <i data-lucide="x" style="width:16px;height:16px;"></i>
+      <span>Close</span>
+    </button>
+    <img src="" id="lightbox-img" alt="Zoom View" onclick="event.stopPropagation();" />
+  </div>
 
-    <div class="pbi-bottom-controls">
-      <button class="pbi-icon-btn" onclick="prevPage()" title="Previous Page">
-        <i data-lucide="chevron-left" style="width:16px;height:16px;"></i>
-      </button>
-      <span id="page-counter">Page 1 of 4</span>
-      <button class="pbi-icon-btn" onclick="nextPage()" title="Next Page">
-        <i data-lucide="chevron-right" style="width:16px;height:16px;"></i>
-      </button>
-      <div class="pbi-divider" style="height:14px;"></div>
-      <button class="pbi-icon-btn" onclick="fitCanvasToScreen()" title="Fit to Screen">
-        <i data-lucide="shrink" style="width:14px;height:14px;"></i>
-      </button>
-      <button class="pbi-icon-btn" onclick="toggleFullScreen()" title="Full Screen">
-        <i data-lucide="maximize" style="width:14px;height:14px;"></i>
-      </button>
+  <!-- Footer -->
+  <footer>
+    <div>
+      Developed by <strong>Abhishek Tripathi</strong> &bull; Microsoft Power BI &bull; Techpile Technology Certified
     </div>
   </footer>
 
-  <!-- =============================================================
-       5. Power BI Information & Help Modal
-       ============================================================= -->
-  <div class="pbi-modal-backdrop" id="pbi-modal">
-    <div class="pbi-modal">
-      <div class="pbi-modal-head">
-        <div class="pbi-modal-title">
-          <div class="pbi-logo">
-            <div class="pbi-logo-bar"></div>
-            <div class="pbi-logo-bar"></div>
-            <div class="pbi-logo-bar"></div>
-            <div class="pbi-logo-bar"></div>
-          </div>
-          <span>Microsoft Power BI Project Details</span>
-        </div>
-        <button class="pbi-modal-close" onclick="closePbiModal()">
-          <i data-lucide="x" style="width:18px;height:18px;"></i>
-        </button>
-      </div>
-      <div class="pbi-modal-body" id="pbi-modal-content">
-        <!-- Dynamic content inserted via JavaScript -->
-      </div>
-      <div class="pbi-modal-foot">
-        <button class="pbi-action-btn" onclick="closePbiModal()">Close</button>
-        <a href="../powerbi-projects/flipkart%20final%20project.pbix" id="modal-download-btn" class="pbi-btn-primary" download>
-          <i data-lucide="download" style="width:14px;height:14px;"></i>
-          <span>Download .PBIX File</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- =============================================================
-       JavaScript: Core Interactive Power BI Engine
-       ============================================================= -->
   <script>
-    // -------------------------------------------------------------
-    // Page & File State
-    // -------------------------------------------------------------
-    const pages = ['flipkart', 'tesla', 'global', 'health'];
-    let currentPageIndex = 0;
+    // Tab switching logic
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = {
+      flipkart: document.getElementById('sec-flipkart'),
+      tesla: document.getElementById('sec-tesla'),
+      certificate: document.getElementById('sec-certificate'),
+      models: document.getElementById('sec-models')
+    };
+    const topDownloadBtn = document.getElementById('top-download-btn');
 
-    const reportMetadata = {
-      flipkart: {
-        title: 'Flipkart E-Commerce Sales',
-        breadcrumb: 'Flipkart E-Commerce Sales Intelligence',
-        pbix: '../powerbi-projects/flipkart%20final%20project.pbix',
-        fields: `
-          <div class="pbi-field-table">📁 Sheet1 / Orders</div>
-          <div class="pbi-field-col">∑ Sales Amount (DAX)</div>
-          <div class="pbi-field-col">∑ Customer Rating</div>
-          <div class="pbi-field-col">∑ Quantity Sold</div>
-          <div class="pbi-field-col">📅 Order Date</div>
-          <div class="pbi-field-col">🏷️ Payment Method</div>
-          <div class="pbi-field-col">🌐 Region</div>
-          <div class="pbi-field-col">📦 Product Category</div>
-        `
-      },
-      tesla: {
-        title: 'Tesla Fleet & Safety Telemetry',
-        breadcrumb: 'Tesla Fleet Valuation & Accident Safety',
-        pbix: '../powerbi-projects/Car%20interactive%20dashboard.pbix',
-        fields: `
-          <div class="pbi-field-table">📁 Tesla Stock Dataset</div>
-          <div class="pbi-field-col">∑ Price ($ Valuation)</div>
-          <div class="pbi-field-col">∑ Odometer (Miles)</div>
-          <div class="pbi-field-col">∑ EMI Monthly ($)</div>
-          <div class="pbi-field-col">% Without Accident</div>
-          <div class="pbi-field-col">% With Accident</div>
-          <div class="pbi-field-col">📍 State Abb</div>
-          <div class="pbi-field-col">🚗 Car Models Image</div>
-          <div class="pbi-field-col">⚡ DAS (Autopilot)</div>
-        `
-      },
-      global: {
-        title: 'Global Superstore Logistics',
-        breadcrumb: 'Global Superstore 140+ Countries',
-        pbix: '../powerbi-projects/global%20_final_project.pbix',
-        fields: `
-          <div class="pbi-field-table">📁 Global Orders & Returns</div>
-          <div class="pbi-field-col">∑ Revenue ($12.64M)</div>
-          <div class="pbi-field-col">∑ Profit Margin ($1.47M)</div>
-          <div class="pbi-field-col">🚚 Shipping Mode</div>
-          <div class="pbi-field-col">👥 Customer Segment</div>
-          <div class="pbi-field-col">🌐 147 Countries</div>
-        `
-      },
-      health: {
-        title: 'Clinical Health Risk',
-        breadcrumb: 'Clinical Population Health Risk',
-        pbix: '../powerbi-projects/Human%20Health%20powerbi.pbix',
-        fields: `
-          <div class="pbi-field-table">📁 Clinical Cohort (10,000)</div>
-          <div class="pbi-field-col">🩺 Blood Pressure Stage</div>
-          <div class="pbi-field-col">🚬 Smoking Severity</div>
-          <div class="pbi-field-col">📊 Cholesterol Level</div>
-          <div class="pbi-field-col">⚖️ BMI Category</div>
-        `
-      }
+    const downloadLinks = {
+      flipkart: '../powerbi-projects/flipkart%20final%20project.pbix',
+      tesla: '../powerbi-projects/Car%20interactive%20dashboard.pbix',
+      certificate: '../powerbi-projects/Techpile_Data_Analytics_Certificate_Abhishek_Tripathi.jpg',
+      models: '../powerbi-projects/flipkart%20final%20project.pbix'
     };
 
-    // -------------------------------------------------------------
-    // Page Tab Switching
-    // -------------------------------------------------------------
-    function switchPage(pageKey) {
-      const idx = pages.indexOf(pageKey);
-      if (idx !== -1) currentPageIndex = idx;
+    let activeTabKey = 'flipkart';
 
-      // Update Tab active classes
-      document.querySelectorAll('.pbi-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.page === pageKey);
+    function setTab(tabKey) {
+      if (!sections[tabKey]) return;
+      activeTabKey = tabKey;
+
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabKey));
+      Object.keys(sections).forEach(k => {
+        sections[k].style.display = (k === tabKey) ? 'flex' : 'none';
       });
 
-      // Show matching canvas, hide others
-      pages.forEach(p => {
-        const c = document.getElementById('canvas-' + p);
-        if (c) c.style.display = (p === pageKey) ? 'block' : 'none';
-      });
-
-      // Update Titles & Breadcrumbs
-      const meta = reportMetadata[pageKey];
-      document.getElementById('active-report-breadcrumb').textContent = meta.title;
-      document.title = `${meta.title} — Microsoft Power BI | Abhishek Tripathi`;
-      document.getElementById('page-counter').textContent = `Page ${currentPageIndex + 1} of ${pages.length}`;
-
-      // Update PBIX download buttons
-      document.getElementById('btn-download-pbix').href = meta.pbix;
-      document.getElementById('modal-download-btn').href = meta.pbix;
-      document.getElementById('pbi-fields-tree').innerHTML = meta.fields;
-
-      // Rescale viewport
-      fitCanvasToScreen();
-
-      // Trigger charts resize
-      window.dispatchEvent(new Event('resize'));
-    }
-
-    function nextPage() {
-      currentPageIndex = (currentPageIndex + 1) % pages.length;
-      switchPage(pages[currentPageIndex]);
-    }
-
-    function prevPage() {
-      currentPageIndex = (currentPageIndex - 1 + pages.length) % pages.length;
-      switchPage(pages[currentPageIndex]);
-    }
-
-    document.querySelectorAll('.pbi-tab').forEach(tab => {
-      tab.addEventListener('click', () => switchPage(tab.dataset.page));
-    });
-
-    // -------------------------------------------------------------
-    // Automatic 1280x720 Canvas Dynamic Scaling
-    // -------------------------------------------------------------
-    function fitCanvasToScreen() {
-      const viewport = document.getElementById('canvas-viewport');
-      const scaler = document.getElementById('scaler-box');
-      if (!viewport || !scaler) return;
-
-      const availWidth = viewport.clientWidth - 20;
-      const availHeight = viewport.clientHeight - 20;
-
-      // Desired canvas: 1280 x 720
-      const scaleX = availWidth / 1280;
-      const scaleY = availHeight / 720;
-      let scale = Math.min(scaleX, scaleY);
-      
-      // Limit scale: do not scale higher than 1.15x
-      if (scale > 1.15) scale = 1.15;
-      if (scale < 0.25) scale = 0.25;
-
-      scaler.style.transform = `scale(${scale})`;
-      document.getElementById('zoom-label').textContent = `${Math.round(scale * 100)}%`;
-    }
-
-    window.addEventListener('resize', fitCanvasToScreen);
-    window.addEventListener('load', fitCanvasToScreen);
-
-    // -------------------------------------------------------------
-    // Full Screen Toggle
-    // -------------------------------------------------------------
-    function toggleFullScreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+      topDownloadBtn.href = downloadLinks[tabKey];
+      if (tabKey === 'certificate') {
+        topDownloadBtn.querySelector('span').textContent = 'Download Certificate';
       } else {
-        document.exitFullscreen();
-      }
-    }
-    document.getElementById('btn-fullscreen').addEventListener('click', toggleFullScreen);
-
-    // -------------------------------------------------------------
-    // Filters Pane Toggle
-    // -------------------------------------------------------------
-    const filtersPane = document.getElementById('filters-pane');
-    const btnToggleFilters = document.getElementById('btn-toggle-filters');
-    const btnCollapsePane = document.getElementById('btn-collapse-pane');
-
-    function toggleFiltersPane() {
-      filtersPane.classList.toggle('collapsed');
-      setTimeout(fitCanvasToScreen, 220);
-    }
-    btnToggleFilters.addEventListener('click', toggleFiltersPane);
-    btnCollapsePane.addEventListener('click', toggleFiltersPane);
-
-    // -------------------------------------------------------------
-    // Modal & Help
-    // -------------------------------------------------------------
-    function showPbiHelp() {
-      const meta = reportMetadata[pages[currentPageIndex]];
-      const content = `
-        <p><strong>Active Model:</strong> <code>${meta.title}</code></p>
-        <p style="margin-top:8px;">This is an authentic Microsoft Power BI Desktop model file (<code>.pbix</code>) engineered by Abhishek Tripathi. It includes:</p>
-        <ul style="margin: 10px 0 10px 20px; line-height: 1.7;">
-          <li>Pre-aggregated and indexed transactional datasets.</li>
-          <li>Custom DAX measures (Total Sales, Average Ticket, EMI projections, and variance safety margins).</li>
-          <li>Star-schema relational joins across Category, Payment, and Geography dimensions.</li>
-          <li>Power Query ETL sanitization and automated type casting.</li>
-        </ul>
-        <p style="margin-top:10px;">To inspect the raw DAX formulas, relationship diagrams, and query editor, click <strong>Download .PBIX File</strong> below and open with Microsoft Power BI Desktop.</p>
-      `;
-      document.getElementById('pbi-modal-content').innerHTML = content;
-      document.getElementById('pbi-modal').classList.add('open');
-    }
-
-    function closePbiModal() {
-      document.getElementById('pbi-modal').classList.remove('open');
-    }
-
-    function triggerPbiDownload() {
-      document.getElementById('btn-download-pbix').click();
-    }
-
-    function toggleFilter(el, type) {
-      // Mock filter toggle
-      console.log('Filter changed:', type, el.checked);
-    }
-
-    function resetAllFilters() {
-      document.querySelectorAll('.pbi-slicer-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.fkPay === 'all' || btn.dataset.tsAcc === 'all' || btn.dataset.tsModel === 'all');
-      });
-      applyFkFilter('all');
-      applyTsModelFilter('all');
-      applyTsAccFilter('all');
-    }
-
-    // -------------------------------------------------------------
-    // Charts Initializations (Chart.js)
-    // -------------------------------------------------------------
-    // Global defaults
-    Chart.defaults.font.family = "'Segoe UI', sans-serif";
-    Chart.defaults.font.size = 11;
-    Chart.defaults.color = '#475569';
-
-    // 1. FLIPKART CHARTS
-    // Map / Regional Bar
-    const ctxFkMap = document.getElementById('chart-fk-map').getContext('2d');
-    const chartFkMap = new Chart(ctxFkMap, {
-      type: 'bar',
-      data: {
-        labels: ['North', 'West', 'South', 'East', 'Central'],
-        datasets: [{
-          label: 'Revenue (₹ Millions)',
-          data: [5.82, 4.95, 3.84, 2.36, 1.46],
-          backgroundColor: '#2563eb',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { display: false } },
-          y: { grid: { color: 'rgba(0,0,0,0.05)' } }
-        }
-      }
-    });
-
-    // Categories
-    const ctxFkCat = document.getElementById('chart-fk-categories').getContext('2d');
-    const chartFkCat = new Chart(ctxFkCat, {
-      type: 'bar',
-      data: {
-        labels: ['Mobiles', 'Electronics', 'Fashion', 'Home', 'Beauty'],
-        datasets: [{
-          label: 'Sales (₹ M)',
-          data: [6.24, 4.82, 4.10, 3.27],
-          backgroundColor: '#3b82f6',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { grid: { display: false } }, y: { display: false } }
-      }
-    });
-
-    // Trend
-    const ctxFkTrend = document.getElementById('chart-fk-trend').getContext('2d');
-    const chartFkTrend = new Chart(ctxFkTrend, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        datasets: [{
-          label: 'Sales Trend',
-          data: [1.2, 1.4, 1.3, 1.8, 2.1, 1.9, 2.4, 2.2, 2.8, 3.1],
-          borderColor: '#2563eb',
-          backgroundColor: 'rgba(37,99,235,0.12)',
-          fill: true,
-          tension: 0.35,
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(0,0,0,0.05)' } } }
-      }
-    });
-
-    // Payment Donut
-    const ctxFkPay = document.getElementById('chart-fk-payment').getContext('2d');
-    const chartFkPay = new Chart(ctxFkPay, {
-      type: 'doughnut',
-      data: {
-        labels: ['UPI', 'Cash on Delivery', 'Net Banking', 'Cards'],
-        datasets: [{
-          data: [42, 31, 15, 12],
-          backgroundColor: ['#2563eb', '#f59e0b', '#10b981', '#6366f1'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'right' } },
-        cutout: '65%'
-      }
-    });
-
-    // Quantity Bar
-    const ctxFkQty = document.getElementById('chart-fk-qty').getContext('2d');
-    const chartFkQty = new Chart(ctxFkQty, {
-      type: 'bar',
-      data: {
-        labels: ['Mobiles', 'Electronics', 'Fashion', 'Home'],
-        datasets: [{
-          label: 'Units Sold (K)',
-          data: [48.2, 36.5, 32.1, 25.7],
-          backgroundColor: '#0284c7',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { grid: { display: false } }, y: { display: false } }
-      }
-    });
-
-    // Rating Column
-    const ctxFkRating = document.getElementById('chart-fk-rating').getContext('2d');
-    const chartFkRating = new Chart(ctxFkRating, {
-      type: 'bar',
-      data: {
-        labels: ['5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star'],
-        datasets: [{
-          label: 'Revenue by Rating (₹ M)',
-          data: [8.4, 5.9, 2.4, 1.1, 0.6],
-          backgroundColor: ['#10b981', '#34d399', '#fbbf24', '#f97316', '#ef4444'],
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { grid: { display: false } }, y: { display: false } }
-      }
-    });
-
-    // Region vs Payment Stacked
-    const ctxFkRegionPay = document.getElementById('chart-fk-region-pay').getContext('2d');
-    const chartFkRegionPay = new Chart(ctxFkRegionPay, {
-      type: 'bar',
-      data: {
-        labels: ['North', 'West', 'South', 'East'],
-        datasets: [
-          { label: 'UPI', data: [2.5, 2.1, 1.6, 1.0], backgroundColor: '#2563eb' },
-          { label: 'COD', data: [1.8, 1.5, 1.2, 0.8], backgroundColor: '#f59e0b' },
-          { label: 'Cards', data: [1.5, 1.3, 1.0, 0.6], backgroundColor: '#10b981' }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'top' } },
-        scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, display: false } }
-      }
-    });
-
-    // Interactive Slicer: Flipkart Payment
-    function applyFkFilter(pay) {
-      if (pay === 'UPI') {
-        document.getElementById('fk-kpi-sales').textContent = '₹7.74M';
-        document.getElementById('fk-kpi-avg').textContent = '₹134.20';
-        document.getElementById('fk-kpi-qty').textContent = '59.8K';
-      } else if (pay === 'COD') {
-        document.getElementById('fk-kpi-sales').textContent = '₹5.71M';
-        document.getElementById('fk-kpi-avg').textContent = '₹122.50';
-        document.getElementById('fk-kpi-qty').textContent = '44.1K';
-      } else if (pay === 'Cards') {
-        document.getElementById('fk-kpi-sales').textContent = '₹2.21M';
-        document.getElementById('fk-kpi-avg').textContent = '₹145.00';
-        document.getElementById('fk-kpi-qty').textContent = '17.1K';
-      } else {
-        document.getElementById('fk-kpi-sales').textContent = '₹18.43M';
-        document.getElementById('fk-kpi-avg').textContent = '₹129.80';
-        document.getElementById('fk-kpi-qty').textContent = '142.5K';
+        topDownloadBtn.querySelector('span').textContent = 'Download .PBIX File';
       }
     }
 
-    document.querySelectorAll('#fk-slicer .pbi-slicer-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#fk-slicer .pbi-slicer-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        applyFkFilter(btn.dataset.fkPay);
-      });
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => setTab(btn.dataset.tab));
     });
 
+    // Lightbox functions
+    function openLightbox(src) {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      modal.classList.add('open');
+    }
 
-    // -------------------------------------------------------------
-    // 2. TESLA CHARTS
-    // -------------------------------------------------------------
-    const ctxTsState = document.getElementById('chart-ts-state-price').getContext('2d');
-    const chartTsState = new Chart(ctxTsState, {
-      type: 'bar',
-      data: {
-        labels: ['CA', 'TX', 'FL', 'NY', 'WA', 'IL', 'GA', 'AZ', 'CO', 'NC'],
-        datasets: [{
-          label: 'Total Fleet Value ($M)',
-          data: [14.2, 8.9, 6.4, 5.1, 4.2, 3.4, 2.8, 2.4, 1.9, 1.6],
-          backgroundColor: '#e11d48',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } },
-          y: { grid: { display: false }, ticks: { color: '#f1f5f9' } }
-        }
-      }
-    });
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.remove('open');
+    }
 
-    // DAS Donut
-    const ctxTsDas = document.getElementById('chart-ts-das').getContext('2d');
-    const chartTsDas = new Chart(ctxTsDas, {
-      type: 'doughnut',
-      data: {
-        labels: ['Full Self-Driving (FSD)', 'Enhanced Autopilot', 'Standard Autopilot'],
-        datasets: [{
-          data: [48, 32, 20],
-          backgroundColor: ['#e11d48', '#38bdf8', '#10b981'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'right', labels: { color: '#e2e8f0', boxWidth: 10 } } },
-        cutout: '60%'
-      }
-    });
-
-    // State Odometer
-    const ctxTsOdo = document.getElementById('chart-ts-state-odo').getContext('2d');
-    const chartTsOdo = new Chart(ctxTsOdo, {
-      type: 'bar',
-      data: {
-        labels: ['CA', 'TX', 'FL', 'NY', 'WA', 'IL', 'GA', 'AZ', 'CO', 'NC'],
-        datasets: [{
-          label: 'Odometer (Miles)',
-          data: [3.8, 2.4, 1.8, 1.5, 1.2, 0.9, 0.8, 0.7, 0.6, 0.5],
-          backgroundColor: '#0284c7',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } },
-          y: { grid: { display: false }, ticks: { color: '#f1f5f9' } }
-        }
-      }
-    });
-
-    // Tesla Model Slicer
-    function applyTsModelFilter(model) {
-      const titleEl = document.getElementById('ts-active-model-title');
-      if (model === 'all') {
-        titleEl.textContent = 'Tesla Model 3 / S / X / Y';
-        document.getElementById('ts-kpi-price').textContent = '$42.84M';
-        document.getElementById('ts-kpi-odo').textContent = '12.42M mi';
-        document.getElementById('ts-kpi-emi').textContent = '$745 / mo';
-      } else {
-        titleEl.textContent = 'Tesla ' + model;
-        if (model === 'Model 3') {
-          document.getElementById('ts-kpi-price').textContent = '$16.20M';
-          document.getElementById('ts-kpi-odo').textContent = '4.80M mi';
-          document.getElementById('ts-kpi-emi').textContent = '$580 / mo';
-        } else if (model === 'Model S') {
-          document.getElementById('ts-kpi-price').textContent = '$11.40M';
-          document.getElementById('ts-kpi-odo').textContent = '2.90M mi';
-          document.getElementById('ts-kpi-emi').textContent = '$940 / mo';
-        } else if (model === 'Model X') {
-          document.getElementById('ts-kpi-price').textContent = '$8.90M';
-          document.getElementById('ts-kpi-odo').textContent = '2.10M mi';
-          document.getElementById('ts-kpi-emi').textContent = '$1,020 / mo';
-        } else if (model === 'Model Y') {
-          document.getElementById('ts-kpi-price').textContent = '$6.34M';
-          document.getElementById('ts-kpi-odo').textContent = '2.62M mi';
-          document.getElementById('ts-kpi-emi').textContent = '$690 / mo';
-        }
+    function openLightboxCurrent() {
+      if (activeTabKey === 'flipkart') {
+        openLightbox('../powerbi-projects/flipkart_original_dashboard.png');
+      } else if (activeTabKey === 'tesla') {
+        openLightbox('../assets/project-tesla-powerbi.jpg');
+      } else if (activeTabKey === 'certificate') {
+        openLightbox('../powerbi-projects/Techpile_Data_Analytics_Certificate_Abhishek_Tripathi.jpg');
       }
     }
 
-    document.querySelectorAll('[data-ts-model]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-ts-model]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        applyTsModelFilter(btn.dataset.tsModel);
-      });
-    });
-
-    // Tesla Safety Slicer
-    function applyTsAccFilter(acc) {
-      if (acc === 'safe') {
-        document.getElementById('ts-kpi-safe').textContent = '100%';
-        document.getElementById('ts-kpi-acc').textContent = '0%';
-        document.getElementById('ts-kpi-price').textContent = '$37.2M';
-      } else if (acc === 'accident') {
-        document.getElementById('ts-kpi-safe').textContent = '0%';
-        document.getElementById('ts-kpi-acc').textContent = '100%';
-        document.getElementById('ts-kpi-price').textContent = '$5.64M';
-      } else {
-        document.getElementById('ts-kpi-safe').textContent = '84.6%';
-        document.getElementById('ts-kpi-acc').textContent = '15.4%';
-        document.getElementById('ts-kpi-price').textContent = '$42.84M';
-      }
-    }
-
-    document.querySelectorAll('[data-ts-acc]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-ts-acc]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        applyTsAccFilter(btn.dataset.tsAcc);
-      });
-    });
-
-
-    // -------------------------------------------------------------
-    // 3. GLOBAL SUPERSTORE CHARTS
-    // -------------------------------------------------------------
-    new Chart(document.getElementById('chart-gs-countries').getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: ['United States', 'Australia', 'United Kingdom', 'Germany', 'France', 'India', 'Brazil'],
-        datasets: [{
-          label: 'Revenue ($M)',
-          data: [2.3, 1.8, 1.4, 1.2, 1.1, 0.9, 0.7],
-          backgroundColor: '#38bdf8',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } },
-          y: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } }
-        }
-      }
-    });
-
-    new Chart(document.getElementById('chart-gs-segments').getContext('2d'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Consumer (52%)', 'Corporate (30%)', 'Home Office (18%)'],
-        datasets: [{
-          data: [52, 30, 18],
-          backgroundColor: ['#38bdf8', '#fbbf24', '#a855f7'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'right', labels: { color: '#e2e8f0' } } },
-        cutout: '65%'
-      }
-    });
-
-    new Chart(document.getElementById('chart-gs-ship').getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: ['Standard Class', 'Second Class', 'First Class', 'Same Day'],
-        datasets: [{
-          label: 'Orders',
-          data: [30775, 10309, 7505, 2701],
-          backgroundColor: '#10b981',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
-          y: { display: false }
-        }
-      }
-    });
-
-    new Chart(document.getElementById('chart-gs-yoy').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: ['2023', '2024', '2025', '2026'],
-        datasets: [{
-          label: 'YoY Growth',
-          data: [2.2, 2.8, 3.5, 4.1],
-          borderColor: '#a855f7',
-          backgroundColor: 'rgba(168,85,247,0.15)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
-          y: { display: false }
-        }
-      }
-    });
-
-
-    // -------------------------------------------------------------
-    // 4. HUMAN HEALTH CHARTS
-    // -------------------------------------------------------------
-    new Chart(document.getElementById('chart-hh-bp').getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: ['18-30', '31-45', '46-60', '61-75', '75+'],
-        datasets: [
-          { label: 'Normal BP', data: [75, 58, 42, 28, 18], backgroundColor: '#10b981' },
-          { label: 'Elevated BP', data: [15, 24, 30, 34, 36], backgroundColor: '#fbbf24' },
-          { label: 'Stage 2 Risk', data: [10, 18, 28, 38, 46], backgroundColor: '#ef4444' }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: { stacked: true, grid: { display: false }, ticks: { color: '#94a3b8' } },
-          y: { stacked: true, display: false }
-        },
-        plugins: { legend: { labels: { color: '#e2e8f0', boxWidth: 10 } } }
-      }
-    });
-
-    new Chart(document.getElementById('chart-hh-smoking').getContext('2d'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Non-Smoker', 'Former Smoker', 'Current Smoker', 'Heavy Smoker'],
-        datasets: [{
-          data: [54, 22, 14, 10],
-          backgroundColor: ['#10b981', '#38bdf8', '#f59e0b', '#ef4444'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'right', labels: { color: '#e2e8f0', boxWidth: 10 } } },
-        cutout: '65%'
-      }
-    });
-
-    new Chart(document.getElementById('chart-hh-risk').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: ['<160', '160-199', '200-239', '240+'],
-        datasets: [{
-          label: 'Hypertension Probability %',
-          data: [12, 24, 46, 72],
-          borderColor: '#ef4444',
-          backgroundColor: 'rgba(239,68,68,0.15)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
-          y: { display: false }
-        }
-      }
-    });
-
-    new Chart(document.getElementById('chart-hh-bmi').getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: ['Underweight', 'Normal', 'Overweight', 'Obese'],
-        datasets: [{
-          label: 'Patients',
-          data: [420, 3850, 3620, 2110],
-          backgroundColor: '#3b82f6',
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
-          y: { display: false }
-        }
-      }
-    });
-
-    // -------------------------------------------------------------
-    // URL Hash Router: Support #flipkart, #tesla, #global, #health
-    // -------------------------------------------------------------
+    // Support hash router: #flipkart, #tesla, #certificate, #models
     if (window.location.hash) {
       const h = window.location.hash.replace('#', '');
-      if (pages.includes(h)) {
-        switchPage(h);
+      if (sections[h]) {
+        setTab(h);
       }
     }
   </script>
