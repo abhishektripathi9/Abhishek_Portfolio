@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitPulse Studio | Boutique Strength & Conditioning in Civil Lines, Prayagraj</title>
+  <meta name="description" content="Civil Lines' premier strength, conditioning, and personal coaching studio. Serious lifting, certified trainers, air-conditioned floor, and zero registration fees.">
+  
+  <!-- Google Fonts: Syne (Architectural Headings) & Inter (Editorial Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. MINIMAL STICKY HEADER
+       ========================================================================== -->
+  <header class="site-header" id="header">
+    <div class="header-inner container">
+      <!-- Geometric Logo -->
+      <a href="#" class="brand-link" aria-label="FitPulse Studio Home">
+        <span class="brand-symbol">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="28" height="28" rx="6" fill="#14181F" stroke="#EAB308" stroke-width="2"/>
+            <path d="M9 16H13L15 9L18 23L20 16H23" stroke="#F3F4F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">FitPulse<span class="brand-dot">.</span></span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="desktop-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="#training" class="nav-item">Training</a></li>
+          <li><a href="#memberships" class="nav-item">Memberships</a></li>
+          <li><a href="#schedule" class="nav-item">Schedule</a></li>
+          <li><a href="#location" class="nav-item">Location</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Area -->
+      <div class="header-actions">
+        <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20book%20a%20free%20trial%20session." 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="btn-header-wa">
+          <svg viewBox="0 0 24 24" class="icon-wa" fill="currentColor">
+            <path d="M17.472 14.382c-.301-.15-1.777-.878-2.052-.978-.276-.1-.477-.15-.678.15-.2.301-.777.978-.952 1.178-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.424-1.496-.895-.798-1.5-1.784-1.676-2.085-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.928-2.235-.244-.585-.492-.505-.678-.515-.176-.01-.376-.01-.577-.01-.2 0-.527.075-.802.376s-1.053 1.028-1.053 2.508 1.078 2.909 1.229 3.11c.15.2 2.122 3.24 5.141 4.542.718.31 1.279.495 1.716.634.722.23 1.378.198 1.897.12.578-.088 1.777-.727 2.028-1.429.251-.702.251-1.303.175-1.429-.075-.125-.276-.201-.577-.351z"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.81.488 3.51 1.336 4.975L2 22l5.166-1.314A9.957 9.957 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2c-1.61 0-3.11-.47-4.38-1.28l-.31-.2-3.07.78.82-2.99-.21-.33A8.17 8.17 0 013.8 12c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/>
+          </svg>
+          <span>Book Free Trial</span>
+        </a>
+
+        <!-- Mobile Drawer Toggle -->
+        <button class="drawer-trigger" id="drawerTrigger" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Slide-out Drawer Menu -->
+  <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="drawer-brand">FitPulse<span>.</span></span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+    </div>
+    <nav class="drawer-nav">
+      <ul class="drawer-links">
+        <li><a href="#training" class="drawer-link">Training Disciplines</a></li>
+        <li><a href="#memberships" class="drawer-link">Membership Plans</a></li>
+        <li><a href="#schedule" class="drawer-link">Timings & Hours</a></li>
+        <li><a href="#location" class="drawer-link">Location & Map</a></li>
+        <li><a href="#callback" class="drawer-link">Request Callback</a></li>
+      </ul>
+    </nav>
+    <div class="drawer-footer">
+      <p class="drawer-address">2nd Floor, MG Marg, Civil Lines, Prayagraj</p>
+      <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20book%20a%20free%20trial%20session." 
+         class="btn-drawer-wa" target="_blank" rel="noopener noreferrer">
+        Chat on WhatsApp (+91 98765 43210)
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       2. ASYMMETRIC SPLIT HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section" id="hero">
+    <div class="container hero-grid">
+      <!-- Left Column: Editorial Copy -->
+      <div class="hero-copy">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-pip"></span>
+          <span>Civil Lines &bull; Prayagraj</span>
+        </div>
+
+        <h1 class="hero-title">
+          Serious Strength.<br>
+          Zero Egos.<br>
+          <span class="title-accent">Right in Civil Lines.</span>
+        </h1>
+
+        <p class="hero-subtext">
+          A dedicated barbell and athletic conditioning facility built for working professionals and serious lifters. Certified biomechanics coaches, clean air-conditioned floors, and zero hype.
+        </p>
+
+        <div class="hero-cta-cluster">
+          <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20book%20a%20free%20trial%20session." 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn btn-primary">
+            <svg viewBox="0 0 24 24" class="btn-icon" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.777-.878-2.052-.978-.276-.1-.477-.15-.678.15-.2.301-.777.978-.952 1.178-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.424-1.496-.895-.798-1.5-1.784-1.676-2.085-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.928-2.235-.244-.585-.492-.505-.678-.515-.176-.01-.376-.01-.577-.01-.2 0-.527.075-.802.376s-1.053 1.028-1.053 2.508 1.078 2.909 1.229 3.11c.15.2 2.122 3.24 5.141 4.542.718.31 1.279.495 1.716.634.722.23 1.378.198 1.897.12.578-.088 1.777-.727 2.028-1.429.251-.702.251-1.303.175-1.429-.075-.125-.276-.201-.577-.351z"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.81.488 3.51 1.336 4.975L2 22l5.166-1.314A9.957 9.957 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2c-1.61 0-3.11-.47-4.38-1.28l-.31-.2-3.07.78.82-2.99-.21-.33A8.17 8.17 0 013.8 12c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/>
+            </svg>
+            Book Free Trial on WhatsApp
+          </a>
+          <a href="#memberships" class="btn btn-secondary">
+            See Membership Plans
+            <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- 3 Grounded Proof Points -->
+        <div class="proof-bar">
+          <div class="proof-unit">
+            <span class="proof-val">4.9★</span>
+            <span class="proof-sub">Google Verified</span>
+          </div>
+          <div class="proof-separator"></div>
+          <div class="proof-unit">
+            <span class="proof-val">5 AM – 10 PM</span>
+            <span class="proof-sub">Flexible Shifts</span>
+          </div>
+          <div class="proof-separator"></div>
+          <div class="proof-unit">
+            <span class="proof-val">100% AC</span>
+            <span class="proof-sub">Sanitized Floor</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Framed Editorial Visual -->
+      <div class="hero-visual">
+        <div class="visual-frame">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=85" 
+               alt="FitPulse Studio Barbell & Strength Training Floor" 
+               class="hero-img"
+               loading="eager">
+          <div class="visual-scrim"></div>
+          
+          <!-- Live Studio Status Pill -->
+          <div class="live-status-pill" id="liveStatusBadge">
+            <span class="status-indicator"></span>
+            <span class="status-text" id="statusMessage">Next Batch: Evening 4:00 PM</span>
+          </div>
+
+          <div class="visual-corner-tag">
+            <span class="tag-title">Equipment</span>
+            <span class="tag-meta">Olympic Barbells & Bullroc Benches</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3. TRAINING DISCIPLINES (BENTO-STYLE 3-CARD LAYOUT)
+       ========================================================================== -->
+  <section class="section-block" id="training">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-kicker">Intentional Programs</span>
+        <h2 class="section-heading">Disciplines Built For Lasting Physiological Adaptation</h2>
+        <p class="section-lead">No random routines or aimless machine hopping. Every session is anchored in progressive overload, joint longevity, and metabolic recovery.</p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Bento 1: Strength & Hypertrophy (Featured Primary) -->
+        <div class="bento-card bento-hero">
+          <div class="bento-card-inner">
+            <div class="bento-top">
+              <div class="bento-icon-sq">
+                <!-- Barbell Weight SVG -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12M10 5v14M14 5v14"/>
+                </svg>
+              </div>
+              <span class="bento-badge">Floor Strength</span>
+            </div>
+
+            <div class="bento-content">
+              <h3 class="bento-title">Strength & Hypertrophy</h3>
+              <p class="bento-text">
+                Calibrated barbell lifting focused on compound mechanics: squats, hinges, overhead presses, and weighted pull-ups. Designed for lean muscle density, tendon resilience, and injury-proofing.
+              </p>
+              <div class="bento-meta-row">
+                <div class="meta-item">
+                  <span class="meta-label">Focus</span>
+                  <span class="meta-data">Barbell Mechanics</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Coach Ratio</span>
+                  <span class="meta-data">1:6 Floor Max</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Schedule</span>
+                  <span class="meta-data">Mon – Sat Batches</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 2: Fat Loss & Conditioning -->
+        <div class="bento-card">
+          <div class="bento-card-inner">
+            <div class="bento-top">
+              <div class="bento-icon-sq">
+                <!-- Kettlebell / Heart Rate Wave SVG -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+              </div>
+              <span class="bento-badge">Conditioning</span>
+            </div>
+
+            <div class="bento-content">
+              <h3 class="bento-title">Fat Loss & Metabolic Conditioning</h3>
+              <p class="bento-text">
+                High-density interval circuits utilizing assault bikes, rowers, sled pushes, and kettlebells to maximize caloric expenditure without sacrificing lean contractile mass.
+              </p>
+              <div class="bento-meta-row">
+                <div class="meta-item">
+                  <span class="meta-label">Duration</span>
+                  <span class="meta-data">45-min Circuits</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Gear</span>
+                  <span class="meta-data">Assault AirBikes & Turf</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 3: 1-on-1 Personal Coaching -->
+        <div class="bento-card">
+          <div class="bento-card-inner">
+            <div class="bento-top">
+              <div class="bento-icon-sq">
+                <!-- Coach Badge SVG -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="7" r="4"/>
+                  <path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>
+                  <path d="M19 11l2 2 4-4"/>
+                </svg>
+              </div>
+              <span class="bento-badge">Dedicated Coach</span>
+            </div>
+
+            <div class="bento-content">
+              <h3 class="bento-title">1-on-1 Personal Coaching</h3>
+              <p class="bento-text">
+                Targeted individual programming with senior fitness coaches. In-depth biomechanics analysis, customized daily nutrition protocols for Indian diets, and absolute accountability.
+              </p>
+              <div class="bento-meta-row">
+                <div class="meta-item">
+                  <span class="meta-label">Assessment</span>
+                  <span class="meta-data">Movement Screen</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Nutrition</span>
+                  <span class="meta-data">Custom Macros Included</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. TRANSPARENT MEMBERSHIPS (3-COLUMN PRICING TABLE)
+       ========================================================================== -->
+  <section class="section-block section-alt" id="memberships">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-kicker">Honest Pricing</span>
+        <h2 class="section-heading">Transparent Memberships. Zero Hidden Registration Fees.</h2>
+        <p class="section-lead">Select your commitment window. What you see is exactly what you pay—no forced annual lock-ins or surprise renewals.</p>
+      </div>
+
+      <!-- Plan Duration Savings Switcher -->
+      <div class="pricing-controls">
+        <span class="pricing-controls-label">Choose Commitment Window:</span>
+        <div class="pricing-tabs" role="tablist">
+          <button class="pricing-tab" data-period="monthly" role="tab" aria-selected="false">Monthly</button>
+          <button class="pricing-tab active" data-period="quarterly" role="tab" aria-selected="true">
+            Quarterly <span class="tab-highlight">Save ₹500</span>
+          </button>
+          <button class="pricing-tab" data-period="annual" role="tab" aria-selected="false">Annual</button>
+        </div>
+      </div>
+
+      <!-- 3-Column Pricing Grid -->
+      <div class="pricing-grid">
+        <!-- Monthly Plan -->
+        <div class="pricing-card" data-plan="monthly">
+          <div class="card-head">
+            <h3 class="card-tier">Monthly</h3>
+            <p class="card-tagline">Complete freedom, month-to-month flexibility</p>
+            <div class="price-display">
+              <span class="price-symbol">₹</span>
+              <span class="price-number">1,500</span>
+              <span class="price-tenure">/ month</span>
+            </div>
+          </div>
+
+          <ul class="feature-checklist">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Full Air-Conditioned Floor & Barbell Access</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Certified Floor Trainer Form Spotting</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Sanitized Locker & Shower Access</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Flexible Morning or Evening Shift Entry</span>
+            </li>
+          </ul>
+
+          <div class="card-footer">
+            <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20start%20with%20the%20Monthly%20Plan%20(%E2%82%B91,500/mo)." 
+               class="btn-plan btn-plan-outline" 
+               target="_blank" 
+               rel="noopener noreferrer">
+              Start via WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Quarterly Plan (Featured / Gold Accent) -->
+        <div class="pricing-card featured" data-plan="quarterly">
+          <div class="card-featured-badge">Most Chosen &bull; 90-Day Habit</div>
+
+          <div class="card-head">
+            <div class="tier-label-wrap">
+              <h3 class="card-tier">Quarterly</h3>
+              <span class="savings-pill">Saves ₹500</span>
+            </div>
+            <p class="card-tagline">Optimal window to rewire muscle memory & metabolic output</p>
+            <div class="price-display">
+              <span class="price-symbol">₹</span>
+              <span class="price-number">4,000</span>
+              <span class="price-tenure">/ 3 months</span>
+            </div>
+          </div>
+
+          <ul class="feature-checklist">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Unlimited Gym & Functional Turf Floor Access</strong></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Personalized Indian Diet Chart & Macro Breakdown</strong></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Bi-weekly Body Composition & Fat % Scans</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Priority Coach Consultation & Technique Fixes</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Dedicated Lockers & Shower Facility</span>
+            </li>
+          </ul>
+
+          <div class="card-footer">
+            <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20lock%20in%20the%20Quarterly%20Plan%20(%E2%82%B94,000/3%20months)." 
+               class="btn-plan btn-plan-gold" 
+               target="_blank" 
+               rel="noopener noreferrer">
+              Start via WhatsApp (Most Popular)
+            </a>
+          </div>
+        </div>
+
+        <!-- Annual Plan -->
+        <div class="pricing-card" data-plan="annual">
+          <div class="card-head">
+            <h3 class="card-tier">Annual</h3>
+            <p class="card-tagline">Best long-term economics (₹1,000/mo effective)</p>
+            <div class="price-display">
+              <span class="price-symbol">₹</span>
+              <span class="price-number">12,000</span>
+              <span class="price-tenure">/ year</span>
+            </div>
+          </div>
+
+          <ul class="feature-checklist">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Full Year Unlimited Access (Gym + Cardio Floor)</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>4 Complimentary 1-on-1 PT Sessions Included</strong></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Quarterly Nutrition Protocol Revisions</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>30-Day Annual Membership Pause for Travel / Exams</span>
+            </li>
+          </ul>
+
+          <div class="card-footer">
+            <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20enroll%20in%20the%20Annual%20Plan%20(%E2%82%B912,000/year)." 
+               class="btn-plan btn-plan-outline" 
+               target="_blank" 
+               rel="noopener noreferrer">
+              Start via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       5. MEMBER STORIES (REALISTIC LOCAL REVIEWS)
+       ========================================================================== -->
+  <section class="section-block" id="stories">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-kicker">Member Stories</span>
+        <h2 class="section-heading">Grounded Outcomes From Real Civil Lines Lifters</h2>
+        <p class="section-lead">No stock models or exaggerated claims. Here is what consistent programming looks like in daily practice.</p>
+      </div>
+
+      <div class="stories-grid">
+        <!-- Story 1: Rohan Srivastava -->
+        <article class="story-card">
+          <div class="story-rating">
+            <span class="star-rating">★★★★★</span>
+            <span class="story-verification">Verified Local Member</span>
+          </div>
+          <p class="story-quote">
+            &ldquo;Sitting 9 hours a day at the High Court wrecked my lower back. Most commercial gyms in town just hand you a generic split and vanish. At FitPulse, Coach Amit spent the entire first week breaking down my hip hinge and deadlift setup. 5 months in, my chronic back pain is completely gone and I’m pulling 120 kg pain-free.&rdquo;
+          </p>
+          <div class="story-author">
+            <div class="author-monogram">RS</div>
+            <div class="author-details">
+              <h4 class="author-name">Rohan Srivastava</h4>
+              <p class="author-profession">Advocate, Allahabad High Court &bull; Civil Lines</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 2: Ananya Mishra -->
+        <article class="story-card">
+          <div class="story-rating">
+            <span class="star-rating">★★★★★</span>
+            <span class="story-verification">Verified Local Member</span>
+          </div>
+          <p class="story-quote">
+            &ldquo;As a woman, I was tired of gyms where trainers stare at their phones or push cardio-only routines. FitPulse has zero ego culture. The morning batch has a strong community of women lifting heavy barbells with proper guidance. The floor is impeccably clean, odor-free, and air conditioning runs constantly.&rdquo;
+          </p>
+          <div class="story-author">
+            <div class="author-monogram">AM</div>
+            <div class="author-details">
+              <h4 class="author-name">Ananya Mishra</h4>
+              <p class="author-profession">Assistant Professor &bull; University of Allahabad</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 3: Vikramaditya Singh -->
+        <article class="story-card">
+          <div class="story-rating">
+            <span class="star-rating">★★★★★</span>
+            <span class="story-verification">Verified Local Member</span>
+          </div>
+          <p class="story-quote">
+            &ldquo;My retail business in Katra keeps me tied down until 7:30 PM. FitPulse’s late evening shift (open till 10:00 PM) was a lifesaver. The equipment is proper commercial-grade—heavy rubber bumper plates, smooth pulleys, and no broken cable machines. You get in, hit your numbers, take a clean shower, and head home.&rdquo;
+          </p>
+          <div class="story-author">
+            <div class="author-monogram">VS</div>
+            <div class="author-details">
+              <h4 class="author-name">Vikramaditya Singh</h4>
+              <p class="author-profession">Business Owner &bull; Katra</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       6. TIMINGS, LOCATION & CALLBACK FORM (2-COLUMN CONVERSION HUB)
+       ========================================================================== -->
+  <section class="section-block section-alt" id="schedule">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-kicker">Visit & Schedule</span>
+        <h2 class="section-heading">Daily Batches, Central Location & Priority Callback</h2>
+        <p class="section-lead">Step in for a session or request a direct callback from our head coach to reserve your free floor trial.</p>
+      </div>
+
+      <div class="conversion-hub-grid" id="location">
+        <!-- Left Column: Hours, Location & Embedded Map -->
+        <div class="location-hub-col">
+          <div class="hub-info-card">
+            <h3 class="hub-title">Floor Schedule</h3>
+            
+            <div class="schedule-rows">
+              <div class="schedule-row">
+                <div class="schedule-period">
+                  <span class="period-badge">Morning</span>
+                  <span class="period-days">Monday – Saturday</span>
+                </div>
+                <span class="period-hours">5:00 AM – 11:00 AM</span>
+              </div>
+
+              <div class="schedule-row">
+                <div class="schedule-period">
+                  <span class="period-badge">Evening</span>
+                  <span class="period-days">Monday – Saturday</span>
+                </div>
+                <span class="period-hours">4:00 PM – 10:00 PM</span>
+              </div>
+
+              <div class="schedule-row sunday">
+                <div class="schedule-period">
+                  <span class="period-badge muted">Sunday</span>
+                  <span class="period-days">Mobility & Open Floor</span>
+                </div>
+                <span class="period-hours">6:00 AM – 12:00 PM</span>
+              </div>
+            </div>
+
+            <!-- Address Block -->
+            <div class="address-unit">
+              <div class="address-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="address-text">
+                <strong>FitPulse Studio</strong>
+                <p>2nd Floor, MG Marg, Above Central Bank of India, Civil Lines, Prayagraj, UP 211001</p>
+                <div class="phone-link-wrap">
+                  <span>Direct Desk:</span>
+                  <a href="tel:+919876543210" class="phone-link">+91 98765 43210</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Responsive Styled Google Map -->
+          <div class="map-container">
+            <iframe 
+              title="FitPulse Studio Location Map Civil Lines Prayagraj"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14408.87842605335!2d81.82672348509355!3d25.447600742562473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3985350901e1a533%3A0xe54d682496a75f1a!2sCivil%20Lines%2C%20Prayagraj%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Right Column: Priority Callback Lead Form (Zero Backend via Web3Forms) -->
+        <div class="form-hub-col" id="callback">
+          <div class="callback-card">
+            <div class="callback-card-head">
+              <span class="form-badge">Fast Response</span>
+              <h3 class="callback-title">Request a Coach Callback</h3>
+              <p class="callback-sub">Leave your contact details. A senior trainer will call you within 2 working hours to confirm your 1-day pass and batch preference.</p>
+            </div>
+
+            <form id="leadForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+              <!-- Web3Forms Config Placeholder -->
+              <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+              <input type="hidden" name="subject" value="New Free Trial Lead from FitPulse Civil Lines">
+              <input type="hidden" name="from_name" value="FitPulse Studio Web">
+              <input type="checkbox" name="botcheck" style="display: none;">
+
+              <div class="form-field-group">
+                <label for="fullName" class="form-label">Full Name *</label>
+                <input type="text" id="fullName" name="name" class="form-input" placeholder="e.g. Aditya Sharma" required>
+                <span class="field-error" id="nameError">Please enter your name.</span>
+              </div>
+
+              <div class="form-field-group">
+                <label for="phoneNumber" class="form-label">WhatsApp / Phone Number (10 Digits) *</label>
+                <div class="input-with-prefix">
+                  <span class="prefix">+91</span>
+                  <input type="tel" id="phoneNumber" name="phone" class="form-input" placeholder="9876543210" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+                <span class="field-error" id="phoneError">Please provide a valid 10-digit Indian mobile number.</span>
+              </div>
+
+              <div class="form-field-row">
+                <div class="form-field-group">
+                  <label for="fitnessGoal" class="form-label">Primary Goal *</label>
+                  <select id="fitnessGoal" name="goal" class="form-select" required>
+                    <option value="" disabled selected>Select Fitness Goal</option>
+                    <option value="Strength & Muscle Hypertrophy">Strength & Muscle Hypertrophy</option>
+                    <option value="Fat Loss & Conditioning">Fat Loss & Conditioning</option>
+                    <option value="1-on-1 Personal Coaching">1-on-1 Personal Coaching</option>
+                    <option value="Posture & Joint Mobility">Posture & Joint Mobility</option>
+                  </select>
+                  <span class="field-error" id="goalError">Select a fitness goal.</span>
+                </div>
+
+                <div class="form-field-group">
+                  <label for="batchPreference" class="form-label">Preferred Shift *</label>
+                  <select id="batchPreference" name="batch" class="form-select" required>
+                    <option value="" disabled selected>Select Shift</option>
+                    <option value="Morning: 5:00 AM – 8:00 AM">Morning Early (5 AM – 8 AM)</option>
+                    <option value="Morning: 8:00 AM – 11:00 AM">Morning Late (8 AM – 11 AM)</option>
+                    <option value="Evening: 4:00 PM – 7:00 PM">Evening Early (4 PM – 7 PM)</option>
+                    <option value="Evening: 7:00 PM – 10:00 PM">Evening Late (7 PM – 10 PM)</option>
+                  </select>
+                  <span class="field-error" id="batchError">Select your shift preference.</span>
+                </div>
+              </div>
+
+              <button type="submit" id="submitBtn" class="btn btn-primary btn-submit">
+                <span id="submitBtnText">Confirm Free 1-Day Pass</span>
+                <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+
+              <!-- Dynamic JavaScript Status State -->
+              <div id="formFeedback" class="form-feedback" role="alert" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       7. CLEAN FOOTER + MOBILE FLOATING WHATSAPP PILL
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="brand-link">
+            <span class="brand-symbol small">
+              <svg viewBox="0 0 32 32" fill="none">
+                <rect x="2" y="2" width="28" height="28" rx="6" fill="#14181F" stroke="#EAB308" stroke-width="2"/>
+                <path d="M9 16H13L15 9L18 23L20 16H23" stroke="#F3F4F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="brand-name">FitPulse<span class="brand-dot">.</span></span>
+          </div>
+          <p class="footer-mission">
+            A boutique strength and personal training studio in Civil Lines, Prayagraj. Grounded biomechanics, authentic coaching, and zero intimidation.
+          </p>
+        </div>
+
+        <div class="footer-nav-col">
+          <span class="footer-col-heading">Navigation</span>
+          <ul class="footer-nav-list">
+            <li><a href="#training">Training Disciplines</a></li>
+            <li><a href="#memberships">Membership Plans</a></li>
+            <li><a href="#schedule">Batch Schedule</a></li>
+            <li><a href="#location">Studio Location</a></li>
+            <li><a href="#callback">Book Trial Session</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-standards-col">
+          <span class="footer-col-heading">Studio Standards</span>
+          <ul class="footer-nav-list">
+            <li><span>&bull; Fully Air-Conditioned Floor</span></li>
+            <li><span>&bull; Biomechanical Free Weights</span></li>
+            <li><span>&bull; Dedicated Locker Facility</span></li>
+            <li><span>&bull; Certified Male & Female Coaches</span></li>
+            <li><span>&bull; Zero Registration Hidden Fees</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright-text">&copy; 2026 FitPulse Studio. Built with pride for the Prayagraj lifting community.</p>
+        <p class="privacy-note">Privacy First: We do not share your mobile number or send marketing spam.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Mobile WhatsApp Action Pill -->
+  <a href="https://wa.me/919876543210?text=Hi%20FitPulse,%20I'd%20like%20to%20inquire%20about%20your%20Civil%20Lines%20gym." 
+     class="floating-wa-pill" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Direct WhatsApp Message with FitPulse Head Coach">
+    <div class="wa-beacon"></div>
+    <svg viewBox="0 0 24 24" class="icon-floating-wa" fill="currentColor">
+      <path d="M17.472 14.382c-.301-.15-1.777-.878-2.052-.978-.276-.1-.477-.15-.678.15-.2.301-.777.978-.952 1.178-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.424-1.496-.895-.798-1.5-1.784-1.676-2.085-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.928-2.235-.244-.585-.492-.505-.678-.515-.176-.01-.376-.01-.577-.01-.2 0-.527.075-.802.376s-1.053 1.028-1.053 2.508 1.078 2.909 1.229 3.11c.15.2 2.122 3.24 5.141 4.542.718.31 1.279.495 1.716.634.722.23 1.378.198 1.897.12.578-.088 1.777-.727 2.028-1.429.251-.702.251-1.303.175-1.429-.075-.125-.276-.201-.577-.351z"/>
+      <path d="M12 2C6.48 2 2 6.48 2 12c0 1.81.488 3.51 1.336 4.975L2 22l5.166-1.314A9.957 9.957 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2c-1.61 0-3.11-.47-4.38-1.28l-.31-.2-3.07.78.82-2.99-.21-.33A8.17 8.17 0 013.8 12c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/>
+    </svg>
+    <span>Chat with Coach</span>
+  </a>
+
+  <!-- Script File -->
+  <script src="script.js"></script>
+</body>
+</html>

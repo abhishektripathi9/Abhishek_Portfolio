@@ -669,7 +669,7 @@ const projectData = {
       'Responsive React frontend featuring instant keyword filters and real-time availability badges.'
     ],
     tech: ['React.js', 'Java', 'Spring Boot', 'MySQL', 'REST APIs', 'CSS3 Grid'],
-    github: 'https://github.com/abhishektripathi9',
+    github: 'https://github.com/abhishektripathi9/RentEase-PG-Room-Finder',
     liveDemo: './rentease/index.html'
   },
   weather: {
