@@ -2,7 +2,7 @@
 
 # ⚡ Abhishek Tripathi — Technical Developer Portfolio
 
-> **Production-grade developer portfolio engineered with clean white technical grid aesthetics, bold typography, Three.js 3D spatial orbit canvas, 8 interactive live demos, and zero-leak confidential communication channel.**
+> **Production-grade developer portfolio engineered with clean white technical grid aesthetics, bold typography, Three.js 3D spatial orbit canvas, 10 interactive live demos & Power BI analytics suite, and zero-leak confidential communication channel.**
 
 [![Live Portfolio](https://img.shields.io/badge/🌐_Live_Demo-Render-00F5FF?style=for-the-badge&logoColor=040711&labelColor=040711)](https://abhishek-portfolio-uir4.onrender.com/)
 [![GitHub Profile](https://img.shields.io/badge/GitHub-abhishektripathi9-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/abhishektripathi9)
@@ -45,7 +45,7 @@
 
 ---
 
-## 🚀 8 Production-Grade Projects (With Live Demos)
+## 🚀 10 Production-Grade Projects (With Live Demos & Analytics Suite)
 
 | # | Project | Stack | Overview | Live Links |
 | :-: | :--- | :--- | :--- | :---: |
@@ -57,6 +57,8 @@
 | 6 | 🏠 **RentEase – PG &amp; Room Finder** | React.js &bull; Java &bull; Spring Boot &bull; MySQL &bull; REST APIs | Full-stack student PG room finder with city filters, amenity tags, owner portal, and token booking advance. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/rentease/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9) |
 | 7 | 🌤️ **AuraWeather – Atmospheric Telemetry** | React.js &bull; OpenWeather &bull; REST APIs &bull; CSS3 Glassmorphism | Glassmorphic telemetry web app with live weather ingestion, 7-day projections, air quality radar (AQI), and wind analysis. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/weather/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Weather-App) |
 | 8 | 📈 **PayPulse – ML Compensation Predictor** | Python &bull; Scikit-Learn &bull; FastAPI &bull; Chart.js &bull; Regression | Machine Learning regression engine analyzing experience and skills to calculate real-time compensation benchmarks with radar analytics. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/salary/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9) |
+| 9 | 📊 **Flipkart E-Commerce Sales Intelligence** | Power BI &bull; DAX Measures &bull; Power Query &bull; BI Modeling | Enterprise business intelligence analyzing ₹18.4M+ revenue turnover, 142k+ orders, regional market share, and payment gateway split. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/powerbi-analytics/index.html#flipkart)<br>[💻 PBIX Model](https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects) |
+| 10 | 🚗 **Tesla Automotive Fleet &amp; Safety Telemetry** | Power BI &bull; Automotive BI &bull; DAX &bull; Pricing Models | Fleet valuation telemetry tracking Model S/3/X/Y prices, odometer decay, and clean title safety ratio (84.6%). | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/powerbi-analytics/index.html#tesla)<br>[💻 PBIX Model](https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects) |
 
 ---
 
@@ -64,13 +66,15 @@
 
 ```
 Abhishek_Portfolio/
-├── index.html                   # Core single-page application shell (v=3.8)
+├── index.html                   # Core single-page application shell (v=4.0)
 ├── style.css                    # Production CSS system (white & emerald theme)
 ├── script.js                    # Core logic: Three.js, carousel, filters & modals
 ├── render.yaml                  # Render Infrastructure as Code (IaC) configuration
 ├── package.json                 # Node.js server dependencies
 ├── server.js                    # Optional Express.js backend server
 │
+├── powerbi-analytics/           # Standalone Interactive Web Analytics Suite (Chart.js)
+├── powerbi-projects/            # Production Microsoft Power BI (.pbix) Models & Assets
 ├── smart-billing/               # smartBiz POS & GST Billing System (React app)
 ├── amazon-clone/                # Amazon 2.0 E-Commerce Marketplace
 ├── quiz-portal/                 # LearnSphere Student Quiz Portal

@@ -571,6 +571,40 @@ const projectData = {
     github: 'https://github.com/abhishektripathi9/Amazon-clone-',
     liveDemo: './amazon-clone/index.html'
   },
+  'flipkart-powerbi': {
+    title: 'Flipkart E-Commerce Sales & Customer Intelligence',
+    year: '2026',
+    category: 'Power BI & Business Intelligence',
+    image: 'assets/project-flipkart-powerbi.jpg',
+    desc: 'Enterprise Power BI business intelligence dashboard developed during Techpile Technology data analytics training. Features end-to-end telemetry on ₹18.4M+ sales turnover, 142k+ orders, top category performance, zonal geographic mapping, payment gateway behavioral distribution, and customer satisfaction metrics.',
+    highlights: [
+      'Multi-table relational data modeling in Power BI connecting transactions, product categories, regions, and ratings.',
+      'Complex DAX measures calculating total turnover, average order value, margin splits, and YoY trajectory.',
+      'Geospatial zonal mapping visualizing sales distribution across North, South, East, and West India.',
+      'Payment gateway analytics breaking down volume across UPI instant payments (42%), Cards (34%), and COD (18%).',
+      'Downloadable .pbix production data model with full pre-calculated aggregations and interactive slicers.'
+    ],
+    tech: ['Power BI', 'DAX Measures', 'Power Query ETL', 'Data Modeling', 'Business Intelligence', 'Analytics'],
+    github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects',
+    liveDemo: './powerbi-analytics/index.html#flipkart'
+  },
+  'tesla-powerbi': {
+    title: 'Tesla Automotive Fleet Telemetry & Safety Intelligence',
+    year: '2026',
+    category: 'Power BI & Automotive Analytics',
+    image: 'assets/project-tesla-powerbi.jpg',
+    desc: 'Interactive vehicle fleet telemetry and safety analytics model in Power BI analyzing pre-owned Tesla market valuations, odometer depreciation decay curves, clean title vs prior accident ratios (84.6% clean title), and Autopilot / Full Self-Driving (DAS) adoption across top US state registrations.',
+    highlights: [
+      'Fleet valuation intelligence across Tesla Model 3, Model Y, Model S, Model X, and Cybertruck.',
+      'Accident history correlation tracking % Without Accident vs % With Accident impact on resale prices.',
+      'Depreciation telemetry mapping odometer mileage against residual vehicle equity.',
+      'State-wise density modeling identifying primary registration hubs across California, Texas, and Florida.',
+      'Downloadable .pbix production model ready for exploration in Power BI Desktop.'
+    ],
+    tech: ['Power BI', 'DAX Measures', 'Fleet Telemetry', 'Safety Analytics', 'Pricing Models', 'Automotive BI'],
+    github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects',
+    liveDemo: './powerbi-analytics/index.html#tesla'
+  },
   'quiz-portal': {
     title: 'Student Quiz & Course Learning Portal',
     year: '2026',
