@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
@@ -367,18 +368,38 @@ const server = http.createServer((req, res) => {
 
       const ext = path.extname(targetPath).toLowerCase();
       const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      const mtime = fileStats.mtime.toUTCString();
+
+      // High-speed conditional caching: instant 304 on reload
+      const ifModifiedSince = req.headers['if-modified-since'];
+      if (ifModifiedSince && ifModifiedSince === mtime) {
+        res.writeHead(304, { 'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=86400' });
+        res.end();
+        return;
+      }
 
       // Set caching headers
       const cacheControl = ext === '.html' ? 'no-cache' : 'public, max-age=86400';
+      const acceptEncoding = req.headers['accept-encoding'] || '';
+      const isCompressible = /text|javascript|json|xml|svg/i.test(contentType);
 
-      res.writeHead(200, {
+      const headers = {
         'Content-Type': contentType,
         'Cache-Control': cacheControl,
+        'Last-Modified': mtime,
         'X-Content-Type-Options': 'nosniff'
-      });
+      };
 
-      const stream = fs.createReadStream(targetPath);
-      stream.pipe(res);
+      if (isCompressible && acceptEncoding.includes('gzip')) {
+        headers['Content-Encoding'] = 'gzip';
+        res.writeHead(200, headers);
+        const stream = fs.createReadStream(targetPath);
+        stream.pipe(zlib.createGzip({ level: 6 })).pipe(res);
+      } else {
+        res.writeHead(200, headers);
+        const stream = fs.createReadStream(targetPath);
+        stream.pipe(res);
+      }
     });
   });
 });
