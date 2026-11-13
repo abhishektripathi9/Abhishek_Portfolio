@@ -495,16 +495,16 @@
       <div class="pbi-report-frame">
         <div class="report-frame-head">
           <div class="frame-title">
-            <i data-lucide="car" style="width:18px;height:18px;color:#ef4444;"></i>
-            <span>Car interactive dashboard.pbix &bull; Tesla Fleet Valuation &amp; Safety Telemetry</span>
+            <i data-lucide="file-check-2" style="width:18px;height:18px;color:var(--pbi-yellow);"></i>
+            <span>Car interactive dashboard.pbix &bull; Tesla Stock Sales Analysis &bull; Original Power BI Dashboard View</span>
           </div>
-          <span class="frame-meta-tag">Authentic Power BI Model</span>
+          <span class="frame-meta-tag">Authentic File Screenshot</span>
         </div>
 
-        <div class="report-image-wrap" onclick="openLightbox('../assets/project-tesla-powerbi.jpg')" title="Click to view Full Screen">
+        <div class="report-image-wrap" onclick="openLightbox('../powerbi-projects/tesla_original_dashboard.png')" title="Click to view Full Screen">
           <img
-            src="../assets/project-tesla-powerbi.jpg"
-            alt="Tesla Fleet Valuation Power BI Dashboard View"
+            src="../powerbi-projects/tesla_original_dashboard.png"
+            alt="Tesla Stock Sales Analysis Original Power BI Dashboard Screenshot by Abhishek Tripathi"
             id="img-tesla-main"
           />
         </div>
@@ -513,35 +513,37 @@
       <div class="kpi-metrics-grid">
         <div class="kpi-card">
           <span class="kpi-val">$42.84M</span>
-          <span class="kpi-lbl">Total Fleet Valuation</span>
-          <span class="kpi-sub">DAX: Sum(price) across inventory</span>
+          <span class="kpi-lbl">Total Stock Value</span>
+          <span class="kpi-sub">DAX: Sum of price across inventory</span>
         </div>
         <div class="kpi-card">
           <span class="kpi-val">12.42M mi</span>
           <span class="kpi-lbl">Total Odometer Mileage</span>
-          <span class="kpi-sub">DAX: Sum(odometer)</span>
+          <span class="kpi-sub">DAX: Sum of odometer</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-val">$3.85M</span>
+          <span class="kpi-lbl">Total Financing Volume</span>
+          <span class="kpi-sub">DAX: Sum of EMI across fleet</span>
         </div>
         <div class="kpi-card">
           <span class="kpi-val" style="color:#10b981;">84.6%</span>
           <span class="kpi-lbl">Clean Title (% Without Accident)</span>
-          <span class="kpi-sub">Certified Safe Inventory</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-val" style="color:#ef4444;">15.4%</span>
-          <span class="kpi-lbl">Prior Accident Damage History</span>
-          <span class="kpi-sub">Discount impact telemetry</span>
+          <span class="kpi-sub">Certified safe history ratio</span>
         </div>
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
         <div>
-          <div style="font-weight:700; color:#fff; font-size:0.95rem;">Tesla Automotive Power BI Model</div>
-          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">Complete with Star Schema data model, State-wise pricing, and Autopilot (DAS) analysis.</div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem;">Own Microsoft Power BI Source Model</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">Original .pbix file created by Abhishek Tripathi during Techpile Data Analytics Training.</div>
         </div>
-        <a href="../powerbi-projects/Car%20interactive%20dashboard.pbix" class="pbi-btn-download" download>
-          <i data-lucide="download" style="width:14px;height:14px;"></i>
-          <span>Download Car interactive dashboard.pbix</span>
-        </a>
+        <div style="display:flex; gap:10px;">
+          <a href="../powerbi-projects/Car%20interactive%20dashboard.pbix" class="pbi-btn-download" download>
+            <i data-lucide="download" style="width:14px;height:14px;"></i>
+            <span>Download Car interactive dashboard.pbix</span>
+          </a>
+        </div>
       </div>
     </section>
 

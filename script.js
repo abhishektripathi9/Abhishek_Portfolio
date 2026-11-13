@@ -589,19 +589,20 @@ const projectData = {
     liveDemo: './powerbi-analytics/index.html#flipkart'
   },
   'tesla-powerbi': {
-    title: 'Tesla Automotive Fleet Telemetry & Safety Intelligence',
+    title: 'Tesla Stock Sales Analysis (Model & Price Insights)',
     year: '2026',
     category: 'Power BI & Automotive Analytics',
     image: 'assets/project-tesla-powerbi.jpg',
-    desc: 'Interactive vehicle fleet telemetry and safety analytics model in Power BI analyzing pre-owned Tesla market valuations, odometer depreciation decay curves, clean title vs prior accident ratios (84.6% clean title), and Autopilot / Full Self-Driving (DAS) adoption across top US state registrations.',
+    desc: 'Interactive Power BI business intelligence dashboard developed during Techpile Technology data analytics training (Car interactive dashboard.pbix). Analyzes $42.84M in inventory stock valuation, 12.42M odometer miles, $3.85M EMI financing volume, clean title vs accident ratios (84.6% clean title), and Driver Assistance System (DAS / Autopilot) distribution across US states.',
     highlights: [
-      'Fleet valuation intelligence across Tesla Model 3, Model Y, Model S, Model X, and Cybertruck.',
-      'Accident history correlation tracking % Without Accident vs % With Accident impact on resale prices.',
-      'Depreciation telemetry mapping odometer mileage against residual vehicle equity.',
-      'State-wise density modeling identifying primary registration hubs across California, Texas, and Florida.',
-      'Downloadable .pbix production model ready for exploration in Power BI Desktop.'
+      'Multi-table relational data model connecting "Tesla Stock Dataset" and "Car Models Image" with model image bindings.',
+      'DAX measures calculating total valuation ($42.84M), cumulative odometer mileage (12.42M mi), and EMI financing aggregates ($3.85M).',
+      'Accident telemetry tracking % Without Accident (84.6%) vs % With Accident (15.4%) with conditional safe/accident indicators.',
+      'State-wise clustered bar visualizations mapping inventory volume and mileage distribution across CA, TX, FL, NY, WA, and IL.',
+      'Interactive slicers for Tesla models (Model S, 3, X, Y) and accident history with full canvas cross-filtering.',
+      'Downloadable original .pbix production data model verified under Techpile certification (TechpileST260067).'
     ],
-    tech: ['Power BI', 'DAX Measures', 'Fleet Telemetry', 'Safety Analytics', 'Pricing Models', 'Automotive BI'],
+    tech: ['Power BI', 'DAX Measures', 'Star Schema', 'Fleet Analytics', 'Power Query', 'Business Intelligence'],
     github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects',
     liveDemo: './powerbi-analytics/index.html#tesla'
   },
