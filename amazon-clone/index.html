@@ -2473,6 +2473,23 @@
           </div>
         </div>
 
+        <!-- Interactive Karigar Revenue & Weekly Earnings Chart -->
+        <div class="seller-chart-card">
+          <div class="chart-header">
+            <div>
+              <h3>📈 Weekly Karigar Payouts &amp; Dispatches</h3>
+              <span class="chart-subtitle">Direct artisan earnings (0% commission deducted) over past 7 days</span>
+            </div>
+            <div class="chart-legend">
+              <span class="legend-chip chip-earnings"><span class="legend-color"></span> Net Payouts (₹)</span>
+              <span class="legend-chip chip-orders"><span class="legend-color"></span> Parcels Dispatched</span>
+            </div>
+          </div>
+          <div id="seller-chart-container" class="seller-chart-container">
+            <!-- Dynamically populated SVG Chart -->
+          </div>
+        </div>
+
         <div class="seller-dispatches-card">
           <div class="dispatches-header">
             <h3>🌍 Live Dispatches: Village & Global Deliveries</h3>
@@ -2655,6 +2672,18 @@
     </div>
   </footer>
 
+  <!-- PWA Floating Install Banner -->
+  <aside id="pwa-install-banner" class="pwa-install-banner" role="dialog" aria-label="Install UdaanMart App">
+    <div class="pwa-banner-icon">📱</div>
+    <div class="pwa-banner-content">
+      <div class="pwa-banner-title">Install UdaanMart App</div>
+      <div class="pwa-banner-desc">Instant access to rural artisans &amp; lightning-fast offline browsing</div>
+    </div>
+    <div class="pwa-banner-actions">
+      <button type="button" id="pwa-install-btn" class="pwa-btn-install">Install</button>
+      <button type="button" id="pwa-dismiss-btn" class="pwa-btn-dismiss" aria-label="Dismiss">✕</button>
+    </div>
+  </aside>
 
   <!-- Application Logic Scripts -->
   <script src="js/i18n.js?v=4.0"></script>

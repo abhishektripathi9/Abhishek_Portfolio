@@ -456,14 +456,24 @@ class SearchFilterEngine {
       <article class="prod-card" data-product-id="${prod.id}">
         <div class="prod-card-header">
           ${badgeHtml}
-          <button class="prod-wishlist-btn ${isWish ? 'is-active' : ''}" 
-                  data-wishlist-id="${prod.id}" 
-                  title="${isWish ? 'Remove from Wishlist' : 'Add to Wishlist'}"
-                  aria-label="Save to Wishlist">
-            <svg viewBox="0 0 24 24" width="20" height="20" class="heart-icon">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-          </button>
+          <div class="prod-card-header-actions">
+            <button class="prod-share-btn" 
+                    data-share-id="${prod.id}" 
+                    title="Share via WhatsApp"
+                    aria-label="Share via WhatsApp">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.42 0-2.82-.37-4.06-1.08l-.29-.17-3.11.82.83-3.03-.19-.31a8.214 8.214 0 0 1-1.26-4.47c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.25-1.48-1.39-1.73-.14-.25-.01-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/>
+              </svg>
+            </button>
+            <button class="prod-wishlist-btn ${isWish ? 'is-active' : ''}" 
+                    data-wishlist-id="${prod.id}" 
+                    title="${isWish ? 'Remove from Wishlist' : 'Add to Wishlist'}"
+                    aria-label="Save to Wishlist">
+              <svg viewBox="0 0 24 24" width="18" height="18" class="heart-icon">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div class="prod-card-media" data-action="quickview" data-product-id="${prod.id}">
@@ -578,6 +588,23 @@ class SearchFilterEngine {
         if (targetProd && window.amzCart) {
           const isNowSaved = window.amzCart.toggleWishlist(targetProd);
           btn.classList.toggle('is-active', isNowSaved);
+        }
+      });
+    });
+
+    // WhatsApp 1-Click Share
+    container.querySelectorAll('[data-share-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const prodId = btn.dataset.shareId;
+        const targetProd = this.allProducts.find(p => p.id === prodId);
+        if (targetProd) {
+          const priceFormatted = window.amzApp ? window.amzApp.formatPrice(targetProd.price) : '₹' + targetProd.price;
+          const shareMsg = encodeURIComponent(`✨ Check out this authentic handicraft on UdaanMart: "${targetProd.title}" at only ${priceFormatted}! Dispatched directly from verified rural artisan: ${window.location.href}`);
+          window.open(`https://wa.me/?text=${shareMsg}`, '_blank');
+          if (window.amzCart) {
+            window.amzCart.showToast(`📲 Opening WhatsApp to share "${targetProd.shortTitle || targetProd.title}"...`, 'info');
+          }
         }
       });
     });

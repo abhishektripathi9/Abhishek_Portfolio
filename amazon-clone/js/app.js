@@ -404,7 +404,7 @@ class AmazonApp {
   }
 
   // ==========================================
-  // 9. PROGRESSIVE WEB APP (PWA) READY
+  // 9. PROGRESSIVE WEB APP (PWA) READY & DELIGHT
   // ==========================================
   initPwa() {
     // Register Service Worker
@@ -420,7 +420,7 @@ class AmazonApp {
       });
     }
 
-    // Capture install prompt
+    // Capture install prompt for utility bar button and floating banner
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       this.deferredPrompt = e;
@@ -428,17 +428,146 @@ class AmazonApp {
       if (installBtn) {
         installBtn.style.display = 'inline-flex';
         installBtn.addEventListener('click', () => {
-          installBtn.style.display = 'none';
-          this.deferredPrompt.prompt();
-          this.deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted' && window.amzCart) {
-              window.amzCart.showToast('🎉 Thank you for installing UdaanMart!');
-            }
-            this.deferredPrompt = null;
-          });
+          this.triggerPwaInstall();
         });
       }
+
+      const installBanner = document.getElementById('pwa-install-banner');
+      if (installBanner && !sessionStorage.getItem('udaan_pwa_dismissed')) {
+        installBanner.classList.add('is-visible');
+      }
     });
+
+    // PWA Floating Banner Actions
+    const bannerInstallBtn = document.getElementById('pwa-install-btn');
+    if (bannerInstallBtn) {
+      bannerInstallBtn.addEventListener('click', () => {
+        this.triggerPwaInstall();
+      });
+    }
+
+    const bannerDismissBtn = document.getElementById('pwa-dismiss-btn');
+    if (bannerDismissBtn) {
+      bannerDismissBtn.addEventListener('click', () => {
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) banner.classList.remove('is-visible');
+        sessionStorage.setItem('udaan_pwa_dismissed', 'true');
+      });
+    }
+
+    // Online / Offline Status Detection
+    window.addEventListener('offline', () => {
+      if (window.amzCart) {
+        window.amzCart.showToast('📶 You are browsing offline. Cached craft catalog is available.', 'warning');
+      }
+    });
+
+    window.addEventListener('online', () => {
+      if (window.amzCart) {
+        window.amzCart.showToast('⚡ Back online! Real-time syncing restored.', 'success');
+      }
+    });
+  }
+
+  triggerPwaInstall() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      this.deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted' && window.amzCart) {
+          window.amzCart.showToast('🎉 Thank you for installing UdaanMart!');
+        }
+        this.deferredPrompt = null;
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) banner.classList.remove('is-visible');
+        const installBtn = document.getElementById('btn-pwa-install');
+        if (installBtn) installBtn.style.display = 'none';
+      });
+    } else {
+      if (window.amzCart) {
+        window.amzCart.showToast('📱 To install on Desktop/Mobile: Use browser menu ➔ "Install App" or "Add to Home screen"', 'info');
+      }
+    }
+  }
+
+  // ==========================================
+  // 10. DELIGHT AUDIO SYNTHESIZER & CONFETTI
+  // ==========================================
+  playSuccessChime() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      // Bright pleasant C-major arpeggio (C5, E5, G5, C6)
+      const freqs = [523.25, 659.25, 783.99, 1046.50];
+      freqs.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + idx * 0.08);
+        osc.stop(ctx.currentTime + idx * 0.08 + 0.38);
+      });
+    } catch (e) {
+      // Audio autoplay policy fallback
+    }
+  }
+
+  launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6', '#fcd34d', '#14b8a6'];
+
+    for (let i = 0; i < 90; i++) {
+      particles.push({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 300,
+        y: canvas.height / 3 + (Math.random() - 0.5) * 120,
+        r: Math.random() * 5 + 3,
+        dx: (Math.random() - 0.5) * 16,
+        dy: (Math.random() - 0.7) * 16,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        life: 85
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+
+      particles.forEach(p => {
+        if (p.life > 0) {
+          alive = true;
+          p.x += p.dx;
+          p.y += p.dy;
+          p.dy += 0.32; // Gravity
+          p.life--;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.life / 85;
+          ctx.fill();
+        }
+      });
+
+      if (alive) {
+        requestAnimationFrame(animate);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+      }
+    };
+
+    animate();
   }
 }
 

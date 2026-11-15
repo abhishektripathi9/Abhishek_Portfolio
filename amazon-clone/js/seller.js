@@ -656,6 +656,14 @@ class SellerCentralEngine {
         window.amzCart.showToast(`🎉 Product Published to Live Store! "${newProduct.shortTitle}" is now live with "✨ New Karigar Arrival" badge!`);
       }
 
+      // Trigger Celebration Chime & Confetti for Karigar
+      if (window.amzApp && window.amzApp.playSuccessChime) {
+        window.amzApp.playSuccessChime();
+      }
+      if (window.amzApp && window.amzApp.launchConfetti) {
+        window.amzApp.launchConfetti();
+      }
+
       // Smooth scroll to catalog
       const prodsSection = document.getElementById('products-section');
       if (prodsSection) {
@@ -946,6 +954,61 @@ class SellerCentralEngine {
 
     const ratingEl = document.getElementById('seller-stat-rating');
     if (ratingEl) ratingEl.textContent = '4.9 ★ (100% Positive)';
+
+    // Render Dynamic Weekly Earnings & Payout Chart
+    this.renderEarningsChart(grossSales, orders.length);
+  }
+
+  renderEarningsChart(grossSales, additionalOrders) {
+    const chartContainer = document.getElementById('seller-chart-container');
+    if (!chartContainer) return;
+
+    // 7 Days Weekly Trend with dynamic scaling
+    const days = [
+      { day: 'Mon', revenue: 1850, orders: 4 },
+      { day: 'Tue', revenue: 2400, orders: 6 },
+      { day: 'Wed', revenue: 1950, orders: 5 },
+      { day: 'Thu', revenue: 3100, orders: 8 },
+      { day: 'Fri', revenue: 2800, orders: 7 },
+      { day: 'Sat', revenue: 4200, orders: 11 },
+      { day: 'Sun (Today)', revenue: 3600 + (additionalOrders * 850), orders: 9 + additionalOrders }
+    ];
+
+    const maxRev = Math.max(...days.map(d => d.revenue));
+    const curFormatter = (val) => window.amzApp ? window.amzApp.formatPrice(val) : `₹${val.toLocaleString()}`;
+
+    chartContainer.innerHTML = `
+      <div class="artisan-chart-wrapper">
+        <div class="artisan-chart-bars">
+          ${days.map(d => {
+            const heightPct = Math.min(100, Math.max(18, Math.round((d.revenue / maxRev) * 100)));
+            return `
+              <div class="chart-col">
+                <span class="chart-bar-value">${curFormatter(d.revenue)}</span>
+                <div class="chart-bar-track">
+                  <div class="chart-bar-fill" style="height: ${heightPct}%;" title="${d.day}: ${curFormatter(d.revenue)} (${d.orders} parcels)"></div>
+                </div>
+                <span class="chart-bar-label">${d.day}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="chart-footer-metrics">
+          <div class="metric-pill">
+            <span class="pill-dot green"></span>
+            <span><strong>0% Commission:</strong> ₹0 Platform Fee Deducted</span>
+          </div>
+          <div class="metric-pill">
+            <span class="pill-dot amber"></span>
+            <span><strong>Direct Bank DBT:</strong> 100% Payout Dispatched via NEFT</span>
+          </div>
+          <div class="metric-pill">
+            <span class="pill-dot blue"></span>
+            <span><strong>Logistics Partner:</strong> India Post Speed Post Rural Handover</span>
+          </div>
+        </div>
+      </div>
+    `;
   }
 }
 

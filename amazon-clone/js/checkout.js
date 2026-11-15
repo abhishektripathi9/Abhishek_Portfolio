@@ -573,8 +573,15 @@ class CheckoutEngine {
       };
     }
 
-    // Trigger Confetti Celebration Canvas
-    this.launchConfetti();
+    // Trigger Delight Audio Chime & Confetti Celebration
+    if (window.amzApp && window.amzApp.playSuccessChime) {
+      window.amzApp.playSuccessChime();
+    }
+    if (window.amzApp && window.amzApp.launchConfetti) {
+      window.amzApp.launchConfetti();
+    } else {
+      this.launchConfetti();
+    }
 
     window.amzModal.showModal(successModal);
   }
