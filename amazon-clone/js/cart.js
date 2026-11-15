@@ -55,6 +55,23 @@ class CartEngine {
     }
   }
 
+  // 1-Click wrapper used by static homepage cards & dynamic product triggers
+  addToCart(productOrId, quantity = 1) {
+    let product = productOrId;
+    if (typeof productOrId === 'string' || typeof productOrId === 'number') {
+      product = window.amzStore ? window.amzStore.getProductById(productOrId) : null;
+      if (!product && typeof PRODUCTS_DATA !== 'undefined') {
+        product = PRODUCTS_DATA.find(p => String(p.id) === String(productOrId));
+      }
+    }
+    if (product) {
+      this.addItem(product, quantity);
+      if (window.amzModal && typeof window.amzModal.openCartDrawer === 'function') {
+        window.amzModal.openCartDrawer();
+      }
+    }
+  }
+
   // Add product to cart or increment quantity
   addItem(product, quantity = 1) {
     const existingIndex = this.items.findIndex(item => item.id === product.id);
@@ -68,7 +85,7 @@ class CartEngine {
         fullTitle: product.title,
         price: product.price,
         originalPrice: product.originalPrice,
-        image: product.images[0],
+        image: (Array.isArray(product.images) && product.images[0]) || product.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
         category: product.category,
         isPrime: product.isPrime,
         delivery: product.delivery,

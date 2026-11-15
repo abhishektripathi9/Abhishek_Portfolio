@@ -64,7 +64,9 @@ class UdaanAuthEngine {
     }
     this.applyPortalView();
     this.updateNavbarAuthState();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     if (window.amzApp && window.amzApp.playSuccessChime) {
       window.amzApp.playSuccessChime();
     }
@@ -464,7 +466,9 @@ class UdaanAuthEngine {
     if (window.amzSeller && typeof window.amzSeller.closeModal === 'function') {
       window.amzSeller.closeModal();
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     if (window.amzCart) {
       window.amzCart.showToast('🛍️ Switched back to Buyer Storefront! Happy shopping.', 'info');
     }
