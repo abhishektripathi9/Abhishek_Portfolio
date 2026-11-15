@@ -205,6 +205,11 @@ class UdaanStore {
     return this.getAllProducts().find(p => String(p.id) === String(id));
   }
 
+  getProductStock(id) {
+    const prod = this.getProductById(id);
+    return prod ? (typeof prod.stock === 'number' ? prod.stock : 10) : 0;
+  }
+
   deductStock(productId, quantity = 1) {
     const qty = parseInt(quantity, 10) || 1;
     const customIdx = this.customProducts.findIndex(p => String(p.id) === String(productId));
@@ -537,10 +542,107 @@ class UdaanStore {
     const order = this.orders.find(o => o.orderId === orderId);
     if (!order) return null;
 
+    if (order.status === 'Cancelled') {
+      if (window.amzCart) window.amzCart.showToast(`Cannot pack: Order ${orderId} was cancelled by buyer.`, 'error');
+      return order;
+    }
+
     if (order.currentStep < 2) {
       this.updateOrderStatus(orderId, 'Packed by Karigar', 2, 'Artisan verified & India Post barcode generated');
     }
     return order;
+  }
+
+  cancelOrder(orderId, reason = 'Cancelled by customer') {
+    const order = this.orders.find(o => o.orderId === orderId);
+    if (!order) return null;
+
+    if (order.status === 'Delivered') {
+      if (window.amzCart) {
+        window.amzCart.showToast(`Cannot cancel Order ${orderId}: Package is already delivered.`, 'error');
+      }
+      return order;
+    }
+
+    if (order.status === 'Cancelled') {
+      if (window.amzCart) {
+        window.amzCart.showToast(`Order ${orderId} is already cancelled.`, 'info');
+      }
+      return order;
+    }
+
+    // 1. Restock inventory for all items
+    if (Array.isArray(order.items)) {
+      order.items.forEach(item => {
+        this.restoreStock(item.id, item.quantity || 1);
+      });
+    }
+
+    // 2. Update order status and refund record
+    order.status = 'Cancelled';
+    order.isCancelled = true;
+    order.currentStep = 0;
+    order.trackingStep = 0;
+    order.cancelReason = reason;
+    order.refundRef = `REF-2026-${Math.floor(100000 + Math.random() * 900000)}`;
+    order.refundStatus = '100% Refund Initiated to Source Bank/UPI';
+    order.updatedAt = new Date().toISOString();
+
+    const formattedDate = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const formattedTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+    if (!order.trackingHistory) order.trackingHistory = [];
+    order.trackingHistory.push({
+      step: 0,
+      title: 'Order Cancelled',
+      time: `${formattedDate}, ${formattedTime}`,
+      note: `Cancelled by customer. Reason: "${reason}". 100% Instant Refund initiated (${order.refundRef}). All craft stock restocked.`
+    });
+
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.ORDERS, JSON.stringify(this.orders));
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('udaan:order-updated', { detail: order }));
+    window.dispatchEvent(new CustomEvent('udaan:order-cancelled', { detail: order }));
+
+    if (window.amzCart) {
+      window.amzCart.showToast(`❌ Order #${orderId} cancelled. 100% Refund initiated!`, 'info');
+    }
+
+    return order;
+  }
+
+  restoreStock(productId, quantity = 1) {
+    const qty = parseInt(quantity, 10) || 1;
+    const customIdx = this.customProducts.findIndex(p => String(p.id) === String(productId));
+    if (customIdx !== -1) {
+      const currentStock = typeof this.customProducts[customIdx].stock === 'number' 
+        ? this.customProducts[customIdx].stock 
+        : 10;
+      this.customProducts[customIdx].stock = currentStock + qty;
+      try {
+        localStorage.setItem(this.STORAGE_KEYS.PRODUCTS, JSON.stringify(this.customProducts));
+      } catch (e) {}
+    } else {
+      let stockOverrides = {};
+      try {
+        stockOverrides = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.STOCK_OVERRIDES) || '{}');
+      } catch (e) {}
+      const prod = this.getProductById(productId);
+      const currentStock = typeof stockOverrides[productId] === 'number'
+        ? stockOverrides[productId]
+        : (prod ? (typeof prod.stock === 'number' ? prod.stock : 15) : 10);
+      stockOverrides[productId] = currentStock + qty;
+      try {
+        localStorage.setItem(this.STORAGE_KEYS.STOCK_OVERRIDES, JSON.stringify(stockOverrides));
+      } catch (e) {}
+    }
+
+    if (window.amzSearchFilter && typeof window.amzSearchFilter.applyFilters === 'function') {
+      window.amzSearchFilter.applyFilters();
+    }
+    window.dispatchEvent(new CustomEvent('udaan:stock-updated', { detail: { productId, quantity: qty } }));
   }
 
   // ==========================================

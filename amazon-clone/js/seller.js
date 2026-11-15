@@ -840,7 +840,8 @@ class SellerCentralEngine {
 
     listEl.innerHTML = orders.map(order => {
       const step = order.currentStep || order.trackingStep || 1;
-      const isPacked = step >= 2;
+      const isCancelled = order.status === 'Cancelled';
+      const isPacked = step >= 2 && !isCancelled;
       const buyer = order.deliveryLocation || {};
       const buyerName = window.amzStore.escapeHTML(buyer.name || 'Valued Buyer');
       const buyerCity = window.amzStore.escapeHTML(buyer.city || 'City');
@@ -848,15 +849,21 @@ class SellerCentralEngine {
       const formattedTotal = window.amzApp ? window.amzApp.formatPrice(order.totalAmount || order.total || 0) : `₹${order.totalAmount || order.total}`;
 
       return `
-        <div class="seller-order-card" data-order-id="${order.orderId}">
+        <div class="seller-order-card ${isCancelled ? 'is-cancelled-order' : ''}" data-order-id="${order.orderId}">
           <div class="seller-order-header">
             <div class="order-id-block">
               <span class="seller-order-badge">ORDER #${order.orderId}</span>
               <span class="seller-order-date">📅 ${order.date}</span>
             </div>
-            <div class="seller-order-status-pill status-step-${step}">
-              ${isPacked ? '✅ Dispatched to Speed Post' : '⏳ Awaiting Artisan Packing'}
-            </div>
+            ${isCancelled ? `
+              <div class="seller-order-status-pill status-cancelled" style="background: #fee2e2; color: #991b1b; border: 1px solid rgba(220, 38, 38, 0.4); font-weight: 700;">
+                ❌ Cancelled by Buyer (Restocked)
+              </div>
+            ` : `
+              <div class="seller-order-status-pill status-step-${step}">
+                ${isPacked ? '✅ Dispatched to Speed Post' : '⏳ Awaiting Artisan Packing'}
+              </div>
+            `}
           </div>
 
           <div class="seller-order-grid">
@@ -877,20 +884,31 @@ class SellerCentralEngine {
               <strong class="dest-name">${buyerName}</strong>
               <div class="dest-addr">${window.amzStore.escapeHTML(buyer.address || '')}</div>
               <div class="dest-city"><strong>${buyerCity} (${buyerPin})</strong> • ${window.amzStore.escapeHTML(buyer.phone || '')}</div>
+              ${isCancelled ? `
+                <div style="margin-top: 6px; font-size: 0.8rem; color: #dc2626; font-weight: 600;">
+                  ⚠️ Reason: ${order.cancelReason || 'Cancelled by buyer'}
+                </div>
+              ` : ''}
             </div>
 
             <div class="seller-order-actions">
               <div class="seller-payout-display">
-                <span class="payout-label">Your Net Direct Payout:</span>
-                <span class="payout-amount">${formattedTotal}</span>
-                <span class="payout-status">0% Marketplace Fee Guaranteed</span>
+                <span class="payout-label">${isCancelled ? 'Order Settlement:' : 'Your Net Direct Payout:'}</span>
+                <span class="payout-amount" style="${isCancelled ? 'color: #991b1b;' : ''}">${isCancelled ? '₹0.00 (Refunded)' : formattedTotal}</span>
+                <span class="payout-status">${isCancelled ? 'Craft restocked to inventory' : '0% Marketplace Fee Guaranteed'}</span>
               </div>
-              <button 
-                class="amz-btn amz-btn-primary btn-pack-dispatch ${isPacked ? 'is-fulfilled' : ''}" 
-                onclick="window.amzSeller.handlePackAndPrint('${order.orderId}')"
-              >
-                ${isPacked ? '📄 Reprint India Post Label' : '✅ Pack & Print India Post Label'}
-              </button>
+              ${isCancelled ? `
+                <button class="amz-btn amz-btn-secondary btn-pack-dispatch" disabled style="opacity: 0.55; cursor: not-allowed; border-color: rgba(220, 38, 38, 0.4); color: #991b1b;">
+                  🚫 Cancelled (Do Not Ship)
+                </button>
+              ` : `
+                <button 
+                  class="amz-btn amz-btn-primary btn-pack-dispatch ${isPacked ? 'is-fulfilled' : ''}" 
+                  onclick="window.amzSeller.handlePackAndPrint('${order.orderId}')"
+                >
+                  ${isPacked ? '📄 Reprint India Post Label' : '✅ Pack & Print India Post Label'}
+                </button>
+              `}
             </div>
           </div>
         </div>
@@ -900,6 +918,12 @@ class SellerCentralEngine {
 
   handlePackAndPrint(orderId) {
     if (!window.amzStore) return;
+    const existing = window.amzStore.getOrderById(orderId);
+    if (existing && existing.status === 'Cancelled') {
+      if (window.amzCart) window.amzCart.showToast('This order was cancelled by the buyer. Cannot fulfill.', 'error');
+      return;
+    }
+
     const order = window.amzStore.packAndPrintOrder(orderId);
     if (!order) return;
 

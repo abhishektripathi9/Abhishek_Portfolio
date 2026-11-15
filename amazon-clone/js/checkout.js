@@ -812,6 +812,35 @@ class CheckoutEngine {
     if (invTax) invTax.textContent = '₹0.00 (Inclusive of all taxes)';
     if (invGrandTotal) invGrandTotal.textContent = formattedTotal;
 
+    // Cancellation / Credit Note Banner
+    const isCancelled = order.status === 'Cancelled';
+    const existingBanner = document.getElementById('inv-cancellation-banner');
+    if (existingBanner) existingBanner.remove();
+
+    if (isCancelled) {
+      const banner = document.createElement('div');
+      banner.id = 'inv-cancellation-banner';
+      banner.style.cssText = 'background: #fee2e2; border: 2px dashed #dc2626; border-radius: 8px; padding: 12px 16px; margin: 12px 0 16px; color: #991b1b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;';
+      banner.innerHTML = `
+        <div>
+          <div style="font-size: 1.05rem; font-weight: 800; color: #dc2626; display: flex; align-items: center; gap: 6px;">
+            <span>🚫</span> CREDIT NOTE / ORDER CANCELLED
+          </div>
+          <div style="font-size: 0.82rem; margin-top: 3px; color: #7f1d1d;">
+            Reason: <strong>${window.amzStore.escapeHTML(order.cancelReason || 'Cancelled by buyer')}</strong> • 100% Refund credited
+          </div>
+        </div>
+        <div style="text-align: right; background: white; padding: 6px 12px; border-radius: 6px; border: 1px solid #f87171;">
+          <div style="font-size: 0.7rem; color: #64748b; font-weight: 700;">REFUND REF #</div>
+          <div style="font-size: 0.95rem; font-weight: 800; color: #b91c1c; font-family: monospace;">${order.refundRef || 'REF-INSTANT'}</div>
+        </div>
+      `;
+      const billingRow = modal.querySelector('.inv-billing-row');
+      if (billingRow && billingRow.parentNode) {
+        billingRow.parentNode.insertBefore(banner, billingRow);
+      }
+    }
+
     modal.classList.add('is-open');
     if (overlay) overlay.classList.add('is-open');
   }

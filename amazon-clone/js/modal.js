@@ -757,7 +757,8 @@ class ModalEngine {
 
     listEl.innerHTML = orders.map(order => {
       const step = order.currentStep || order.trackingStep || 1;
-      const isDelivered = step >= 4;
+      const isCancelled = order.status === 'Cancelled';
+      const isDelivered = step >= 4 && !isCancelled;
       const ship = order.deliveryLocation || {};
       const buyerName = window.amzStore.escapeHTML(ship.name || 'Buyer');
       const formattedTotal = window.amzApp ? window.amzApp.formatPrice(order.totalAmount || order.total || 0) : `₹${order.totalAmount || order.total}`;
@@ -771,7 +772,7 @@ class ModalEngine {
       ];
 
       return `
-        <div class="order-card-record" data-order-id="${order.orderId}">
+        <div class="order-card-record ${isCancelled ? 'is-cancelled-order' : ''}" data-order-id="${order.orderId}">
           <div class="order-record-header">
             <div class="order-meta-col">
               <span class="meta-label">ORDER PLACED</span>
@@ -787,24 +788,37 @@ class ModalEngine {
             </div>
             <div class="order-meta-col order-id-col">
               <span class="meta-label">ORDER # ${order.orderId}</span>
-              <span class="tracking-badge status-step-${step}">${order.status}</span>
+              <span class="tracking-badge ${isCancelled ? 'status-cancelled' : `status-step-${step}`}">${order.status}</span>
             </div>
           </div>
 
-          <!-- 4-Stage Visual Progress Stepper -->
-          <div class="order-stepper-wrapper">
-            <div class="order-stepper-bar">
-              <div class="stepper-fill" style="width: ${((step - 1) / 3) * 100}%;"></div>
+          ${isCancelled ? `
+            <!-- Order Cancelled & Refund Banner -->
+            <div class="order-cancelled-banner" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 12px 16px; margin: 14px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <span style="color: #dc2626; font-weight: 800; font-size: 0.92rem;">❌ Order Cancelled</span>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">Reason: ${order.cancelReason || 'Cancelled by buyer'} • Inventory restocked to shop</div>
+              </div>
+              <div style="font-size: 0.8rem; background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-weight: 700;">
+                💰 100% Refund Credited (${order.refundRef || 'REF-INSTANT'})
+              </div>
             </div>
-            <div class="order-stepper-points">
-              ${stepsConfig.map(s => `
-                <div class="stepper-point ${s.num <= step ? 'is-complete' : ''} ${s.num === step ? 'is-current' : ''}">
-                  <div class="point-circle">${s.num <= step ? '✓' : s.num}</div>
-                  <span class="point-label">${s.label}</span>
-                </div>
-              `).join('')}
+          ` : `
+            <!-- 4-Stage Visual Progress Stepper -->
+            <div class="order-stepper-wrapper">
+              <div class="order-stepper-bar">
+                <div class="stepper-fill" style="width: ${((step - 1) / 3) * 100}%;"></div>
+              </div>
+              <div class="order-stepper-points">
+                ${stepsConfig.map(s => `
+                  <div class="stepper-point ${s.num <= step ? 'is-complete' : ''} ${s.num === step ? 'is-current' : ''}">
+                    <div class="point-circle">${s.num <= step ? '✓' : s.num}</div>
+                    <span class="point-label">${s.label}</span>
+                  </div>
+                `).join('')}
+              </div>
             </div>
-          </div>
+          `}
 
           <div class="order-record-body">
             <div class="order-items-strip">
@@ -819,13 +833,20 @@ class ModalEngine {
             <div class="order-tracking-info">
               <div class="tracking-code"><strong>Tracking #:</strong> <code>${order.trackingNumber || 'INP-SPEEDPOST'}</code></div>
               <div class="tracking-estimate">Destination: <strong>${window.amzStore.escapeHTML(ship.city || 'Your Address')} (${window.amzStore.escapeHTML(ship.pincode || '')})</strong></div>
-              <div class="tracking-payment">Payment: <strong>${window.amzStore.escapeHTML(order.paymentMethod || 'UPI')}</strong></div>
+              <div class="tracking-payment">Payment: <strong>${window.amzStore.escapeHTML(order.paymentMethod || 'UPI')}</strong> ${isCancelled ? '<span style="color: #dc2626; font-weight: 700;">(Refunded)</span>' : ''}</div>
             </div>
 
             <div class="order-card-actions">
-              ${!isDelivered ? `
+              ${isCancelled ? `
+                <button class="amz-btn amz-btn-primary btn-buy-again" onclick="window.amzModal.handleBuyAgain('${order.orderId}')">
+                  🔄 Re-order This Item
+                </button>
+              ` : (!isDelivered ? `
                 <button class="amz-btn amz-btn-secondary btn-advance-demo-order" onclick="window.amzStore.advanceOrderStep('${order.orderId}')" title="Advance step for testing">
                   🚚 Advance Delivery Status (Demo)
+                </button>
+                <button class="amz-btn amz-btn-secondary btn-cancel-order" onclick="window.amzModal.confirmCancelOrder('${order.orderId}')" style="color: #dc2626; border-color: rgba(220, 38, 38, 0.4);" title="Cancel this order and get 100% instant refund">
+                  ✕ Cancel Order
                 </button>
               ` : `
                 <span class="delivered-celebration-pill">🎉 Delivered Successfully!</span>
@@ -835,15 +856,43 @@ class ModalEngine {
                 <button class="amz-btn amz-btn-secondary btn-rate-delivered" onclick="window.amzModal.openReviewForOrder('${order.orderId}')">
                   ⭐ Rate &amp; Review
                 </button>
-              `}
+              `)}
               <button class="amz-btn amz-btn-ghost btn-view-invoice-link" onclick="window.amzCheckout.openGSTInvoice(window.amzStore.getOrderById('${order.orderId}'))">
-                📄 View Tax Invoice
+                📄 ${isCancelled ? 'View Cancellation Slip' : 'View Tax Invoice'}
               </button>
             </div>
           </div>
         </div>
       `;
     }).join('');
+  }
+
+  confirmCancelOrder(orderId) {
+    const order = window.amzStore ? window.amzStore.getOrderById(orderId) : null;
+    if (!order) return;
+
+    const reasons = [
+      "Changed my mind / Placed by mistake",
+      "Need to change delivery address or contact number",
+      "Found another craft or better price",
+      "Delivery time is longer than expected"
+    ];
+
+    const promptText = `Are you sure you want to cancel Order #${orderId}?\n\n` +
+      `• 100% Instant Refund will be credited back to your account.\n` +
+      `• Stock will be returned to the artisan's workshop.\n\n` +
+      `Enter reason number or type custom reason:\n` +
+      reasons.map((r, i) => `${i + 1}. ${r}`).join('\n');
+
+    const userReason = prompt(promptText, "1");
+    if (userReason !== null) {
+      const idx = parseInt(userReason, 10);
+      const finalReason = (!isNaN(idx) && reasons[idx - 1]) ? reasons[idx - 1] : (userReason.trim() || reasons[0]);
+      if (window.amzStore) {
+        window.amzStore.cancelOrder(orderId, finalReason);
+      }
+      this.renderOrdersHistory();
+    }
   }
 
   handleBuyAgain(orderId) {
