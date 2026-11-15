@@ -704,7 +704,7 @@ class UdaanI18nEngine {
     this.setTextSafe('.seller-hub-text', dict.seller_hub);
 
     // 2. Subnav links
-    this.setTextSafe('#nav-hamburger-btn span:not(.hamburger-icon-lines)', dict.all_departments);
+    this.setTextSafe('#nav-hamburger-text', dict.all_departments);
     this.setTextSafe('.nav-sub-item[data-filter-category="all"]', dict.all_products);
     this.setTextSafe('.nav-sub-item[data-filter-gender="men"]', dict.men);
     this.setTextSafe('.nav-sub-item[data-filter-gender="women"]', dict.women);
