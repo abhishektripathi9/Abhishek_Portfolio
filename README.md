@@ -50,7 +50,7 @@
 | # | Project | Stack | Overview | Live Links |
 | :-: | :--- | :--- | :--- | :---: |
 | 1 | 🧾 **smartBiz – POS &amp; Inventory System** | React.js &bull; Spring Boot 3 &bull; Java 17 &bull; MySQL &bull; GST | High-speed POS billing with barcode scanner, automated CGST/SGST/IGST tax engine, 80mm thermal &amp; A4 invoices, and Khata ledger. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/smart-billing/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System) |
-| 2 | 🛍️ **E-Commerce Marketplace (Amazon 2.0)** | React.js &bull; Node.js &bull; Express &bull; MySQL &bull; Three.js | Scalable marketplace with dynamic catalogs, persistent cart, 12+ REST APIs, 155k+ PIN village delivery, and instant UPI QR engine. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/amazon-clone/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Amazon-clone-) |
+| 2 | 🛍️ **UdaanMart – Global E-Commerce Platform** | JavaScript ES6+ &bull; Cream Luxury UI &bull; i18n Localization &bull; 155k+ Villages &bull; Express Buy | Ultra-modern global marketplace with cream luxury UI, auto-country language localization (7 languages), 155k+ Indian village & worldwide delivery, and 1-click Express Buy. | [🚀 Live Demo](https://abhishektripathi9.github.io/Amazon-clone-/)<br>[💻 GitHub](https://github.com/abhishektripathi9/Amazon-clone-) |
 | 3 | 🎓 **LearnSphere – Student Quiz Portal** | React.js &bull; Node.js &bull; Express &bull; MySQL &bull; REST APIs | E-learning platform with student auth, dynamic courses, automated quiz evaluation, and sub-100ms state updates. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/quiz-portal/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9) |
 | 4 | 🏛️ **Fortress Banking Management System** | Java &bull; JDBC &bull; MySQL &bull; OOP Architecture &bull; ACID | Desktop &amp; enterprise banking software with MVC patterns, PreparedStatements sanitization, and strict ACID rollbacks. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/banking-system/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9) |
 | 5 | 📜 **BhoomiChain – Land Registry DApp** | Solidity &bull; Ethereum &bull; Web3.js &bull; IPFS &bull; MetaMask | Decentralized, tamper-proof land title registration &amp; ownership transfer with Khasra verification and digital deeds. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/land-registry/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp) |
@@ -77,7 +77,7 @@ Abhishek_Portfolio/
 ├── powerbi-analytics/           # Standalone Interactive Web Analytics Suite (Chart.js)
 ├── powerbi-projects/            # Production Microsoft Power BI (.pbix) Models & Assets
 ├── smart-billing/               # smartBiz POS & GST Billing System (React app)
-├── amazon-clone/                # Amazon 2.0 E-Commerce Marketplace
+├── amazon-clone/                # UdaanMart Global E-Commerce Marketplace
 ├── quiz-portal/                 # LearnSphere Student Quiz Portal
 ├── banking-system/              # Fortress Banking Management System
 ├── land-registry/               # BhoomiChain Web3 Land Registry DApp
