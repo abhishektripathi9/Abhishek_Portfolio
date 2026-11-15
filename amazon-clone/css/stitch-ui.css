@@ -1972,3 +1972,58 @@
     display: none;
   }
 }
+
+/* ==========================================================================
+   CRITICAL MODAL RESET (Stitch UI Cascade Guarantee)
+   ========================================================================== */
+.modal,
+.amz-modal,
+.express-modal-overlay,
+#quickview-modal,
+#checkout-modal,
+#order-success-modal,
+#express-buy-modal,
+#location-modal,
+#orders-wishlist-modal,
+#portfolio-hud-modal,
+#shipping-label-modal,
+#gst-invoice-modal,
+#seller-modal,
+#buyer-auth-modal,
+#seller-auth-modal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(10, 15, 29, 0.72) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 9999 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+.modal.is-open, .modal.active,
+.amz-modal.is-open, .amz-modal.active,
+.express-modal-overlay.is-open, .express-modal-overlay.active,
+#quickview-modal.is-open, #quickview-modal.active,
+#checkout-modal.is-open, #checkout-modal.active,
+#order-success-modal.is-open, #order-success-modal.active,
+#express-buy-modal.is-open, #express-buy-modal.active,
+#location-modal.is-open, #location-modal.active,
+#orders-wishlist-modal.is-open, #orders-wishlist-modal.active,
+#portfolio-hud-modal.is-open, #portfolio-hud-modal.active,
+#shipping-label-modal.is-open, #shipping-label-modal.active,
+#gst-invoice-modal.is-open, #gst-invoice-modal.active,
+#seller-modal.is-open, #seller-modal.active,
+#buyer-auth-modal.is-open, #buyer-auth-modal.active,
+#seller-auth-modal.is-open, #seller-auth-modal.active {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}

@@ -122,7 +122,9 @@ class SearchFilterEngine {
       // Highlight matching terms
       const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
       const highlightedTitle = prod.title.replace(regex, '<mark>$1</mark>');
-      const currentCur = window.amzApp ? window.amzApp.formatPrice(prod.price) : `$${prod.price.toFixed(2)}`;
+      const currentCur = (window.amzApp && typeof window.amzApp.formatPrice === 'function') 
+        ? window.amzApp.formatPrice(prod.price) 
+        : new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round((prod.price || 0) * ((prod.price || 0) < 500 ? 83.5 : 1)));
 
       return `
         <div class="search-suggestion-item" data-product-id="${prod.id}">
@@ -410,8 +412,14 @@ class SearchFilterEngine {
 
   buildProductCardHtml(prod) {
     const isWish = window.amzCart ? window.amzCart.isWishlisted(prod.id) : false;
-    const formattedPrice = window.amzApp ? window.amzApp.formatPrice(prod.price) : `$${prod.price.toFixed(2)}`;
-    const formattedOrigPrice = prod.originalPrice ? (window.amzApp ? window.amzApp.formatPrice(prod.originalPrice) : `$${prod.originalPrice.toFixed(2)}`) : null;
+    const formattedPrice = (window.amzApp && typeof window.amzApp.formatPrice === 'function') 
+      ? window.amzApp.formatPrice(prod.price) 
+      : new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round((prod.price || 0) * ((prod.price || 0) < 500 ? 83.5 : 1)));
+    const formattedOrigPrice = prod.originalPrice 
+      ? ((window.amzApp && typeof window.amzApp.formatPrice === 'function') 
+          ? window.amzApp.formatPrice(prod.originalPrice) 
+          : new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(prod.originalPrice * (prod.originalPrice < 500 ? 83.5 : 1))))
+      : null;
 
     let badgeHtml = '';
     if (prod.badge === '✨ New Karigar Arrival' || prod.badge === 'UdaanMart Karigar' || prod.isRuralKarigar) {

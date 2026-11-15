@@ -15,7 +15,7 @@ class UdaanAuthEngine {
     };
 
     this.defaultBuyer = {
-      isLoggedIn: true,
+      isLoggedIn: false,
       name: 'Abhishek Tripathi',
       phone: '9876543210',
       email: 'abhishek@udaanmart.in',
@@ -28,19 +28,66 @@ class UdaanAuthEngine {
   }
 
   init() {
-    // 1. Ensure initial buyer profile exists for instant demo testing
-    if (!localStorage.getItem(this.STORAGE_KEYS.BUYER)) {
-      this.saveBuyerProfile(this.defaultBuyer);
-    }
-
-    // 2. Bind DOM triggers
+    // 1. Bind DOM triggers
     this.bindBuyerAuthTriggers();
     this.bindSellerAuthTriggers();
     this.bindPortalSwitcher();
 
-    // 3. Sync UI on load
+    // 2. Sync UI on load
     this.updateNavbarAuthState();
     this.applyPortalView();
+
+    // 3. Dual Role Router: Prompt login if unauthenticated; open studio if seller
+    if (!this.isBuyerLoggedIn() && !this.isSellerRegistered()) {
+      setTimeout(() => {
+        if (!document.querySelector('.modal.is-open, .amz-modal.is-open')) {
+          this.openBuyerAuthModal();
+        }
+      }, 350);
+    } else {
+      const portal = this.getActivePortal();
+      if (portal === 'seller') {
+        setTimeout(() => {
+          this.openSellerPortal();
+        }, 400);
+      }
+    }
+  }
+
+  // Dual Role Post-Login Actions
+  loginAsBuyer(profile) {
+    this.setActivePortal('buyer');
+    this.saveBuyerProfile({ ...profile, isLoggedIn: true });
+    this.closeBuyerAuthModal();
+    if (window.amzSeller && typeof window.amzSeller.closeModal === 'function') {
+      window.amzSeller.closeModal();
+    }
+    this.applyPortalView();
+    this.updateNavbarAuthState();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.amzApp && window.amzApp.playSuccessChime) {
+      window.amzApp.playSuccessChime();
+    }
+    if (window.amzCart) {
+      window.amzCart.showToast(`🛍️ Welcome, ${profile.name || 'Valued Buyer'}! You are in Buyer Mode.`, 'info');
+    }
+  }
+
+  loginAsSeller(sellerData) {
+    this.setActivePortal('seller');
+    if (window.amzStore) {
+      window.amzStore.saveSellerProfile(sellerData);
+    }
+    this.closeBuyerAuthModal();
+    this.applyPortalView();
+    this.updateNavbarAuthState();
+    this.openSellerPortal();
+    if (window.amzApp && window.amzApp.playSuccessChime) {
+      window.amzApp.playSuccessChime();
+    }
+    if (window.amzCart) {
+      window.amzCart.showToast(`🏪 Welcome, ${sellerData.shopName || 'Karigar Studio'}! Opening Seller Central...`, 'info');
+    }
   }
 
   // ==========================================================================
@@ -49,9 +96,9 @@ class UdaanAuthEngine {
   getBuyerProfile() {
     try {
       const data = localStorage.getItem(this.STORAGE_KEYS.BUYER);
-      return data ? JSON.parse(data) : this.defaultBuyer;
+      return data ? JSON.parse(data) : { isLoggedIn: false, name: '', phone: '' };
     } catch (e) {
-      return this.defaultBuyer;
+      return { isLoggedIn: false, name: '', phone: '' };
     }
   }
 
@@ -219,7 +266,7 @@ class UdaanAuthEngine {
           return;
         }
 
-        // Verify and log in
+        // Verify and log in as Buyer
         const existing = this.getBuyerProfile() || {};
         const updated = {
           ...existing,
@@ -228,16 +275,7 @@ class UdaanAuthEngine {
           phone: phone,
           avatar: existing.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80'
         };
-        this.saveBuyerProfile(updated);
-
-        if (window.amzApp && window.amzApp.playSuccessChime) {
-          window.amzApp.playSuccessChime();
-        }
-        if (window.amzCart) {
-          window.amzCart.showToast(`🎉 Welcome, ${updated.name}! Successfully signed in.`, 'info');
-        }
-
-        this.closeBuyerAuthModal();
+        this.loginAsBuyer(updated);
       });
     }
 
@@ -257,32 +295,30 @@ class UdaanAuthEngine {
           email: `${name.toLowerCase().replace(/\s+/g, '')}@gmail.com`,
           avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80'
         };
-
-        this.saveBuyerProfile(newProfile);
-
-        if (window.amzApp && window.amzApp.playSuccessChime) {
-          window.amzApp.playSuccessChime();
-        }
-        if (window.amzCart) {
-          window.amzCart.showToast(`✨ Account created successfully! Welcome to UdaanMart, ${name}!`, 'info');
-        }
-
-        this.closeBuyerAuthModal();
+        this.loginAsBuyer(newProfile);
       });
     }
 
-    // 1-Click Demo Login as Abhishek
+    // 1-Click Demo Login as Abhishek (Buyer)
     const btnDemoBuyer = document.getElementById('btn-quick-demo-buyer');
     if (btnDemoBuyer) {
       btnDemoBuyer.addEventListener('click', () => {
-        this.saveBuyerProfile({ ...this.defaultBuyer, isLoggedIn: true });
-        if (window.amzApp && window.amzApp.playSuccessChime) {
-          window.amzApp.playSuccessChime();
-        }
-        if (window.amzCart) {
-          window.amzCart.showToast('⚡ Signed in as Abhishek Tripathi (Demo Buyer)!', 'info');
-        }
-        this.closeBuyerAuthModal();
+        this.loginAsBuyer({ ...this.defaultBuyer, isLoggedIn: true });
+      });
+    }
+
+    // 1-Click Demo Login as Varanasi Guild (Seller)
+    const btnDemoSeller = document.getElementById('btn-quick-demo-seller');
+    if (btnDemoSeller) {
+      btnDemoSeller.addEventListener('click', () => {
+        this.loginAsSeller({
+          shopName: "Varanasi Silk Weaver Guild",
+          ownerName: "Master Weaver Ramkishan",
+          phone: "9876543210",
+          city: "Varanasi, Uttar Pradesh",
+          pincode: "221001",
+          giTag: "GI-IN-UP-0042 (Banarasi Brocade)"
+        });
       });
     }
 
@@ -490,13 +526,42 @@ class UdaanAuthEngine {
   applyPortalView() {
     const portal = this.getActivePortal();
     const sellerBadgePill = document.getElementById('open-seller-hub-btn');
+    const sellerModeBanner = document.getElementById('seller-mode-banner');
+    const shopNameSpan = document.getElementById('seller-mode-shop-name');
 
     if (portal === 'seller') {
       if (document && document.body) document.body.classList.add('seller-mode-active');
       if (sellerBadgePill) sellerBadgePill.classList.add('is-active');
+      if (sellerModeBanner) {
+        sellerModeBanner.style.display = 'block';
+        const sellerProfile = this.getSellerProfile();
+        if (shopNameSpan && sellerProfile) {
+          shopNameSpan.textContent = sellerProfile.shopName || 'Varanasi Silk Weaver Guild';
+        }
+      }
     } else {
       if (document && document.body) document.body.classList.remove('seller-mode-active');
       if (sellerBadgePill) sellerBadgePill.classList.remove('is-active');
+      if (sellerModeBanner) sellerModeBanner.style.display = 'none';
+    }
+
+    // Bind banner buttons if present
+    const btnOpenStudio = document.getElementById('btn-seller-banner-open-studio');
+    if (btnOpenStudio && !btnOpenStudio._bound) {
+      btnOpenStudio._bound = true;
+      btnOpenStudio.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.openSellerPortal();
+      });
+    }
+
+    const btnSwitchBuyer = document.getElementById('btn-seller-banner-switch-buyer');
+    if (btnSwitchBuyer && !btnSwitchBuyer._bound) {
+      btnSwitchBuyer._bound = true;
+      btnSwitchBuyer.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchToStorefront();
+      });
     }
   }
 }

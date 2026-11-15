@@ -20,11 +20,163 @@
   <meta name="theme-color" content="#f59e0b">
 
   <!-- Application Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=3.5">
-  <link rel="stylesheet" href="css/main.css?v=3.5">
-  <link rel="stylesheet" href="css/components.css?v=3.5">
-  <link rel="stylesheet" href="css/modals.css?v=3.5">
-  <link rel="stylesheet" href="css/stitch-ui.css?v=3.5">
+  <link rel="stylesheet" href="css/variables.css?v=5.0">
+  <link rel="stylesheet" href="css/main.css?v=5.0">
+  <link rel="stylesheet" href="css/components.css?v=5.0">
+  <link rel="stylesheet" href="css/modals.css?v=5.0">
+  <link rel="stylesheet" href="css/stitch-ui.css?v=5.0">
+
+  <!-- CRITICAL MODAL & STOREFRONT STYLES (Enforces strict display:none to prevent layout leak) -->
+  <style>
+    .modal,
+    .amz-modal,
+    .express-modal-overlay,
+    #quickview-modal,
+    #checkout-modal,
+    #order-success-modal,
+    #express-buy-modal,
+    #location-modal,
+    #orders-wishlist-modal,
+    #portfolio-hud-modal,
+    #shipping-label-modal,
+    #gst-invoice-modal,
+    #seller-modal,
+    #buyer-auth-modal,
+    #seller-auth-modal {
+      display: none !important;
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(10, 15, 29, 0.72) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      z-index: 9999 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 20px !important;
+      overflow-y: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    .modal.is-open, .modal.active,
+    .amz-modal.is-open, .amz-modal.active,
+    .express-modal-overlay.is-open, .express-modal-overlay.active,
+    #quickview-modal.is-open, #quickview-modal.active,
+    #checkout-modal.is-open, #checkout-modal.active,
+    #order-success-modal.is-open, #order-success-modal.active,
+    #express-buy-modal.is-open, #express-buy-modal.active,
+    #location-modal.is-open, #location-modal.active,
+    #orders-wishlist-modal.is-open, #orders-wishlist-modal.active,
+    #portfolio-hud-modal.is-open, #portfolio-hud-modal.active,
+    #shipping-label-modal.is-open, #shipping-label-modal.active,
+    #gst-invoice-modal.is-open, #gst-invoice-modal.active,
+    #seller-modal.is-open, #seller-modal.active,
+    #buyer-auth-modal.is-open, #buyer-auth-modal.active,
+    #seller-auth-modal.is-open, #seller-auth-modal.active {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    /* Solid Opaque Navigation Header */
+    .nav-header {
+      background-color: #ffffff !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 1000 !important;
+    }
+    [data-theme="dark"] .nav-header {
+      background-color: #0f172a !important;
+    }
+    .nav-sub-bar {
+      background-color: #fdfbf7 !important;
+      border-bottom: 1px solid #ebe4d8 !important;
+      position: relative !important;
+      z-index: 999 !important;
+    }
+    [data-theme="dark"] .nav-sub-bar {
+      background-color: #0d131f !important;
+      border-bottom-color: #1e293b !important;
+    }
+
+    /* Subnav Hamburger Icon */
+    #nav-hamburger-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      cursor: pointer !important;
+      background: transparent !important;
+    }
+    .hamburger-icon-lines {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 3px !important;
+      width: 17px !important;
+    }
+    .hamburger-icon-lines span {
+      display: block !important;
+      height: 2px !important;
+      background-color: #1e293b !important;
+      border-radius: 1px !important;
+    }
+    [data-theme="dark"] .hamburger-icon-lines span {
+      background-color: #f1f5f9 !important;
+    }
+
+    /* Seller Mode Active Banner */
+    .seller-mode-banner {
+      display: none;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      padding: 10px 24px;
+      border-bottom: 2px solid #f59e0b;
+      position: sticky;
+      top: 110px;
+      z-index: 998;
+    }
+    body.seller-mode-active .seller-mode-banner {
+      display: block !important;
+    }
+    .seller-mode-banner-content {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .seller-mode-banner-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .seller-banner-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .seller-banner-btn:hover {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      transform: translateY(-1px);
+    }
+    .seller-banner-btn-ghost {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+    .seller-banner-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+  </style>
 
   <!-- Instant Theme Initializer to prevent flash of wrong theme -->
   <script>
@@ -53,7 +205,7 @@
       </div>
 
       <div class="utility-center">
-        <span>🚚 Fast Express 3-Day &amp; 24h Village Delivery on orders above $49 • 100% Direct Karigar Payouts • 1-Click UPI &amp; RuPay</span>
+        <span>🚚 Free Express Doorstep Delivery on orders above ₹499 • 100% Direct Karigar Payouts • Fast UPI &amp; RuPay</span>
       </div>
 
       <div class="utility-right">
@@ -227,6 +379,21 @@
       </div>
     </nav>
   </header>
+
+  <!-- Persistent Seller Mode Status Banner (Visible when Karigar / Seller Mode is active) -->
+  <aside class="seller-mode-banner" id="seller-mode-banner" style="display: none;" aria-label="Seller Studio Status">
+    <div class="seller-mode-banner-content">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.25rem;">🏪</span>
+        <span><strong>Seller Studio Active:</strong> <span id="seller-mode-shop-name">Varanasi Silk Weaver Guild</span></span>
+        <span class="sub-badge sub-badge-gold" style="margin-left: 8px; font-weight: 800;">0% Commission</span>
+      </div>
+      <div class="seller-mode-banner-actions">
+        <button type="button" class="seller-banner-btn" id="btn-seller-banner-open-studio">🏭 Open Seller Studio</button>
+        <button type="button" class="seller-banner-btn seller-banner-btn-ghost" id="btn-seller-banner-switch-buyer">🛍️ View Buyer Storefront</button>
+      </div>
+    </div>
+  </aside>
 
   <!-- ========================================================================
        4. HERO BANNER SECTION (DARK LUXURY SHOWCASE CARD)
@@ -446,9 +613,9 @@
           <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80" alt="Laptops &amp; Tech" class="flagship-img" loading="lazy" />
         </div>
         <ul class="flagship-item-list">
-          <li class="flagship-item-row"><span class="flagship-item-name">MacBook Pro 16 M3 Max</span><span class="flagship-item-price">From $1,999</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">iPad Air M2 11-inch</span><span class="flagship-item-price">From $599</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">Studio Display Nano-texture</span><span class="flagship-item-price">From $1,299</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">MacBook Pro 16 M3 Max</span><span class="flagship-item-price">From ₹1,49,900</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">iPad Air M2 11-inch</span><span class="flagship-item-price">From ₹59,900</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Studio Display 5K Retina</span><span class="flagship-item-price">From ₹99,900</span></li>
         </ul>
         <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('electronics') : null;">Explore High-Performance Tech →</a>
       </div>
@@ -464,9 +631,9 @@
           <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Audio &amp; Sound" class="flagship-img" loading="lazy" />
         </div>
         <ul class="flagship-item-list">
-          <li class="flagship-item-row"><span class="flagship-item-name">Sony WH-1000XM5 ANC</span><span class="flagship-item-price">$348.00</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">AirPods Max Silver</span><span class="flagship-item-price">$477.00</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">Bose QuietComfort Ultra</span><span class="flagship-item-price">$299.00</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Sony WH-1000XM5 ANC</span><span class="flagship-item-price">₹24,990</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">AirPods Max Silver</span><span class="flagship-item-price">₹44,900</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Bose QuietComfort Ultra</span><span class="flagship-item-price">₹27,900</span></li>
         </ul>
         <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('audio') : null;">Shop ANC &amp; Sound Systems →</a>
       </div>
@@ -482,9 +649,9 @@
           <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Smart Home" class="flagship-img" loading="lazy" />
         </div>
         <ul class="flagship-item-list">
-          <li class="flagship-item-row"><span class="flagship-item-name">Roborock S8 Pro Ultra</span><span class="flagship-item-price">$1,199.00</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">Amazon Echo Studio Hub</span><span class="flagship-item-price">$199.99</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">Philips Hue LightBar Kit</span><span class="flagship-item-price">$129.99</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Roborock S8 Pro Ultra</span><span class="flagship-item-price">₹79,999</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Amazon Echo Studio Hub</span><span class="flagship-item-price">₹19,999</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Philips Hue LightBar Kit</span><span class="flagship-item-price">₹9,999</span></li>
         </ul>
         <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('smarthome') : null;">Explore Smart Automation Hub →</a>
       </div>
@@ -500,9 +667,9 @@
           <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&q=80" alt="Gaming &amp; Style" class="flagship-img" loading="lazy" />
         </div>
         <ul class="flagship-item-list">
-          <li class="flagship-item-row"><span class="flagship-item-name">BenQ ZOWIE 240Hz OLED</span><span class="flagship-item-price">$699.00</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">Ducky One 3 Pro Mini</span><span class="flagship-item-price">$179.00</span></li>
-          <li class="flagship-item-row"><span class="flagship-item-name">Logitech G Pro X Superlight</span><span class="flagship-item-price">$149.99</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">BenQ ZOWIE 240Hz OLED</span><span class="flagship-item-price">₹49,999</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Ducky One 3 Pro Mini</span><span class="flagship-item-price">₹12,499</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Logitech G Pro X Superlight</span><span class="flagship-item-price">₹11,999</span></li>
         </ul>
         <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('gaming') : null;">Shop Gaming &amp; Luxury Workspace →</a>
       </div>
@@ -619,9 +786,9 @@
           <span class="rating-count">4.9 (1,425 reviews)</span>
         </div>
         <div class="trending-prod-price-row">
-          <span class="discount-pill-red">-45%</span>
-          <span class="current-price" data-base-price="129.99">$129.99</span>
-          <span class="original-price" data-base-price="239.00">$239.00</span>
+          <span class="discount-pill-red">-57%</span>
+          <span class="current-price" data-base-price="1499">₹1,499</span>
+          <span class="original-price" data-base-price="3499">₹3,499</span>
         </div>
         <span class="stock-tag">Only 4 left in stock</span>
         <span class="delivery-line"><strong>Prime FREE Delivery</strong> Tomorrow, 11 AM - 3 PM</span>
@@ -653,9 +820,9 @@
           <span class="rating-count">4.8 (872 reviews)</span>
         </div>
         <div class="trending-prod-price-row">
-          <span class="discount-pill-red">-32%</span>
-          <span class="current-price" data-base-price="39.99">$39.99</span>
-          <span class="original-price" data-base-price="59.00">$59.00</span>
+          <span class="discount-pill-red">-52%</span>
+          <span class="current-price" data-base-price="899">₹899</span>
+          <span class="original-price" data-base-price="1899">₹1,899</span>
         </div>
         <span class="stock-tag">Selling fast • 19 remaining</span>
         <span class="delivery-line"><strong>Prime FREE Delivery</strong> Tomorrow, by 2 PM</span>
@@ -687,9 +854,9 @@
           <span class="rating-count">4.9 (2,118 reviews)</span>
         </div>
         <div class="trending-prod-price-row">
-          <span class="discount-pill-red">-12%</span>
-          <span class="current-price" data-base-price="348.00">$348.00</span>
-          <span class="original-price" data-base-price="399.00">$399.00</span>
+          <span class="discount-pill-red">-16%</span>
+          <span class="current-price" data-base-price="24990">₹24,990</span>
+          <span class="original-price" data-base-price="29990">₹29,990</span>
         </div>
         <span class="stock-tag">Price Drop • High Demand</span>
         <span class="delivery-line"><strong>Prime FREE Overnight Delivery</strong> by 8 AM</span>
@@ -723,8 +890,8 @@
         </div>
         <div class="trending-prod-price-row">
           <span class="discount-pill-red">-50%</span>
-          <span class="current-price" data-base-price="119.00">$119.00</span>
-          <span class="original-price" data-base-price="240.00">$240.00</span>
+          <span class="current-price" data-base-price="2499">₹2,499</span>
+          <span class="original-price" data-base-price="4999">₹4,999</span>
         </div>
         <span class="stock-tag">Authentic Batch (Only 2 Left) • 100% Retained</span>
         <span class="delivery-line"><strong>Rural Express Post</strong> Free 2-Day Doorstep Delivery</span>
@@ -1662,7 +1829,7 @@
           <div class="express-prod-details">
             <h4 class="express-prod-title" id="express-prod-title">Product Title</h4>
             <div class="express-price-row">
-              <span class="express-unit-price" id="express-prod-price">$0.00</span>
+              <span class="express-unit-price" id="express-prod-price">₹1,499</span>
               <span class="express-prime-tag"><span class="prime-italic">prime</span></span>
             </div>
             <span class="express-delivery-info" id="express-delivery-text">FREE Delivery Tomorrow</span>
@@ -1905,7 +2072,26 @@
 
         <!-- Auth Form Tabs (shown when not logged in or switching account) -->
         <div id="buyer-auth-form-wrap">
-          <div class="modal-tabs-header" style="margin-bottom: 20px;">
+          <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(217, 119, 6, 0.06)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 18px; margin-bottom: 20px; text-align: center;">
+            <div style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 4px;">नमस्ते! UdaanMart में आपका स्वागत है</div>
+            <p style="font-size: 0.84rem; color: #64748b; margin: 0 0 14px;">Sign in to enjoy 1-click buy, track orders live, and discover authentic Karigar crafts.</p>
+            <div style="display: flex; flex-direction: column; gap: 9px;">
+              <button type="button" class="amz-btn amz-btn-primary" id="btn-quick-demo-buyer" style="width: 100%; padding: 12px; font-size: 0.94rem; justify-content: center; font-weight: 700;">
+                ⚡ 1-Click Instant Login as Abhishek Tripathi (Buyer)
+              </button>
+              <button type="button" class="amz-btn amz-btn-secondary" id="btn-quick-demo-seller" style="width: 100%; padding: 11px; font-size: 0.9rem; justify-content: center; font-weight: 700; border-color: #f59e0b; color: #b45309;">
+                🏪 1-Click Login as Varanasi Weaver Guild (Seller)
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; margin: 16px 0; color: #94a3b8; font-size: 0.8rem; font-weight: 700;">
+            <span style="flex: 1; height: 1px; background: #e2e8f0;"></span>
+            <span style="padding: 0 10px; text-transform: uppercase;">Or Login with Mobile</span>
+            <span style="flex: 1; height: 1px; background: #e2e8f0;"></span>
+          </div>
+
+          <div class="modal-tabs-header" style="margin-bottom: 16px;">
             <button type="button" class="modal-tab-btn is-active" id="tab-btn-buyer-login">
               📱 Mobile &amp; OTP Login
             </button>
@@ -1965,10 +2151,10 @@
             </button>
           </form>
 
-          <!-- Quick 1-Click Demo Login Pill -->
-          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed #dcd4c6; text-align: center;">
-            <button type="button" class="btn-demo-autofill" id="btn-quick-demo-buyer" style="width: 100%; font-size: 0.85rem; padding: 10px;">
-              ⚡ 1-Click Demo Login as Abhishek Tripathi
+          <!-- Continue as Guest Option -->
+          <div style="text-align: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+            <button type="button" class="amz-btn amz-btn-ghost" onclick="window.amzAuth ? window.amzAuth.closeBuyerAuthModal() : null;" style="font-size: 0.84rem; color: #64748b;">
+              Or continue browsing as Guest →
             </button>
           </div>
         </div>
@@ -2607,8 +2793,8 @@
                   <div class="prod-price-row">
                     <span class="prod-discount-tag">-23%</span>
                     <div class="prod-price-box">
-                      <span class="price-current" id="prev-price">$49.99</span>
-                      <span class="price-original" id="prev-orig-price">List: $64.99</span>
+                      <span class="price-current" id="prev-price">₹1,499</span>
+                      <span class="price-original" id="prev-orig-price">List: ₹2,499</span>
                     </div>
                   </div>
 
@@ -2895,15 +3081,15 @@
   </aside>
 
   <!-- Application Logic Scripts -->
-  <script src="js/i18n.js?v=4.0"></script>
-  <script src="js/products-data.js?v=4.0"></script>
-  <script src="js/store.js?v=4.0"></script>
-  <script src="js/auth.js?v=4.0"></script>
-  <script src="js/cart.js?v=4.0"></script>
-  <script src="js/search-filter.js?v=4.0"></script>
-  <script src="js/modal.js?v=4.0"></script>
-  <script src="js/checkout.js?v=4.0"></script>
-  <script src="js/seller.js?v=4.0"></script>
-  <script src="js/app.js?v=4.0"></script>
+  <script src="js/i18n.js?v=5.0"></script>
+  <script src="js/products-data.js?v=5.0"></script>
+  <script src="js/store.js?v=5.0"></script>
+  <script src="js/auth.js?v=5.0"></script>
+  <script src="js/cart.js?v=5.0"></script>
+  <script src="js/search-filter.js?v=5.0"></script>
+  <script src="js/modal.js?v=5.0"></script>
+  <script src="js/checkout.js?v=5.0"></script>
+  <script src="js/seller.js?v=5.0"></script>
+  <script src="js/app.js?v=5.0"></script>
 </body>
 </html>

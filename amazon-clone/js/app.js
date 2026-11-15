@@ -10,6 +10,7 @@
 
 class AmazonApp {
   constructor() {
+    window.amzApp = this;
     this.currentCurrency = localStorage.getItem('amz_currency_v2') || 'INR';
     localStorage.removeItem('amz_theme_v2');
     this.currentTheme = localStorage.getItem('udaan_theme_v1') || 'cream';
@@ -189,12 +190,14 @@ class AmazonApp {
     }
   }
 
-  formatPrice(usdAmount) {
+  formatPrice(amount) {
+    if (typeof amount !== 'number') amount = parseFloat(amount) || 0;
     const cur = (typeof CURRENCIES !== 'undefined' && CURRENCIES[this.currentCurrency]) 
       ? CURRENCIES[this.currentCurrency] 
-      : { code: 'USD', symbol: '$', rate: 1.0 };
+      : { code: 'INR', symbol: '₹', rate: 1.0 };
 
-    const converted = usdAmount * cur.rate;
+    // Standardize to clean Indian Rupee
+    const inrValue = amount >= 500 ? Math.round(amount) : Math.round(amount * 83.5);
 
     try {
       if (this.currentCurrency === 'INR') {
@@ -202,8 +205,11 @@ class AmazonApp {
           style: 'currency',
           currency: 'INR',
           maximumFractionDigits: 0
-        }).format(Math.round(converted));
+        }).format(inrValue);
       }
+
+      const targetRate = (cur.rate || 1.0) / 83.5;
+      const converted = inrValue * targetRate;
 
       if (this.currentCurrency === 'USD') {
         return new Intl.NumberFormat('en-US', {
@@ -236,7 +242,7 @@ class AmazonApp {
     } catch (e) {}
 
     // Fallback
-    return `${cur.symbol}${converted.toFixed(2)}`;
+    return `₹${inrValue.toLocaleString('en-IN')}`;
   }
 
   // ==========================================
