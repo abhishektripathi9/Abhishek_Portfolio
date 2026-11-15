@@ -471,8 +471,26 @@
   box-shadow: 0 16px 40px rgba(10, 15, 25, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.08);
   min-height: 480px;
+}
+
+.hero-luxury-slide {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.02);
+  z-index: 1;
+}
+
+.hero-luxury-slide.is-active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 2;
 }
 
 .hero-luxury-bg-image {
@@ -1850,6 +1868,71 @@
 
 [data-theme="dark"] .footer-bottom-left {
   color: #cbd5e1;
+}
+
+/* Catalog Integration */
+.catalog-section {
+  max-width: 1400px;
+  margin: 0 auto 60px;
+  padding: 0 16px;
+}
+
+.catalog-toolbar {
+  background: #ffffff;
+  border: 1px solid #ebe4d8;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(120, 100, 80, 0.03);
+}
+
+[data-theme="dark"] .catalog-toolbar {
+  background: #151d26;
+  border-color: #263342;
+}
+
+.filter-pill {
+  border-radius: 9999px !important;
+  border: 1px solid #ded5c5 !important;
+  background: #ffffff !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  font-size: 0.8rem !important;
+  transition: all 0.15s ease !important;
+}
+
+.filter-pill:hover,
+.filter-pill.is-active {
+  background: #1e293b !important;
+  color: #ffffff !important;
+  border-color: #1e293b !important;
+}
+
+[data-theme="dark"] .filter-pill:hover,
+[data-theme="dark"] .filter-pill.is-active {
+  background: #f59e0b !important;
+  color: #0f172a !important;
+  border-color: #f59e0b !important;
+}
+
+.prod-card {
+  background: #ffffff !important;
+  border: 1px solid #ebe4d8 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 8px rgba(120, 100, 80, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="dark"] .prod-card {
+  background: #151d26 !important;
+  border-color: #263342 !important;
+}
+
+.prod-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 28px rgba(120, 100, 80, 0.1) !important;
+  border-color: #f59e0b !important;
 }
 
 /* Responsive Rules */

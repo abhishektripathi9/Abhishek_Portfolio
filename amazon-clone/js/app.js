@@ -24,6 +24,7 @@ class AmazonApp {
     this.initThemeToggle();
     this.initBackToTop();
     this.initPortfolioHud();
+    this.initStitchInteractions();
 
     // Initialize search filter engine after DOM ready
     if (window.amzSearchFilter) {
@@ -35,27 +36,11 @@ class AmazonApp {
   // 1. HERO CAROUSEL CONTROLS
   // ==========================================
   initHeroCarousel() {
-    const slides = document.querySelectorAll('.hero-slide');
+    const slides = document.querySelectorAll('.hero-luxury-slide, .hero-slide');
     if (slides.length === 0) return;
 
     const prevBtn = document.getElementById('hero-prev-btn');
     const nextBtn = document.getElementById('hero-next-btn');
-    const dotsContainer = document.getElementById('hero-dots-container');
-
-    // Generate dots
-    if (dotsContainer) {
-      dotsContainer.innerHTML = Array.from(slides).map((_, i) => `
-        <button class="hero-dot ${i === 0 ? 'is-active' : ''}" data-slide-index="${i}" aria-label="Slide ${i + 1}"></button>
-      `).join('');
-
-      dotsContainer.querySelectorAll('.hero-dot').forEach(dot => {
-        dot.addEventListener('click', () => {
-          const index = parseInt(dot.dataset.slideIndex, 10);
-          this.goToSlide(index);
-          this.restartCarouselTimer();
-        });
-      });
-    }
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
@@ -82,8 +67,8 @@ class AmazonApp {
   }
 
   goToSlide(index) {
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.hero-dot');
+    const slides = document.querySelectorAll('.hero-luxury-slide, .hero-slide');
+    if (slides.length === 0) return;
 
     if (index >= slides.length) index = 0;
     if (index < 0) index = slides.length - 1;
@@ -92,10 +77,6 @@ class AmazonApp {
 
     slides.forEach((slide, i) => {
       slide.classList.toggle('is-active', i === index);
-    });
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('is-active', i === index);
     });
   }
 
@@ -302,6 +283,79 @@ class AmazonApp {
         }
       });
     }
+  }
+
+  // ==========================================
+  // 7. STITCH UI ENHANCED MICRO-INTERACTIONS
+  // ==========================================
+  initStitchInteractions() {
+    // 1. Voice Search Web Speech API
+    const voiceBtn = document.getElementById('voice-search-btn');
+    if (voiceBtn) {
+      voiceBtn.addEventListener('click', () => {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'en-US';
+          recognition.onstart = () => {
+            if (window.amzCart) window.amzCart.showToast('🎙️ Listening... please speak your search', 'info');
+          };
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            const searchInput = document.getElementById('navbar-search-input');
+            if (searchInput) {
+              searchInput.value = transcript;
+              if (window.amzSearchFilter) window.amzSearchFilter.applyFilters();
+            }
+            if (window.amzCart) window.amzCart.showToast(`Searched for: "${transcript}"`, 'success');
+          };
+          recognition.onerror = () => {
+            if (window.amzCart) window.amzCart.showToast('🎙️ Microphone ready. Please try again.', 'info');
+          };
+          recognition.start();
+        } else {
+          if (window.amzCart) window.amzCart.showToast('🎙️ Voice Search is ready! Please type or speak your query.', 'info');
+        }
+      });
+    }
+
+    // 2. Trending Recommendations Tabs Filtering
+    const trendingTabs = document.querySelectorAll('.trending-tab-btn');
+    const trendingCards = document.querySelectorAll('.trending-prod-card');
+
+    trendingTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        trendingTabs.forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+
+        const filter = tab.textContent.trim().toLowerCase();
+        trendingCards.forEach(card => {
+          const cat = (card.querySelector('.trending-prod-cat')?.textContent || '').toLowerCase();
+          if (filter.includes('all')) {
+            card.style.display = 'flex';
+          } else if (filter.includes('footwear') && cat.includes('footwear')) {
+            card.style.display = 'flex';
+          } else if (filter.includes('apparel') && (cat.includes('fashion') || cat.includes('clothing'))) {
+            card.style.display = 'flex';
+          } else if (filter.includes('electronics') && (cat.includes('audio') || cat.includes('electronics'))) {
+            card.style.display = 'flex';
+          } else if (filter.includes('artisan') && (cat.includes('heritage') || cat.includes('karigar'))) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 3. Flagship Category Filter Pills
+    const flagshipPills = document.querySelectorAll('.flagship-pill');
+    flagshipPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        flagshipPills.forEach(p => p.classList.remove('is-active'));
+        pill.classList.add('is-active');
+      });
+    });
   }
 }
 

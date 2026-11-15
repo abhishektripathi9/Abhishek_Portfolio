@@ -10,10 +10,10 @@
   <meta name="keywords" content="UdaanMart, E-Commerce, Online Shopping, Vanilla JS, Fast Delivery, Marketplace">
   <meta name="author" content="UdaanMart">
 
-  <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+  <!-- Google Fonts: Plus Jakarta Sans (ultra-clean display), Outfit & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Application Stylesheets -->
   <link rel="stylesheet" href="css/variables.css?v=3.5">
@@ -215,39 +215,117 @@
        ======================================================================== -->
   <section class="hero-stitch-container" aria-label="UdaanMart Hero Showcase">
     <div class="hero-luxury-card" id="hero-carousel">
-      <img 
-        src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=1600&q=80" 
-        alt="Artisan Craftsmanship &amp; Modern Lifestyle" 
-        class="hero-luxury-bg-image" 
-      />
-      <div class="hero-luxury-content">
-        <div class="hero-badge-row">
-          <span class="hero-gold-chip">✨ UDAAN CURATED • FESTIVE COLLECTION 2026</span>
-          <span class="hero-location-chip">📍 Direct Palanpur, Gujarat</span>
-        </div>
-        <h1 class="hero-headline">Where Heritage Craft Meets Cutting-Edge Lifestyle.</h1>
-        <p class="hero-subheadline">
-          Discover 14,000+ verified rural artisans, Kutch mirror hand-hammered metals alongside high-performance Apple silicon and studio audio fidelity.
-        </p>
-        <div class="hero-actions-row">
-          <a href="#heritage-showcase" class="hero-btn-primary">
-            Shop Premium Karigar (50% Off Welcome)
-          </a>
-          <a href="#curated-flagships" class="hero-btn-secondary">
-            Explore Studio Tech &amp; Gadgets
-          </a>
-        </div>
-        <div class="hero-guarantee-pill">
-          <span>🔒 14-day zero-hassle exchange &amp; trials</span>
-        </div>
-        <div class="hero-stats-ticker">
-          <span><strong>14,200+</strong> Verified Artisans</span>
-          <span class="ticker-dot">•</span>
-          <span><strong>155k+</strong> Pan-India Pincodes</span>
-          <span class="ticker-dot">•</span>
-          <span><strong>14 Million</strong> Free Next-Day Cart</span>
+      <!-- Slide 1: Festive Collection (Exact Stitch Screen) -->
+      <div class="hero-luxury-slide is-active">
+        <img 
+          src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=1600&q=80" 
+          alt="Artisan Craftsmanship &amp; Modern Lifestyle" 
+          class="hero-luxury-bg-image" 
+        />
+        <div class="hero-luxury-content">
+          <div class="hero-badge-row">
+            <span class="hero-gold-chip">✨ UDAAN CURATED • FESTIVE COLLECTION 2026</span>
+            <span class="hero-location-chip">📍 Direct Palanpur, Gujarat</span>
+          </div>
+          <h1 class="hero-headline">Where Heritage Craft Meets Cutting-Edge Lifestyle.</h1>
+          <p class="hero-subheadline">
+            Discover 14,000+ verified rural artisans, Kutch mirror hand-hammered metals alongside high-performance Apple silicon and studio audio fidelity.
+          </p>
+          <div class="hero-actions-row">
+            <a href="#heritage-showcase" class="hero-btn-primary">
+              Shop Premium Karigar (50% Off Welcome)
+            </a>
+            <a href="#curated-flagships" class="hero-btn-secondary">
+              Explore Studio Tech &amp; Gadgets
+            </a>
+          </div>
+          <div class="hero-guarantee-pill">
+            <span>🔒 14-day zero-hassle exchange &amp; trials</span>
+          </div>
+          <div class="hero-stats-ticker">
+            <span><strong>14,200+</strong> Verified Artisans</span>
+            <span class="ticker-dot">•</span>
+            <span><strong>155k+</strong> Pan-India Pincodes</span>
+            <span class="ticker-dot">•</span>
+            <span><strong>14 Million</strong> Free Next-Day Cart</span>
+          </div>
         </div>
       </div>
+
+      <!-- Slide 2: High-Performance Tech & Audio -->
+      <div class="hero-luxury-slide">
+        <img 
+          src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=1600&q=80" 
+          alt="High-Performance Tech &amp; Studio Audio" 
+          class="hero-luxury-bg-image" 
+        />
+        <div class="hero-luxury-content">
+          <div class="hero-badge-row">
+            <span class="hero-gold-chip" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff;">⚡ FLAGSHIP SAVINGS • UP TO 60% OFF</span>
+            <span class="hero-location-chip">📍 Silicon Dispatch Hub</span>
+          </div>
+          <h2 class="hero-headline">Next-Level Computing &amp; Studio Hi-Fi Sound.</h2>
+          <p class="hero-subheadline">
+            Experience M3 Max MacBook Pros, 4K 240Hz OLED displays, and noise-cancelling spatial headphones with free next-day express delivery.
+          </p>
+          <div class="hero-actions-row">
+            <a href="#curated-flagships" class="hero-btn-primary" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff;">
+              Explore Flagship Tech →
+            </a>
+            <a href="#trending-section" class="hero-btn-secondary">
+              View Lightning Deals
+            </a>
+          </div>
+          <div class="hero-guarantee-pill">
+            <span>⚡ Same-Day Dispatch &amp; Doorstep Delivery Guarantee</span>
+          </div>
+          <div class="hero-stats-ticker">
+            <span><strong>Sub-100ms</strong> Latency Audio</span>
+            <span class="ticker-dot">•</span>
+            <span><strong>4K 240Hz</strong> Quantum OLED</span>
+            <span class="ticker-dot">•</span>
+            <span><strong>1-Click</strong> Instant UPI Buy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: UdaanMart Karigar Master Weavers -->
+      <div class="hero-luxury-slide">
+        <img 
+          src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&q=80" 
+          alt="UdaanMart Karigar Rural Handlooms" 
+          class="hero-luxury-bg-image" 
+        />
+        <div class="hero-luxury-content">
+          <div class="hero-badge-row">
+            <span class="hero-gold-chip" style="background: linear-gradient(135deg, #059669, #047857); color: #ffffff;">🇮🇳 UDAANMART KARIGAR • 100% DIRECT PAYOUTS</span>
+            <span class="hero-location-chip">📍 Varanasi, Uttar Pradesh</span>
+          </div>
+          <h2 class="hero-headline">Authentic Indian Handlooms Handcrafted with Soul.</h2>
+          <p class="hero-subheadline">
+            Direct from 5th-generation Varanasi silk weavers, Jaipur blue potters, and Kolhapur leather artisans with Silk Mark authenticity certificates.
+          </p>
+          <div class="hero-actions-row">
+            <button type="button" class="hero-btn-primary" style="background: linear-gradient(135deg, #059669, #047857); color: #ffffff;" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null;">
+              Support Rural Karigars →
+            </button>
+            <a href="#heritage-showcase" class="hero-btn-secondary">
+              Discover Artisan Stories
+            </a>
+          </div>
+          <div class="hero-guarantee-pill">
+            <span>🌿 100% Pure Mulberry Silk &amp; Certified Handcrafted</span>
+          </div>
+          <div class="hero-stats-ticker">
+            <span><strong>155,000+</strong> Indian Villages Covered</span>
+            <span class="ticker-dot">•</span>
+            <span><strong>Zero</strong> Intermediary Markups</span>
+            <span class="ticker-dot">•</span>
+            <span><strong>GI-Tag</strong> Provenance</span>
+          </div>
+        </div>
+      </div>
+
       <button class="hero-arrow-nav hero-arrow-prev" id="hero-prev-btn" aria-label="Previous Slide">‹</button>
       <button class="hero-arrow-nav hero-arrow-next" id="hero-next-btn" aria-label="Next Slide">›</button>
     </div>
