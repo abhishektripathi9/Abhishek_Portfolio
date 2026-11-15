@@ -1,22 +1,18 @@
 /**
- * UDAANMART - SELLER CENTRAL & RURAL ARTISAN HUB ENGINE
- * Interactive Merchant Portal allowing sellers & rural artisans to:
- * 1. Ultra-easy product upload with Drag-and-Drop, Photo Chips, and Smart AI Templates
- * 2. Live real-time Buyer's View product card preview
- * 3. Manage real-time inventory and pricing
- * 4. Track sales analytics and village / global city order dispatches
- * 5. Access the UdaanMart Karigar Rural Artisan Program
+ * UDAANMART - SELLER CENTRAL & RURAL ARTISAN HUB ENGINE (js/seller.js)
+ * PILLAR 2: "3-Click Easy Dukaan" for Rural Artisans & Merchants
+ * 1. Bilingual Voice-to-Fill Product Form (hi-IN & en-IN Web Speech API)
+ * 2. 1-Tap Smart Description Chips for zero-typing highlight bullet generation
+ * 3. Direct Photo Upload with HTML5 Canvas Compression + Real-Time Card Preview
+ * 4. Live "Aapki Kamai" (Net Karigar Payout) Breakdown Card
+ * 5. 1-Click Order Fulfillment & Printable India Post Shipping Label with Barcode
+ * 6. Real-time Inventory & Delisting linked to amzStore
  */
 
 class SellerCentralEngine {
   constructor() {
     this.activeTab = 'list';
-    this.stats = {
-      grossSales: 14850.00,
-      totalOrders: 312,
-      activeListings: PRODUCTS_DATA.length,
-      rating: 4.9
-    };
+    this.currentSelectedOrder = null;
 
     // Predefined high-quality Smart Category Templates for 1-Click Fill
     this.smartTemplates = {
@@ -28,52 +24,19 @@ class SellerCentralEngine {
         price: 69.99,
         stock: 35,
         image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
-        features: "High-density responsive air cushion sole\nBreathable honeycomb mesh knit upper\nAnti-slip textured rubber outsole for all terrains",
+        features: "• High-density responsive air cushion sole\n• Breathable honeycomb mesh knit upper\n• Anti-slip textured rubber outsole for all terrains\n• 7-Day Easy Replacement Guarantee",
         isKarigar: false
       },
       saree: {
-        title: "UdaanMart Karigar Handcrafted Pure Chanderi Silk Zari Saree from Madhya Pradesh",
-        shortTitle: "Artisan Chanderi Silk Zari Saree",
+        title: "UdaanMart Karigar Handcrafted Pure Banarasi Silk Zari Saree from Varanasi",
+        shortTitle: "Artisan Banarasi Silk Zari Saree",
         category: "clothing",
         gender: "women",
         price: 119.00,
         stock: 15,
         image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
-        features: "Woven by traditional rural weavers under UdaanMart Karigar cluster\n100% Pure certified natural silk with metallic golden border\nIncludes matching unstitched blouse piece (0.8m)",
+        features: "• 100% GI-Tag Certified Varanasi Handloom\n• Handcrafted Direct from Weaver guild in Kashi\n• Pure Natural Silk with pure golden Zari palla\n• Includes matching 0.8m unstitched blouse piece\n• Zero-Hassle 7-Day Return Guarantee",
         isKarigar: true
-      },
-      watch: {
-        title: "Men's Luxury Sapphire Stainless Steel Automatic Chronograph Watch",
-        shortTitle: "Men's Automatic Chronograph Watch",
-        category: "fashion",
-        gender: "men",
-        price: 149.99,
-        stock: 20,
-        image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80",
-        features: "Water resistant to 100M with screw-down crown\nJapanese 24-jewel automatic movement\nScratch-resistant sapphire crystal glass",
-        isKarigar: false
-      },
-      handbag: {
-        title: "Women's Luxury Italian Quilted Crossbody Handbag with Gold Chain",
-        shortTitle: "Women's Quilted Leather Handbag",
-        category: "fashion",
-        gender: "women",
-        price: 89.99,
-        stock: 22,
-        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
-        features: "100% Genuine Italian pebble leather with diamond quilt\nTarnish-resistant 24K gold PVD coated turn-lock clasp\nDual interior compartments with zippered RFID security pouch",
-        isKarigar: false
-      },
-      earbuds: {
-        title: "Pro Wireless Noise-Canceling Earbuds with Spatial 3D Sound & 40H Battery",
-        shortTitle: "Pro Wireless ANC Earbuds",
-        category: "audio",
-        gender: "unisex",
-        price: 49.99,
-        stock: 50,
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
-        features: "Active Noise Cancellation (ANC) with transparency mode\nBluetooth 5.3 with ultra-low latency gaming audio\nIPX7 sweatproof and water-resistant rating",
-        isKarigar: false
       },
       pottery: {
         title: "UdaanMart Karigar Handcrafted Terracotta Blue Pottery Ceramic Tableware Set from Jaipur",
@@ -81,9 +44,31 @@ class SellerCentralEngine {
         category: "kitchen",
         gender: "unisex",
         price: 39.99,
-        stock: 18,
+        stock: 20,
         image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80",
-        features: "100% Lead-free traditional quartz stone glaze by master potters\nMicrowave & dishwasher safe natural ceramic\nDirect rural doorstep pickup empowering cottage craft guilds",
+        features: "• 100% GI-Tag Certified Jaipur Craft\n• Lead-free natural quartz stone glaze by master potters\n• Microwave & dishwasher safe artisanal stoneware\n• Direct rural doorstep pickup empowering cottage craft guilds",
+        isKarigar: true
+      },
+      watch: {
+        title: "Men's Luxury Sapphire Stainless Steel Automatic Chronograph Watch",
+        shortTitle: "Automatic Chronograph Watch",
+        category: "fashion",
+        gender: "men",
+        price: 149.99,
+        stock: 18,
+        image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80",
+        features: "• Water resistant to 100M with screw-down crown\n• Japanese 24-jewel automatic movement\n• Scratch-resistant sapphire crystal glass face",
+        isKarigar: false
+      },
+      chappal: {
+        title: "UdaanMart Karigar Authentic Hand-Stitched Kolhapuri Leather Chappals",
+        shortTitle: "Authentic Kolhapuri Leather Chappals",
+        category: "clothing",
+        gender: "unisex",
+        price: 49.00,
+        stock: 25,
+        image: "https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=800&q=80",
+        features: "• 100% GI-Tag Certified Kolhapur Footwear\n• Handcrafted from vegetable-tanned genuine leather\n• Traditional braided cord straps with anti-slip heel\n• Direct support to rural cobbler guilds of Maharashtra",
         isKarigar: true
       }
     };
@@ -92,16 +77,33 @@ class SellerCentralEngine {
   init() {
     this.bindTriggers();
     this.bindTabs();
+    this.bindVoiceRecognition();
+    this.bindDescriptionChips();
     this.bindSmartTemplates();
     this.bindImageUploader();
     this.bindPhotoChips();
     this.bindLivePreviewSync();
+    this.bindAapkiKamaiCalculator();
     this.bindListingForm();
-    this.renderInventoryTable();
-    this.renderAnalytics();
-    this.updateLivePreview();
+    this.bindShippingLabelModal();
+
+    // Listen for order updates from Store
+    window.addEventListener('udaan:order-created', () => {
+      if (this.activeTab === 'incoming-orders') {
+        this.renderIncomingOrders();
+      }
+    });
+
+    window.addEventListener('udaan:order-updated', () => {
+      if (this.activeTab === 'incoming-orders') {
+        this.renderIncomingOrders();
+      }
+    });
   }
 
+  // ==========================================================================
+  // MODAL TRIGGERS & NAVIGATION
+  // ==========================================================================
   bindTriggers() {
     const triggers = [
       document.getElementById('open-seller-hub-btn'),
@@ -127,15 +129,17 @@ class SellerCentralEngine {
     }
 
     const closeBtn = document.getElementById('seller-modal-close');
-    const overlay = document.getElementById('global-overlay');
-
     if (closeBtn) {
       closeBtn.addEventListener('click', () => this.closeModal());
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isModalOpen()) {
-        this.closeModal();
+      if (e.key === 'Escape') {
+        if (this.isShippingLabelModalOpen()) {
+          this.closeShippingLabelModal();
+        } else if (this.isModalOpen()) {
+          this.closeModal();
+        }
       }
     });
   }
@@ -145,11 +149,9 @@ class SellerCentralEngine {
     const overlay = document.getElementById('global-overlay');
     if (!modal) return;
 
-    this.stats.activeListings = PRODUCTS_DATA.length;
-    this.renderInventoryTable();
-    this.renderAnalytics();
     this.switchTab(tab);
     this.updateLivePreview();
+    this.updateAapkiKamai();
 
     modal.classList.add('is-open');
     if (overlay) overlay.classList.add('is-open');
@@ -162,7 +164,7 @@ class SellerCentralEngine {
     if (!modal) return;
 
     modal.classList.remove('is-open');
-    if (overlay && !document.querySelector('.amz-modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
+    if (overlay && !document.querySelector('.amz-modal.is-open:not(#seller-modal), .modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
       overlay.classList.remove('is-open');
     }
     document.body.style.overflow = '';
@@ -199,9 +201,332 @@ class SellerCentralEngine {
       this.renderInventoryTable();
     } else if (tab === 'analytics') {
       this.renderAnalytics();
+    } else if (tab === 'incoming-orders') {
+      this.renderIncomingOrders();
     } else if (tab === 'list') {
       this.updateLivePreview();
+      this.updateAapkiKamai();
     }
+  }
+
+  // ==========================================================================
+  // 1. VOICE-TO-FILL SPEECH ENGINE (hi-IN & en-IN)
+  // ==========================================================================
+  bindVoiceRecognition() {
+    const voiceBtn = document.getElementById('seller-title-voice-btn');
+    if (!voiceBtn) return;
+
+    voiceBtn.addEventListener('click', () => {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        if (window.amzCart) window.amzCart.showToast('🎤 Web Speech API is not supported in this browser. Please type directly.', 'info');
+        return;
+      }
+
+      try {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'hi-IN'; // Default to Hindi-friendly recognition
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        voiceBtn.classList.add('is-listening');
+        if (window.amzCart) window.amzCart.showToast('🎙️ Bolie... Apne product ka naam batayein (Listening...)', 'info');
+
+        recognition.onstart = () => {
+          voiceBtn.setAttribute('title', 'Listening... बोलिए');
+        };
+
+        recognition.onresult = (event) => {
+          voiceBtn.classList.remove('is-listening');
+          const spoken = event.results[0][0].transcript;
+          const titleInput = document.getElementById('seller-prod-title');
+          if (titleInput) {
+            titleInput.value = spoken;
+            this.updateLivePreview();
+          }
+          if (window.amzCart) window.amzCart.showToast(`🎤 Voice Captured: "${spoken}"`, 'success');
+        };
+
+        recognition.onerror = () => {
+          voiceBtn.classList.remove('is-listening');
+          if (window.amzCart) window.amzCart.showToast('🎙️ Microphone ready. Please try speaking again.', 'info');
+        };
+
+        recognition.onend = () => {
+          voiceBtn.classList.remove('is-listening');
+        };
+
+        recognition.start();
+      } catch (err) {
+        voiceBtn.classList.remove('is-listening');
+        console.warn('Speech recognition error:', err);
+      }
+    });
+  }
+
+  // ==========================================================================
+  // 2. 1-TAP SMART DESCRIPTION CHIPS (Zero Typing Needed)
+  // ==========================================================================
+  bindDescriptionChips() {
+    const chipBtns = document.querySelectorAll('.smart-desc-chip');
+    const featuresInput = document.getElementById('seller-prod-features');
+
+    chipBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.dataset.chipText || btn.textContent.trim();
+        if (!featuresInput) return;
+
+        let currentVal = featuresInput.value.trim();
+        const bullet = `• ${text}`;
+
+        if (!currentVal.includes(text)) {
+          featuresInput.value = currentVal ? `${currentVal}\n${bullet}` : bullet;
+          btn.classList.add('is-selected');
+          if (window.amzCart) window.amzCart.showToast(`✨ Added highlight: "${text}"`, 'info');
+        } else {
+          // Toggle off
+          featuresInput.value = currentVal
+            .split('\n')
+            .filter(line => !line.includes(text))
+            .join('\n');
+          btn.classList.remove('is-selected');
+        }
+      });
+    });
+  }
+
+  // ==========================================================================
+  // 3. IMAGE UPLOADER WITH HTML5 CANVAS COMPRESSION
+  // ==========================================================================
+  bindImageUploader() {
+    const dropzone = document.getElementById('seller-dropzone');
+    const fileInput = document.getElementById('seller-image-file');
+    const removeBtn = document.getElementById('seller-remove-photo-btn');
+    const urlInput = document.getElementById('seller-prod-image');
+
+    if (fileInput) {
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          this.compressAndProcessImage(file);
+        }
+      });
+    }
+
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('is-dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('is-dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          this.compressAndProcessImage(file);
+        }
+      });
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        if (fileInput) fileInput.value = '';
+        const defaultImg = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80";
+        if (urlInput) urlInput.value = defaultImg;
+        this.hideImagePreview();
+        this.updateLivePreview();
+      });
+    }
+  }
+
+  compressAndProcessImage(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        // High quality canvas compression (max 800px width/height)
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        const maxDim = 800;
+
+        if (width > height && width > maxDim) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else if (height > maxDim) {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert to compressed jpeg data URL
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+
+        const urlInput = document.getElementById('seller-prod-image');
+        if (urlInput) urlInput.value = compressedDataUrl;
+
+        this.showImagePreview(compressedDataUrl);
+        this.updateLivePreview();
+
+        if (window.amzCart) {
+          window.amzCart.showToast("📷 Photo optimized and ready for live listing!");
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  showImagePreview(src) {
+    const promptEl = document.getElementById('seller-dropzone-prompt');
+    const previewEl = document.getElementById('seller-image-preview');
+    const imgEl = document.getElementById('seller-preview-img');
+
+    if (promptEl) promptEl.style.display = 'none';
+    if (previewEl) previewEl.style.display = 'flex';
+    if (imgEl) imgEl.src = src;
+  }
+
+  hideImagePreview() {
+    const promptEl = document.getElementById('seller-dropzone-prompt');
+    const previewEl = document.getElementById('seller-image-preview');
+
+    if (promptEl) promptEl.style.display = 'flex';
+    if (previewEl) previewEl.style.display = 'none';
+  }
+
+  bindPhotoChips() {
+    const photoBtns = document.querySelectorAll('[data-preset-img]');
+    photoBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const url = btn.dataset.presetImg;
+        const urlInput = document.getElementById('seller-prod-image');
+        if (urlInput) urlInput.value = url;
+        this.showImagePreview(url);
+        this.updateLivePreview();
+      });
+    });
+  }
+
+  // ==========================================================================
+  // 4. LIVE "AAPKI KAMAI" (NET KARIGAR PAYOUT) BREAKDOWN
+  // ==========================================================================
+  bindAapkiKamaiCalculator() {
+    const priceInput = document.getElementById('seller-prod-price');
+    if (priceInput) {
+      priceInput.addEventListener('input', () => this.updateAapkiKamai());
+      priceInput.addEventListener('change', () => this.updateAapkiKamai());
+    }
+  }
+
+  updateAapkiKamai() {
+    const priceInput = document.getElementById('seller-prod-price');
+    const rawVal = parseFloat(priceInput?.value) || 0;
+
+    // Convert to INR base calculation
+    const inrVal = Math.round(rawVal * 83.5);
+    const logisticsFee = inrVal > 0 ? 50 : 0;
+    const netPayout = Math.max(0, inrVal - logisticsFee);
+
+    const custPriceEl = document.getElementById('kamai-customer-price');
+    const logisticsEl = document.getElementById('kamai-logistics-fee');
+    const netPayoutEl = document.getElementById('kamai-net-payout');
+
+    if (custPriceEl) custPriceEl.textContent = `₹${inrVal.toLocaleString('en-IN')}`;
+    if (logisticsEl) logisticsEl.textContent = `-₹${logisticsFee}`;
+    if (netPayoutEl) netPayoutEl.textContent = `₹${netPayout.toLocaleString('en-IN')}`;
+  }
+
+  // ==========================================================================
+  // 5. LIVE BUYER'S VIEW CARD PREVIEW SYNC
+  // ==========================================================================
+  bindLivePreviewSync() {
+    const inputs = [
+      document.getElementById('seller-prod-title'),
+      document.getElementById('seller-prod-category'),
+      document.getElementById('seller-prod-gender'),
+      document.getElementById('seller-prod-price'),
+      document.getElementById('seller-prod-image'),
+      document.getElementById('seller-prod-karigar'),
+      document.getElementById('seller-prod-stock')
+    ];
+
+    inputs.forEach(input => {
+      if (input) {
+        input.addEventListener('input', () => this.updateLivePreview());
+        input.addEventListener('change', () => this.updateLivePreview());
+      }
+    });
+  }
+
+  updateLivePreview() {
+    const title = document.getElementById('seller-prod-title')?.value.trim() || "Product Title Preview";
+    const categoryVal = document.getElementById('seller-prod-category')?.value || "clothing";
+    const genderVal = document.getElementById('seller-prod-gender')?.value || "unisex";
+    const priceVal = parseFloat(document.getElementById('seller-prod-price')?.value) || 49.99;
+    const isKarigar = document.getElementById('seller-prod-karigar')?.checked ?? true;
+    const imageVal = document.getElementById('seller-prod-image')?.value.trim() || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80";
+
+    const deptObj = (typeof DEPARTMENTS !== 'undefined') ? DEPARTMENTS.find(d => d.id === categoryVal) : null;
+    const categoryName = deptObj ? deptObj.name : "Everyday Essentials";
+
+    const curPriceFormatted = window.amzApp ? window.amzApp.formatPrice(priceVal) : ('$' + priceVal.toFixed(2));
+    const origPriceVal = Math.round(priceVal * 1.35 * 100) / 100;
+    const origPriceFormatted = window.amzApp ? window.amzApp.formatPrice(origPriceVal) : ('$' + origPriceVal.toFixed(2));
+
+    const prevTitle = document.getElementById('prev-title');
+    const prevCategory = document.getElementById('prev-category');
+    const prevAudience = document.getElementById('prev-audience');
+    const prevPrice = document.getElementById('prev-price');
+    const prevOrigPrice = document.getElementById('prev-orig-price');
+    const prevDelivery = document.getElementById('prev-delivery');
+    const prevBadge = document.getElementById('prev-badge');
+    const prevImage = document.getElementById('prev-image');
+
+    if (prevTitle) prevTitle.textContent = title;
+    if (prevCategory) prevCategory.textContent = categoryName;
+
+    if (prevAudience) {
+      if (isKarigar) {
+        prevAudience.className = "prod-tag-pill tag-karigar";
+        prevAudience.textContent = "🏡 Rural Karigar";
+      } else if (genderVal === 'men') {
+        prevAudience.className = "prod-tag-pill tag-men";
+        prevAudience.textContent = "👨 Men";
+      } else if (genderVal === 'women') {
+        prevAudience.className = "prod-tag-pill tag-women";
+        prevAudience.textContent = "👩 Women";
+      } else {
+        prevAudience.className = "prod-tag-pill tag-unisex";
+        prevAudience.textContent = "✨ Unisex";
+      }
+    }
+
+    if (prevBadge) {
+      prevBadge.textContent = isKarigar ? "✨ UdaanMart Karigar" : "New Seller Launch";
+    }
+
+    if (prevDelivery) {
+      prevDelivery.textContent = isKarigar ? "FREE Doorstep Village Delivery via India Post" : "FREE Delivery Tomorrow, 7 AM - 11 AM";
+    }
+
+    if (prevPrice) prevPrice.textContent = curPriceFormatted;
+    if (prevOrigPrice) prevOrigPrice.textContent = `List: ${origPriceFormatted}`;
+    if (prevImage) prevImage.src = imageVal;
   }
 
   // ==========================================================================
@@ -241,11 +566,9 @@ class SellerCentralEngine {
     if (featuresEl) featuresEl.value = data.features;
     if (karigarEl) karigarEl.checked = data.isKarigar;
 
-    // Update dropzone preview
     this.showImagePreview(data.image);
-
-    // Update live preview card
     this.updateLivePreview();
+    this.updateAapkiKamai();
 
     if (window.amzCart) {
       window.amzCart.showToast(`✨ Smart Template Applied: "${data.shortTitle}" filled with 1-click!`);
@@ -253,200 +576,7 @@ class SellerCentralEngine {
   }
 
   // ==========================================================================
-  // DRAG & DROP / LOCAL FILE IMAGE UPLOADER
-  // ==========================================================================
-  bindImageUploader() {
-    const dropzone = document.getElementById('seller-dropzone');
-    const fileInput = document.getElementById('seller-image-file');
-    const removeBtn = document.getElementById('seller-remove-photo-btn');
-    const urlInput = document.getElementById('seller-prod-image');
-
-    if (fileInput) {
-      fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          this.processImageFile(file);
-        }
-      });
-    }
-
-    if (dropzone) {
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropzone.classList.add('is-dragover');
-        });
-      });
-
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropzone.classList.remove('is-dragover');
-        });
-      });
-
-      dropzone.addEventListener('drop', (e) => {
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-          this.processImageFile(file);
-        }
-      });
-    }
-
-    if (removeBtn) {
-      removeBtn.addEventListener('click', () => {
-        if (fileInput) fileInput.value = '';
-        const defaultImg = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80";
-        if (urlInput) urlInput.value = defaultImg;
-        this.hideImagePreview();
-        this.updateLivePreview();
-      });
-    }
-  }
-
-  processImageFile(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const dataUrl = e.target.result;
-      const urlInput = document.getElementById('seller-prod-image');
-      if (urlInput) urlInput.value = dataUrl;
-      this.showImagePreview(dataUrl);
-      this.updateLivePreview();
-
-      if (window.amzCart) {
-        window.amzCart.showToast("📷 Product photo loaded and previewed in real time!");
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
-  showImagePreview(src) {
-    const promptEl = document.getElementById('seller-dropzone-prompt');
-    const previewEl = document.getElementById('seller-image-preview');
-    const imgEl = document.getElementById('seller-preview-img');
-
-    if (promptEl) promptEl.style.display = 'none';
-    if (previewEl) previewEl.style.display = 'flex';
-    if (imgEl) imgEl.src = src;
-  }
-
-  hideImagePreview() {
-    const promptEl = document.getElementById('seller-dropzone-prompt');
-    const previewEl = document.getElementById('seller-image-preview');
-
-    if (promptEl) promptEl.style.display = 'flex';
-    if (previewEl) previewEl.style.display = 'none';
-  }
-
-  // ==========================================================================
-  // CURATED PHOTO GALLERY CHIPS
-  // ==========================================================================
-  bindPhotoChips() {
-    const photoBtns = document.querySelectorAll('[data-preset-img]');
-    photoBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const url = btn.dataset.presetImg;
-        const urlInput = document.getElementById('seller-prod-image');
-        if (urlInput) urlInput.value = url;
-        this.showImagePreview(url);
-        this.updateLivePreview();
-      });
-    });
-  }
-
-  // ==========================================================================
-  // LIVE BUYER'S VIEW PREVIEW CARD SYNC
-  // ==========================================================================
-  bindLivePreviewSync() {
-    const inputs = [
-      document.getElementById('seller-prod-title'),
-      document.getElementById('seller-prod-category'),
-      document.getElementById('seller-prod-gender'),
-      document.getElementById('seller-prod-price'),
-      document.getElementById('seller-prod-image'),
-      document.getElementById('seller-prod-karigar'),
-      document.getElementById('seller-prod-stock')
-    ];
-
-    inputs.forEach(input => {
-      if (input) {
-        input.addEventListener('input', () => this.updateLivePreview());
-        input.addEventListener('change', () => this.updateLivePreview());
-      }
-    });
-  }
-
-  updateLivePreview() {
-    const title = document.getElementById('seller-prod-title')?.value.trim() || "Product Title Preview";
-    const categoryVal = document.getElementById('seller-prod-category')?.value || "clothing";
-    const genderVal = document.getElementById('seller-prod-gender')?.value || "unisex";
-    const priceVal = parseFloat(document.getElementById('seller-prod-price')?.value) || 49.99;
-    const isKarigar = document.getElementById('seller-prod-karigar')?.checked || false;
-    const imageVal = document.getElementById('seller-prod-image')?.value.trim() || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80";
-
-    // Category Name
-    const deptObj = DEPARTMENTS.find(d => d.id === categoryVal);
-    const categoryName = deptObj ? deptObj.name : "Everyday Essentials";
-
-    // Format Prices
-    const curPriceFormatted = window.amzApp ? window.amzApp.formatPrice(priceVal) : ('$' + priceVal.toFixed(2));
-    const origPriceVal = Math.round(priceVal * 1.3 * 100) / 100;
-    const origPriceFormatted = window.amzApp ? window.amzApp.formatPrice(origPriceVal) : ('$' + origPriceVal.toFixed(2));
-
-    // Update converted hint below price input
-    const hintEl = document.getElementById('seller-price-converted-hint');
-    if (hintEl) {
-      const inrVal = (priceVal * 83.5).toFixed(0);
-      const eurVal = (priceVal * 0.92).toFixed(2);
-      hintEl.textContent = `Auto-converts to ₹${Number(inrVal).toLocaleString('en-IN')} INR • €${eurVal} EUR`;
-    }
-
-    // Update Live Preview Card Elements
-    const prevTitle = document.getElementById('prev-title');
-    const prevCategory = document.getElementById('prev-category');
-    const prevAudience = document.getElementById('prev-audience');
-    const prevPrice = document.getElementById('prev-price');
-    const prevOrigPrice = document.getElementById('prev-orig-price');
-    const prevDelivery = document.getElementById('prev-delivery');
-    const prevBadge = document.getElementById('prev-badge');
-    const prevImage = document.getElementById('prev-image');
-
-    if (prevTitle) prevTitle.textContent = title;
-    if (prevCategory) prevCategory.textContent = categoryName;
-
-    if (prevAudience) {
-      if (isKarigar) {
-        prevAudience.className = "prod-tag-pill tag-karigar";
-        prevAudience.textContent = "🏡 Karigar";
-      } else if (genderVal === 'men') {
-        prevAudience.className = "prod-tag-pill tag-men";
-        prevAudience.textContent = "👨 Men";
-      } else if (genderVal === 'women') {
-        prevAudience.className = "prod-tag-pill tag-women";
-        prevAudience.textContent = "👩 Women";
-      } else {
-        prevAudience.className = "prod-tag-pill tag-unisex";
-        prevAudience.textContent = "✨ Unisex";
-      }
-    }
-
-    if (prevBadge) {
-      prevBadge.textContent = isKarigar ? "UdaanMart Karigar" : "New Seller Launch";
-    }
-
-    if (prevDelivery) {
-      prevDelivery.textContent = isKarigar ? "FREE Doorstep Village Delivery in 2 Days" : "FREE Delivery Tomorrow, 7 AM - 11 AM";
-    }
-
-    if (prevPrice) prevPrice.textContent = curPriceFormatted;
-    if (prevOrigPrice) prevOrigPrice.textContent = `List: ${origPriceFormatted}`;
-    if (prevImage) prevImage.src = imageVal;
-  }
-
-  // ==========================================================================
-  // LISTING SUBMISSION
+  // 6. LISTING FORM SUBMISSION
   // ==========================================================================
   bindListingForm() {
     const form = document.getElementById('seller-product-form');
@@ -456,25 +586,24 @@ class SellerCentralEngine {
       e.preventDefault();
 
       const title = document.getElementById('seller-prod-title')?.value.trim();
-      const category = document.getElementById('seller-prod-category')?.value;
+      const category = document.getElementById('seller-prod-category')?.value || 'clothing';
       const gender = document.getElementById('seller-prod-gender')?.value || 'unisex';
       const price = parseFloat(document.getElementById('seller-prod-price')?.value);
       const stock = parseInt(document.getElementById('seller-prod-stock')?.value, 10) || 10;
       const image = document.getElementById('seller-prod-image')?.value.trim() || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80';
-      const featuresRaw = document.getElementById('seller-prod-features')?.value.trim() || 'Premium quality assured\nQuick nationwide and village doorstep delivery\nBacked by 30-day replacement guarantee';
-      const isRuralKarigar = document.getElementById('seller-prod-karigar')?.checked || false;
+      const featuresRaw = document.getElementById('seller-prod-features')?.value.trim() || '• Certified Indian Handloom / Craft\n• Free Doorstep Village & Global Delivery\n• 7-Day Easy Return Guarantee';
+      const isRuralKarigar = document.getElementById('seller-prod-karigar')?.checked ?? true;
 
       if (!title || isNaN(price) || price <= 0) {
-        alert('Please enter a valid product title and price.');
+        alert('Please enter a valid product title and selling price.');
         return;
       }
 
-      const deptObj = DEPARTMENTS.find(d => d.id === category);
+      const deptObj = (typeof DEPARTMENTS !== 'undefined') ? DEPARTMENTS.find(d => d.id === category) : null;
       const categoryName = deptObj ? deptObj.name : "Everyday Essentials";
 
-      const newId = `prod-seller-${Date.now().toString(36)}`;
       const newProduct = {
-        id: newId,
+        id: `karigar-${Date.now().toString(36)}`,
         title: title,
         shortTitle: title.length > 38 ? title.slice(0, 35) + '...' : title,
         category: category,
@@ -483,13 +612,13 @@ class SellerCentralEngine {
         isRuralKarigar: isRuralKarigar,
         sellerType: isRuralKarigar ? "artisan" : "merchant",
         price: price,
-        originalPrice: Math.round(price * 1.3 * 100) / 100,
-        discountPercent: 23,
+        originalPrice: Math.round(price * 1.35 * 100) / 100,
+        discountPercent: 26,
         rating: 5.0,
         ratingCount: 1,
-        badge: isRuralKarigar ? "UdaanMart Karigar" : "New Seller Launch",
+        badge: isRuralKarigar ? "✨ New Karigar Arrival" : "New Seller Launch",
         isPrime: true,
-        delivery: isRuralKarigar ? "FREE Doorstep Village Delivery in 2 Days" : "FREE Delivery Tomorrow, 7 AM - 11 AM",
+        delivery: isRuralKarigar ? "FREE Doorstep Village Delivery via India Post" : "FREE Delivery Tomorrow, 7 AM - 11 AM",
         stock: stock,
         isLightningDeal: false,
         dealPercentage: 0,
@@ -502,30 +631,22 @@ class SellerCentralEngine {
         specs: {
           "Seller": isRuralKarigar ? "Certified UdaanMart Karigar Rural Artisan Guild" : "UdaanMart Verified Marketplace Merchant",
           "Target Audience": gender === 'men' ? "Men's Collection" : (gender === 'women' ? "Women's Collection" : "Universal / Unisex"),
-          "Dispatch Location": isRuralKarigar ? "Direct Village Craft Center (India)" : "UdaanMart Logistics Fulfillment Hub",
-          "Warranty": "1-Year Seller Replacement Guarantee"
+          "Dispatch Location": isRuralKarigar ? "Direct Village Craft Guild (India)" : "UdaanMart Logistics Fulfillment Hub",
+          "Warranty": "1-Year Artisan / Seller Guarantee"
         }
       };
 
-      // Add to beginning of PRODUCTS_DATA
-      PRODUCTS_DATA.unshift(newProduct);
-
-      // Refresh catalog live
-      if (window.amzSearchFilter) {
-        window.amzSearchFilter.refreshCatalog(PRODUCTS_DATA);
+      // Save into Unified Store
+      if (window.amzStore) {
+        window.amzStore.addCustomProduct(newProduct);
       }
 
-      this.stats.activeListings = PRODUCTS_DATA.length;
-      this.renderInventoryTable();
-      this.renderAnalytics();
-
-      // Clear and close
       form.reset();
       this.hideImagePreview();
       this.closeModal();
 
       if (window.amzCart) {
-        window.amzCart.showToast(`🎉 Product Published to Live Store! "${newProduct.shortTitle}" is now available for 1-Click Purchase!`);
+        window.amzCart.showToast(`🎉 Product Published to Live Store! "${newProduct.shortTitle}" is now live with "✨ New Karigar Arrival" badge!`);
       }
 
       // Smooth scroll to catalog
@@ -537,13 +658,181 @@ class SellerCentralEngine {
   }
 
   // ==========================================================================
-  // INVENTORY & PRICE MANAGER TABLE
+  // 7. INCOMING ORDERS & 1-CLICK FULFILLMENT
+  // ==========================================================================
+  renderIncomingOrders() {
+    const listEl = document.getElementById('seller-incoming-orders-list');
+    if (!listEl) return;
+
+    const orders = window.amzStore ? window.amzStore.getOrders() : [];
+
+    if (orders.length === 0) {
+      listEl.innerHTML = `
+        <div class="empty-panel-state">
+          <div class="empty-icon">📦</div>
+          <h4>No Incoming Orders Yet</h4>
+          <p>Orders placed by buyers will instantly appear here for 1-click packing & India Post shipping label generation.</p>
+        </div>
+      `;
+      return;
+    }
+
+    listEl.innerHTML = orders.map(order => {
+      const step = order.currentStep || order.trackingStep || 1;
+      const isPacked = step >= 2;
+      const buyer = order.deliveryLocation || {};
+      const buyerName = window.amzStore.escapeHTML(buyer.name || 'Valued Buyer');
+      const buyerCity = window.amzStore.escapeHTML(buyer.city || 'City');
+      const buyerPin = window.amzStore.escapeHTML(buyer.pincode || 'PIN');
+      const formattedTotal = window.amzApp ? window.amzApp.formatPrice(order.totalAmount || order.total || 0) : `₹${order.totalAmount || order.total}`;
+
+      return `
+        <div class="seller-order-card" data-order-id="${order.orderId}">
+          <div class="seller-order-header">
+            <div class="order-id-block">
+              <span class="seller-order-badge">ORDER #${order.orderId}</span>
+              <span class="seller-order-date">📅 ${order.date}</span>
+            </div>
+            <div class="seller-order-status-pill status-step-${step}">
+              ${isPacked ? '✅ Dispatched to Speed Post' : '⏳ Awaiting Artisan Packing'}
+            </div>
+          </div>
+
+          <div class="seller-order-grid">
+            <div class="seller-order-items">
+              ${(order.items || []).map(item => `
+                <div class="seller-item-row">
+                  <img src="${item.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80'}" alt="${window.amzStore.escapeHTML(item.title)}" class="seller-item-thumb" />
+                  <div class="seller-item-details">
+                    <span class="seller-item-title">${window.amzStore.escapeHTML(item.shortTitle || item.title)}</span>
+                    <span class="seller-item-qty">Qty: ${item.quantity || 1} • Payout: ${window.amzApp ? window.amzApp.formatPrice(item.price) : '₹' + item.price}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="seller-order-dest">
+              <span class="dest-label">📍 Destination Doorstep:</span>
+              <strong class="dest-name">${buyerName}</strong>
+              <div class="dest-addr">${window.amzStore.escapeHTML(buyer.address || '')}</div>
+              <div class="dest-city"><strong>${buyerCity} (${buyerPin})</strong> • ${window.amzStore.escapeHTML(buyer.phone || '')}</div>
+            </div>
+
+            <div class="seller-order-actions">
+              <div class="seller-payout-display">
+                <span class="payout-label">Your Net Direct Payout:</span>
+                <span class="payout-amount">${formattedTotal}</span>
+                <span class="payout-status">0% Marketplace Fee Guaranteed</span>
+              </div>
+              <button 
+                class="amz-btn amz-btn-primary btn-pack-dispatch ${isPacked ? 'is-fulfilled' : ''}" 
+                onclick="window.amzSeller.handlePackAndPrint('${order.orderId}')"
+              >
+                ${isPacked ? '📄 Reprint India Post Label' : '✅ Pack & Print India Post Label'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  handlePackAndPrint(orderId) {
+    if (!window.amzStore) return;
+    const order = window.amzStore.packAndPrintOrder(orderId);
+    if (!order) return;
+
+    this.currentSelectedOrder = order;
+    this.renderIncomingOrders();
+    this.showShippingLabelModal(order);
+  }
+
+  // ==========================================================================
+  // 8. PRINTABLE SHIPPING LABEL SLIP MODAL
+  // ==========================================================================
+  bindShippingLabelModal() {
+    const closeBtn = document.getElementById('shipping-label-close-btn');
+    const printBtn = document.getElementById('btn-print-shipping-label');
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this.closeShippingLabelModal());
+    }
+
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+  }
+
+  showShippingLabelModal(order) {
+    const modal = document.getElementById('shipping-label-modal');
+    const overlay = document.getElementById('global-overlay');
+    if (!modal) return;
+
+    const buyer = order.deliveryLocation || {};
+    const buyerName = window.amzStore.escapeHTML(buyer.name || 'Valued Buyer');
+    const buyerAddress = window.amzStore.escapeHTML(buyer.address || 'Address');
+    const buyerCity = window.amzStore.escapeHTML(buyer.city || 'City');
+    const buyerState = window.amzStore.escapeHTML(buyer.state || 'State');
+    const buyerPin = window.amzStore.escapeHTML(buyer.pincode || 'PIN');
+    const buyerPhone = window.amzStore.escapeHTML(buyer.phone || '+91 98765 43210');
+
+    // Populate Fields
+    const orderIdEl = document.getElementById('slip-order-id');
+    const trackingEl = document.getElementById('slip-tracking-num');
+    const barcodeEl = document.getElementById('slip-barcode-text');
+    const recipientEl = document.getElementById('slip-recipient-info');
+    const originEl = document.getElementById('slip-origin-info');
+    const dateEl = document.getElementById('slip-date');
+
+    if (orderIdEl) orderIdEl.textContent = order.orderId;
+    if (trackingEl) trackingEl.textContent = order.trackingNumber || `INP-${buyerPin}-901283`;
+    if (barcodeEl) barcodeEl.textContent = `||| | ||||| || |||| ||| ${order.trackingNumber || order.orderId} |||| ||| | |||`;
+    if (dateEl) dateEl.textContent = order.date;
+
+    if (recipientEl) {
+      recipientEl.innerHTML = `
+        <strong>TO: ${buyerName}</strong><br>
+        ${buyerAddress}<br>
+        <strong>${buyerCity}, ${buyerState} - PIN: ${buyerPin}</strong><br>
+        Mob: ${buyerPhone}
+      `;
+    }
+
+    if (originEl) {
+      originEl.innerHTML = `
+        <strong>FROM: UdaanMart Karigar Artisan Guild</strong><br>
+        Rural Craft & Handloom Cluster<br>
+        Direct Producer Doorstep Dispatch Center<br>
+        India Post Registered Speed Post Network
+      `;
+    }
+
+    modal.classList.add('is-open');
+    if (overlay) overlay.classList.add('is-open');
+  }
+
+  closeShippingLabelModal() {
+    const modal = document.getElementById('shipping-label-modal');
+    if (modal) modal.classList.remove('is-open');
+  }
+
+  isShippingLabelModalOpen() {
+    const modal = document.getElementById('shipping-label-modal');
+    return modal && modal.classList.contains('is-open');
+  }
+
+  // ==========================================================================
+  // 9. INVENTORY MANAGER TABLE
   // ==========================================================================
   renderInventoryTable() {
     const tbody = document.getElementById('seller-inventory-tbody');
     if (!tbody) return;
 
-    tbody.innerHTML = PRODUCTS_DATA.map(prod => {
+    const allProducts = window.amzStore ? window.amzStore.getAllProducts() : [];
+
+    tbody.innerHTML = allProducts.map(prod => {
       const formattedPrice = window.amzApp ? window.amzApp.formatPrice(prod.price) : `$${prod.price.toFixed(2)}`;
       const audienceTag = prod.isRuralKarigar 
         ? '<span class="prod-tag-pill tag-karigar">🏡 Karigar</span>'
@@ -556,16 +845,16 @@ class SellerCentralEngine {
       return `
         <tr class="seller-inv-row" data-product-id="${prod.id}">
           <td class="seller-inv-prod">
-            <img src="${prod.images[0]}" alt="${prod.title}" class="seller-inv-thumb" />
+            <img src="${prod.images ? prod.images[0] : ''}" alt="${window.amzStore.escapeHTML(prod.title)}" class="seller-inv-thumb" />
             <div class="seller-inv-info">
-              <span class="seller-inv-title" title="${prod.title}">${prod.shortTitle}</span>
+              <span class="seller-inv-title" title="${window.amzStore.escapeHTML(prod.title)}">${window.amzStore.escapeHTML(prod.shortTitle || prod.title)}</span>
               <div class="seller-inv-meta">
                 <span class="seller-inv-id">${prod.id}</span>
                 ${audienceTag}
               </div>
             </div>
           </td>
-          <td class="seller-inv-category">${prod.categoryName}</td>
+          <td class="seller-inv-category">${prod.categoryName || 'Essentials'}</td>
           <td class="seller-inv-price">
             <span class="inv-price-val">${formattedPrice}</span>
           </td>
@@ -591,64 +880,69 @@ class SellerCentralEngine {
     }).join('');
 
     const countEl = document.getElementById('seller-inventory-total-count');
-    if (countEl) countEl.textContent = `${PRODUCTS_DATA.length} Products Listed`;
+    if (countEl) countEl.textContent = `${allProducts.length} Products Listed`;
   }
 
   adjustStock(productId, delta) {
-    const prod = PRODUCTS_DATA.find(p => p.id === productId);
+    const all = window.amzStore ? window.amzStore.getAllProducts() : [];
+    const prod = all.find(p => p.id === productId);
     if (!prod) return;
 
     prod.stock = Math.max(0, prod.stock + delta);
-
     const stockValEl = document.getElementById(`inv-stock-${productId}`);
     if (stockValEl) {
       stockValEl.textContent = prod.stock;
     }
 
     if (window.amzCart) {
-      window.amzCart.showToast(`📦 Stock updated for ${prod.shortTitle}: ${prod.stock} units available.`);
+      window.amzCart.showToast(`📦 Stock updated for ${prod.shortTitle || prod.title}: ${prod.stock} units available.`);
     }
 
     this.renderInventoryTable();
   }
 
   delistProduct(productId) {
-    const idx = PRODUCTS_DATA.findIndex(p => p.id === productId);
-    if (idx === -1) return;
+    if (window.amzStore) {
+      window.amzStore.customProducts = window.amzStore.customProducts.filter(p => p.id !== productId);
+      try {
+        localStorage.setItem(window.amzStore.STORAGE_KEYS.PRODUCTS, JSON.stringify(window.amzStore.customProducts));
+      } catch (e) {}
 
-    const [removed] = PRODUCTS_DATA.splice(idx, 1);
-
-    if (window.amzSearchFilter) {
-      window.amzSearchFilter.refreshCatalog(PRODUCTS_DATA);
+      if (window.amzSearchFilter) {
+        window.amzSearchFilter.applyFilters();
+      }
     }
 
-    this.stats.activeListings = PRODUCTS_DATA.length;
     this.renderInventoryTable();
     this.renderAnalytics();
 
     if (window.amzCart) {
-      window.amzCart.showToast(`🗑️ Delisted "${removed.shortTitle}" from the store catalog.`);
+      window.amzCart.showToast(`🗑️ Delisted product from live catalog.`);
     }
   }
 
   renderAnalytics() {
     const curFormatter = (val) => window.amzApp ? window.amzApp.formatPrice(val) : `$${val.toFixed(2)}`;
+    const orders = window.amzStore ? window.amzStore.getOrders() : [];
+    const prods = window.amzStore ? window.amzStore.getAllProducts() : [];
+
+    const grossSales = orders.reduce((sum, o) => sum + (o.totalAmount || o.total || 0), 14850.00);
 
     const revEl = document.getElementById('seller-stat-revenue');
-    if (revEl) revEl.textContent = curFormatter(this.stats.grossSales);
+    if (revEl) revEl.textContent = curFormatter(grossSales);
 
     const ordersEl = document.getElementById('seller-stat-orders');
-    if (ordersEl) ordersEl.textContent = this.stats.totalOrders.toLocaleString();
+    if (ordersEl) ordersEl.textContent = (312 + orders.length).toLocaleString();
 
     const listingsEl = document.getElementById('seller-stat-listings');
-    if (listingsEl) listingsEl.textContent = PRODUCTS_DATA.length.toString();
+    if (listingsEl) listingsEl.textContent = prods.length.toString();
 
     const ratingEl = document.getElementById('seller-stat-rating');
     if (ratingEl) ratingEl.textContent = '4.9 ★ (100% Positive)';
   }
 }
 
-// Global instance
+// Global Singleton Instance
 window.amzSeller = new SellerCentralEngine();
 
 document.addEventListener('DOMContentLoaded', () => {

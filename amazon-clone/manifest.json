@@ -1,0 +1,21 @@
+{
+  "name": "UdaanMart - Artisans & Modern Marketplace",
+  "short_name": "UdaanMart",
+  "description": "Ultra-Modern E-Commerce Marketplace connecting Indian Rural Artisans and High-Performance Tech with 1-Click Buy.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0f1d",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "images/udaanmart-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/udaanmart-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

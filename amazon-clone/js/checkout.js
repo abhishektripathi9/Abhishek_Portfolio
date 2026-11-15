@@ -1,140 +1,170 @@
 /**
- * UDAANMART - SIMULATED CHECKOUT & ORDER DISPATCH ENGINE
- * High-fidelity 3-step checkout simulation with client-side form validation,
- * dynamic confetti particle system, and persistent order tracking history.
+ * UDAANMART - ZERO-FRICTION 30-SECOND EXPRESS CHECKOUT ENGINE (js/checkout.js)
+ * PILLAR 3: Single-Screen Guest Express Checkout, Live Pincode Auto-Fill,
+ * 3 Instant Payment Choices (UPI with simulated QR, COD, Cards),
+ * Confetti Canvas Celebration, and Print/Download GST Tax Invoice.
  */
 
 class CheckoutEngine {
   constructor() {
-    this.ORDERS_STORAGE_KEY = 'amz_clone_orders_v2';
     this.currentStep = 1;
-    this.orders = this.loadOrders();
+    this.deliveryType = 'village';
+    this.expressProduct = null;
+    this.expressQty = 1;
+
     this.orderData = {
       shipping: {
-        fullName: 'Alex Vance',
-        address: '742 Evergreen Terrace',
-        city: 'Springfield',
-        state: 'OR',
-        zipCode: '97477',
-        phone: '+1 (555) 019-2834'
+        fullName: 'Abhishek Tripathi',
+        phone: '+91 98765 43210',
+        pincode: '110001',
+        city: 'New Delhi',
+        district: 'Central Delhi',
+        state: 'Delhi',
+        street: 'Flat 402, Connaught Place, Block C',
+        village: 'Connaught Central',
+        tehsil: 'New Delhi Head Post Office',
+        landmark: 'Near Central Metro Station Gate 3',
+        country: 'IN',
+        addressType: 'city'
       },
       payment: {
-        method: 'card',
-        cardName: 'Alex Vance',
-        cardNumber: '•••• •••• •••• 4242',
-        expiry: '09/28'
+        method: 'upi',
+        upiApp: 'Google Pay',
+        upiId: 'abhishek@okaxis',
+        cardNumber: '•••• •••• •••• 4242'
       }
     };
 
-    this.deliveryType = 'village';
     this.init();
   }
 
   init() {
+    this.syncWithStoreLocation();
     this.bindCheckoutModal();
     this.bindStepNavigation();
+    this.bindPincodeLiveAutofill();
     this.bindPaymentSelector();
     this.bindVillageDeliveryToggles();
     this.bindExpressBuyModal();
+    this.bindInvoiceModal();
+
+    // Listen for store location changes
+    window.addEventListener('udaan:location-updated', (e) => {
+      this.syncWithStoreLocation(e.detail);
+    });
   }
 
-  bindVillageDeliveryToggles() {
-    const villageBtn = document.getElementById('delivery-type-village');
-    const cityBtn = document.getElementById('delivery-type-city');
-    const villageBanner = document.getElementById('village-info-banner');
-    const groupVillage = document.getElementById('group-village-name');
-    const groupTehsil = document.getElementById('group-tehsil');
-    const groupLandmark = document.getElementById('group-landmark');
-    const labelStreet = document.getElementById('label-street');
-    const labelDistrict = document.getElementById('label-district');
-    const countrySelect = document.getElementById('ship-country');
+  syncWithStoreLocation(loc) {
+    const curLoc = loc || (window.amzStore ? window.amzStore.getLocation() : null);
+    if (!curLoc) return;
 
-    if (villageBtn && cityBtn) {
-      villageBtn.addEventListener('click', () => {
-        this.deliveryType = 'village';
-        villageBtn.classList.add('is-active');
-        cityBtn.classList.remove('is-active');
-        if (villageBanner) villageBanner.style.display = 'flex';
-        if (groupVillage) groupVillage.style.display = 'block';
-        if (groupTehsil) groupTehsil.style.display = 'block';
-        if (groupLandmark) groupLandmark.style.display = 'block';
-        if (labelStreet) labelStreet.textContent = 'House / Farm / Mohalla / Lane';
-        if (labelDistrict) labelDistrict.textContent = 'District (जिला)';
-      });
+    this.orderData.shipping.pincode = curLoc.pincode || '110001';
+    this.orderData.shipping.city = curLoc.city || 'New Delhi';
+    this.orderData.shipping.district = curLoc.district || curLoc.city || 'Central Delhi';
+    this.orderData.shipping.state = curLoc.state || 'Delhi';
 
-      cityBtn.addEventListener('click', () => {
-        this.deliveryType = 'city';
-        cityBtn.classList.add('is-active');
-        villageBtn.classList.remove('is-active');
-        if (villageBanner) villageBanner.style.display = 'none';
-        if (groupVillage) groupVillage.style.display = 'none';
-        if (groupTehsil) groupTehsil.style.display = 'none';
-        if (groupLandmark) groupLandmark.style.display = 'none';
-        if (labelStreet) labelStreet.textContent = 'Street Address / Building / Apt';
-        if (labelDistrict) labelDistrict.textContent = 'City / Town';
-      });
+    // Populate inputs if they exist in DOM
+    const zipInput = document.getElementById('ship-zip');
+    const districtInput = document.getElementById('ship-district');
+    const stateInput = document.getElementById('ship-state');
+
+    if (zipInput) zipInput.value = this.orderData.shipping.pincode;
+    if (districtInput) districtInput.value = this.orderData.shipping.district;
+    if (stateInput && this.orderData.shipping.state) {
+      stateInput.value = this.orderData.shipping.state;
+    }
+  }
+
+  // ==========================================================================
+  // 1. LIVE INDIAN PINCODE AUTO-FILL WITH TRUST BADGE
+  // ==========================================================================
+  bindPincodeLiveAutofill() {
+    const zipInput = document.getElementById('ship-zip');
+    if (!zipInput) return;
+
+    let debounceTimer = null;
+    zipInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const pin = zipInput.value.trim();
+        if (pin.length === 6 && /^\d{6}$/.test(pin)) {
+          this.lookupPincode(pin);
+        }
+      }, 350);
+    });
+  }
+
+  async lookupPincode(pin) {
+    if (!window.amzStore) return;
+    const info = await window.amzStore.fetchPincode(pin);
+    if (!info) return;
+
+    const districtInput = document.getElementById('ship-district');
+    const stateInput = document.getElementById('ship-state');
+    const cityInput = document.getElementById('ship-village');
+
+    if (districtInput) districtInput.value = info.district || info.city;
+    if (cityInput && !cityInput.value) cityInput.value = info.city;
+
+    if (stateInput) {
+      for (let i = 0; i < stateInput.options.length; i++) {
+        if (stateInput.options[i].text.toLowerCase().includes(info.state.toLowerCase()) ||
+            info.state.toLowerCase().includes(stateInput.options[i].text.toLowerCase())) {
+          stateInput.selectedIndex = i;
+          break;
+        }
+      }
     }
 
-    if (countrySelect) {
-      countrySelect.addEventListener('change', (e) => {
-        const country = e.target.value;
-        if (country === 'IN' && window.amzApp) {
-          window.amzApp.setCurrency('INR', false);
+    // Show Trust Badge below Pincode
+    let badgeEl = document.getElementById('pincode-trust-badge');
+    if (!badgeEl) {
+      badgeEl = document.createElement('div');
+      badgeEl.id = 'pincode-trust-badge';
+      badgeEl.className = 'pincode-trust-badge';
+      const parent = document.getElementById('ship-zip')?.parentNode;
+      if (parent) parent.appendChild(badgeEl);
+    }
+
+    badgeEl.innerHTML = `
+      <span class="trust-icon">✓</span>
+      <span>Express 24-48h Delivery Available to <strong>${info.city}, ${info.state}</strong> (via India Post Speed Post)</span>
+    `;
+    badgeEl.style.display = 'flex';
+
+    if (window.amzCart) {
+      window.amzCart.showToast(`📍 Pincode ${pin} Verified: Delivering to ${info.city}, ${info.state}!`);
+    }
+  }
+
+  // ==========================================================================
+  // 2. CHECKOUT MODAL OPEN & STEP NAVIGATION
+  // ==========================================================================
+  bindCheckoutModal() {
+    const closeBtn = document.getElementById('checkout-modal-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        const modal = document.getElementById('checkout-modal');
+        if (modal && window.amzModal) {
+          window.amzModal.hideModal(modal);
         }
       });
     }
-  }
 
-  loadOrders() {
-    try {
-      const saved = localStorage.getItem(this.ORDERS_STORAGE_KEY);
-      if (saved) return JSON.parse(saved);
-    } catch (e) {
-      console.warn("Could not load past orders", e);
+    const placeOrderBtn = document.getElementById('btn-place-order');
+    if (placeOrderBtn) {
+      placeOrderBtn.addEventListener('click', () => {
+        this.processOrderPlacement();
+      });
     }
 
-    // Seed default sample order for realistic portfolio demonstration
-    return [
-      {
-        orderId: '113-9482103-7841290',
-        trackingNumber: 'INP938201948IN',
-        date: new Date(Date.now() - 86400000 * 2).toISOString(),
-        status: 'Delivered to Village Doorstep',
-        estimatedDelivery: 'Delivered via India Post Speed Post',
-        carrierPartner: 'India Post Speed Post (Last-Mile Village Doorstep)',
-        total: 28990.00,
-        shipping: {
-          fullName: 'Ramesh Kumar Sharma',
-          addressType: 'village',
-          villageName: 'Rampur Kalan',
-          district: 'Varanasi',
-          state: 'Uttar Pradesh',
-          zipCode: '221001',
-          landmark: 'Opposite Gram Panchayat Bhavan & Primary School'
-        },
-        items: [
-          {
-            id: 'prod-1',
-            title: 'Sony WH-1000XM5 Wireless Noise Canceling Headphones',
-            price: 348.00,
-            quantity: 1,
-            image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80'
-          }
-        ]
-      }
-    ];
-  }
-
-  saveOrders() {
-    try {
-      localStorage.setItem(this.ORDERS_STORAGE_KEY, JSON.stringify(this.orders));
-    } catch (e) {
-      console.error("Failed to save orders", e);
+    // Direct Instant UPI Simulation Button
+    const simulateUpiBtn = document.getElementById('btn-simulate-upi-instant');
+    if (simulateUpiBtn) {
+      simulateUpiBtn.addEventListener('click', () => {
+        this.simulateInstantUPI();
+      });
     }
-  }
-
-  getOrders() {
-    return this.orders;
   }
 
   openCheckout() {
@@ -143,40 +173,14 @@ class CheckoutEngine {
       return;
     }
 
-    this.currentStep = 1;
+    const modal = document.getElementById('checkout-modal');
+    if (!modal) return;
+
+    this.syncWithStoreLocation();
     this.renderStep(1);
 
-    // If current currency is INR or delivery city contains India, auto-select India & village delivery
-    const isIndia = window.amzApp?.currentCurrency === 'INR' || 
-                    (window.amzModal?.currentLocation && window.amzModal.currentLocation.toLowerCase().includes('mumbai')) ||
-                    (window.amzModal?.currentLocation && window.amzModal.currentLocation.toLowerCase().includes('india'));
-    
-    const countrySelect = document.getElementById('ship-country');
-    if (countrySelect && isIndia) {
-      countrySelect.value = 'IN';
-    }
-
-    const modal = document.getElementById('checkout-modal');
-    if (modal && window.amzModal) {
+    if (window.amzModal) {
       window.amzModal.showModal(modal);
-    }
-  }
-
-  bindCheckoutModal() {
-    const closeBtn = document.getElementById('checkout-modal-close-btn');
-    if (closeBtn && window.amzModal) {
-      closeBtn.addEventListener('click', () => {
-        const modal = document.getElementById('checkout-modal');
-        if (modal) window.amzModal.hideModal(modal);
-      });
-    }
-
-    // Bind Place Order button
-    const placeOrderBtn = document.getElementById('btn-place-order');
-    if (placeOrderBtn) {
-      placeOrderBtn.addEventListener('click', () => {
-        this.processOrderPlacement();
-      });
     }
   }
 
@@ -210,8 +214,68 @@ class CheckoutEngine {
     });
   }
 
+  renderStep(stepNumber) {
+    this.currentStep = stepNumber;
+
+    // Update navigation circles
+    document.querySelectorAll('.checkout-step-tab').forEach(tab => {
+      const step = parseInt(tab.dataset.step, 10);
+      tab.classList.toggle('is-active', step === stepNumber);
+      tab.classList.toggle('is-completed', step < stepNumber);
+    });
+
+    // Update panels
+    document.querySelectorAll('.checkout-step-pane').forEach(pane => {
+      const step = parseInt(pane.dataset.step, 10);
+      pane.classList.toggle('is-active', step === stepNumber);
+    });
+
+    if (stepNumber === 3) {
+      this.renderOrderReview();
+    }
+  }
+
+  validateAddressForm() {
+    const fullName = document.getElementById('ship-name')?.value.trim();
+    const phone = document.getElementById('ship-phone')?.value.trim();
+    const street = document.getElementById('ship-street')?.value.trim();
+    const zipCode = document.getElementById('ship-zip')?.value.trim();
+    const district = document.getElementById('ship-district')?.value.trim();
+    const state = document.getElementById('ship-state')?.value;
+    const country = document.getElementById('ship-country')?.value || 'IN';
+
+    if (!fullName || !phone || !street || !zipCode) {
+      alert('Please fill in your Full Name, Mobile Number, Street Address, and PIN Code.');
+      return false;
+    }
+
+    this.orderData.shipping = {
+      fullName,
+      phone,
+      street,
+      zipCode,
+      pincode: zipCode,
+      district,
+      city: district || 'New Delhi',
+      state,
+      country,
+      addressType: this.deliveryType,
+      village: document.getElementById('ship-village')?.value.trim() || '',
+      tehsil: document.getElementById('ship-tehsil')?.value.trim() || '',
+      landmark: document.getElementById('ship-landmark')?.value.trim() || '',
+      carrierPartner: document.querySelector('input[name="ship-carrier"]:checked')?.value === 'indiapost'
+        ? 'India Post Speed Post'
+        : 'UdaanMart Rural Express'
+    };
+
+    return true;
+  }
+
+  // ==========================================================================
+  // 3. PAYMENT METHOD SELECTOR & UPI INSTANT SUITE
+  // ==========================================================================
   bindPaymentSelector() {
-    // 1. Country Payment Tabs
+    // Country Payment Tabs
     document.querySelectorAll('.country-pay-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         const pane = tab.dataset.countryPane;
@@ -219,736 +283,323 @@ class CheckoutEngine {
       });
     });
 
-    // 2. Radio button change listener across all payment options
+    // Payment Radio button changes
     document.querySelectorAll('input[name="checkout-payment-method"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         const val = e.target.value;
         this.orderData.payment.method = val;
-
-        // Card fields visibility (card / rupay_card / jcb)
-        const cardBox = document.getElementById('checkout-card-fields');
-        if (cardBox) {
-          cardBox.style.display = ['card', 'rupay_card', 'jcb'].includes(val) ? 'block' : 'none';
-        }
-
-        // NetBanking box visibility
-        const nbBox = document.getElementById('checkout-netbanking-box');
-        if (nbBox) {
-          nbBox.style.display = val === 'netbanking' ? 'block' : 'none';
-        }
-
-        // UPI Box visibility
-        const upiBox = document.getElementById('checkout-upi-box');
-        if (upiBox) {
-          upiBox.style.display = val === 'upi' ? 'flex' : 'none';
-        }
-
-        // Giftcard Box visibility
-        const gcBox = document.getElementById('checkout-giftcard-box');
-        if (gcBox) {
-          gcBox.style.display = val === 'giftcard' ? 'block' : 'none';
-        }
+        this.updatePaymentPanels(val);
       });
     });
 
-    // 3. UPI Mode Toggle Buttons (Apps vs VPA vs QR)
-    const btnUpiApps = document.getElementById('upi-mode-apps');
-    const btnUpiVpa = document.getElementById('upi-mode-vpa');
-    const btnUpiQr = document.getElementById('upi-mode-qr');
-    const viewUpiApps = document.getElementById('upi-view-apps');
-    const viewUpiVpa = document.getElementById('upi-view-vpa');
-    const viewUpiQr = document.getElementById('upi-view-qr');
+    // UPI Mode buttons
+    const appBtn = document.getElementById('upi-mode-apps');
+    const vpaBtn = document.getElementById('upi-mode-vpa');
+    const qrBtn = document.getElementById('upi-mode-qr');
 
-    if (btnUpiApps && btnUpiVpa && btnUpiQr) {
-      btnUpiApps.addEventListener('click', () => {
-        btnUpiApps.classList.add('is-active');
-        btnUpiVpa.classList.remove('is-active');
-        btnUpiQr.classList.remove('is-active');
-        if (viewUpiApps) viewUpiApps.style.display = 'block';
-        if (viewUpiVpa) viewUpiVpa.style.display = 'none';
-        if (viewUpiQr) viewUpiQr.style.display = 'none';
-        this.orderData.payment.upiMode = 'app';
+    const appView = document.getElementById('upi-view-apps');
+    const vpaView = document.getElementById('upi-view-vpa');
+    const qrView = document.getElementById('upi-view-qr');
+
+    if (appBtn && vpaBtn && qrBtn) {
+      appBtn.addEventListener('click', () => {
+        appBtn.classList.add('is-active');
+        vpaBtn.classList.remove('is-active');
+        qrBtn.classList.remove('is-active');
+        if (appView) appView.style.display = 'block';
+        if (vpaView) vpaView.style.display = 'none';
+        if (qrView) qrView.style.display = 'none';
       });
 
-      btnUpiVpa.addEventListener('click', () => {
-        btnUpiVpa.classList.add('is-active');
-        btnUpiApps.classList.remove('is-active');
-        btnUpiQr.classList.remove('is-active');
-        if (viewUpiVpa) viewUpiVpa.style.display = 'block';
-        if (viewUpiApps) viewUpiApps.style.display = 'none';
-        if (viewUpiQr) viewUpiQr.style.display = 'none';
-        this.orderData.payment.upiMode = 'vpa';
+      vpaBtn.addEventListener('click', () => {
+        vpaBtn.classList.add('is-active');
+        appBtn.classList.remove('is-active');
+        qrBtn.classList.remove('is-active');
+        if (appView) appView.style.display = 'none';
+        if (vpaView) vpaView.style.display = 'block';
+        if (qrView) qrView.style.display = 'none';
       });
 
-      btnUpiQr.addEventListener('click', () => {
-        btnUpiQr.classList.add('is-active');
-        btnUpiApps.classList.remove('is-active');
-        btnUpiVpa.classList.remove('is-active');
-        if (viewUpiQr) viewUpiQr.style.display = 'block';
-        if (viewUpiApps) viewUpiApps.style.display = 'none';
-        if (viewUpiVpa) viewUpiVpa.style.display = 'none';
-        this.orderData.payment.upiMode = 'qr';
-        this.startUpiQrTimer();
+      qrBtn.addEventListener('click', () => {
+        qrBtn.classList.add('is-active');
+        appBtn.classList.remove('is-active');
+        vpaBtn.classList.remove('is-active');
+        if (appView) appView.style.display = 'none';
+        if (vpaView) vpaView.style.display = 'none';
+        if (qrView) qrView.style.display = 'block';
       });
     }
 
-    // 4. UPI App Chips Selection
+    // UPI App chip selection
     document.querySelectorAll('.upi-app-chip').forEach(chip => {
       chip.addEventListener('click', () => {
         document.querySelectorAll('.upi-app-chip').forEach(c => c.classList.remove('is-selected'));
         chip.classList.add('is-selected');
-        const appName = chip.dataset.upiApp;
-        this.orderData.payment.upiApp = appName;
-        const statusEl = document.getElementById('upi-app-status');
-        if (statusEl) {
-          statusEl.textContent = `✓ Selected: ${appName} (Seamless payment intent will launch upon clicking Place Order)`;
-        }
+        this.orderData.payment.upiApp = chip.dataset.upiApp || 'UPI App';
       });
     });
-
-    // 5. UPI ID / VPA Verify Button
-    const verifyBtn = document.getElementById('btn-verify-upi');
-    const vpaInput = document.getElementById('upi-vpa-input');
-    const verifyBadge = document.getElementById('upi-verify-badge');
-
-    if (verifyBtn && vpaInput && verifyBadge) {
-      verifyBtn.addEventListener('click', () => {
-        const vpa = vpaInput.value.trim();
-        if (!vpa || !vpa.includes('@')) {
-          if (window.amzCart) window.amzCart.showToast("Please enter a valid UPI ID (e.g. yourname@oksbi / mobile@ybl)", "info");
-          return;
-        }
-
-        verifyBtn.textContent = 'Verifying...';
-        verifyBtn.disabled = true;
-
-        setTimeout(() => {
-          verifyBtn.textContent = 'Verified ✓';
-          verifyBtn.disabled = false;
-          const customerName = this.orderData.shipping?.fullName || 'Ramesh Kumar Sharma';
-          verifyBadge.textContent = `✓ Verified: ${customerName} (NPCI / Banking Partner Verified)`;
-          verifyBadge.style.display = 'inline-flex';
-          this.orderData.payment.upiId = vpa;
-          if (window.amzCart) window.amzCart.showToast(`UPI ID ${vpa} Verified!`, "success");
-        }, 350);
-      });
-    }
-
-    // 6. QR Code Simulate Scan
-    const qrSimulateBtn = document.getElementById('btn-simulate-qr-scan');
-    const qrSuccessBadge = document.getElementById('qr-scan-success-badge');
-    if (qrSimulateBtn && qrSuccessBadge) {
-      qrSimulateBtn.addEventListener('click', () => {
-        qrSimulateBtn.textContent = 'Authenticating...';
-        setTimeout(() => {
-          qrSimulateBtn.textContent = 'Authorized ✓';
-          qrSuccessBadge.style.display = 'inline-flex';
-          this.orderData.payment.qrAuthorized = true;
-          if (window.amzCart) window.amzCart.showToast("QR Code Scanned & Approved from Mobile Phone!", "success");
-        }, 400);
-      });
-    }
-
-    // 7. Bank Chips Selection (Indian Net Banking)
-    document.querySelectorAll('.bank-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        document.querySelectorAll('.bank-chip').forEach(c => c.classList.remove('is-selected'));
-        chip.classList.add('is-selected');
-        this.orderData.payment.bank = chip.dataset.bank;
-        if (window.amzCart) window.amzCart.showToast(`Selected ${chip.dataset.bank}`, "info");
-      });
-    });
-
-    // 8. Gift Card Voucher Code
-    const applyGiftBtn = document.getElementById('btn-apply-giftcard');
-    const giftInput = document.getElementById('giftcard-code-input');
-    const giftSuccessBadge = document.getElementById('giftcard-success-badge');
-
-    if (applyGiftBtn && giftInput && giftSuccessBadge) {
-      applyGiftBtn.addEventListener('click', () => {
-        const code = giftInput.value.trim();
-        if (!code) return;
-        applyGiftBtn.textContent = 'Applying...';
-        setTimeout(() => {
-          applyGiftBtn.textContent = 'Applied ✓';
-          giftSuccessBadge.style.display = 'inline-flex';
-          this.orderData.payment.giftCode = code;
-          if (window.amzCart) window.amzCart.showToast(`Gift Card ${code} Applied!`, "success");
-        }, 300);
-      });
-    }
   }
 
   switchCountryPaymentPane(paneName) {
-    document.querySelectorAll('.country-pay-tab').forEach(tab => {
-      tab.classList.toggle('is-active', tab.dataset.countryPane === paneName);
+    document.querySelectorAll('.country-pay-tab').forEach(t => {
+      t.classList.toggle('is-active', t.dataset.countryPane === paneName);
     });
 
-    document.querySelectorAll('.country-pay-pane').forEach(pane => {
-      pane.classList.toggle('is-active', pane.dataset.countryPaneContent === paneName);
+    document.querySelectorAll('.country-pay-pane').forEach(p => {
+      p.classList.toggle('is-active', p.dataset.countryPaneContent === paneName);
     });
+  }
 
-    // Auto-select first available payment option in that pane
-    const activePane = document.querySelector(`.country-pay-pane[data-country-pane-content="${paneName}"]`);
-    if (activePane) {
-      const firstRadio = activePane.querySelector('input[name="checkout-payment-method"]');
-      if (firstRadio) {
-        firstRadio.checked = true;
-        firstRadio.dispatchEvent(new Event('change'));
+  updatePaymentPanels(method) {
+    const upiBox = document.getElementById('checkout-upi-box');
+    const cardBox = document.getElementById('checkout-card-box');
+
+    if (upiBox) {
+      upiBox.style.display = (method === 'upi') ? 'block' : 'none';
+    }
+    if (cardBox) {
+      cardBox.style.display = (method === 'card' || method === 'rupay_card') ? 'block' : 'none';
+    }
+  }
+
+  simulateInstantUPI() {
+    const btn = document.getElementById('btn-simulate-upi-instant');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = `<span class="btn-spinner"></span> Authenticating UPI with Bank...`;
+    }
+
+    setTimeout(() => {
+      if (btn) {
+        btn.innerHTML = `✓ UPI Authorized Successfully!`;
+        btn.classList.add('is-success');
       }
-    }
-  }
-
-  startUpiQrTimer() {
-    let timeLeft = 299; // 5 minutes
-    const timerEl = document.getElementById('upi-qr-timer');
-    if (!timerEl) return;
-
-    if (this.qrInterval) clearInterval(this.qrInterval);
-
-    this.qrInterval = setInterval(() => {
-      timeLeft--;
-      if (timeLeft <= 0) {
-        clearInterval(this.qrInterval);
-        timerEl.textContent = 'Expired - Click to Refresh';
-        return;
+      if (window.amzCart) {
+        window.amzCart.showToast("⚡ UPI Payment Authorized! Proceeding to Order Placement.", "success");
       }
-      const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-      const secs = String(timeLeft % 60).padStart(2, '0');
-      timerEl.textContent = `${mins}:${secs}`;
-    }, 1000);
+      setTimeout(() => {
+        this.renderStep(3);
+      }, 500);
+    }, 900);
   }
 
-  validateAddressForm() {
-    const country = document.getElementById('ship-country')?.value || 'IN';
-    const nameInput = document.getElementById('ship-name');
-    const phoneInput = document.getElementById('ship-phone');
-    const streetInput = document.getElementById('ship-street');
-    const stateInput = document.getElementById('ship-state');
-    const zipInput = document.getElementById('ship-zip');
-    const villageInput = document.getElementById('ship-village');
-    const tehsilInput = document.getElementById('ship-tehsil');
-    const districtInput = document.getElementById('ship-district');
-    const landmarkInput = document.getElementById('ship-landmark');
-    const carrierInput = document.querySelector('input[name="ship-carrier"]:checked');
+  bindVillageDeliveryToggles() {
+    const villageBtn = document.getElementById('delivery-type-village');
+    const cityBtn = document.getElementById('delivery-type-city');
+    const villageBanner = document.getElementById('village-info-banner');
+    const groupVillage = document.getElementById('group-village-name');
+    const groupTehsil = document.getElementById('group-tehsil');
+    const groupLandmark = document.getElementById('group-landmark');
+    const labelStreet = document.getElementById('label-street');
+    const labelDistrict = document.getElementById('label-district');
 
-    if (!nameInput?.value.trim() || !phoneInput?.value.trim() || !streetInput?.value.trim() || !zipInput?.value.trim()) {
-      if (window.amzCart) window.amzCart.showToast("Please fill in your name, phone, address, and PIN/ZIP code.", "info");
-      return false;
+    if (villageBtn && cityBtn) {
+      villageBtn.addEventListener('click', () => {
+        this.deliveryType = 'village';
+        villageBtn.classList.add('is-active');
+        cityBtn.classList.remove('is-active');
+        if (villageBanner) villageBanner.style.display = 'flex';
+        if (groupVillage) groupVillage.style.display = 'block';
+        if (groupTehsil) groupTehsil.style.display = 'block';
+        if (groupLandmark) groupLandmark.style.display = 'block';
+        if (labelStreet) labelStreet.textContent = 'House / Farm / Mohalla / Lane';
+        if (labelDistrict) labelDistrict.textContent = 'District (जिला)';
+      });
+
+      cityBtn.addEventListener('click', () => {
+        this.deliveryType = 'city';
+        cityBtn.classList.add('is-active');
+        villageBtn.classList.remove('is-active');
+        if (villageBanner) villageBanner.style.display = 'none';
+        if (groupVillage) groupVillage.style.display = 'none';
+        if (groupTehsil) groupTehsil.style.display = 'none';
+        if (groupLandmark) groupLandmark.style.display = 'none';
+        if (labelStreet) labelStreet.textContent = 'Street Address / Building / Apt';
+        if (labelDistrict) labelDistrict.textContent = 'City / Town';
+      });
+    }
+  }
+
+  // ==========================================================================
+  // 4. ORDER REVIEW & SUMMARY RENDERING
+  // ==========================================================================
+  renderOrderReview() {
+    const summary = window.amzCart ? window.amzCart.getSummary() : { subtotal: 0, shipping: 0, orderTotal: 0 };
+    const ship = this.orderData.shipping;
+    const isVillage = ship.addressType === 'village';
+
+    // Populate Review Step Shipping Details
+    const addrReview = document.getElementById('review-shipping-address');
+    if (addrReview) {
+      addrReview.innerHTML = `
+        <strong>${window.amzStore.escapeHTML(ship.fullName)}</strong> (${window.amzStore.escapeHTML(ship.phone)})<br>
+        ${window.amzStore.escapeHTML(ship.street)}<br>
+        ${isVillage && ship.village ? `Village: ${window.amzStore.escapeHTML(ship.village)}, ` : ''}
+        ${isVillage && ship.tehsil ? `Tehsil: ${window.amzStore.escapeHTML(ship.tehsil)}<br>` : ''}
+        <strong>${window.amzStore.escapeHTML(ship.city || ship.district)}, ${window.amzStore.escapeHTML(ship.state)} - PIN: ${window.amzStore.escapeHTML(ship.zipCode)}</strong><br>
+        <span style="font-size: 0.8rem; color: var(--color-success); font-weight: 600;">
+          🚚 Routing via ${ship.carrierPartner || 'India Post Speed Post'} (Doorstep Handover)
+        </span>
+      `;
     }
 
-    const carrierName = carrierInput?.value === 'ruralexpress' 
-      ? 'UdaanMart Rural Express Hub Partner' 
-      : 'India Post Speed Post (Last-Mile Village Doorstep)';
-
-    this.orderData.shipping = {
-      country: country,
-      addressType: this.deliveryType,
-      fullName: nameInput.value.trim(),
-      phone: phoneInput.value.trim(),
-      street: streetInput.value.trim(),
-      village: this.deliveryType === 'village' ? (villageInput?.value.trim() || 'Village Rampur') : '',
-      tehsil: this.deliveryType === 'village' ? (tehsilInput?.value.trim() || '') : '',
-      district: districtInput?.value.trim() || 'District',
-      state: stateInput?.value.trim() || 'Uttar Pradesh',
-      zipCode: zipInput.value.trim(),
-      landmark: this.deliveryType === 'village' ? (landmarkInput?.value.trim() || 'Near Primary School') : '',
-      carrierPartner: carrierName
-    };
-
-    return true;
-  }
-
-  renderStep(stepNumber) {
-    this.currentStep = stepNumber;
-
-    // Update step indicator tabs
-    document.querySelectorAll('.checkout-step-tab').forEach(tab => {
-      const tabStep = parseInt(tab.dataset.step, 10);
-      tab.classList.toggle('is-active', tabStep === stepNumber);
-      tab.classList.toggle('is-completed', tabStep < stepNumber);
-    });
-
-    // Toggle step panes
-    document.querySelectorAll('.checkout-step-pane').forEach(pane => {
-      const paneStep = parseInt(pane.dataset.step, 10);
-      pane.classList.toggle('is-active', paneStep === stepNumber);
-    });
-
-    // When entering Step 2: Auto-select appropriate Country Payment tab
-    if (stepNumber === 2) {
-      const country = this.orderData.shipping?.country || 'IN';
-      if (country === 'IN') {
-        this.switchCountryPaymentPane('india');
-      } else if (['US', 'CA'].includes(country)) {
-        this.switchCountryPaymentPane('usa');
-      } else if (['GB', 'DE'].includes(country)) {
-        this.switchCountryPaymentPane('europe');
-      } else if (country === 'JP') {
-        this.switchCountryPaymentPane('apac');
-      } else {
-        this.switchCountryPaymentPane('india');
+    // Populate Review Step Payment Details
+    const payReview = document.getElementById('review-payment-method');
+    if (payReview) {
+      let payDesc = '⚡ UPI Instant Pay (Google Pay)';
+      if (this.orderData.payment.method === 'cod') {
+        payDesc = '💵 Cash on Delivery (Pay cash at your doorstep)';
+      } else if (this.orderData.payment.method === 'card' || this.orderData.payment.method === 'rupay_card') {
+        payDesc = '💳 Credit / Debit Card (Visa / RuPay •••• 4242)';
       }
+      payReview.innerHTML = `<strong>${payDesc}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Encrypted & Verified</span>`;
     }
 
-    // Populate review step if navigating to Step 3
-    if (stepNumber === 3) {
-      this.populateOrderReview();
-    }
-  }
-
-  populateOrderReview() {
-    const reviewItemsContainer = document.getElementById('checkout-review-items');
-    const reviewShippingEl = document.getElementById('checkout-review-shipping-details');
-    const reviewPaymentEl = document.getElementById('checkout-review-payment-details');
-    const subtotalEl = document.getElementById('checkout-summary-subtotal');
-    const shippingEl = document.getElementById('checkout-summary-shipping');
-    const taxEl = document.getElementById('checkout-summary-tax');
-    const totalEl = document.getElementById('checkout-summary-total');
-
-    if (!window.amzCart) return;
-
-    const items = window.amzCart.items;
-    const summary = window.amzCart.getSummary();
-
-    // Render item rows
-    if (reviewItemsContainer) {
-      reviewItemsContainer.innerHTML = items.map(item => `
-        <div class="checkout-review-item-row">
-          <img src="${item.image}" alt="${item.title}" class="review-item-thumb" />
+    // Populate Review Items List
+    const itemsReview = document.getElementById('review-items-list');
+    if (itemsReview && window.amzCart) {
+      itemsReview.innerHTML = window.amzCart.items.map(item => `
+        <div class="review-item-row">
+          <img src="${item.image}" alt="${window.amzStore.escapeHTML(item.title)}" class="review-item-thumb" />
           <div class="review-item-info">
-            <h5 class="review-item-title">${item.title}</h5>
-            <div class="review-item-meta">
-              <span class="review-item-qty">Qty: ${item.quantity}</span>
-              <span class="review-item-price">${window.amzApp ? window.amzApp.formatPrice(item.price * item.quantity) : `$${(item.price * item.quantity).toFixed(2)}`}</span>
-            </div>
+            <span class="review-item-title">${window.amzStore.escapeHTML(item.shortTitle || item.title)}</span>
+            <span class="review-item-meta">Qty: ${item.quantity} • ${window.amzApp ? window.amzApp.formatPrice(item.price) : '$' + item.price}</span>
           </div>
         </div>
       `).join('');
     }
 
-    // Shipping address summary (Rich Village & Rural Display)
-    if (reviewShippingEl) {
-      const ship = this.orderData.shipping;
-      if (ship.addressType === 'village') {
-        reviewShippingEl.innerHTML = `
-          <div style="display: inline-block; background: #eaf8f4; color: #067d62; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; margin-bottom: 4px;">
-            🏡 VILLAGE / RURAL DOORSTEP DELIVERY
-          </div><br>
-          <strong>${escapeHtml(ship.fullName)}</strong> (📞 ${escapeHtml(ship.phone)})<br>
-          ${escapeHtml(ship.street)}<br>
-          <strong>Village:</strong> ${escapeHtml(ship.village)} ${ship.tehsil ? `| <strong>Tehsil / PO:</strong> ${escapeHtml(ship.tehsil)}` : ''}<br>
-          <strong>District:</strong> ${escapeHtml(ship.district)}, ${escapeHtml(ship.state)} - <strong>${escapeHtml(ship.zipCode)}</strong><br>
-          ${ship.landmark ? `🚩 <strong>Landmark:</strong> ${escapeHtml(ship.landmark)}<br>` : ''}
-          <div style="font-size: 0.78rem; color: #007185; margin-top: 4px;">
-            🚚 <strong>Carrier:</strong> ${escapeHtml(ship.carrierPartner)}
-          </div>
-        `;
-      } else {
-        reviewShippingEl.innerHTML = `
-          <strong>${escapeHtml(ship.fullName)}</strong> (📞 ${escapeHtml(ship.phone)})<br>
-          ${escapeHtml(ship.street)}<br>
-          ${escapeHtml(ship.district)}, ${escapeHtml(ship.state)} ${escapeHtml(ship.zipCode)}<br>
-          🚚 <strong>Carrier:</strong> ${escapeHtml(ship.carrierPartner)}
-        `;
-      }
-    }
+    // Populate Pricing Breakdown
+    const subtotalEl = document.getElementById('review-subtotal');
+    const shippingEl = document.getElementById('review-shipping');
+    const totalEl = document.getElementById('review-total');
 
-    // Payment summary with dynamic country/method details
-    if (reviewPaymentEl) {
-      const p = this.orderData.payment;
-      let payTitle = 'Credit or Debit Card';
-      let paySub = 'Visa ending in 4242';
-
-      switch (p.method) {
-        case 'upi':
-          payTitle = `⚡ UPI Payment (${p.upiApp || 'Google Pay'})`;
-          paySub = p.upiId ? `VPA: ${p.upiId} ✓ Verified` : `Instant 1-Click Intent on ${p.upiApp || 'Google Pay'}`;
-          break;
-        case 'cod':
-          payTitle = `💵 Cash on Delivery / Pay on Arrival`;
-          paySub = `Pay cash or UPI to delivery agent upon village/doorstep arrival`;
-          break;
-        case 'netbanking':
-          payTitle = `🏦 Net Banking (${p.bank || 'State Bank of India'})`;
-          paySub = `Secure direct bank redirect via NPCI gateway`;
-          break;
-        case 'rupay_card':
-          payTitle = `💳 RuPay Debit/Credit Card`;
-          paySub = `RuPay card ending in 7192 (RuPay PaySecure)`;
-          break;
-        case 'card':
-          payTitle = `💳 Credit/Debit Card (Visa/Mastercard)`;
-          paySub = `Visa card ending in 4242 (Exp: 09/28)`;
-          break;
-        case 'applepay':
-          payTitle = `🍏 Apple Pay`;
-          paySub = `1-Touch biometric authentication (Apple Wallet)`;
-          break;
-        case 'paypal':
-          payTitle = `🅿️ PayPal & Venmo`;
-          paySub = `Instant checkout from linked balance`;
-          break;
-        case 'affirm':
-          payTitle = `🛍️ Affirm: Buy Now, Pay Later`;
-          paySub = `4 interest-free payments of 25%`;
-          break;
-        case 'sepa':
-          payTitle = `🇪🇺 SEPA Direct Debit`;
-          paySub = `Eurozone IBAN ending in •••• 8912`;
-          break;
-        case 'klarna':
-          payTitle = `🛍️ Klarna Pay in 3 / Sofort Banking`;
-          paySub = `Split European payments with 0% interest`;
-          break;
-        case 'ideal':
-          payTitle = `🇳🇱 iDEAL & 🇧🇪 Bancontact`;
-          paySub = `Direct bank transfer (Netherlands & Belgium)`;
-          break;
-        case 'revolut':
-          payTitle = `⚡ Revolut Pay`;
-          paySub = `1-Click Revolut account transfer`;
-          break;
-        case 'paypay':
-          payTitle = `🔴 PayPay & LINE Pay`;
-          paySub = `Japan's leading QR mobile wallet`;
-          break;
-        case 'konbini':
-          payTitle = `🏪 Konbini Convenience Store`;
-          paySub = `Pay at 7-Eleven, Lawson, or FamilyMart in Japan`;
-          break;
-        case 'jcb':
-          payTitle = `🇯🇵 JCB International Card`;
-          paySub = `JCB card ending in 8109`;
-          break;
-        case 'udaanmartpay':
-        case 'amazonpay':
-          payTitle = `🟠 UdaanMart Pay Balance`;
-          paySub = `Deducted from available stored wallet`;
-          break;
-        case 'giftcard':
-          payTitle = `🎁 UdaanMart Gift Card / Promo Code`;
-          paySub = `Voucher ${p.giftCode || 'UDAAN-PRIME-2026'} applied`;
-          break;
-        case 'crypto':
-          payTitle = `🪙 Web3 Crypto Payment`;
-          paySub = `Bitcoin / USDT simulated blockchain transfer`;
-          break;
-        default:
-          payTitle = 'Electronic Payment';
-          paySub = 'Encrypted Transaction';
-      }
-
-      this.orderData.paymentMethodTitle = `${payTitle} (${paySub})`;
-
-      reviewPaymentEl.innerHTML = `
-        <div style="font-size: 0.85rem;">
-          <strong style="color: var(--text-primary);">${payTitle}</strong><br>
-          <span style="color: var(--text-secondary); font-size: 0.78rem;">${paySub}</span>
-        </div>
-      `;
-    }
-
-    // Financial totals
     if (subtotalEl) subtotalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `$${summary.subtotal.toFixed(2)}`;
     if (shippingEl) shippingEl.textContent = summary.shipping === 0 ? 'FREE' : (window.amzApp ? window.amzApp.formatPrice(summary.shipping) : `$${summary.shipping.toFixed(2)}`);
-    if (taxEl) taxEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.tax) : `$${summary.tax.toFixed(2)}`;
     if (totalEl) totalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.orderTotal) : `$${summary.orderTotal.toFixed(2)}`;
   }
 
+  // ==========================================================================
+  // 5. ORDER PLACEMENT & CONFLICT-FREE SYNC
+  // ==========================================================================
   processOrderPlacement() {
     const placeBtn = document.getElementById('btn-place-order');
     if (placeBtn) {
       placeBtn.disabled = true;
       placeBtn.innerHTML = `
         <span class="btn-spinner"></span>
-        <span>Securing Order & Routing Village Dispatch...</span>
+        <span>Securing Order & Routing India Post Dispatch...</span>
       `;
     }
 
     setTimeout(() => {
-      const summary = window.amzCart.getSummary();
+      const summary = window.amzCart ? window.amzCart.getSummary() : { subtotal: 0, orderTotal: 0 };
       const ship = this.orderData.shipping;
-      const isVillage = ship.addressType === 'village';
 
-      const randomOrderId = `114-${Math.floor(1000000 + Math.random() * 9000000)}-${Math.floor(1000000 + Math.random() * 9000000)}`;
-      const randomTracking = isVillage 
-        ? `INP${Math.floor(100000000 + Math.random() * 900000000)}IN` 
-        : `TBA${Math.floor(100000000000 + Math.random() * 900000000000)}`;
+      let paymentTitle = 'UPI Instant Pay';
+      if (this.orderData.payment.method === 'cod') paymentTitle = 'Cash on Delivery (COD)';
+      else if (this.orderData.payment.method === 'card') paymentTitle = 'Credit / Debit Card';
 
-      const newOrder = {
-        orderId: randomOrderId,
-        trackingNumber: randomTracking,
-        date: new Date().toISOString(),
-        status: isVillage ? 'Dispatched to Village Post Office' : 'Preparing for Shipment',
-        estimatedDelivery: isVillage ? 'Arriving in 2-3 Days at Village Doorstep' : 'Arriving Tomorrow by 8 PM',
-        carrierPartner: ship.carrierPartner || 'India Post Speed Post',
-        total: summary.orderTotal,
-        shipping: { ...this.orderData.shipping },
-        items: [...window.amzCart.items]
-      };
+      // Save order into Unified Store
+      const newOrder = window.amzStore.addOrder({
+        items: [...(window.amzCart ? window.amzCart.items : [])],
+        subtotal: summary.subtotal,
+        shippingFee: summary.shipping || 0,
+        totalAmount: summary.orderTotal,
+        paymentMethod: paymentTitle,
+        paymentStatus: this.orderData.payment.method === 'cod' ? 'Pending (Cash at Doorstep)' : 'Paid (Verified)',
+        deliveryLocation: {
+          name: ship.fullName,
+          phone: ship.phone,
+          pincode: ship.zipCode,
+          city: ship.city || ship.district,
+          district: ship.district,
+          state: ship.state,
+          address: `${ship.street}, ${ship.village ? ship.village + ', ' : ''}${ship.landmark ? 'Near: ' + ship.landmark : ''}`
+        }
+      });
 
-      // Push into order history
-      this.orders.unshift(newOrder);
-      this.saveOrders();
+      // Clear Cart
+      if (window.amzCart) {
+        window.amzCart.clearCart();
+      }
 
-      // Clear cart
-      window.amzCart.clearCart();
-
-      // Reset place button state
+      // Reset Button State
       if (placeBtn) {
         placeBtn.disabled = false;
         placeBtn.innerHTML = `Place Your Order and Pay`;
       }
 
-      // Close checkout modal & show Order Confirmation modal
+      // Close Checkout Modal
       const checkoutModal = document.getElementById('checkout-modal');
       if (checkoutModal && window.amzModal) {
         window.amzModal.hideModal(checkoutModal);
       }
 
-      this.showOrderConfirmation(newOrder);
-    }, 1200);
+      // Show Order Success Modal
+      this.showOrderSuccess(newOrder);
+
+    }, 800);
   }
 
-  showOrderConfirmation(order) {
-    const modal = document.getElementById('order-success-modal');
-    if (!modal) return;
+  showOrderSuccess(order) {
+    const successModal = document.getElementById('order-success-modal');
+    if (!successModal || !window.amzModal) return;
 
-    const ship = order.shipping;
-    const isVillage = ship.addressType === 'village';
-    const formattedAddress = isVillage
-      ? `${ship.street}, Village: ${ship.village}${ship.tehsil ? ` (${ship.tehsil})` : ''}, District: ${ship.district}, ${ship.state} - ${ship.zipCode} | 🚩 Landmark: ${ship.landmark}`
-      : `${ship.street}, ${ship.district}, ${ship.state} ${ship.zipCode}`;
+    const ship = order.deliveryLocation || {};
 
-    modal.querySelector('.success-order-id').textContent = order.orderId;
-    modal.querySelector('.success-tracking-no').textContent = `${order.trackingNumber} (${order.carrierPartner})`;
-    modal.querySelector('.success-delivery-date').textContent = order.estimatedDelivery;
-    modal.querySelector('.success-shipping-name').textContent = `${ship.fullName} (📞 ${ship.phone})`;
-    modal.querySelector('.success-shipping-address').textContent = formattedAddress;
-    modal.querySelector('.success-order-total').textContent = window.amzApp ? window.amzApp.formatPrice(order.total) : `$${order.total.toFixed(2)}`;
+    const orderIdEl = successModal.querySelector('.success-order-id');
+    const trackingEl = successModal.querySelector('.success-tracking-no');
+    const deliveryDateEl = successModal.querySelector('.success-delivery-date');
+    const nameEl = successModal.querySelector('.success-shipping-name');
+    const addrEl = successModal.querySelector('.success-shipping-address');
+    const payEl = successModal.querySelector('.success-payment-method');
+    const totalEl = successModal.querySelector('.success-order-total');
 
-    const payMethodEl = modal.querySelector('.success-payment-method');
-    if (payMethodEl) {
-      payMethodEl.textContent = order.paymentMethod || '⚡ UPI Payment (Google Pay - Verified)';
-    }
+    if (orderIdEl) orderIdEl.textContent = order.orderId;
+    if (trackingEl) trackingEl.textContent = order.trackingNumber;
+    if (deliveryDateEl) deliveryDateEl.textContent = `Express 24-48h Delivery to ${ship.city || 'Your Doorstep'}`;
+    if (nameEl) nameEl.textContent = ship.name;
+    if (addrEl) addrEl.textContent = `${ship.address}, ${ship.city} - ${ship.pincode}`;
+    if (payEl) payEl.textContent = order.paymentMethod;
+    if (totalEl) totalEl.textContent = window.amzApp ? window.amzApp.formatPrice(order.totalAmount || order.total) : `$${order.totalAmount}`;
 
-    if (window.amzModal) {
-      window.amzModal.showModal(modal);
-    }
-
-    // Launch celebratory confetti
-    this.launchConfetti();
-
-    // Bind receipt download simulation
-    const downloadBtn = modal.querySelector('#btn-download-receipt');
-    if (downloadBtn) {
-      downloadBtn.onclick = () => {
-        this.downloadSimulatedReceipt(order);
+    // Bind GST Invoice Button
+    const invoiceBtn = document.getElementById('btn-download-receipt');
+    if (invoiceBtn) {
+      invoiceBtn.textContent = '📄 Print / Download GST Invoice';
+      invoiceBtn.onclick = () => {
+        this.openGSTInvoice(order);
       };
     }
-  }
 
-  downloadSimulatedReceipt(order) {
-    const ship = order.shipping;
-    const isVillage = ship.addressType === 'village';
+    // Trigger Confetti Celebration Canvas
+    this.launchConfetti();
 
-    const addressBlock = isVillage ? `
-RECIPIENT: ${ship.fullName} (Phone: ${ship.phone})
-DELIVERY TYPE: Rural / Village Doorstep Delivery (गाँव डिलीवरी)
-VILLAGE / GRAM PANCHAYAT: ${ship.village}
-POST OFFICE / TEHSIL: ${ship.tehsil || 'Local Gram Post Office'}
-HOUSE / LOCALITY: ${ship.street}
-DISTRICT: ${ship.district}
-STATE: ${ship.state}
-PIN CODE: ${ship.zipCode}
-NEAREST LANDMARK: ${ship.landmark}
-COUNTRY: ${ship.country === 'IN' ? 'India' : ship.country}
-ASSIGNED CARRIER: ${order.carrierPartner}
-    `.trim() : `
-RECIPIENT: ${ship.fullName} (Phone: ${ship.phone})
-ADDRESS: ${ship.street}
-CITY / DISTRICT: ${ship.district}, ${ship.state} ${ship.zipCode}
-COUNTRY: ${ship.country}
-CARRIER: ${order.carrierPartner}
-    `.trim();
-
-    const receiptContent = `
-============================================================
-              UDAANMART ORDER CONFIRMATION & RECEIPT
-============================================================
-Order ID: ${order.orderId}
-Carrier Tracking: ${order.trackingNumber}
-Carrier Partner: ${order.carrierPartner}
-Order Date: ${new Date(order.date).toLocaleString()}
-Status: ${order.status}
-Estimated Delivery: ${order.estimatedDelivery}
-Payment Method: ${order.paymentMethod || '⚡ UPI Payment (Google Pay - Verified)'}
-
-SHIP TO DESTINATION:
-${addressBlock}
-
-ORDER ITEMS:
-${order.items.map(i => `- ${i.title} (Qty: ${i.quantity}) - ${window.amzApp ? window.amzApp.formatPrice(i.price * i.quantity) : '$' + (i.price * i.quantity).toFixed(2)}`).join('\n')}
-
-TOTAL CHARGE: ${window.amzApp ? window.amzApp.formatPrice(order.total) : '$' + order.total.toFixed(2)}
-============================================================
-✓ Guaranteed Doorstep Delivery to Remote Villages Across India & Globally
-✓ Delivered via India Post Speed Post & UdaanMart Rural Logistics
-Thank you for shopping at UdaanMart!
-============================================================
-    `.trim();
-
-    const blob = new Blob([receiptContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `UdaanMart-Receipt-${order.orderId}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    if (window.amzCart) {
-      window.amzCart.showToast("Receipt downloaded with Village Delivery details!", "success");
-    }
-  }
-
-  launchConfetti() {
-    const canvas = document.getElementById('confetti-canvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles = [];
-    const colors = ['#febd69', '#f08804', '#007185', '#067d62', '#ffd814', '#ffffff'];
-
-    for (let i = 0; i < 90; i++) {
-      particles.push({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        r: Math.random() * 6 + 3,
-        d: Math.random() * 50 + 10,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        tilt: Math.floor(Math.random() * 10) - 10,
-        tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
-        tiltAngle: 0,
-        vx: (Math.random() - 0.5) * 18,
-        vy: (Math.random() - 0.7) * 18,
-        gravity: 0.35
-      });
-    }
-
-    let animationFrame;
-    const renderConfetti = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      let activeParticles = 0;
-      particles.forEach(p => {
-        p.vy += p.gravity;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.tiltAngle += p.tiltAngleIncremental;
-        p.tilt = Math.sin(p.tiltAngle) * 15;
-
-        if (p.y < canvas.height) {
-          activeParticles++;
-          ctx.beginPath();
-          ctx.lineWidth = p.r;
-          ctx.strokeStyle = p.color;
-          ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-          ctx.stroke();
-        }
-      });
-
-      if (activeParticles > 0) {
-        animationFrame = requestAnimationFrame(renderConfetti);
-      } else {
-        cancelAnimationFrame(animationFrame);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    };
-
-    renderConfetti();
+    window.amzModal.showModal(successModal);
   }
 
   // ==========================================================================
-  // EXPRESS 1-CLICK INSTANT PURCHASE ENGINE (BUYER-FRIENDLY)
+  // 6. 1-CLICK EXPRESS BUY MODAL (BUYER-FRIENDLY QUICK BUY)
   // ==========================================================================
   bindExpressBuyModal() {
     const modal = document.getElementById('express-buy-modal');
     const closeBtn = document.getElementById('express-buy-close');
-    const qtySelect = document.getElementById('express-qty-select');
     const confirmBtn = document.getElementById('btn-express-confirm-order');
-    const fallbackLink = document.getElementById('express-fallback-link');
+    const qtySelect = document.getElementById('express-qty-select');
 
     if (closeBtn) {
       closeBtn.addEventListener('click', () => this.closeExpressBuy());
     }
 
-    if (qtySelect) {
-      qtySelect.addEventListener('change', () => {
-        if (this.expressProduct) {
-          const q = parseInt(qtySelect.value, 10) || 1;
-          this.expressQty = q;
-          this.updateExpressTotals();
-        }
-      });
-    }
-
-    // Address chip selector
-    const villageAddrChip = document.getElementById('express-addr-village');
-    const cityAddrChip = document.getElementById('express-addr-city');
-
-    if (villageAddrChip && cityAddrChip) {
-      villageAddrChip.addEventListener('click', () => {
-        villageAddrChip.classList.add('is-selected');
-        cityAddrChip.classList.remove('is-selected');
-        const r = villageAddrChip.querySelector('input');
-        if (r) r.checked = true;
-      });
-
-      cityAddrChip.addEventListener('click', () => {
-        cityAddrChip.classList.add('is-selected');
-        villageAddrChip.classList.remove('is-selected');
-        const r = cityAddrChip.querySelector('input');
-        if (r) r.checked = true;
-      });
-    }
-
-    // Payment pills selector
-    const payUpi = document.getElementById('express-pay-upi');
-    const payCod = document.getElementById('express-pay-cod');
-    const payCard = document.getElementById('express-pay-card');
-    const payPills = [payUpi, payCod, payCard].filter(Boolean);
-
-    payPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        payPills.forEach(p => p.classList.remove('is-selected'));
-        pill.classList.add('is-selected');
-        const r = pill.querySelector('input');
-        if (r) r.checked = true;
-      });
-    });
-
     if (confirmBtn) {
-      confirmBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.confirmExpressOrder();
-      });
+      confirmBtn.addEventListener('click', () => this.confirmExpressOrder());
     }
 
-    if (fallbackLink) {
-      fallbackLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.closeExpressBuy();
-        if (this.expressProduct && window.amzCart) {
-          window.amzCart.addItem(this.expressProduct, this.expressQty || 1);
-        }
-        this.openCheckout();
+    if (qtySelect) {
+      qtySelect.addEventListener('change', (e) => {
+        this.expressQty = parseInt(e.target.value, 10) || 1;
+        this.updateExpressTotals();
       });
     }
   }
@@ -962,7 +613,6 @@ Thank you for shopping at UdaanMart!
     const overlay = document.getElementById('global-overlay');
     if (!modal) return;
 
-    // Populate product details
     const imgEl = document.getElementById('express-prod-img');
     const titleEl = document.getElementById('express-prod-title');
     const priceEl = document.getElementById('express-prod-price');
@@ -972,12 +622,11 @@ Thank you for shopping at UdaanMart!
     if (imgEl) imgEl.src = product.images ? product.images[0] : '';
     if (titleEl) titleEl.textContent = product.shortTitle || product.title;
     if (priceEl) priceEl.textContent = window.amzApp ? window.amzApp.formatPrice(product.price) : ("$" + product.price.toFixed(2));
-    if (deliveryEl) deliveryEl.textContent = product.delivery || 'FREE Delivery Tomorrow';
+    if (deliveryEl) deliveryEl.textContent = product.delivery || `FREE Express Delivery to ${this.orderData.shipping.city}`;
     if (qtySelect) qtySelect.value = quantity.toString();
 
     this.updateExpressTotals();
 
-    // Show modal & overlay
     modal.classList.add('is-open');
     if (overlay) overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -989,7 +638,7 @@ Thank you for shopping at UdaanMart!
     if (!modal) return;
 
     modal.classList.remove('is-open');
-    if (overlay && !document.querySelector('.amz-modal.is-open:not(#express-buy-modal), .cart-drawer.is-open, .dept-drawer.is-open')) {
+    if (overlay && !document.querySelector('.amz-modal.is-open:not(#express-buy-modal), .modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
       overlay.classList.remove('is-open');
     }
     document.body.style.overflow = '';
@@ -1005,7 +654,7 @@ Thank you for shopping at UdaanMart!
 
     const submitBtn = document.getElementById('btn-express-confirm-order');
     if (submitBtn) {
-      submitBtn.innerHTML = `<span class="bolt-icon">⚡</span><span>Slide / Tap to Complete 1-Click Order (${formatted})</span>`;
+      submitBtn.innerHTML = `<span class="bolt-icon">⚡</span><span>1-Click Buy Now (${formatted})</span>`;
     }
   }
 
@@ -1015,101 +664,193 @@ Thank you for shopping at UdaanMart!
     const btn = document.getElementById('btn-express-confirm-order');
     if (btn) {
       btn.disabled = true;
-      btn.innerHTML = `<span class="spinner-inline"></span> Processing 1-Click Order...`;
+      btn.innerHTML = `<span class="spinner-inline"></span> Placing 1-Click Order...`;
     }
 
     setTimeout(() => {
-      // Determine selected address
-      const isVillage = document.querySelector('input[name="express-addr-opt"]:checked')?.value === 'village';
-      // Determine selected payment
       const payVal = document.querySelector('input[name="express-pay-opt"]:checked')?.value || 'upi';
-      let payName = '⚡ UPI 1-Click (GPay / PhonePe - Verified)';
-      if (payVal === 'cod') {
-        payName = '💵 Cash on Delivery (Pay cash at village doorstep)';
-      } else if (payVal === 'card') {
-        payName = '💳 Saved Visa Card (•••• 4242)';
-      }
+      let payName = 'UPI Instant Pay';
+      if (payVal === 'cod') payName = 'Cash on Delivery (COD)';
+      else if (payVal === 'card') payName = 'Credit / Debit Card';
 
       const total = this.expressProduct.price * (this.expressQty || 1);
-      const randomDigits = Math.floor(1000000 + Math.random() * 9000000);
-      const orderId = `114-${randomDigits}-7890123`;
-      const carrier = isVillage ? 'India Post Rural Speed Post' : 'UdaanMart Express Van';
-      const trackingNo = isVillage ? `IN${Math.floor(100000000 + Math.random() * 900000000)}RP` : `TBA${Math.floor(100000000000 + Math.random() * 900000000000)}`;
+      const ship = this.orderData.shipping;
 
-      const newOrder = {
-        orderId: orderId,
-        date: new Date().toISOString(),
-        status: 'Dispatched (Out for Delivery)',
-        estimatedDelivery: isVillage ? 'FREE Doorstep Village Delivery in 2 Days' : 'Arriving Tomorrow by 11 AM',
-        total: total,
-        paymentMethod: payName,
-        carrierPartner: carrier,
-        trackingNumber: trackingNo,
+      const newOrder = window.amzStore.addOrder({
         items: [
           {
             id: this.expressProduct.id,
-            title: this.expressProduct.shortTitle || this.expressProduct.title,
+            title: this.expressProduct.title,
+            shortTitle: this.expressProduct.shortTitle || this.expressProduct.title,
             price: this.expressProduct.price,
             quantity: this.expressQty || 1,
             image: this.expressProduct.images ? this.expressProduct.images[0] : ''
           }
         ],
-        shipping: isVillage ? {
-          addressType: 'village',
-          fullName: 'Aarav Sharma (Resident)',
-          street: 'House #42, Primary School Road',
-          village: 'Rampur Gram Panchayat',
-          tehsil: 'Sadar Tehsil',
-          district: 'Varanasi',
-          state: 'Uttar Pradesh',
-          zipCode: '244901',
-          landmark: 'Opposite Village Panchayat Bhavan',
-          phone: '+91 98765 43210',
-          country: 'IN'
-        } : {
-          addressType: 'city',
-          fullName: 'Alex Vance',
-          street: 'Flat 402, Lotus Heights, Outer Ring Road',
-          district: 'New Delhi',
-          state: 'Delhi',
-          zipCode: '110001',
-          phone: '+91 91234 56789',
-          country: 'IN'
+        subtotal: total,
+        shippingFee: 0,
+        totalAmount: total,
+        paymentMethod: payName,
+        paymentStatus: payVal === 'cod' ? 'Pending (Cash at Doorstep)' : 'Paid (Instant)',
+        deliveryLocation: {
+          name: ship.fullName,
+          phone: ship.phone,
+          pincode: ship.pincode || ship.zipCode,
+          city: ship.city,
+          district: ship.district,
+          state: ship.state,
+          address: ship.street
         }
-      };
+      });
 
-      // Save order
-      this.orders.unshift(newOrder);
-      this.saveOrders();
-
-      // Decrement product stock in PRODUCTS_DATA
-      const catProd = PRODUCTS_DATA.find(p => p.id === this.expressProduct.id);
-      if (catProd) {
-        catProd.stock = Math.max(0, catProd.stock - (this.expressQty || 1));
-      }
-
-      // Close express buy modal
-      this.closeExpressBuy();
-
-      // Reset button
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = `<span class="bolt-icon">⚡</span><span>Slide / Tap to Complete 1-Click Order</span>`;
+        btn.innerHTML = `<span class="bolt-icon">⚡</span><span>1-Click Buy Now</span>`;
       }
 
-      // Show Order Confirmation modal
-      this.showOrderConfirmation(newOrder);
+      this.closeExpressBuy();
+      this.showOrderSuccess(newOrder);
 
-      // Refresh catalog live
-      if (window.amzSearchFilter) {
-        window.amzSearchFilter.refreshCatalog();
-      }
+    }, 700);
+  }
 
-      if (window.amzCart) {
-        window.amzCart.showToast(`⚡ 1-Click Order Placed! ${newOrder.items[0].title} is arriving with Free ${isVillage ? 'Village' : 'Prime'} Delivery!`, 'success');
+  // ==========================================================================
+  // 7. PRINTABLE GST TAX INVOICE
+  // ==========================================================================
+  bindInvoiceModal() {
+    const printBtn = document.getElementById('btn-print-gst-invoice');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
+
+    const closeBtn = document.getElementById('gst-invoice-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        const modal = document.getElementById('gst-invoice-modal');
+        if (modal) modal.classList.remove('is-open');
+      });
+    }
+  }
+
+  openGSTInvoice(order) {
+    const modal = document.getElementById('gst-invoice-modal');
+    const overlay = document.getElementById('global-overlay');
+    if (!modal) {
+      // Fallback: trigger print simulation receipt
+      window.print();
+      return;
+    }
+
+    const ship = order.deliveryLocation || {};
+    const buyerName = window.amzStore.escapeHTML(ship.name || 'Valued Buyer');
+    const buyerAddress = window.amzStore.escapeHTML(ship.address || '');
+    const buyerCity = window.amzStore.escapeHTML(ship.city || '');
+    const buyerState = window.amzStore.escapeHTML(ship.state || '');
+    const buyerPin = window.amzStore.escapeHTML(ship.pincode || '');
+
+    const invOrderNo = document.getElementById('inv-order-no');
+    const invDate = document.getElementById('inv-date');
+    const invBuyerDetails = document.getElementById('inv-buyer-details');
+    const invItemsTbody = document.getElementById('inv-items-tbody');
+    const invSubtotal = document.getElementById('inv-subtotal');
+    const invTax = document.getElementById('inv-tax');
+    const invGrandTotal = document.getElementById('inv-grand-total');
+
+    if (invOrderNo) invOrderNo.textContent = order.orderId;
+    if (invDate) invDate.textContent = order.date;
+
+    if (invBuyerDetails) {
+      invBuyerDetails.innerHTML = `
+        <strong>${buyerName}</strong><br>
+        ${buyerAddress}<br>
+        <strong>${buyerCity}, ${buyerState} - PIN: ${buyerPin}</strong><br>
+        Phone: ${window.amzStore.escapeHTML(ship.phone || '')}
+      `;
+    }
+
+    if (invItemsTbody && order.items) {
+      invItemsTbody.innerHTML = order.items.map((it, idx) => {
+        const lineTotal = it.price * (it.quantity || 1);
+        return `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><strong>${window.amzStore.escapeHTML(it.shortTitle || it.title)}</strong><br><small>HSN: 6204 • GI-Tag Handloom Assured</small></td>
+            <td>${it.quantity || 1}</td>
+            <td>${window.amzApp ? window.amzApp.formatPrice(it.price) : '₹' + it.price}</td>
+            <td>5% (₹0 Karigar Payout Concession)</td>
+            <td style="text-align: right;"><strong>${window.amzApp ? window.amzApp.formatPrice(lineTotal) : '₹' + lineTotal}</strong></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    const totalVal = order.totalAmount || order.total || 0;
+    const formattedTotal = window.amzApp ? window.amzApp.formatPrice(totalVal) : `₹${totalVal}`;
+
+    if (invSubtotal) invSubtotal.textContent = formattedTotal;
+    if (invTax) invTax.textContent = '₹0.00 (Inclusive of all taxes)';
+    if (invGrandTotal) invGrandTotal.textContent = formattedTotal;
+
+    modal.classList.add('is-open');
+    if (overlay) overlay.classList.add('is-open');
+  }
+
+  // ==========================================================================
+  // 8. CELEBRATORY CONFETTI ENGINE
+  // ==========================================================================
+  launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6'];
+
+    for (let i = 0; i < 90; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        r: Math.random() * 5 + 3,
+        dx: (Math.random() - 0.5) * 16,
+        dy: (Math.random() - 0.7) * 16,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        life: 80
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+
+      particles.forEach(p => {
+        if (p.life > 0) {
+          alive = true;
+          p.x += p.dx;
+          p.y += p.dy;
+          p.dy += 0.35; // gravity
+          p.life--;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        }
+      });
+
+      if (alive) {
+        requestAnimationFrame(animate);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
-    }, 900);
+    };
+
+    requestAnimationFrame(animate);
   }
 }
 
+// Global Singleton Instance
 window.amzCheckout = new CheckoutEngine();

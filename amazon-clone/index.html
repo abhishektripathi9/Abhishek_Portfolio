@@ -15,6 +15,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Progressive Web App (PWA) Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
+
   <!-- Application Stylesheets -->
   <link rel="stylesheet" href="css/variables.css?v=3.5">
   <link rel="stylesheet" href="css/main.css?v=3.5">
@@ -88,6 +92,14 @@
           <span class="theme-icon">🌙</span>
           <span class="theme-label">Night Mode</span>
         </button>
+
+        <span class="utility-divider">|</span>
+
+        <!-- PWA Install Button -->
+        <button class="utility-item pwa-install-btn" id="btn-pwa-install" style="display: none;" title="Install UdaanMart PWA">
+          <span class="pwa-icon">📲</span>
+          <span class="pwa-label">Install App</span>
+        </button>
       </div>
     </div>
   </div>
@@ -143,6 +155,12 @@
 
       <!-- Action Navigation Links -->
       <div class="nav-actions-group">
+        <!-- 1-Click Role Switcher Pill (Buyer View <-> Karigar Studio) -->
+        <button class="role-switcher-pill" id="role-switcher-pill" title="1-Click Switch: Buyer View | Karigar Studio">
+          <span class="role-icon">🏭</span>
+          <span class="role-label">Buyer View</span>
+        </button>
+
         <!-- Account & Lists Trigger -->
         <div class="nav-item-box" id="nav-account-btn" role="button" tabindex="0">
           <span class="nav-item-small">Hello, Abhishek</span>
@@ -1769,6 +1787,13 @@
           </div>
         </div>
 
+        <div style="margin-bottom: 14px; display: flex; gap: 8px;">
+          <button type="button" class="amz-btn amz-btn-secondary" id="btn-detect-current-location" style="flex: 1; padding: 10px 14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>📡</span>
+            <strong>Detect My Current Location (GPS)</strong>
+          </button>
+        </div>
+
         <form id="location-form">
           <div style="display: flex; gap: 8px;">
             <input type="text" id="location-zip-input" class="form-input" placeholder="Type ANY Village, City, PIN or ZIP code worldwide (e.g. Varanasi, 221001, Tokyo, Paris, London, Dubai, 10001)..." required />
@@ -1925,6 +1950,168 @@
   </div>
 
   <!-- ========================================================================
+       MODAL: PRINTABLE INDIA POST SHIPPING LABEL (SELLER 1-CLICK FULFILLMENT)
+       ======================================================================== -->
+  <div class="amz-modal shipping-label-modal" id="shipping-label-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-md">
+      <div class="shipping-slip-paper" id="shipping-slip-paper">
+        <div class="slip-header">
+          <div class="slip-carrier">
+            <span class="slip-logo">📮 INDIA POST SPEED POST</span>
+            <span class="slip-priority">EXPRESS PARCEL AIR • PREPAID</span>
+          </div>
+          <div class="slip-meta">
+            <div>DATE: <strong id="slip-date">15 Nov 2026</strong></div>
+            <div>ORDER: <strong id="slip-order-id">ORD-2026-98214</strong></div>
+          </div>
+        </div>
+
+        <div class="slip-barcode-area">
+          <div class="slip-barcode-bars" id="slip-barcode-text">||| | ||||| || |||| ||| INP-VAR-892187 |||| ||| | |||</div>
+          <div class="slip-tracking-num">SPEED POST TRACKING: <strong id="slip-tracking-num">INP-VAR-892187</strong></div>
+        </div>
+
+        <div class="slip-addresses-grid">
+          <div class="slip-recipient-box">
+            <span class="box-tag">DELIVER TO (RECIPIENT):</span>
+            <div id="slip-recipient-info">
+              <strong>Pooja Sharma</strong><br>
+              B-14/82, Dashashwamedh Ghat Road<br>
+              <strong>Varanasi, Uttar Pradesh - PIN: 221001</strong><br>
+              Mob: +91 98765 43210
+            </div>
+          </div>
+
+          <div class="slip-origin-box">
+            <span class="box-tag">RETURN / DISPATCH FROM:</span>
+            <div id="slip-origin-info">
+              <strong>UdaanMart Karigar Artisan Guild</strong><br>
+              Rural Craft &amp; Handloom Cluster<br>
+              Direct Producer Doorstep Dispatch Center<br>
+              India Post Registered Network
+            </div>
+          </div>
+        </div>
+
+        <div class="slip-specs-bar">
+          <span>WEIGHT: 0.85 KG</span>
+          <span>ROUTING: SPEED POST HUB</span>
+          <span>MODE: SURFACE / AIR EXPRESS</span>
+        </div>
+
+        <div class="slip-footer">
+          <span>UDAANMART KARIGAR LOGISTICS CORRIDOR • GST EXEMPT ARTISAN HANDLOOM CONCESSION</span>
+        </div>
+      </div>
+
+      <div class="slip-actions-row">
+        <button type="button" class="amz-btn amz-btn-primary" id="btn-print-shipping-label">
+          🖨️ Print India Post Label
+        </button>
+        <button type="button" class="amz-btn amz-btn-secondary" id="shipping-label-close-btn">
+          Close Label
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: OFFICIAL GST TAX INVOICE & CASH MEMORANDUM
+       ======================================================================== -->
+  <div class="amz-modal gst-invoice-modal" id="gst-invoice-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="gst-invoice-sheet" id="gst-invoice-sheet">
+        <div class="inv-top-bar">
+          <div class="inv-brand">
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; margin: 0; color: #1e293b;">UdaanMart</h2>
+            <span style="font-size: 0.82rem; font-weight: 700; color: #64748b; letter-spacing: 0.5px;">TAX INVOICE / CASH MEMORANDUM</span>
+          </div>
+          <div class="inv-meta-right">
+            <div>Invoice No: <strong id="inv-order-no">ORD-2026-98214</strong></div>
+            <div>Invoice Date: <strong id="inv-date">15 Nov 2026</strong></div>
+            <div>GSTIN: <strong>07AAACU1234F1Z8</strong></div>
+          </div>
+        </div>
+
+        <div class="inv-billing-row">
+          <div class="inv-bill-to">
+            <strong>Billed &amp; Delivered To:</strong>
+            <div id="inv-buyer-details">
+              <strong>Abhishek Tripathi</strong><br>
+              Flat 402, Connaught Place, Block C<br>
+              <strong>New Delhi, Delhi - PIN: 110001</strong><br>
+              Phone: +91 98765 43210
+            </div>
+          </div>
+          <div class="inv-sold-by">
+            <strong>Sold &amp; Dispatched By:</strong>
+            <div>UdaanMart Karigar Rural Artisan Guild</div>
+            <div>Registered Weaver &amp; Crafts Producer Hub</div>
+            <div>State: Uttar Pradesh, India • PIN: 221001</div>
+          </div>
+        </div>
+
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Description of Goods</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>GST Rate</th>
+              <th style="text-align: right;">Total Amount</th>
+            </tr>
+          </thead>
+          <tbody id="inv-items-tbody">
+            <tr>
+              <td>1</td>
+              <td><strong>UdaanMart Karigar Handcrafted Pure Banarasi Silk Saree</strong><br><small>HSN: 6204 • GI-Tag Handloom Assured</small></td>
+              <td>1</td>
+              <td>₹119.00</td>
+              <td>0% (Rural Concession)</td>
+              <td style="text-align: right;"><strong>₹119.00</strong></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" style="text-align: right;">Subtotal:</td>
+              <td style="text-align: right;" id="inv-subtotal">₹119.00</td>
+            </tr>
+            <tr>
+              <td colspan="5" style="text-align: right;">Applicable GST (0% Rural Handicraft Incentive):</td>
+              <td style="text-align: right;" id="inv-tax">₹0.00</td>
+            </tr>
+            <tr class="inv-grand-row">
+              <td colspan="5" style="text-align: right;"><strong>Grand Total:</strong></td>
+              <td style="text-align: right;"><strong id="inv-grand-total">₹119.00</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="inv-seal-row">
+          <div class="inv-seal-stamp">
+            <span>✓ DIGITALLY VERIFIED</span>
+            <small>UdaanMart India Post Logistics Gateway</small>
+          </div>
+          <div class="inv-sign">
+            <div>Authorized Signatory</div>
+            <small>UdaanMart E-Commerce Internet Pvt. Ltd.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv-actions-row">
+        <button type="button" class="amz-btn amz-btn-primary" id="btn-print-gst-invoice">
+          🖨️ Print / Save PDF Invoice
+        </button>
+        <button type="button" class="amz-btn amz-btn-secondary" id="gst-invoice-close-btn">
+          Close Invoice
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        SELLER CENTRAL & RURAL ARTISAN PORTAL MODAL
        ======================================================================== -->
   <div class="amz-modal seller-modal" id="seller-modal" role="dialog" aria-labelledby="seller-modal-heading" aria-modal="true">
@@ -1949,11 +2136,14 @@
         <button class="seller-tab-btn is-active" data-seller-tab="list">
           <span>📦</span> List New Product
         </button>
+        <button class="seller-tab-btn" data-seller-tab="incoming-orders">
+          <span>📮</span> Incoming Orders (<span id="seller-orders-badge">2</span>)
+        </button>
         <button class="seller-tab-btn" data-seller-tab="inventory">
-          <span>📋</span> Inventory & Pricing
+          <span>📋</span> Inventory &amp; Pricing
         </button>
         <button class="seller-tab-btn" data-seller-tab="analytics">
-          <span>📊</span> Sales & Dispatches
+          <span>📊</span> Sales &amp; Dispatches
         </button>
         <button class="seller-tab-btn" data-seller-tab="karigar">
           <span>🏡</span> UdaanMart Karigar (Rural Artisans)
@@ -1996,10 +2186,15 @@
         <div class="seller-studio-split">
           <!-- Left Column: Easy Upload Form -->
           <form id="seller-product-form" class="seller-upload-form">
-            <!-- Product Title -->
+            <!-- Product Title with Voice-to-Fill Button -->
             <div class="form-group">
-              <label for="seller-prod-title">Product Title / Name *</label>
-              <input type="text" id="seller-prod-title" class="amz-input" placeholder="e.g. Men's Oxford Shirt, Women's Handbag, or Handloom Saree" required />
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label for="seller-prod-title">Product Title / Name *</label>
+                <button type="button" class="seller-voice-mic-btn" id="seller-title-voice-btn" title="Speak Product Name (बोलकर भरें)">
+                  🎤 <span>बोलकर भरें (Voice)</span>
+                </button>
+              </div>
+              <input type="text" id="seller-prod-title" class="amz-input" placeholder="e.g. Pure Banarasi Silk Zari Saree or Jaipur Blue Pottery Set" required />
             </div>
 
             <!-- Image Uploader: Drag & Drop OR 1-Click Photo Chips -->
@@ -2094,12 +2289,50 @@
               </div>
             </div>
 
-            <!-- Features -->
+            <!-- Live Aapki Kamai (Net Karigar Bank Payout Breakdown) -->
+            <div class="aapki-kamai-card" id="aapki-kamai-card">
+              <div class="kamai-header">
+                <span class="kamai-icon">💰</span>
+                <strong>Aapki Kamai (Net Karigar Bank Payout):</strong>
+              </div>
+              <div class="kamai-grid">
+                <div class="kamai-item">
+                  <span class="kamai-label">Customer Price:</span>
+                  <strong id="kamai-customer-price">₹4,174</strong>
+                </div>
+                <div class="kamai-item">
+                  <span class="kamai-label">Platform Fee:</span>
+                  <strong style="color: var(--color-success, #10b981);">₹0 (0% Fee)</strong>
+                </div>
+                <div class="kamai-item">
+                  <span class="kamai-label">Logistics Support:</span>
+                  <strong id="kamai-logistics-fee">-₹50</strong>
+                </div>
+                <div class="kamai-item kamai-net-item">
+                  <span class="kamai-label">Direct Bank Payout:</span>
+                  <strong id="kamai-net-payout" class="kamai-payout-amount">₹4,124</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features & 1-Tap Smart Description Chips -->
             <div class="form-group">
               <label for="seller-prod-features">Key Bullet Points / Features</label>
-              <textarea id="seller-prod-features" class="amz-textarea" rows="3" placeholder="100% Premium Quality Guaranteed&#10;Fast Doorstep Village or City Dispatch&#10;Easy 30-Day Replacements">100% Premium Quality Guaranteed
-Fast Doorstep Village or City Dispatch
-Easy 30-Day Replacements</textarea>
+              <textarea id="seller-prod-features" class="amz-textarea" rows="3" placeholder="100% Premium Quality Guaranteed&#10;Fast Doorstep Village or City Dispatch&#10;Easy 30-Day Replacements">• 100% GI-Tag Certified Authentic Handloom
+• Fast Doorstep Village & Global Delivery
+• 7-Day Easy Return Guarantee</textarea>
+            </div>
+
+            <!-- 1-Tap Smart Description Chips (Zero Typing Needed) -->
+            <div class="smart-chips-wrapper">
+              <span class="smart-chips-label">⚡ 1-Tap Smart Highlights (एक क्लिक में जोड़ें):</span>
+              <div class="smart-chips-row">
+                <button type="button" class="smart-desc-chip" data-chip-text="100% GI-Tag Certified Authentic Handloom">🏷️ GI-Tag Certified</button>
+                <button type="button" class="smart-desc-chip" data-chip-text="Handcrafted Direct from Rural Weaver Guild">🧵 Direct from Weaver</button>
+                <button type="button" class="smart-desc-chip" data-chip-text="Pure Natural Eco-Friendly Material">🌿 100% Pure Natural</button>
+                <button type="button" class="smart-desc-chip" data-chip-text="Zero Synthetic Chemicals or Toxic Dyes">🌱 Chemical-Free</button>
+                <button type="button" class="smart-desc-chip" data-chip-text="7-Day Easy Doorstep Return Guarantee">🔄 7-Day Easy Return</button>
+              </div>
             </div>
 
             <!-- Rural Karigar Toggle -->
@@ -2326,6 +2559,20 @@ Easy 30-Day Replacements</textarea>
           </button>
         </div>
       </div>
+
+      <!-- Panel: Incoming Buyer Orders & 1-Click Dispatch -->
+      <div class="seller-tab-panel" id="seller-panel-incoming-orders">
+        <div class="seller-incoming-header">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0 0 4px;">Incoming Buyer Orders &amp; Dispatches</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Fulfill orders with 1-click packing and India Post Speed Post shipping label generation.</p>
+            </div>
+            <span class="incoming-live-badge">🟢 Real-Time Synced</span>
+          </div>
+        </div>
+        <div class="seller-incoming-orders-list" id="seller-incoming-orders-list"></div>
+      </div>
     </div>
   </div>
 
@@ -2409,13 +2656,14 @@ Easy 30-Day Replacements</textarea>
 
 
   <!-- Application Logic Scripts -->
-  <script src="js/i18n.js?v=3.3"></script>
-  <script src="js/products-data.js?v=3.3"></script>
-  <script src="js/cart.js?v=3.1"></script>
-  <script src="js/search-filter.js?v=3.1"></script>
-  <script src="js/modal.js?v=3.1"></script>
-  <script src="js/checkout.js?v=3.1"></script>
-  <script src="js/seller.js?v=3.1"></script>
-  <script src="js/app.js?v=3.1"></script>
+  <script src="js/i18n.js?v=4.0"></script>
+  <script src="js/products-data.js?v=4.0"></script>
+  <script src="js/store.js?v=4.0"></script>
+  <script src="js/cart.js?v=4.0"></script>
+  <script src="js/search-filter.js?v=4.0"></script>
+  <script src="js/modal.js?v=4.0"></script>
+  <script src="js/checkout.js?v=4.0"></script>
+  <script src="js/seller.js?v=4.0"></script>
+  <script src="js/app.js?v=4.0"></script>
 </body>
 </html>

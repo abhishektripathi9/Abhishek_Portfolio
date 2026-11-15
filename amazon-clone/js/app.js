@@ -1,17 +1,22 @@
 /**
- * UDAANMART - MAIN APPLICATION CONTROLLER
- * Bootstraps Hero Carousel, Lightning Deals Countdown, Currency Switcher,
- * Theme Mode (Dark/Light), Back-to-Top, and Freelancer Portfolio Showcase HUD.
+ * UDAANMART - MAIN APPLICATION CONTROLLER (js/app.js)
+ * PILLARS 1, 5 & 6:
+ * - Bootstraps Hero Carousel, Lightning Deals Countdown, Currency Switcher (Intl.NumberFormat)
+ * - Role Switcher Pill (Buyer View <-> Karigar Studio)
+ * - PWA Service Worker Registration & Install Trigger
+ * - Theme Mode (Midnight Slate / Porcelain Cream)
+ * - Micro-interactions, Trending Tabs, and Back-to-Top
  */
 
 class AmazonApp {
   constructor() {
-    this.currentCurrency = localStorage.getItem('amz_currency_v2') || 'USD';
+    this.currentCurrency = localStorage.getItem('amz_currency_v2') || 'INR';
     localStorage.removeItem('amz_theme_v2');
-    this.currentTheme = localStorage.getItem('udaan_theme_v1') || 'cream'; // default to stunning dark luxury mode
+    this.currentTheme = localStorage.getItem('udaan_theme_v1') || 'cream';
     this.carouselIndex = 0;
     this.carouselTimer = null;
-    this.dealEndTime = Date.now() + (7 * 3600 + 44 * 60 + 29) * 1000; // ~7h 44m from now
+    this.dealEndTime = Date.now() + (7 * 3600 + 44 * 60 + 29) * 1000;
+    this.deferredPrompt = null;
 
     this.init();
   }
@@ -25,6 +30,8 @@ class AmazonApp {
     this.initBackToTop();
     this.initPortfolioHud();
     this.initStitchInteractions();
+    this.initRoleSwitcher();
+    this.initPwa();
 
     // Initialize search filter engine after DOM ready
     if (window.amzSearchFilter) {
@@ -56,7 +63,6 @@ class AmazonApp {
       });
     }
 
-    // Pause on hover
     const carouselContainer = document.getElementById('hero-carousel');
     if (carouselContainer) {
       carouselContainer.addEventListener('mouseenter', () => clearInterval(this.carouselTimer));
@@ -126,7 +132,6 @@ class AmazonApp {
       }
 
       if (remaining <= 0) {
-        // Reset timer if expired for continuous demonstration
         this.dealEndTime = Date.now() + 8 * 3600 * 1000;
       }
     };
@@ -136,7 +141,7 @@ class AmazonApp {
   }
 
   // ==========================================
-  // 3. CURRENCY CONVERTER
+  // 3. CURRENCY SWITCHER (Intl.NumberFormat)
   // ==========================================
   initCurrencySwitcher() {
     const currencySelects = document.querySelectorAll('.currency-selector');
@@ -148,7 +153,6 @@ class AmazonApp {
       });
     });
 
-    // Update active currency code badge in navbar
     this.updateCurrencyNavbarBadge();
     this.updateFeaturedPrices();
   }
@@ -165,11 +169,10 @@ class AmazonApp {
   }
 
   setCurrency(currencyCode, showToast = true) {
-    if (CURRENCIES[currencyCode]) {
+    if (typeof CURRENCIES !== 'undefined' && CURRENCIES[currencyCode]) {
       this.currentCurrency = currencyCode;
       localStorage.setItem('amz_currency_v2', currencyCode);
 
-      // Synchronize all currency dropdown elements across navbar and modals
       document.querySelectorAll('.currency-selector').forEach(sel => {
         sel.value = currencyCode;
       });
@@ -177,13 +180,10 @@ class AmazonApp {
       this.updateCurrencyNavbarBadge();
       this.updateFeaturedPrices();
 
-      // Refresh product grid and cart to reflect new currency
       if (window.amzSearchFilter) window.amzSearchFilter.applyFilters();
       if (window.amzCart) window.amzCart.broadcastCartUpdate();
-      if (window.amzModal && window.amzModal.activeModal) {
-        if (window.amzModal.currentQuickViewProduct) {
-          window.amzModal.openQuickView(window.amzModal.currentQuickViewProduct);
-        }
+      if (window.amzModal && window.amzModal.activeModal && window.amzModal.currentQuickViewProduct) {
+        window.amzModal.openQuickView(window.amzModal.currentQuickViewProduct);
       }
 
       if (showToast && window.amzCart) {
@@ -196,29 +196,59 @@ class AmazonApp {
     const codeEl = document.getElementById('nav-current-currency-code');
     const symbolEl = document.getElementById('nav-current-currency-symbol');
     if (codeEl) codeEl.textContent = this.currentCurrency;
-    if (symbolEl && CURRENCIES[this.currentCurrency]) {
+    if (symbolEl && typeof CURRENCIES !== 'undefined' && CURRENCIES[this.currentCurrency]) {
       symbolEl.textContent = CURRENCIES[this.currentCurrency].symbol;
     }
   }
 
   formatPrice(usdAmount) {
-    const cur = CURRENCIES[this.currentCurrency] || CURRENCIES.USD;
-    const converted = (usdAmount * cur.rate);
+    const cur = (typeof CURRENCIES !== 'undefined' && CURRENCIES[this.currentCurrency]) 
+      ? CURRENCIES[this.currentCurrency] 
+      : { code: 'USD', symbol: '$', rate: 1.0 };
 
-    if (this.currentCurrency === 'INR') {
-      // Indian numbering format (e.g. ₹28,990)
-      return `${cur.symbol}${Math.round(converted).toLocaleString('en-IN')}`;
-    }
+    const converted = usdAmount * cur.rate;
 
-    if (this.currentCurrency === 'JPY') {
-      // Japanese Yen has no decimal places (e.g. ¥52,800)
-      return `${cur.symbol}${Math.round(converted).toLocaleString('ja-JP')}`;
-    }
+    try {
+      if (this.currentCurrency === 'INR') {
+        return new Intl.NumberFormat('en-IN', {
+          style: 'currency',
+          currency: 'INR',
+          maximumFractionDigits: 0
+        }).format(Math.round(converted));
+      }
 
-    return `${cur.symbol}${converted.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })}`;
+      if (this.currentCurrency === 'USD') {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(converted);
+      }
+
+      if (this.currentCurrency === 'EUR') {
+        return new Intl.NumberFormat('de-DE', {
+          style: 'currency',
+          currency: 'EUR'
+        }).format(converted);
+      }
+
+      if (this.currentCurrency === 'GBP') {
+        return new Intl.NumberFormat('en-GB', {
+          style: 'currency',
+          currency: 'GBP'
+        }).format(converted);
+      }
+
+      if (this.currentCurrency === 'JPY') {
+        return new Intl.NumberFormat('ja-JP', {
+          style: 'currency',
+          currency: 'JPY',
+          maximumFractionDigits: 0
+        }).format(Math.round(converted));
+      }
+    } catch (e) {}
+
+    // Fallback
+    return `${cur.symbol}${converted.toFixed(2)}`;
   }
 
   // ==========================================
@@ -240,16 +270,43 @@ class AmazonApp {
     localStorage.setItem('udaan_theme_v1', theme);
     document.documentElement.setAttribute('data-theme', theme);
 
-    // Update icons on toggle buttons
     document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
       btn.innerHTML = theme === 'dark' 
         ? `<span class="theme-icon">🍦</span> <span class="theme-label">Cream Mode</span>`
-        : `<span class="theme-icon">🌙</span> <span class="theme-label">Dark Mode</span>`;
+        : `<span class="theme-icon">🌙</span> <span class="theme-label">Night Mode</span>`;
     });
   }
 
   // ==========================================
-  // 5. BACK TO TOP
+  // 5. ROLE SWITCHER PILL (BUYER <-> KARIGAR STUDIO)
+  // ==========================================
+  initRoleSwitcher() {
+    const pills = document.querySelectorAll('.role-switcher-pill, #role-switcher-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.amzStore) {
+          window.amzStore.toggleRole();
+        }
+      });
+    });
+
+    // Synchronize initial state from Store
+    if (window.amzStore) {
+      const currentRole = window.amzStore.getRole();
+      pills.forEach(pill => {
+        const isSeller = (currentRole === 'seller');
+        pill.classList.toggle('role-seller', isSeller);
+        const label = pill.querySelector('.role-label');
+        if (label) {
+          label.textContent = isSeller ? 'Karigar Studio' : 'Buyer View';
+        }
+      });
+    }
+  }
+
+  // ==========================================
+  // 6. BACK TO TOP
   // ==========================================
   initBackToTop() {
     const backBtn = document.getElementById('footer-back-to-top');
@@ -261,7 +318,7 @@ class AmazonApp {
   }
 
   // ==========================================
-  // 6. FREELANCE PORTFOLIO SHOWCASE HUD
+  // 7. FREELANCE PORTFOLIO SHOWCASE HUD
   // ==========================================
   initPortfolioHud() {
     const hudTrigger = document.getElementById('portfolio-hud-trigger');
@@ -286,19 +343,19 @@ class AmazonApp {
   }
 
   // ==========================================
-  // 7. STITCH UI ENHANCED MICRO-INTERACTIONS
+  // 8. STITCH UI ENHANCED MICRO-INTERACTIONS
   // ==========================================
   initStitchInteractions() {
     // 1. Voice Search Web Speech API
     const voiceBtn = document.getElementById('voice-search-btn');
     if (voiceBtn) {
       voiceBtn.addEventListener('click', () => {
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
           const recognition = new SpeechRecognition();
-          recognition.lang = 'en-US';
+          recognition.lang = 'en-IN';
           recognition.onstart = () => {
-            if (window.amzCart) window.amzCart.showToast('🎙️ Listening... please speak your search', 'info');
+            if (window.amzCart) window.amzCart.showToast('🎙️ Listening... speak your craft or product search', 'info');
           };
           recognition.onresult = (event) => {
             const transcript = event.results[0][0].transcript;
@@ -314,7 +371,7 @@ class AmazonApp {
           };
           recognition.start();
         } else {
-          if (window.amzCart) window.amzCart.showToast('🎙️ Voice Search is ready! Please type or speak your query.', 'info');
+          if (window.amzCart) window.amzCart.showToast('🎙️ Voice Search is ready! Please type your query.', 'info');
         }
       });
     }
@@ -355,6 +412,44 @@ class AmazonApp {
         flagshipPills.forEach(p => p.classList.remove('is-active'));
         pill.classList.add('is-active');
       });
+    });
+  }
+
+  // ==========================================
+  // 9. PROGRESSIVE WEB APP (PWA) READY
+  // ==========================================
+  initPwa() {
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => {
+            console.log('UdaanMart Service Worker registered:', reg.scope);
+          })
+          .catch(err => {
+            console.log('UdaanMart Service Worker registration failed:', err);
+          });
+      });
+    }
+
+    // Capture install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      const installBtn = document.getElementById('btn-pwa-install');
+      if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+        installBtn.addEventListener('click', () => {
+          installBtn.style.display = 'none';
+          this.deferredPrompt.prompt();
+          this.deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted' && window.amzCart) {
+              window.amzCart.showToast('🎉 Thank you for installing UdaanMart!');
+            }
+            this.deferredPrompt = null;
+          });
+        });
+      }
     });
   }
 }

@@ -6,8 +6,8 @@
 
 class SearchFilterEngine {
   constructor() {
-    this.allProducts = [...PRODUCTS_DATA];
-    this.filteredProducts = [...PRODUCTS_DATA];
+    this.allProducts = this.getAllSourceProducts();
+    this.filteredProducts = [...this.allProducts];
     
     this.currentFilters = {
       keyword: '',
@@ -22,6 +22,13 @@ class SearchFilterEngine {
     };
 
     this.debounceTimer = null;
+  }
+
+  getAllSourceProducts() {
+    if (window.amzStore && typeof window.amzStore.getAllProducts === 'function') {
+      return window.amzStore.getAllProducts();
+    }
+    return (typeof PRODUCTS_DATA !== 'undefined' && Array.isArray(PRODUCTS_DATA)) ? [...PRODUCTS_DATA] : [];
   }
 
   init() {
@@ -305,6 +312,7 @@ class SearchFilterEngine {
   }
 
   applyFilters() {
+    this.allProducts = this.getAllSourceProducts();
     let result = [...this.allProducts];
 
     // 1. Keyword search filter
@@ -406,7 +414,9 @@ class SearchFilterEngine {
     const formattedOrigPrice = prod.originalPrice ? (window.amzApp ? window.amzApp.formatPrice(prod.originalPrice) : `$${prod.originalPrice.toFixed(2)}`) : null;
 
     let badgeHtml = '';
-    if (prod.badge === 'Best Seller') {
+    if (prod.badge === '✨ New Karigar Arrival' || prod.badge === 'UdaanMart Karigar' || prod.isRuralKarigar) {
+      badgeHtml = `<span class="prod-badge badge-karigar">✨ New Karigar Arrival</span>`;
+    } else if (prod.badge === 'Best Seller') {
       badgeHtml = `<span class="prod-badge badge-bestseller">#1 Best Seller</span>`;
     } else if (prod.badge === "Udaan's Choice") {
       badgeHtml = `<span class="prod-badge badge-choice">Udaan's <span class="choice-accent">Choice</span></span>`;
@@ -500,7 +510,7 @@ class SearchFilterEngine {
 
           <div class="prod-delivery-row">
             ${prod.isPrime ? `<span class="amz-prime-badge"><span class="prime-italic">prime</span></span>` : ''}
-            <span class="delivery-text">${prod.delivery}</span>
+            <span class="delivery-text">${prod.delivery || 'FREE Delivery Tomorrow'}</span>
           </div>
 
           ${prod.stock <= 5 ? `<div class="prod-low-stock">Only ${prod.stock} left in stock - order soon.</div>` : ''}
@@ -593,7 +603,7 @@ class SearchFilterEngine {
     if (products) {
       this.allProducts = [...products];
     } else {
-      this.allProducts = [...PRODUCTS_DATA];
+      this.allProducts = this.getAllSourceProducts();
     }
     this.applyFilters();
   }

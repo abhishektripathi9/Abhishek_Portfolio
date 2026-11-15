@@ -1,14 +1,19 @@
 /**
- * UDAANMART - MODALS, DRAWERS & INTERACTIVE PANELS
- * Handles Quick View popover, Cart slide-out drawer, Department side-menu,
- * Delivery location selector, and Wishlist / Orders modal.
+ * UDAANMART - MODALS, DRAWERS & HIGH-TRUST REVIEWS ENGINE (js/modal.js)
+ * PILLARS 2, 4 & 6:
+ * 1. Smart Delivery Location with 6-Digit Pincode Fetch & Geolocation Detection
+ * 2. High-Trust Product QuickView with Karigar Price Transparency Bar
+ * 3. Visual Size & Fit Chart Toggle
+ * 4. WhatsApp Direct Artisan Chat
+ * 5. Verified Customer Reviews & Live Rating Submission Form
+ * 6. Returns & Orders 4-Stage Visual Stepper & 1-Tap Reorder
  */
 
 class ModalEngine {
   constructor() {
     this.activeModal = null;
     this.currentQuickViewProduct = null;
-    this.currentLocation = "New York 10001";
+    this.selectedReviewRating = 5;
     this.init();
   }
 
@@ -19,6 +24,21 @@ class ModalEngine {
     this.bindLocationModal();
     this.bindOrdersWishlistModal();
     this.bindCartReactiveUpdates();
+
+    // Re-render orders if store updates
+    window.addEventListener('udaan:order-created', () => {
+      this.renderOrdersHistory();
+    });
+
+    window.addEventListener('udaan:order-updated', () => {
+      this.renderOrdersHistory();
+    });
+
+    window.addEventListener('udaan:review-added', (e) => {
+      if (this.currentQuickViewProduct && String(e.detail.productId) === String(this.currentQuickViewProduct.id)) {
+        this.renderQuickViewReviews(this.currentQuickViewProduct);
+      }
+    });
   }
 
   bindBackdropClicks() {
@@ -46,9 +66,10 @@ class ModalEngine {
   }
 
   // ==========================================
-  // 1. QUICK VIEW MODAL
+  // 1. HIGH-TRUST PRODUCT QUICK VIEW MODAL
   // ==========================================
   openQuickView(product) {
+    if (!product) return;
     this.currentQuickViewProduct = product;
     const modal = document.getElementById('quickview-modal');
     if (!modal) return;
@@ -59,13 +80,13 @@ class ModalEngine {
     // Build specs table rows
     const specsRows = Object.entries(product.specs || {}).map(([key, val]) => `
       <tr>
-        <td class="spec-label">${key}</td>
-        <td class="spec-value">${val}</td>
+        <td class="spec-label">${window.amzStore ? window.amzStore.escapeHTML(key) : key}</td>
+        <td class="spec-value">${window.amzStore ? window.amzStore.escapeHTML(val) : val}</td>
       </tr>
     `).join('');
 
     // Build features bullets
-    const featuresList = (product.features || []).map(f => `<li>${f}</li>`).join('');
+    const featuresList = (product.features || []).map(f => `<li>${window.amzStore ? window.amzStore.escapeHTML(f) : f}</li>`).join('');
 
     // Build thumbnails
     const thumbnailsHtml = (product.images || []).map((img, idx) => `
@@ -74,16 +95,30 @@ class ModalEngine {
       </button>
     `).join('');
 
-    modal.querySelector('.qv-main-image').src = product.images[0];
-    modal.querySelector('.qv-main-image').alt = product.title;
-    modal.querySelector('.qv-thumbnails-strip').innerHTML = thumbnailsHtml;
+    const mainImgEl = modal.querySelector('.qv-main-image');
+    if (mainImgEl) {
+      mainImgEl.src = product.images ? product.images[0] : '';
+      mainImgEl.alt = product.title;
+    }
 
-    modal.querySelector('.qv-category').textContent = product.categoryName;
-    modal.querySelector('.qv-title').textContent = product.title;
-    modal.querySelector('.qv-rating-val').textContent = `${product.rating} out of 5`;
-    modal.querySelector('.qv-reviews-count').textContent = `${product.ratingCount.toLocaleString()} global ratings`;
+    const thumbStrip = modal.querySelector('.qv-thumbnails-strip');
+    if (thumbStrip) thumbStrip.innerHTML = thumbnailsHtml;
 
-    modal.querySelector('.qv-price-current').textContent = formattedPrice;
+    const catEl = modal.querySelector('.qv-category');
+    if (catEl) catEl.textContent = product.categoryName || 'Authentic Craft';
+
+    const titleEl = modal.querySelector('.qv-title');
+    if (titleEl) titleEl.textContent = product.title;
+
+    const ratingValEl = modal.querySelector('.qv-rating-val');
+    if (ratingValEl) ratingValEl.textContent = `${product.rating} out of 5 ★`;
+
+    const reviewCountEl = modal.querySelector('.qv-reviews-count');
+    if (reviewCountEl) reviewCountEl.textContent = `${(product.ratingCount || 12).toLocaleString()} verified buyer ratings`;
+
+    const curPriceEl = modal.querySelector('.qv-price-current');
+    if (curPriceEl) curPriceEl.textContent = formattedPrice;
+
     const origPriceEl = modal.querySelector('.qv-price-original');
     if (origPriceEl) {
       if (formattedOrig) {
@@ -104,14 +139,25 @@ class ModalEngine {
       }
     }
 
-    modal.querySelector('.qv-delivery-info').textContent = product.delivery;
-    modal.querySelector('.qv-stock-status').textContent = product.stock <= 5 
-      ? `Only ${product.stock} left in stock - order soon.` 
-      : "In Stock";
-    modal.querySelector('.qv-stock-status').className = `qv-stock-status ${product.stock <= 5 ? 'low-stock' : 'in-stock'}`;
+    const locCity = window.amzStore ? window.amzStore.getLocation().city : 'Your Doorstep';
+    const deliveryEl = modal.querySelector('.qv-delivery-info');
+    if (deliveryEl) {
+      deliveryEl.innerHTML = `🚚 <strong>Free Express Delivery by Tomorrow</strong> to <strong>${locCity}</strong> via India Post Speed Post`;
+    }
 
-    modal.querySelector('.qv-features-list').innerHTML = featuresList;
-    modal.querySelector('.qv-specs-table').innerHTML = specsRows;
+    const stockEl = modal.querySelector('.qv-stock-status');
+    if (stockEl) {
+      stockEl.textContent = product.stock <= 5 
+        ? `Only ${product.stock} items left in rural artisan inventory - order fast.` 
+        : "In Stock (Ready for Dispatch)";
+      stockEl.className = `qv-stock-status ${product.stock <= 5 ? 'low-stock' : 'in-stock'}`;
+    }
+
+    const featEl = modal.querySelector('.qv-features-list');
+    if (featEl) featEl.innerHTML = featuresList;
+
+    const specsEl = modal.querySelector('.qv-specs-table');
+    if (specsEl) specsEl.innerHTML = specsRows;
 
     // Reset quantity select
     const qtySelect = modal.querySelector('.qv-quantity-select');
@@ -123,9 +169,15 @@ class ModalEngine {
         modal.querySelectorAll('.qv-thumb-btn').forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
         const imgUrl = btn.dataset.imageUrl;
-        modal.querySelector('.qv-main-image').src = imgUrl;
+        if (mainImgEl) mainImgEl.src = imgUrl;
       });
     });
+
+    // 1. INJECT KARIGAR PRICE TRANSPARENCY BAR & SIZE GUIDE & WHATSAPP
+    this.injectKarigarTrustEnhancements(modal, product);
+
+    // 2. RENDER VERIFIED REVIEWS & SUBMISSION FORM
+    this.renderQuickViewReviews(product);
 
     // Bind Add to Cart inside modal
     const addBtn = modal.querySelector('#qv-add-to-cart-btn');
@@ -150,12 +202,6 @@ class ModalEngine {
       };
     }
 
-    // Ensure photo gallery and thumbnails are visible
-    const photoBox = modal.querySelector('.qv-main-image-box');
-    const thumbStrip = modal.querySelector('.qv-thumbnails-strip');
-    if (photoBox) photoBox.style.display = 'flex';
-    if (thumbStrip) thumbStrip.style.display = 'flex';
-
     this.showModal(modal);
   }
 
@@ -164,8 +210,198 @@ class ModalEngine {
     if (modal) this.hideModal(modal);
   }
 
+  injectKarigarTrustEnhancements(modal, product) {
+    let trustBox = modal.querySelector('.karigar-quickview-trust-box');
+    if (!trustBox) {
+      trustBox = document.createElement('div');
+      trustBox.className = 'karigar-quickview-trust-box';
+      const specsTable = modal.querySelector('.qv-specs-table');
+      if (specsTable && specsTable.parentNode) {
+        specsTable.parentNode.insertBefore(trustBox, specsTable.nextSibling);
+      }
+    }
+
+    const isClothing = (product.category === 'clothing' || product.category === 'fashion' || (product.shortTitle && product.shortTitle.toLowerCase().includes('saree')));
+    const encodedTitle = encodeURIComponent(`Hello Karigar! I am interested in purchasing: "${product.title}". Is it in stock for immediate dispatch?`);
+    const waUrl = `https://wa.me/919876543210?text=${encodedTitle}`;
+
+    trustBox.innerHTML = `
+      <!-- Karigar Fair-Price Transparency Bar -->
+      <div class="karigar-transparency-card">
+        <div class="transparency-header">
+          <div class="transparency-badge">💚 Fair-Trade Karigar Pricing</div>
+          <span class="transparency-direct"><strong>85% Direct</strong> to Artisan</span>
+        </div>
+        <div class="transparency-progress-bar">
+          <div class="bar-slice slice-artisan" style="width: 85%;" title="85% Direct Karigar Bank Payout">85% Karigar</div>
+          <div class="bar-slice slice-post" style="width: 10%;" title="10% India Post Last-Mile Logistics">10% Post</div>
+          <div class="bar-slice slice-tech" style="width: 5%;" title="5% Udaan Platform Support">5% Tech</div>
+        </div>
+        <div class="transparency-legend-row">
+          <span>• 85% Direct Karigar Payout</span>
+          <span>• 10% India Post Speed Post</span>
+          <span>• 5% Platform Maintenance</span>
+        </div>
+      </div>
+
+      <!-- Action Chips: WhatsApp & Size Guide -->
+      <div class="qv-interactive-actions-row">
+        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="qv-whatsapp-btn" title="Chat with artisan on WhatsApp">
+          <span class="wa-icon">💬</span>
+          <span>Ask Karigar on WhatsApp</span>
+        </a>
+
+        ${isClothing ? `
+          <button type="button" class="qv-size-chart-btn" id="btn-toggle-size-chart">
+            <span>📏 Size &amp; Fit Guide</span>
+          </button>
+        ` : ''}
+      </div>
+
+      ${isClothing ? `
+        <div class="qv-size-chart-drawer" id="qv-size-chart-content" style="display: none;">
+          <h5 style="margin: 8px 0 6px; font-size: 0.88rem; font-weight: 700;">Standard Indian Handloom &amp; Fit Chart:</h5>
+          <table class="size-chart-table">
+            <thead>
+              <tr><th>Size</th><th>Bust / Chest</th><th>Waist</th><th>Standard Length</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>S (36)</td><td>36" (91 cm)</td><td>30" (76 cm)</td><td>Standard Free Size</td></tr>
+              <tr><td>M (38)</td><td>38" (96 cm)</td><td>32" (81 cm)</td><td>Saree: 5.5m + 0.8m Blouse</td></tr>
+              <tr><td>L (40)</td><td>40" (101 cm)</td><td>34" (86 cm)</td><td>Tailored Handloom Fall</td></tr>
+              <tr><td>XL (42)</td><td>42" (106 cm)</td><td>36" (91 cm)</td><td>Custom Weaver Drape</td></tr>
+            </tbody>
+          </table>
+        </div>
+      ` : ''}
+    `;
+
+    // Bind size guide toggle
+    const sizeBtn = trustBox.querySelector('#btn-toggle-size-chart');
+    const sizeDrawer = trustBox.querySelector('#qv-size-chart-content');
+    if (sizeBtn && sizeDrawer) {
+      sizeBtn.addEventListener('click', () => {
+        const isOpen = sizeDrawer.style.display === 'block';
+        sizeDrawer.style.display = isOpen ? 'none' : 'block';
+        sizeBtn.classList.toggle('is-active', !isOpen);
+      });
+    }
+  }
+
   // ==========================================
-  // 2. CART SLIDE-OUT DRAWER
+  // 2. VERIFIED REVIEWS & LIVE RATING SUBMISSION
+  // ==========================================
+  renderQuickViewReviews(product) {
+    const modal = document.getElementById('quickview-modal');
+    if (!modal) return;
+
+    let reviewContainer = modal.querySelector('.qv-reviews-section');
+    if (!reviewContainer) {
+      reviewContainer = document.createElement('div');
+      reviewContainer.className = 'qv-reviews-section';
+      modal.querySelector('.modal-body')?.appendChild(reviewContainer);
+    }
+
+    const reviews = window.amzStore ? window.amzStore.getReviewsForProduct(product.id) : [];
+
+    reviewContainer.innerHTML = `
+      <div class="qv-reviews-header">
+        <h4 class="qv-reviews-title">⭐ Verified Customer Reviews (${reviews.length})</h4>
+        <span class="qv-trust-shield">🛡️ 100% Genuine Certified Purchases</span>
+      </div>
+
+      <!-- Add Review Form -->
+      <div class="qv-add-review-box">
+        <h5 style="margin: 0 0 8px; font-size: 0.9rem; font-weight: 700;">Write a Customer Review (समीक्षा लिखें):</h5>
+        <div class="qv-star-selector" id="qv-star-rating-picker">
+          <span class="star-opt is-active" data-star="1">★</span>
+          <span class="star-opt is-active" data-star="2">★</span>
+          <span class="star-opt is-active" data-star="3">★</span>
+          <span class="star-opt is-active" data-star="4">★</span>
+          <span class="star-opt is-active" data-star="5">★</span>
+          <span id="star-rating-hint" style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary); margin-left: 8px;">5 Stars - Excellent</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;">
+          <input type="text" id="qv-review-author" class="form-input" placeholder="Your Name (e.g. Abhishek Tripathi)" value="Abhishek Tripathi" style="flex: 1;" />
+          <input type="text" id="qv-review-city" class="form-input" placeholder="City (e.g. Varanasi)" value="${window.amzStore ? window.amzStore.getLocation().city : 'New Delhi'}" style="width: 140px;" />
+        </div>
+        <textarea id="qv-review-text" class="form-input" rows="2" placeholder="Share your experience with this handcrafted item..." style="margin-top: 8px; resize: vertical;"></textarea>
+        <div style="text-align: right; margin-top: 8px;">
+          <button type="button" class="amz-btn amz-btn-primary" id="btn-submit-review" style="width: auto; padding: 8px 20px;">
+            Submit Verified Review
+          </button>
+        </div>
+      </div>
+
+      <!-- Existing Reviews List -->
+      <div class="qv-reviews-list">
+        ${reviews.map(r => `
+          <div class="qv-review-card">
+            <div class="qv-review-card-header">
+              <div class="qv-reviewer-meta">
+                <strong>${window.amzStore.escapeHTML(r.author)}</strong>
+                <span class="qv-badge-verified">✓ Verified Purchase</span>
+                <span class="qv-reviewer-loc">📍 ${window.amzStore.escapeHTML(r.location || 'India')}</span>
+              </div>
+              <span class="qv-review-date">${r.date}</span>
+            </div>
+            <div class="qv-review-stars">
+              ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}
+            </div>
+            <p class="qv-review-body">${window.amzStore.escapeHTML(r.text)}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Bind Star rating selector
+    const stars = reviewContainer.querySelectorAll('.star-opt');
+    const starHint = reviewContainer.querySelector('#star-rating-hint');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const val = parseInt(star.dataset.star, 10);
+        this.selectedReviewRating = val;
+        stars.forEach(s => {
+          s.classList.toggle('is-active', parseInt(s.dataset.star, 10) <= val);
+        });
+        if (starHint) {
+          const labels = { 1: '1 Star - Poor', 2: '2 Stars - Fair', 3: '3 Stars - Good', 4: '4 Stars - Very Good', 5: '5 Stars - Excellent' };
+          starHint.textContent = labels[val] || `${val} Stars`;
+        }
+      });
+    });
+
+    // Bind Review submission
+    const submitBtn = reviewContainer.querySelector('#btn-submit-review');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        const author = reviewContainer.querySelector('#qv-review-author')?.value.trim() || 'Verified Buyer';
+        const city = reviewContainer.querySelector('#qv-review-city')?.value.trim() || 'India';
+        const text = reviewContainer.querySelector('#qv-review-text')?.value.trim();
+
+        if (!text) {
+          alert('Please write a short review before submitting.');
+          return;
+        }
+
+        if (window.amzStore) {
+          window.amzStore.addReview(product.id, {
+            author: author,
+            location: city,
+            rating: this.selectedReviewRating,
+            text: text
+          });
+
+          if (window.amzCart) {
+            window.amzCart.showToast("⭐ Thank you! Your verified review has been published live.");
+          }
+        }
+      });
+    }
+  }
+
+  // ==========================================
+  // 3. CART SLIDE-OUT DRAWER
   // ==========================================
   bindCartDrawerEvents() {
     const cartTrigger = document.getElementById('nav-cart-btn');
@@ -199,139 +435,95 @@ class ModalEngine {
     this.renderCartDrawer();
     const drawer = document.getElementById('cart-drawer');
     const overlay = document.getElementById('global-overlay');
-    if (drawer) drawer.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-active');
-    document.body.classList.add('modal-open');
+
+    if (drawer) {
+      drawer.classList.add('is-open');
+      if (overlay) overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   closeCartDrawer() {
     const drawer = document.getElementById('cart-drawer');
     const overlay = document.getElementById('global-overlay');
-    if (drawer) drawer.classList.remove('is-open');
-    if (overlay) overlay.classList.remove('is-active');
-    document.body.classList.remove('modal-open');
-  }
 
-  bindCartReactiveUpdates() {
-    window.addEventListener('cart:updated', () => {
-      this.renderCartDrawer();
-      this.updateHeaderCartBadge();
-    });
-    // Initial badge update
-    this.updateHeaderCartBadge();
-  }
-
-  updateHeaderCartBadge() {
-    const badge = document.getElementById('nav-cart-count');
-    if (badge && window.amzCart) {
-      const summary = window.amzCart.getSummary();
-      badge.textContent = summary.itemCount;
-      badge.classList.remove('cart-bounce');
-      void badge.offsetWidth; // trigger reflow
-      badge.classList.add('cart-bounce');
+    if (drawer) {
+      drawer.classList.remove('is-open');
+      if (overlay && !document.querySelector('.amz-modal.is-open, .modal.is-open:not(#cart-drawer), .dept-drawer.is-open')) {
+        overlay.classList.remove('is-open');
+      }
+      document.body.style.overflow = '';
     }
   }
 
   renderCartDrawer() {
-    const container = document.getElementById('cart-drawer-items');
-    const subtotalEl = document.getElementById('cart-drawer-subtotal');
+    const listEl = document.getElementById('cart-drawer-items-list');
+    const subtotalEl = document.getElementById('cart-drawer-subtotal-val');
     const countEl = document.getElementById('cart-drawer-count');
-    const shippingProgress = document.getElementById('cart-shipping-progress');
-    const shippingMsg = document.getElementById('cart-shipping-msg');
-    const emptyState = document.getElementById('cart-drawer-empty');
-    const filledState = document.getElementById('cart-drawer-filled');
 
-    if (!container || !window.amzCart) return;
+    if (!listEl || !window.amzCart) return;
 
-    const items = window.amzCart.items;
     const summary = window.amzCart.getSummary();
 
-    if (items.length === 0) {
-      if (emptyState) emptyState.style.display = 'block';
-      if (filledState) filledState.style.display = 'none';
+    if (subtotalEl) {
+      subtotalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `$${summary.subtotal.toFixed(2)}`;
+    }
+
+    if (countEl) {
+      countEl.textContent = `${summary.totalCount} items`;
+    }
+
+    if (window.amzCart.items.length === 0) {
+      listEl.innerHTML = `
+        <div class="empty-cart-state">
+          <div class="empty-icon">🛒</div>
+          <h4>Your UdaanMart Cart is empty</h4>
+          <p>Discover authentic rural weaves, handmade brassware, and lifestyle electronics with 1-click delivery.</p>
+        </div>
+      `;
       return;
     }
 
-    if (emptyState) emptyState.style.display = 'none';
-    if (filledState) filledState.style.display = 'block';
-
-    // Format subtotal
-    const formattedSubtotal = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `$${summary.subtotal.toFixed(2)}`;
-    if (subtotalEl) subtotalEl.textContent = formattedSubtotal;
-    if (countEl) countEl.textContent = `${summary.itemCount} item${summary.itemCount === 1 ? '' : 's'}`;
-
-    // Free shipping bar calculation
-    if (shippingProgress && shippingMsg) {
-      shippingProgress.style.width = `${summary.freeShippingProgress}%`;
-      if (summary.qualifiesForFreeShipping) {
-        shippingMsg.innerHTML = `<span class="text-success">✓ Your order qualifies for <strong>FREE Delivery</strong>!</span>`;
-      } else {
-        const needed = window.amzApp ? window.amzApp.formatPrice(summary.amountNeededForFreeShipping) : `$${summary.amountNeededForFreeShipping.toFixed(2)}`;
-        shippingMsg.innerHTML = `Add <strong>${needed}</strong> of eligible items for <strong>FREE Delivery</strong>`;
-      }
-    }
-
-    // Render cart items
-    container.innerHTML = items.map(item => {
-      const itemPrice = window.amzApp ? window.amzApp.formatPrice(item.price) : `$${item.price.toFixed(2)}`;
-      const totalItemPrice = window.amzApp ? window.amzApp.formatPrice(item.price * item.quantity) : `$${(item.price * item.quantity).toFixed(2)}`;
-
+    listEl.innerHTML = window.amzCart.items.map(item => {
+      const formattedPrice = window.amzApp ? window.amzApp.formatPrice(item.price) : `$${item.price.toFixed(2)}`;
       return `
-        <div class="cart-drawer-item" data-cart-id="${item.id}">
-          <img src="${item.image}" alt="${item.title}" class="cd-item-thumb" />
-          <div class="cd-item-details">
-            <h4 class="cd-item-title">${item.title}</h4>
-            <div class="cd-item-price-row">
-              <span class="cd-item-unit-price">${itemPrice}</span>
-              ${item.quantity > 1 ? `<span class="cd-item-total-price">(${totalItemPrice})</span>` : ''}
-            </div>
-            <div class="cd-item-delivery">
-              <span class="amz-prime-badge"><span class="prime-italic">prime</span></span>
-              <span>FREE delivery</span>
-            </div>
-            <div class="cd-item-actions">
-              <div class="cd-qty-selector">
-                <button class="cd-qty-btn" data-action="decrement" data-id="${item.id}" aria-label="Decrease quantity">−</button>
-                <span class="cd-qty-val">${item.quantity}</span>
-                <button class="cd-qty-btn" data-action="increment" data-id="${item.id}" aria-label="Increase quantity">+</button>
+        <div class="cart-drawer-item" data-product-id="${item.id}">
+          <img src="${item.image}" alt="${window.amzStore.escapeHTML(item.title)}" class="cart-item-thumb" />
+          <div class="cart-item-details">
+            <h5 class="cart-item-title">${window.amzStore.escapeHTML(item.shortTitle || item.title)}</h5>
+            <div class="cart-item-price">${formattedPrice}</div>
+            <div class="cart-item-actions">
+              <div class="cart-qty-stepper">
+                <button class="qty-btn qty-minus" onclick="window.amzCart.updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                <span class="qty-val">${item.quantity}</span>
+                <button class="qty-btn qty-plus" onclick="window.amzCart.updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
               </div>
-              <button class="cd-delete-btn" data-action="delete" data-id="${item.id}">Delete</button>
+              <button class="cart-remove-link" onclick="window.amzCart.removeItem('${item.id}')">Delete</button>
             </div>
           </div>
         </div>
       `;
     }).join('');
+  }
 
-    // Bind item action listeners
-    container.querySelectorAll('[data-action]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const action = btn.dataset.action;
-        const prodId = btn.dataset.id;
-        const currentItem = items.find(i => i.id === prodId);
-
-        if (!currentItem) return;
-
-        if (action === 'increment') {
-          window.amzCart.updateQuantity(prodId, currentItem.quantity + 1);
-        } else if (action === 'decrement') {
-          window.amzCart.updateQuantity(prodId, currentItem.quantity - 1);
-        } else if (action === 'delete') {
-          window.amzCart.removeItem(prodId);
-        }
-      });
+  bindCartReactiveUpdates() {
+    window.addEventListener('amz:cart-updated', () => {
+      const drawer = document.getElementById('cart-drawer');
+      if (drawer && drawer.classList.contains('is-open')) {
+        this.renderCartDrawer();
+      }
     });
   }
 
   // ==========================================
-  // 3. DEPARTMENT MEGA-MENU SIDE DRAWER
+  // 4. DEPARTMENT HAMBURGER SIDE DRAWER
   // ==========================================
   bindDepartmentDrawer() {
     const hamburgerBtn = document.getElementById('nav-hamburger-btn');
-    const closeBtn = document.getElementById('department-drawer-close-btn');
+    const closeBtn = document.getElementById('dept-drawer-close-btn');
 
     if (hamburgerBtn) {
-      hamburgerBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+      hamburgerBtn.addEventListener('click', () => {
         this.openDepartmentDrawer();
       });
     }
@@ -342,157 +534,170 @@ class ModalEngine {
       });
     }
 
-    // Side menu category clicks
-    document.querySelectorAll('[data-side-category]').forEach(link => {
+    // Bind Department links inside drawer
+    document.querySelectorAll('.dept-menu-item[data-dept-id]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const cat = link.dataset.sideCategory;
-        if (window.amzSearchFilter) {
-          window.amzSearchFilter.setDepartment(cat);
-        }
+        const deptId = link.dataset.deptId;
         this.closeDepartmentDrawer();
+        if (window.amzSearchFilter) {
+          window.amzSearchFilter.setDepartment(deptId);
+        }
       });
     });
   }
 
   openDepartmentDrawer() {
-    const drawer = document.getElementById('department-drawer');
+    const drawer = document.getElementById('dept-drawer');
     const overlay = document.getElementById('global-overlay');
-    if (drawer) drawer.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-active');
-    document.body.classList.add('modal-open');
+
+    if (drawer) {
+      drawer.classList.add('is-open');
+      if (overlay) overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   closeDepartmentDrawer() {
-    const drawer = document.getElementById('department-drawer');
+    const drawer = document.getElementById('dept-drawer');
     const overlay = document.getElementById('global-overlay');
-    if (drawer) drawer.classList.remove('is-open');
-    if (overlay) overlay.classList.remove('is-active');
-    document.body.classList.remove('modal-open');
+
+    if (drawer) {
+      drawer.classList.remove('is-open');
+      if (overlay && !document.querySelector('.amz-modal.is-open, .modal.is-open:not(#dept-drawer), .cart-drawer.is-open')) {
+        overlay.classList.remove('is-open');
+      }
+      document.body.style.overflow = '';
+    }
   }
 
   // ==========================================
-  // 4. DELIVERY LOCATION SELECTOR MODAL
+  // 5. DELIVERY LOCATION SELECTOR MODAL
   // ==========================================
   bindLocationModal() {
-    const locationTrigger = document.getElementById('nav-deliver-location-btn');
+    const trigger = document.getElementById('nav-deliver-location-btn');
     const modal = document.getElementById('location-modal');
     const form = document.getElementById('location-form');
-    const cityButtons = document.querySelectorAll('[data-preset-location]');
+    const input = document.getElementById('location-zip-input');
 
-    if (locationTrigger && modal) {
-      locationTrigger.addEventListener('click', () => {
+    if (trigger && modal) {
+      trigger.addEventListener('click', () => {
         this.showModal(modal);
       });
     }
 
     if (form) {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const zipInput = document.getElementById('location-zip-input');
-        if (zipInput && zipInput.value.trim()) {
-          this.updateDeliveryLocation(zipInput.value.trim());
-          this.hideModal(modal);
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        // Check if 6-digit Pincode
+        if (/^\d{6}$/.test(raw) && window.amzStore) {
+          const info = await window.amzStore.fetchPincode(raw);
+          if (info) {
+            window.amzStore.setLocation(info);
+            this.hideModal(modal);
+            return;
+          }
         }
+
+        // Generic String Location
+        if (window.amzStore) {
+          window.amzStore.setLocation({
+            city: raw,
+            pincode: 'Verified PIN',
+            displayName: raw
+          });
+        }
+        this.hideModal(modal);
       });
     }
 
+    // Geolocation Detection Button
+    const detectBtn = document.getElementById('btn-detect-current-location');
+    if (detectBtn) {
+      detectBtn.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+          if (window.amzCart) window.amzCart.showToast("Geolocation is not supported by your browser.", "info");
+          return;
+        }
+
+        detectBtn.innerHTML = `📡 Detecting Satellite Location...`;
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            detectBtn.innerHTML = `✓ Location Detected!`;
+            if (window.amzStore) {
+              window.amzStore.setLocation({
+                city: 'Prayagraj / Varanasi Cluster',
+                pincode: '211001',
+                state: 'Uttar Pradesh',
+                country: 'India'
+              });
+            }
+            setTimeout(() => {
+              this.hideModal(modal);
+              detectBtn.innerHTML = `📡 Detect My Current Location`;
+            }, 500);
+          },
+          (err) => {
+            // Graceful fallback to default Indian artisan hub
+            if (window.amzStore) {
+              window.amzStore.setLocation({
+                city: 'New Delhi',
+                pincode: '110001',
+                state: 'Delhi',
+                country: 'India'
+              });
+            }
+            this.hideModal(modal);
+            detectBtn.innerHTML = `📡 Detect My Current Location`;
+          },
+          { timeout: 5000 }
+        );
+      });
+    }
+
+    // Preset location chips
+    const cityButtons = document.querySelectorAll('.location-chip-btn');
     cityButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const loc = btn.dataset.presetLocation;
         const cur = btn.dataset.currency;
         const lang = btn.dataset.lang;
-        this.updateDeliveryLocation(loc, cur, lang);
+
+        // Parse City and Pincode
+        const match = loc.match(/(.*)\s\((\d{6})\)/);
+        const city = match ? match[1].trim() : loc;
+        const pin = match ? match[2] : '110001';
+
+        if (window.amzStore) {
+          window.amzStore.setLocation({
+            city: city,
+            pincode: pin,
+            displayName: `${city} ${pin}`
+          });
+        }
+
+        if (cur && window.amzApp) {
+          window.amzApp.setCurrency(cur, false);
+        }
+
+        if (lang && window.udaanI18n) {
+          window.udaanI18n.applyLanguage(lang, false);
+        }
+
         this.hideModal(modal);
       });
     });
   }
 
-  detectCurrencyFromLocation(locStr) {
-    if (!locStr) return 'USD';
-    const s = locStr.toLowerCase().trim();
-
-    // India: Mumbai, Delhi, Bangalore, Bengaluru, Chennai, Kolkata, Hyderabad, Pune, India, Bharat, or 6-digit Indian PIN
-    if (s.includes('mumbai') || s.includes('delhi') || s.includes('bangalore') || 
-        s.includes('bengaluru') || s.includes('chennai') || s.includes('kolkata') || 
-        s.includes('hyderabad') || s.includes('pune') || s.includes('india') || 
-        s.includes('bharat') || /\b[1-9][0-9]{5}\b/.test(s)) {
-      return 'INR';
-    }
-
-    // United Kingdom: London, Manchester, Birmingham, Leeds, Glasgow, UK, England, Scotland, or UK postal
-    if (s.includes('london') || s.includes('manchester') || s.includes('birmingham') ||
-        s.includes('leeds') || s.includes('glasgow') || s.includes('edinburgh') ||
-        s.includes('united kingdom') || s.includes('uk') || s.includes('england') || 
-        s.includes('scotland') || s.includes('ec1a') || s.includes('sw1')) {
-      return 'GBP';
-    }
-
-    // Eurozone: Paris, Berlin, Munich, Frankfurt, Rome, Milan, Madrid, Barcelona, Amsterdam, Dublin, France, Germany, Italy, Spain, Europe
-    if (s.includes('paris') || s.includes('berlin') || s.includes('munich') ||
-        s.includes('frankfurt') || s.includes('rome') || s.includes('milan') ||
-        s.includes('madrid') || s.includes('barcelona') || s.includes('amsterdam') ||
-        s.includes('dublin') || s.includes('brussels') || s.includes('vienna') ||
-        s.includes('france') || s.includes('germany') || s.includes('italy') ||
-        s.includes('spain') || s.includes('netherlands') || s.includes('europe')) {
-      return 'EUR';
-    }
-
-    // Japan: Tokyo, Osaka, Kyoto, Yokohama, Japan, JP, or Japanese postal code
-    if (s.includes('tokyo') || s.includes('osaka') || s.includes('kyoto') ||
-        s.includes('yokohama') || s.includes('japan') || s.includes('jp') || /\b[0-9]{3}-?[0-9]{4}\b/.test(s)) {
-      return 'JPY';
-    }
-
-    // Canada: Toronto, Vancouver, Montreal, Ottawa, Calgary, Canada
-    if (s.includes('toronto') || s.includes('vancouver') || s.includes('montreal') ||
-        s.includes('ottawa') || s.includes('calgary') || s.includes('canada')) {
-      return 'CAD';
-    }
-
-    // Default to USD for US cities (New York, Seattle, San Francisco, Chicago, Los Angeles, etc.)
-    return 'USD';
-  }
-
-  updateDeliveryLocation(locationStr, explicitCurrency = null, explicitLang = null) {
-    this.currentLocation = locationStr;
-    const headerDisplay = document.getElementById('nav-delivery-city');
-    if (headerDisplay) {
-      headerDisplay.textContent = locationStr;
-    }
-
-    // Automatically detect country, language, currency, and verified delivery carrier
-    let details = { lang: 'hi', currency: 'INR', flag: '🇮🇳', carrier: 'India Post Speed Post & Rural Delivery' };
-    if (window.udaanI18n) {
-      details = window.udaanI18n.detectCountryAndDetails(locationStr);
-    }
-
-    const targetLang = explicitLang || details.lang;
-    const targetCurrency = explicitCurrency || details.currency;
-
-    // 1. Switch language automatically based on country
-    if (window.udaanI18n) {
-      window.udaanI18n.applyLanguage(targetLang, false);
-    }
-
-    // 2. Switch currency automatically based on country
-    if (window.amzApp) {
-      window.amzApp.setCurrency(targetCurrency, false);
-    }
-
-    // 3. Announce universal delivery guarantee
-    if (window.amzCart) {
-      const langName = window.udaanI18n ? (window.udaanI18n.translations[targetLang]?.name || targetLang) : targetLang;
-      window.amzCart.showToast(`📍 Delivery confirmed to "${locationStr}"!\n🚚 Carrier: ${details.carrier}\n🌐 Language: ${langName} | Currency: ${targetCurrency}`, "success");
-    }
-  }
-
   // ==========================================
-  // 5. ORDERS & WISHLIST MODAL
+  // 6. ORDERS & WISHLIST HUB MODAL (4-STAGE STEPPER)
   // ==========================================
   bindOrdersWishlistModal() {
     const ordersBtn = document.getElementById('nav-orders-btn');
-    const wishlistLink = document.getElementById('nav-wishlist-link');
     const modal = document.getElementById('orders-wishlist-modal');
 
     if (ordersBtn && modal) {
@@ -502,23 +707,15 @@ class ModalEngine {
       });
     }
 
-    if (wishlistLink && modal) {
-      wishlistLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.openOrdersModal('wishlist');
-      });
-    }
-
-    // Modal Tab switcher (Orders vs Wishlist)
+    // Tab switcher (Orders vs Wishlist)
     modal?.querySelectorAll('.modal-tab-btn').forEach(tabBtn => {
       tabBtn.addEventListener('click', () => {
         const tab = tabBtn.dataset.tab;
         modal.querySelectorAll('.modal-tab-btn').forEach(b => b.classList.remove('is-active'));
-        tabBtn.classList.add('is-active');
-
         modal.querySelectorAll('.modal-tab-pane').forEach(p => p.classList.remove('is-active'));
-        const activePane = modal.querySelector(`#tab-pane-${tab}`);
-        if (activePane) activePane.classList.add('is-active');
+
+        tabBtn.classList.add('is-active');
+        document.getElementById(`tab-pane-${tab}`)?.classList.add('is-active');
       });
     });
   }
@@ -527,7 +724,6 @@ class ModalEngine {
     const modal = document.getElementById('orders-wishlist-modal');
     if (!modal) return;
 
-    // Switch to active tab
     modal.querySelectorAll('.modal-tab-btn').forEach(b => {
       b.classList.toggle('is-active', b.dataset.tab === defaultTab);
     });
@@ -544,56 +740,116 @@ class ModalEngine {
     const listEl = document.getElementById('orders-history-list');
     if (!listEl) return;
 
-    const orders = window.amzCheckout ? window.amzCheckout.getOrders() : [];
+    const orders = window.amzStore ? window.amzStore.getOrders() : [];
 
     if (orders.length === 0) {
       listEl.innerHTML = `
         <div class="empty-panel-state">
           <div class="empty-icon">📦</div>
           <h4>No orders placed yet</h4>
-          <p>Explore our lightning deals and check out to see simulated real-time parcel tracking here.</p>
+          <p>Explore our lightning deals and check out to see live 4-stage tracking right here.</p>
         </div>
       `;
       return;
     }
 
-    listEl.innerHTML = orders.map(order => `
-      <div class="order-card-record">
-        <div class="order-record-header">
-          <div class="order-meta-col">
-            <span class="meta-label">ORDER PLACED</span>
-            <span class="meta-val">${new Date(order.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-          </div>
-          <div class="order-meta-col">
-            <span class="meta-label">TOTAL</span>
-            <span class="meta-val">${window.amzApp ? window.amzApp.formatPrice(order.total) : `$${order.total.toFixed(2)}`}</span>
-          </div>
-          <div class="order-meta-col">
-            <span class="meta-label">SHIP TO</span>
-            <span class="meta-val">${escapeHtml(order.shipping.fullName)}</span>
-          </div>
-          <div class="order-meta-col order-id-col">
-            <span class="meta-label">ORDER # ${order.orderId}</span>
-            <span class="tracking-badge status-${order.status.toLowerCase().replace(/\s+/g, '-')}">${order.status}</span>
-          </div>
-        </div>
+    listEl.innerHTML = orders.map(order => {
+      const step = order.currentStep || order.trackingStep || 1;
+      const isDelivered = step >= 4;
+      const ship = order.deliveryLocation || {};
+      const buyerName = window.amzStore.escapeHTML(ship.name || 'Buyer');
+      const formattedTotal = window.amzApp ? window.amzApp.formatPrice(order.totalAmount || order.total || 0) : `₹${order.totalAmount || order.total}`;
 
-        <div class="order-record-body">
-          <div class="order-items-strip">
-            ${order.items.map(item => `
-              <div class="order-mini-thumb-box" title="${escapeHtml(item.title)} (Qty: ${item.quantity})">
-                <img src="${item.image}" alt="${escapeHtml(item.title)}" />
-                <span class="mini-qty-tag">x${item.quantity}</span>
-              </div>
-            `).join('')}
+      // Stepper Labels & Statuses
+      const stepsConfig = [
+        { num: 1, label: 'Order Confirmed', icon: '📝' },
+        { num: 2, label: 'Packed by Karigar', icon: '📦' },
+        { num: 3, label: 'In Transit via Speed Post', icon: '🚚' },
+        { num: 4, label: 'Delivered', icon: '🎉' }
+      ];
+
+      return `
+        <div class="order-card-record" data-order-id="${order.orderId}">
+          <div class="order-record-header">
+            <div class="order-meta-col">
+              <span class="meta-label">ORDER PLACED</span>
+              <span class="meta-val">${order.date}</span>
+            </div>
+            <div class="order-meta-col">
+              <span class="meta-label">TOTAL</span>
+              <span class="meta-val">${formattedTotal}</span>
+            </div>
+            <div class="order-meta-col">
+              <span class="meta-label">SHIP TO</span>
+              <span class="meta-val">${buyerName}</span>
+            </div>
+            <div class="order-meta-col order-id-col">
+              <span class="meta-label">ORDER # ${order.orderId}</span>
+              <span class="tracking-badge status-step-${step}">${order.status}</span>
+            </div>
           </div>
-          <div class="order-tracking-info">
-            <div class="tracking-code"><strong>Tracking #:</strong> <code>${order.trackingNumber}</code></div>
-            <div class="tracking-estimate">Estimated Delivery: <strong>${order.estimatedDelivery}</strong></div>
+
+          <!-- 4-Stage Visual Progress Stepper -->
+          <div class="order-stepper-wrapper">
+            <div class="order-stepper-bar">
+              <div class="stepper-fill" style="width: ${((step - 1) / 3) * 100}%;"></div>
+            </div>
+            <div class="order-stepper-points">
+              ${stepsConfig.map(s => `
+                <div class="stepper-point ${s.num <= step ? 'is-complete' : ''} ${s.num === step ? 'is-current' : ''}">
+                  <div class="point-circle">${s.num <= step ? '✓' : s.num}</div>
+                  <span class="point-label">${s.label}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="order-record-body">
+            <div class="order-items-strip">
+              ${(order.items || []).map(item => `
+                <div class="order-mini-thumb-box" title="${window.amzStore.escapeHTML(item.title)} (Qty: ${item.quantity || 1})">
+                  <img src="${item.image}" alt="${window.amzStore.escapeHTML(item.title)}" />
+                  <span class="mini-qty-tag">x${item.quantity || 1}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="order-tracking-info">
+              <div class="tracking-code"><strong>Tracking #:</strong> <code>${order.trackingNumber || 'INP-SPEEDPOST'}</code></div>
+              <div class="tracking-estimate">Destination: <strong>${window.amzStore.escapeHTML(ship.city || 'Your Address')} (${window.amzStore.escapeHTML(ship.pincode || '')})</strong></div>
+              <div class="tracking-payment">Payment: <strong>${window.amzStore.escapeHTML(order.paymentMethod || 'UPI')}</strong></div>
+            </div>
+
+            <div class="order-card-actions">
+              ${!isDelivered ? `
+                <button class="amz-btn amz-btn-secondary btn-advance-demo-order" onclick="window.amzStore.advanceOrderStep('${order.orderId}')" title="Advance step for testing">
+                  🚚 Advance Delivery Status (Demo)
+                </button>
+              ` : `
+                <span class="delivered-celebration-pill">🎉 Delivered Successfully!</span>
+                <button class="amz-btn amz-btn-primary btn-buy-again" onclick="window.amzModal.handleBuyAgain('${order.orderId}')">
+                  🔄 Buy Again (1-Click)
+                </button>
+              `}
+              <button class="amz-btn amz-btn-ghost btn-view-invoice-link" onclick="window.amzCheckout.openGSTInvoice(window.amzStore.getOrderById('${order.orderId}'))">
+                📄 View Tax Invoice
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+  }
+
+  handleBuyAgain(orderId) {
+    const order = window.amzStore ? window.amzStore.getOrderById(orderId) : null;
+    if (!order || !order.items || order.items.length === 0) return;
+
+    const firstItem = order.items[0];
+    this.closeAllModalsAndDrawers();
+    if (window.amzCheckout) {
+      window.amzCheckout.openExpressBuy(firstItem, 1);
+    }
   }
 
   renderWishlistTab() {
@@ -601,14 +857,15 @@ class ModalEngine {
     if (!listEl || !window.amzCart) return;
 
     const wishlistIds = window.amzCart.wishlist;
-    const wishlistProducts = PRODUCTS_DATA.filter(p => wishlistIds.includes(p.id));
+    const allProducts = window.amzStore ? window.amzStore.getAllProducts() : [];
+    const wishlistProducts = allProducts.filter(p => wishlistIds.includes(p.id));
 
     if (wishlistProducts.length === 0) {
       listEl.innerHTML = `
         <div class="empty-panel-state">
           <div class="empty-icon">♡</div>
           <h4>Your Wish List is currently empty</h4>
-          <p>Click the heart icon on any product card to save items for future shopping.</p>
+          <p>Click the heart icon on any craft or flagship card to save items for future purchases.</p>
         </div>
       `;
       return;
@@ -616,17 +873,16 @@ class ModalEngine {
 
     listEl.innerHTML = wishlistProducts.map(prod => `
       <div class="wishlist-row-item">
-        <img src="${prod.images[0]}" alt="${prod.title}" class="wishlist-thumb" />
+        <img src="${prod.images ? prod.images[0] : ''}" alt="${window.amzStore.escapeHTML(prod.title)}" class="wishlist-thumb" />
         <div class="wishlist-info">
-          <h4>${prod.title}</h4>
-          <div class="wishlist-price">${window.amzApp ? window.amzApp.formatPrice(prod.price) : `$${prod.price.toFixed(2)}`}</div>
-          <div class="wishlist-stock">${prod.stock <= 5 ? `Only ${prod.stock} left` : 'In Stock'}</div>
+          <h5 class="wishlist-title">${window.amzStore.escapeHTML(prod.title)}</h5>
+          <span class="wishlist-price">${window.amzApp ? window.amzApp.formatPrice(prod.price) : '$' + prod.price}</span>
         </div>
         <div class="wishlist-actions">
-          <button class="amz-btn amz-btn-primary" onclick="window.amzCart.addItem(PRODUCTS_DATA.find(p => p.id === '${prod.id}'), 1)">
-            Add to Cart
+          <button class="amz-btn amz-btn-primary" onclick="window.amzCart.addItem(window.amzStore.getProductById('${prod.id}'), 1); window.amzModal.openCartDrawer();">
+            Move to Cart
           </button>
-          <button class="amz-btn amz-btn-secondary" onclick="window.amzCart.toggleWishlist(PRODUCTS_DATA.find(p => p.id === '${prod.id}')); window.amzModal.renderWishlistTab();">
+          <button class="cart-remove-link" onclick="window.amzCart.toggleWishlist('${prod.id}'); window.amzModal.renderWishlistTab();">
             Remove
           </button>
         </div>
@@ -635,34 +891,41 @@ class ModalEngine {
   }
 
   // ==========================================
-  // HELPERS
+  // 7. MODAL VISIBILITY HELPERS
   // ==========================================
-  showModal(modalEl) {
-    this.closeAllModalsAndDrawers();
+  showModal(modal) {
+    if (!modal) return;
+    this.activeModal = modal;
     const overlay = document.getElementById('global-overlay');
-    if (modalEl) modalEl.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-active');
-    document.body.classList.add('modal-open');
-    this.activeModal = modalEl;
+
+    modal.classList.add('is-open');
+    if (overlay) overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
   }
 
-  hideModal(modalEl) {
-    if (modalEl) modalEl.classList.remove('is-open');
+  hideModal(modal) {
+    if (!modal) return;
+    modal.classList.remove('is-open');
     const overlay = document.getElementById('global-overlay');
-    if (overlay) overlay.classList.remove('is-active');
-    document.body.classList.remove('modal-open');
+
+    if (overlay && !document.querySelector('.modal.is-open, .amz-modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
+      overlay.classList.remove('is-open');
+    }
+    document.body.style.overflow = '';
     this.activeModal = null;
   }
 
   closeAllModalsAndDrawers() {
-    document.querySelectorAll('.modal, .drawer').forEach(el => {
-      el.classList.remove('is-open');
-    });
+    document.querySelectorAll('.modal.is-open, .amz-modal.is-open').forEach(m => m.classList.remove('is-open'));
+    this.closeCartDrawer();
+    this.closeDepartmentDrawer();
+
     const overlay = document.getElementById('global-overlay');
-    if (overlay) overlay.classList.remove('is-active');
-    document.body.classList.remove('modal-open');
+    if (overlay) overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
     this.activeModal = null;
   }
 }
 
+// Global Singleton Instance
 window.amzModal = new ModalEngine();
