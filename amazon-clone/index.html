@@ -2132,6 +2132,71 @@
         <button class="modal-close-btn" id="seller-modal-close" aria-label="Close Seller Central">×</button>
       </div>
 
+      <!-- Step A: 30-Second Shop & Karigar Onboarding View -->
+      <div class="seller-onboarding-panel" id="seller-onboarding-panel" style="display: none;">
+        <div class="onboard-hero-banner">
+          <div class="onboard-badge-icon">🏛️</div>
+          <div class="onboard-hero-text">
+            <h3>30-Second Shop &amp; Rural Karigar Onboarding (दुकान पंजीकरण)</h3>
+            <p>Direct bank deposits via DBT/NEFT • 0% Platform Commission • India Post Speed Post pickup from your village</p>
+          </div>
+          <button type="button" class="btn-demo-autofill" id="btn-demo-fill-seller" title="Pre-fill Varanasi Weaver Guild for testing">
+            ⚡ Quick Demo Fill
+          </button>
+        </div>
+
+        <form id="seller-onboard-form" class="seller-onboard-form">
+          <div class="onboard-grid">
+            <div class="form-group">
+              <label for="seller-onboard-shop-name">Shop / Karigar Guild Name *</label>
+              <input type="text" id="seller-onboard-shop-name" class="amz-input" placeholder="e.g. Varanasi Silk Weaver Guild" required />
+            </div>
+
+            <div class="form-group">
+              <label for="seller-onboard-owner-name">Artisan / Owner Full Name *</label>
+              <input type="text" id="seller-onboard-owner-name" class="amz-input" placeholder="e.g. Master Weaver Ramkishan" required />
+            </div>
+
+            <div class="form-group">
+              <label for="seller-onboard-phone">10-Digit Mobile / WhatsApp Number *</label>
+              <input type="tel" id="seller-onboard-phone" class="amz-input" placeholder="e.g. 9876543210" pattern="[0-9]{10}" required />
+            </div>
+
+            <div class="form-group">
+              <label for="seller-onboard-city">City &amp; State *</label>
+              <input type="text" id="seller-onboard-city" class="amz-input" placeholder="e.g. Varanasi, Uttar Pradesh" required />
+            </div>
+
+            <div class="form-group">
+              <label for="seller-onboard-pincode">6-Digit Dispatch Pincode *</label>
+              <input type="text" id="seller-onboard-pincode" class="amz-input" placeholder="e.g. 221001" maxlength="6" pattern="[0-9]{6}" required />
+            </div>
+
+            <div class="form-group">
+              <label for="seller-onboard-gitag">GI-Tag Certificate / Handloom ID (Optional)</label>
+              <input type="text" id="seller-onboard-gitag" class="amz-input" placeholder="e.g. GI-IN-UP-0042 (Banarasi Brocade)" />
+            </div>
+          </div>
+
+          <div class="onboard-actions-row">
+            <button type="submit" class="amz-btn amz-btn-primary btn-launch-studio" id="btn-submit-seller-onboard">
+              🔓 Launch My Karigar Studio (मेरी दुकान शुरू करें)
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Active Artisan Shop Banner inside Studio -->
+      <div class="seller-profile-strip" id="seller-profile-strip" style="display: none;">
+        <div class="profile-info-block">
+          <span class="profile-shop-title" id="studio-shop-title">🏛️ Varanasi Silk Weaver Guild</span>
+          <span class="profile-meta-text">Artisan: <strong id="studio-owner-text">Master Weaver Ramkishan</strong> • 📍 <span id="studio-city-text">Varanasi (221001)</span> • <span class="badge-gitag-verified" id="studio-gitag-badge">💚 Verified Artisan</span></span>
+        </div>
+        <button type="button" class="btn-text-edit-profile" id="btn-edit-seller-profile" title="Update shop profile details">
+          ✏️ Edit Shop Profile
+        </button>
+      </div>
+
       <!-- Seller Navigation Tabs -->
       <nav class="seller-tabs-bar" aria-label="Seller Hub Tabs">
         <button class="seller-tab-btn is-active" data-seller-tab="list">
@@ -2276,18 +2341,31 @@
               </div>
             </div>
 
-            <!-- Two Column Row: Price & Stock -->
+            <!-- Three Column Row: MRP, Selling Rate & Stock -->
             <div class="seller-form-row">
               <div class="form-group">
-                <label for="seller-prod-price">Selling Price (USD $) *</label>
-                <input type="number" id="seller-prod-price" class="amz-input" step="0.01" min="1" placeholder="49.99" value="49.99" required />
-                <small class="form-hint" id="seller-price-converted-hint">Auto-converts to ₹4,174 INR • €45.99 EUR</small>
+                <label for="seller-prod-mrp">MRP / List Price (₹) *</label>
+                <input type="number" id="seller-prod-mrp" class="amz-input" min="1" placeholder="2499" value="2499" required />
+                <small class="form-hint">Shown as strike-through original rate</small>
               </div>
 
               <div class="form-group">
-                <label for="seller-prod-stock">Units in Stock *</label>
-                <input type="number" id="seller-prod-stock" class="amz-input" min="1" max="9999" placeholder="25" value="25" required />
+                <label for="seller-prod-price">Selling Rate / Customer Pays (₹) *</label>
+                <input type="number" id="seller-prod-price" class="amz-input" min="1" placeholder="1199" value="1199" required />
+                <small class="form-hint" id="seller-price-converted-hint">Final checkout offer rate</small>
               </div>
+
+              <div class="form-group">
+                <label for="seller-prod-stock">Available Stock (Units) *</label>
+                <input type="number" id="seller-prod-stock" class="amz-input" min="1" max="9999" placeholder="25" value="25" required />
+                <small class="form-hint">Deducts automatically upon purchase</small>
+              </div>
+            </div>
+
+            <!-- Artisan Origin / GI-Tag Details -->
+            <div class="form-group">
+              <label for="seller-prod-origin">Craft Origin &amp; GI-Tag Badge (शिल्प उत्पत्ति)</label>
+              <input type="text" id="seller-prod-origin" class="amz-input" placeholder="e.g. Varanasi, Uttar Pradesh (GI-Tag Certified)" value="Varanasi, Uttar Pradesh (GI-Tag Certified)" />
             </div>
 
             <!-- Live Aapki Kamai (Net Karigar Bank Payout Breakdown) -->

@@ -486,6 +486,7 @@ class SearchFilterEngine {
         <div class="prod-card-body">
           <div class="prod-tags-row">
             <span class="prod-category-tag">${prod.categoryName}</span>
+            ${prod.sellerCity ? `<span class="prod-tag-pill tag-origin" title="Craft Origin: ${prod.sellerCity}">📍 ${prod.sellerCity}</span>` : ''}
             ${
               prod.isRuralKarigar 
                 ? '<span class="prod-tag-pill tag-karigar" title="UdaanMart Karigar Rural Certified">🏡 Karigar</span>'
@@ -523,16 +524,33 @@ class SearchFilterEngine {
             <span class="delivery-text">${prod.delivery || 'FREE Delivery Tomorrow'}</span>
           </div>
 
-          ${prod.stock <= 5 ? `<div class="prod-low-stock">Only ${prod.stock} left in stock - order soon.</div>` : ''}
+          ${
+            prod.stock <= 0 
+              ? `<div class="prod-out-stock-text" style="color: #dc2626; font-weight: 700; font-size: 0.82rem; margin: 4px 0;">⚠️ Out of Stock</div>` 
+              : (prod.stock <= 5 
+                  ? `<div class="prod-low-stock">Only ${prod.stock} left in stock - order soon.</div>` 
+                  : `<div class="prod-in-stock-tag" style="color: #16a34a; font-size: 0.78rem; font-weight: 600; margin: 2px 0;">✓ In Stock (${prod.stock} units)</div>`)
+          }
         </div>
 
         <div class="prod-card-actions">
-          <button class="amz-btn amz-btn-primary add-to-cart-btn" data-add-to-cart="${prod.id}">
-            ${window.udaanI18n ? window.udaanI18n.t('add_to_cart') : 'Add to Cart'}
-          </button>
-          <button class="amz-btn amz-btn-buy-now buy-now-btn" data-buy-now="${prod.id}">
-            ${window.udaanI18n ? window.udaanI18n.t('buy_now') : '⚡ Buy Now'}
-          </button>
+          ${
+            prod.stock <= 0 ? `
+              <button class="amz-btn amz-btn-secondary add-to-cart-btn" disabled style="opacity: 0.55; cursor: not-allowed;" title="Currently Out of Stock">
+                Out of Stock
+              </button>
+              <button class="amz-btn amz-btn-secondary buy-now-btn" disabled style="opacity: 0.55; cursor: not-allowed;" title="Currently Out of Stock">
+                Unavailable
+              </button>
+            ` : `
+              <button class="amz-btn amz-btn-primary add-to-cart-btn" data-add-to-cart="${prod.id}">
+                ${window.udaanI18n ? window.udaanI18n.t('add_to_cart') : 'Add to Cart'}
+              </button>
+              <button class="amz-btn amz-btn-buy-now buy-now-btn" data-buy-now="${prod.id}">
+                ${window.udaanI18n ? window.udaanI18n.t('buy_now') : '⚡ Buy Now'}
+              </button>
+            `
+          }
         </div>
       </article>
     `;

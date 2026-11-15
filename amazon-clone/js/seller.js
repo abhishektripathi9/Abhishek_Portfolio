@@ -21,8 +21,10 @@ class SellerCentralEngine {
         shortTitle: "Men's Cushioning Running Sneakers",
         category: "clothing",
         gender: "men",
-        price: 69.99,
+        mrp: 3499,
+        price: 1499,
         stock: 35,
+        origin: "Gurugram, Haryana",
         image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
         features: "• High-density responsive air cushion sole\n• Breathable honeycomb mesh knit upper\n• Anti-slip textured rubber outsole for all terrains\n• 7-Day Easy Replacement Guarantee",
         isKarigar: false
@@ -32,8 +34,10 @@ class SellerCentralEngine {
         shortTitle: "Artisan Banarasi Silk Zari Saree",
         category: "clothing",
         gender: "women",
-        price: 119.00,
+        mrp: 6999,
+        price: 2499,
         stock: 15,
+        origin: "Varanasi, Uttar Pradesh (GI-Tag Certified)",
         image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
         features: "• 100% GI-Tag Certified Varanasi Handloom\n• Handcrafted Direct from Weaver guild in Kashi\n• Pure Natural Silk with pure golden Zari palla\n• Includes matching 0.8m unstitched blouse piece\n• Zero-Hassle 7-Day Return Guarantee",
         isKarigar: true
@@ -43,8 +47,10 @@ class SellerCentralEngine {
         shortTitle: "Artisan Jaipur Blue Pottery Set",
         category: "kitchen",
         gender: "unisex",
-        price: 39.99,
+        mrp: 2199,
+        price: 999,
         stock: 20,
+        origin: "Jaipur, Rajasthan (GI-Tag Certified)",
         image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80",
         features: "• 100% GI-Tag Certified Jaipur Craft\n• Lead-free natural quartz stone glaze by master potters\n• Microwave & dishwasher safe artisanal stoneware\n• Direct rural doorstep pickup empowering cottage craft guilds",
         isKarigar: true
@@ -54,8 +60,10 @@ class SellerCentralEngine {
         shortTitle: "Automatic Chronograph Watch",
         category: "fashion",
         gender: "men",
-        price: 149.99,
+        mrp: 8999,
+        price: 3499,
         stock: 18,
+        origin: "Bengaluru, Karnataka",
         image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80",
         features: "• Water resistant to 100M with screw-down crown\n• Japanese 24-jewel automatic movement\n• Scratch-resistant sapphire crystal glass face",
         isKarigar: false
@@ -65,8 +73,10 @@ class SellerCentralEngine {
         shortTitle: "Authentic Kolhapuri Leather Chappals",
         category: "clothing",
         gender: "unisex",
-        price: 49.00,
+        mrp: 2499,
+        price: 1199,
         stock: 25,
+        origin: "Kolhapur, Maharashtra (GI-Tag Certified)",
         image: "https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=800&q=80",
         features: "• 100% GI-Tag Certified Kolhapur Footwear\n• Handcrafted from vegetable-tanned genuine leather\n• Traditional braided cord straps with anti-slip heel\n• Direct support to rural cobbler guilds of Maharashtra",
         isKarigar: true
@@ -86,6 +96,7 @@ class SellerCentralEngine {
     this.bindAapkiKamaiCalculator();
     this.bindListingForm();
     this.bindShippingLabelModal();
+    this.bindOnboardingEvents();
 
     // Listen for order updates from Store
     window.addEventListener('udaan:order-created', () => {
@@ -148,6 +159,7 @@ class SellerCentralEngine {
     const overlay = document.getElementById('global-overlay');
     if (!modal) return;
 
+    this.checkOnboardingState();
     this.switchTab(tab);
     this.updateLivePreview();
     this.updateAapkiKamai();
@@ -155,6 +167,125 @@ class SellerCentralEngine {
     modal.classList.add('is-open');
     if (overlay) overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+  }
+
+  checkOnboardingState() {
+    const profile = window.amzStore ? window.amzStore.getSellerProfile() : null;
+    const onboardPanel = document.getElementById('seller-onboarding-panel');
+    const studioTabs = document.querySelector('.seller-tabs-bar');
+    const studioPanels = document.querySelectorAll('.seller-tab-panel');
+    const profileStrip = document.getElementById('seller-profile-strip');
+
+    if (!profile) {
+      if (onboardPanel) onboardPanel.style.display = 'block';
+      if (studioTabs) studioTabs.style.display = 'none';
+      studioPanels.forEach(p => p.style.display = 'none');
+      if (profileStrip) profileStrip.style.display = 'none';
+    } else {
+      if (onboardPanel) onboardPanel.style.display = 'none';
+      if (studioTabs) studioTabs.style.display = 'flex';
+      if (profileStrip) {
+        profileStrip.style.display = 'flex';
+        const shopTitle = document.getElementById('studio-shop-title');
+        const ownerText = document.getElementById('studio-owner-text');
+        const cityText = document.getElementById('studio-city-text');
+        const gitagBadge = document.getElementById('studio-gitag-badge');
+
+        if (shopTitle) shopTitle.textContent = `🏛️ ${profile.shopName || 'Karigar Studio'}`;
+        if (ownerText) ownerText.textContent = profile.ownerName || 'Artisan';
+        if (cityText) cityText.textContent = `${profile.city || 'India'} (${profile.pincode || ''})`;
+        if (gitagBadge) gitagBadge.textContent = profile.giTag ? `💚 GI-Tag: ${profile.giTag}` : '💚 Verified Artisan';
+      }
+    }
+  }
+
+  bindOnboardingEvents() {
+    const onboardForm = document.getElementById('seller-onboard-form');
+    const demoFillBtn = document.getElementById('btn-demo-fill-seller');
+    const editProfileBtn = document.getElementById('btn-edit-seller-profile');
+
+    if (demoFillBtn) {
+      demoFillBtn.addEventListener('click', () => {
+        const shopInput = document.getElementById('seller-onboard-shop-name');
+        const ownerInput = document.getElementById('seller-onboard-owner-name');
+        const phoneInput = document.getElementById('seller-onboard-phone');
+        const cityInput = document.getElementById('seller-onboard-city');
+        const pinInput = document.getElementById('seller-onboard-pincode');
+        const giInput = document.getElementById('seller-onboard-gitag');
+
+        if (shopInput) shopInput.value = 'Kashi Heritage Silk Guild';
+        if (ownerInput) ownerInput.value = 'Master Weaver Ramkishan';
+        if (phoneInput) phoneInput.value = '9876543210';
+        if (cityInput) cityInput.value = 'Varanasi, Uttar Pradesh';
+        if (pinInput) pinInput.value = '221001';
+        if (giInput) giInput.value = 'GI-IN-UP-0042 (Banarasi Zari Handloom)';
+
+        if (window.amzCart) {
+          window.amzCart.showToast('⚡ Pre-filled Varanasi Rural Artisan Profile!', 'info');
+        }
+      });
+    }
+
+    if (onboardForm) {
+      onboardForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const profile = {
+          shopName: document.getElementById('seller-onboard-shop-name')?.value.trim() || 'Kashi Silk Guild',
+          ownerName: document.getElementById('seller-onboard-owner-name')?.value.trim() || 'Master Weaver',
+          phone: document.getElementById('seller-onboard-phone')?.value.trim() || '9876543210',
+          city: document.getElementById('seller-onboard-city')?.value.trim() || 'Varanasi, UP',
+          pincode: document.getElementById('seller-onboard-pincode')?.value.trim() || '221001',
+          giTag: document.getElementById('seller-onboard-gitag')?.value.trim() || '',
+          registeredAt: new Date().toISOString()
+        };
+
+        if (window.amzStore) {
+          window.amzStore.saveSellerProfile(profile);
+        }
+
+        if (window.amzCart) {
+          window.amzCart.showToast(`🎉 Welcome to UdaanMart, ${profile.ownerName}! Your Studio is ready.`, 'success');
+        }
+        if (window.amzApp) {
+          window.amzApp.playSuccessChime();
+          window.amzApp.launchConfetti();
+        }
+
+        this.checkOnboardingState();
+        this.switchTab('list');
+      });
+    }
+
+    if (editProfileBtn) {
+      editProfileBtn.addEventListener('click', () => {
+        const profile = window.amzStore ? window.amzStore.getSellerProfile() : null;
+        if (profile) {
+          const shopInput = document.getElementById('seller-onboard-shop-name');
+          const ownerInput = document.getElementById('seller-onboard-owner-name');
+          const phoneInput = document.getElementById('seller-onboard-phone');
+          const cityInput = document.getElementById('seller-onboard-city');
+          const pinInput = document.getElementById('seller-onboard-pincode');
+          const giInput = document.getElementById('seller-onboard-gitag');
+
+          if (shopInput) shopInput.value = profile.shopName || '';
+          if (ownerInput) ownerInput.value = profile.ownerName || '';
+          if (phoneInput) phoneInput.value = profile.phone || '';
+          if (cityInput) cityInput.value = profile.city || '';
+          if (pinInput) pinInput.value = profile.pincode || '';
+          if (giInput) giInput.value = profile.giTag || '';
+        }
+
+        const onboardPanel = document.getElementById('seller-onboarding-panel');
+        const studioTabs = document.querySelector('.seller-tabs-bar');
+        const studioPanels = document.querySelectorAll('.seller-tab-panel');
+        const profileStrip = document.getElementById('seller-profile-strip');
+
+        if (onboardPanel) onboardPanel.style.display = 'block';
+        if (studioTabs) studioTabs.style.display = 'none';
+        studioPanels.forEach(p => p.style.display = 'none');
+        if (profileStrip) profileStrip.style.display = 'none';
+      });
+    }
   }
 
   openSellerModal(tab = 'list') {
@@ -442,18 +573,15 @@ class SellerCentralEngine {
 
   updateAapkiKamai() {
     const priceInput = document.getElementById('seller-prod-price');
-    const rawVal = parseFloat(priceInput?.value) || 0;
-
-    // Convert to INR base calculation
-    const inrVal = Math.round(rawVal * 83.5);
-    const logisticsFee = inrVal > 0 ? 50 : 0;
-    const netPayout = Math.max(0, inrVal - logisticsFee);
+    const sellingPrice = parseFloat(priceInput?.value) || 0;
+    const logisticsFee = sellingPrice > 0 ? 50 : 0;
+    const netPayout = Math.max(0, sellingPrice - logisticsFee);
 
     const custPriceEl = document.getElementById('kamai-customer-price');
     const logisticsEl = document.getElementById('kamai-logistics-fee');
     const netPayoutEl = document.getElementById('kamai-net-payout');
 
-    if (custPriceEl) custPriceEl.textContent = `₹${inrVal.toLocaleString('en-IN')}`;
+    if (custPriceEl) custPriceEl.textContent = `₹${sellingPrice.toLocaleString('en-IN')}`;
     if (logisticsEl) logisticsEl.textContent = `-₹${logisticsFee}`;
     if (netPayoutEl) netPayoutEl.textContent = `₹${netPayout.toLocaleString('en-IN')}`;
   }
@@ -466,10 +594,12 @@ class SellerCentralEngine {
       document.getElementById('seller-prod-title'),
       document.getElementById('seller-prod-category'),
       document.getElementById('seller-prod-gender'),
+      document.getElementById('seller-prod-mrp'),
       document.getElementById('seller-prod-price'),
+      document.getElementById('seller-prod-stock'),
+      document.getElementById('seller-prod-origin'),
       document.getElementById('seller-prod-image'),
-      document.getElementById('seller-prod-karigar'),
-      document.getElementById('seller-prod-stock')
+      document.getElementById('seller-prod-karigar')
     ];
 
     inputs.forEach(input => {
@@ -484,16 +614,19 @@ class SellerCentralEngine {
     const title = document.getElementById('seller-prod-title')?.value.trim() || "Product Title Preview";
     const categoryVal = document.getElementById('seller-prod-category')?.value || "clothing";
     const genderVal = document.getElementById('seller-prod-gender')?.value || "unisex";
-    const priceVal = parseFloat(document.getElementById('seller-prod-price')?.value) || 49.99;
+    const mrpVal = parseFloat(document.getElementById('seller-prod-mrp')?.value) || 2499;
+    const priceVal = parseFloat(document.getElementById('seller-prod-price')?.value) || 1199;
+    const stockVal = parseInt(document.getElementById('seller-prod-stock')?.value, 10) || 25;
+    const originVal = document.getElementById('seller-prod-origin')?.value.trim() || "Varanasi, UP";
     const isKarigar = document.getElementById('seller-prod-karigar')?.checked ?? true;
     const imageVal = document.getElementById('seller-prod-image')?.value.trim() || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80";
 
     const deptObj = (typeof DEPARTMENTS !== 'undefined') ? DEPARTMENTS.find(d => d.id === categoryVal) : null;
     const categoryName = deptObj ? deptObj.name : "Everyday Essentials";
 
-    const curPriceFormatted = window.amzApp ? window.amzApp.formatPrice(priceVal) : ('$' + priceVal.toFixed(2));
-    const origPriceVal = Math.round(priceVal * 1.35 * 100) / 100;
-    const origPriceFormatted = window.amzApp ? window.amzApp.formatPrice(origPriceVal) : ('$' + origPriceVal.toFixed(2));
+    const curPriceFormatted = window.amzApp ? window.amzApp.formatPrice(priceVal) : ('₹' + priceVal.toLocaleString('en-IN'));
+    const origPriceFormatted = window.amzApp ? window.amzApp.formatPrice(mrpVal) : ('₹' + mrpVal.toLocaleString('en-IN'));
+    const discountPercent = mrpVal > priceVal ? Math.round(((mrpVal - priceVal) / mrpVal) * 100) : 0;
 
     const prevTitle = document.getElementById('prev-title');
     const prevCategory = document.getElementById('prev-category');
@@ -510,7 +643,7 @@ class SellerCentralEngine {
     if (prevAudience) {
       if (isKarigar) {
         prevAudience.className = "prod-tag-pill tag-karigar";
-        prevAudience.textContent = "🏡 Rural Karigar";
+        prevAudience.textContent = `🏡 ${originVal || 'Rural Karigar'}`;
       } else if (genderVal === 'men') {
         prevAudience.className = "prod-tag-pill tag-men";
         prevAudience.textContent = "👨 Men";
@@ -524,15 +657,15 @@ class SellerCentralEngine {
     }
 
     if (prevBadge) {
-      prevBadge.textContent = isKarigar ? "✨ UdaanMart Karigar" : "New Seller Launch";
+      prevBadge.textContent = discountPercent > 0 ? `✨ New Karigar Arrival (-${discountPercent}%)` : "✨ New Karigar Arrival";
     }
 
     if (prevDelivery) {
-      prevDelivery.textContent = isKarigar ? "FREE Doorstep Village Delivery via India Post" : "FREE Delivery Tomorrow, 7 AM - 11 AM";
+      prevDelivery.textContent = isKarigar ? `FREE Speed Post Delivery from ${originVal || 'Artisan Loom'}` : "FREE Express Delivery Tomorrow";
     }
 
     if (prevPrice) prevPrice.textContent = curPriceFormatted;
-    if (prevOrigPrice) prevOrigPrice.textContent = `List: ${origPriceFormatted}`;
+    if (prevOrigPrice) prevOrigPrice.textContent = mrpVal > priceVal ? `List: ${origPriceFormatted}` : '';
     if (prevImage) prevImage.src = imageVal;
   }
 
@@ -558,8 +691,10 @@ class SellerCentralEngine {
     const titleEl = document.getElementById('seller-prod-title');
     const catEl = document.getElementById('seller-prod-category');
     const genderEl = document.getElementById('seller-prod-gender');
+    const mrpEl = document.getElementById('seller-prod-mrp');
     const priceEl = document.getElementById('seller-prod-price');
     const stockEl = document.getElementById('seller-prod-stock');
+    const originEl = document.getElementById('seller-prod-origin');
     const imageEl = document.getElementById('seller-prod-image');
     const featuresEl = document.getElementById('seller-prod-features');
     const karigarEl = document.getElementById('seller-prod-karigar');
@@ -567,8 +702,10 @@ class SellerCentralEngine {
     if (titleEl) titleEl.value = data.title;
     if (catEl) catEl.value = data.category;
     if (genderEl) genderEl.value = data.gender;
+    if (mrpEl) mrpEl.value = data.mrp ? data.mrp.toString() : Math.round(data.price * 1.5).toString();
     if (priceEl) priceEl.value = data.price.toString();
     if (stockEl) stockEl.value = data.stock.toString();
+    if (originEl) originEl.value = data.origin || 'Varanasi, Uttar Pradesh';
     if (imageEl) imageEl.value = data.image;
     if (featuresEl) featuresEl.value = data.features;
     if (karigarEl) karigarEl.checked = data.isKarigar;
@@ -595,8 +732,10 @@ class SellerCentralEngine {
       const title = document.getElementById('seller-prod-title')?.value.trim();
       const category = document.getElementById('seller-prod-category')?.value || 'clothing';
       const gender = document.getElementById('seller-prod-gender')?.value || 'unisex';
+      const mrp = parseFloat(document.getElementById('seller-prod-mrp')?.value) || 2499;
       const price = parseFloat(document.getElementById('seller-prod-price')?.value);
-      const stock = parseInt(document.getElementById('seller-prod-stock')?.value, 10) || 10;
+      const stock = parseInt(document.getElementById('seller-prod-stock')?.value, 10) || 25;
+      const origin = document.getElementById('seller-prod-origin')?.value.trim() || 'Varanasi, Uttar Pradesh';
       const image = document.getElementById('seller-prod-image')?.value.trim() || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80';
       const featuresRaw = document.getElementById('seller-prod-features')?.value.trim() || '• Certified Indian Handloom / Craft\n• Free Doorstep Village & Global Delivery\n• 7-Day Easy Return Guarantee';
       const isRuralKarigar = document.getElementById('seller-prod-karigar')?.checked ?? true;
@@ -606,8 +745,10 @@ class SellerCentralEngine {
         return;
       }
 
+      const profile = window.amzStore ? window.amzStore.getSellerProfile() : null;
       const deptObj = (typeof DEPARTMENTS !== 'undefined') ? DEPARTMENTS.find(d => d.id === category) : null;
       const categoryName = deptObj ? deptObj.name : "Everyday Essentials";
+      const discountPercent = mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0;
 
       const newProduct = {
         id: `karigar-${Date.now().toString(36)}`,
@@ -618,14 +759,18 @@ class SellerCentralEngine {
         gender: gender,
         isRuralKarigar: isRuralKarigar,
         sellerType: isRuralKarigar ? "artisan" : "merchant",
+        sellerName: profile ? profile.ownerName : "Master Weaver Ramkishan",
+        sellerShop: profile ? profile.shopName : "Kashi Silk Weaver Guild",
+        sellerCity: profile ? profile.city : origin,
+        sellerPhone: profile ? profile.phone : "9876543210",
         price: price,
-        originalPrice: Math.round(price * 1.35 * 100) / 100,
-        discountPercent: 26,
+        originalPrice: mrp > price ? mrp : Math.round(price * 1.35),
+        discountPercent: discountPercent,
         rating: 5.0,
         ratingCount: 1,
         badge: isRuralKarigar ? "✨ New Karigar Arrival" : "New Seller Launch",
         isPrime: true,
-        delivery: isRuralKarigar ? "FREE Doorstep Village Delivery via India Post" : "FREE Delivery Tomorrow, 7 AM - 11 AM",
+        delivery: isRuralKarigar ? `FREE Speed Post Delivery from ${origin}` : "FREE Delivery Tomorrow, 7 AM - 11 AM",
         stock: stock,
         isLightningDeal: false,
         dealPercentage: 0,
@@ -636,10 +781,11 @@ class SellerCentralEngine {
         ],
         features: featuresRaw.split('\n').map(f => f.trim()).filter(Boolean),
         specs: {
-          "Seller": isRuralKarigar ? "Certified UdaanMart Karigar Rural Artisan Guild" : "UdaanMart Verified Marketplace Merchant",
+          "Seller": profile ? `${profile.shopName} (${profile.ownerName})` : "Certified UdaanMart Karigar Rural Guild",
+          "Craft Origin": origin,
           "Target Audience": gender === 'men' ? "Men's Collection" : (gender === 'women' ? "Women's Collection" : "Universal / Unisex"),
-          "Dispatch Location": isRuralKarigar ? "Direct Village Craft Guild (India)" : "UdaanMart Logistics Fulfillment Hub",
-          "Warranty": "1-Year Artisan / Seller Guarantee"
+          "Dispatch Location": isRuralKarigar ? `Direct Village Craft Guild (${origin})` : "UdaanMart Logistics Hub",
+          "Warranty": "1-Year Artisan Handloom Guarantee"
         }
       };
 
@@ -871,18 +1017,27 @@ class SellerCentralEngine {
           </td>
           <td class="seller-inv-category">${prod.categoryName || 'Essentials'}</td>
           <td class="seller-inv-price">
-            <span class="inv-price-val">${formattedPrice}</span>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span>₹</span>
+              <input type="number" class="amz-input inv-inline-rate" value="${prod.price}" min="1" step="1" 
+                     onchange="window.amzSeller.updateRate('${prod.id}', this.value)" 
+                     style="width: 82px; padding: 4px 6px; font-weight: 700; font-size: 0.88rem; border-radius: 6px;" 
+                     title="Update rate live for buyers" />
+            </div>
           </td>
           <td class="seller-inv-stock">
             <div class="seller-stock-stepper">
               <button class="stock-btn stock-minus" onclick="window.amzSeller.adjustStock('${prod.id}', -1)" title="Decrease stock">-</button>
-              <span class="stock-value" id="inv-stock-${prod.id}">${prod.stock}</span>
+              <input type="number" class="amz-input inv-inline-stock" id="inv-stock-${prod.id}" value="${prod.stock}" min="0" 
+                     onchange="window.amzSeller.updateStockInput('${prod.id}', this.value)" 
+                     style="width: 58px; padding: 4px 4px; text-align: center; font-weight: 700; font-size: 0.85rem; border-radius: 6px;" 
+                     title="Direct stock count" />
               <button class="stock-btn stock-plus" onclick="window.amzSeller.adjustStock('${prod.id}', 1)" title="Increase stock">+</button>
             </div>
           </td>
           <td class="seller-inv-status">
             <span class="seller-status-badge ${prod.stock > 0 ? 'badge-in-stock' : 'badge-out-stock'}">
-              ${prod.stock > 0 ? 'Active (Live)' : 'Out of Stock'}
+              ${prod.stock > 0 ? `Active (${prod.stock} left)` : 'Out of Stock'}
             </span>
           </td>
           <td class="seller-inv-actions">
@@ -898,19 +1053,42 @@ class SellerCentralEngine {
     if (countEl) countEl.textContent = `${allProducts.length} Products Listed`;
   }
 
+  updateRate(productId, newRate) {
+    const rate = parseFloat(newRate);
+    if (isNaN(rate) || rate <= 0) return;
+    if (window.amzStore) {
+      window.amzStore.updateProductRateAndStock(productId, rate, undefined);
+      if (window.amzCart) {
+        window.amzCart.showToast(`💰 Selling rate updated to ₹${rate.toLocaleString('en-IN')} for live storefront!`);
+      }
+      this.renderInventoryTable();
+    }
+  }
+
+  updateStockInput(productId, newStock) {
+    const stock = parseInt(newStock, 10);
+    if (isNaN(stock) || stock < 0) return;
+    if (window.amzStore) {
+      window.amzStore.updateProductRateAndStock(productId, undefined, stock);
+      if (window.amzCart) {
+        window.amzCart.showToast(`📦 Available stock updated to ${stock} units.`);
+      }
+      this.renderInventoryTable();
+    }
+  }
+
   adjustStock(productId, delta) {
     const all = window.amzStore ? window.amzStore.getAllProducts() : [];
-    const prod = all.find(p => p.id === productId);
+    const prod = all.find(p => String(p.id) === String(productId));
     if (!prod) return;
 
-    prod.stock = Math.max(0, prod.stock + delta);
-    const stockValEl = document.getElementById(`inv-stock-${productId}`);
-    if (stockValEl) {
-      stockValEl.textContent = prod.stock;
+    const newStock = Math.max(0, (prod.stock || 0) + delta);
+    if (window.amzStore) {
+      window.amzStore.updateProductRateAndStock(productId, undefined, newStock);
     }
 
     if (window.amzCart) {
-      window.amzCart.showToast(`📦 Stock updated for ${prod.shortTitle || prod.title}: ${prod.stock} units available.`);
+      window.amzCart.showToast(`📦 Stock updated for ${prod.shortTitle || prod.title}: ${newStock} units available.`);
     }
 
     this.renderInventoryTable();

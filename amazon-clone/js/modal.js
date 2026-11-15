@@ -832,6 +832,9 @@ class ModalEngine {
                 <button class="amz-btn amz-btn-primary btn-buy-again" onclick="window.amzModal.handleBuyAgain('${order.orderId}')">
                   🔄 Buy Again (1-Click)
                 </button>
+                <button class="amz-btn amz-btn-secondary btn-rate-delivered" onclick="window.amzModal.openReviewForOrder('${order.orderId}')">
+                  ⭐ Rate &amp; Review
+                </button>
               `}
               <button class="amz-btn amz-btn-ghost btn-view-invoice-link" onclick="window.amzCheckout.openGSTInvoice(window.amzStore.getOrderById('${order.orderId}'))">
                 📄 View Tax Invoice
@@ -852,6 +855,25 @@ class ModalEngine {
     if (window.amzCheckout) {
       window.amzCheckout.openExpressBuy(firstItem, 1);
     }
+  }
+
+  openReviewForOrder(orderId) {
+    const order = window.amzStore ? window.amzStore.getOrderById(orderId) : null;
+    if (!order || !order.items || order.items.length === 0) return;
+
+    const firstItem = order.items[0];
+    const fullProd = window.amzStore ? window.amzStore.getProductById(firstItem.id) : null;
+    const target = fullProd || firstItem;
+
+    this.closeAllModalsAndDrawers();
+    this.openQuickView(target);
+    setTimeout(() => {
+      const modal = document.getElementById('quickview-modal');
+      const reviewForm = modal?.querySelector('#form-add-review');
+      if (reviewForm) {
+        reviewForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 300);
   }
 
   renderWishlistTab() {

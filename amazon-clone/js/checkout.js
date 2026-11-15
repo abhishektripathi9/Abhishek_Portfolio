@@ -519,6 +519,13 @@ class CheckoutEngine {
         }
       });
 
+      // Deduct stock for all ordered products
+      if (window.amzStore && typeof window.amzStore.deductStock === 'function') {
+        cartItems.forEach(item => {
+          window.amzStore.deductStock(item.id, item.quantity);
+        });
+      }
+
       // Clear Cart
       if (window.amzCart) {
         window.amzCart.clearCart();
@@ -709,6 +716,11 @@ class CheckoutEngine {
           address: ship.street
         }
       });
+
+      // Deduct stock for express ordered product
+      if (window.amzStore && typeof window.amzStore.deductStock === 'function') {
+        window.amzStore.deductStock(this.expressProduct.id, this.expressQty || 1);
+      }
 
       if (btn) {
         btn.disabled = false;

@@ -16,7 +16,10 @@ class UdaanStore {
       ORDERS: 'udaan_orders',
       REVIEWS: 'udaan_product_reviews',
       ROLE: 'udaan_user_role',
-      LOCATION: 'udaan_location'
+      LOCATION: 'udaan_location',
+      SELLER_PROFILE: 'udaan_seller_profile',
+      STOCK_OVERRIDES: 'udaan_stock_overrides',
+      PRICE_OVERRIDES: 'udaan_price_overrides'
     };
 
     // Built-in Indian Postal Pincode Offline Fallback Map (Major Cities & Rural Artisan Clusters)
@@ -175,12 +178,118 @@ class UdaanStore {
     const base = (typeof PRODUCTS_DATA !== 'undefined' && Array.isArray(PRODUCTS_DATA)) 
       ? PRODUCTS_DATA 
       : [];
+
+    let stockOverrides = {};
+    let priceOverrides = {};
+    try {
+      stockOverrides = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.STOCK_OVERRIDES) || '{}');
+      priceOverrides = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.PRICE_OVERRIDES) || '{}');
+    } catch (e) {}
+
+    const modifiedBase = base.map(p => {
+      let mod = { ...p };
+      if (typeof stockOverrides[p.id] === 'number') {
+        mod.stock = stockOverrides[p.id];
+      }
+      if (typeof priceOverrides[p.id] === 'number') {
+        mod.price = priceOverrides[p.id];
+      }
+      return mod;
+    });
+
     // Custom artisan products appear first
-    return [...this.customProducts, ...base];
+    return [...this.customProducts, ...modifiedBase];
   }
 
   getProductById(id) {
     return this.getAllProducts().find(p => String(p.id) === String(id));
+  }
+
+  deductStock(productId, quantity = 1) {
+    const qty = parseInt(quantity, 10) || 1;
+    const customIdx = this.customProducts.findIndex(p => String(p.id) === String(productId));
+    if (customIdx !== -1) {
+      const currentStock = typeof this.customProducts[customIdx].stock === 'number' 
+        ? this.customProducts[customIdx].stock 
+        : 10;
+      this.customProducts[customIdx].stock = Math.max(0, currentStock - qty);
+      try {
+        localStorage.setItem(this.STORAGE_KEYS.PRODUCTS, JSON.stringify(this.customProducts));
+      } catch (e) {}
+    } else {
+      let stockOverrides = {};
+      try {
+        stockOverrides = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.STOCK_OVERRIDES) || '{}');
+      } catch (e) {}
+      const prod = this.getProductById(productId);
+      const currentStock = typeof stockOverrides[productId] === 'number'
+        ? stockOverrides[productId]
+        : (prod ? (typeof prod.stock === 'number' ? prod.stock : 15) : 10);
+      stockOverrides[productId] = Math.max(0, currentStock - qty);
+      try {
+        localStorage.setItem(this.STORAGE_KEYS.STOCK_OVERRIDES, JSON.stringify(stockOverrides));
+      } catch (e) {}
+    }
+
+    // Refresh catalog grids live
+    if (window.amzSearchFilter && typeof window.amzSearchFilter.applyFilters === 'function') {
+      window.amzSearchFilter.applyFilters();
+    }
+    window.dispatchEvent(new CustomEvent('udaan:stock-updated', { detail: { productId, quantity: qty } }));
+  }
+
+  updateProductRateAndStock(productId, newPrice, newStock) {
+    const customIdx = this.customProducts.findIndex(p => String(p.id) === String(productId));
+    if (customIdx !== -1) {
+      if (newPrice !== undefined && !isNaN(newPrice)) {
+        this.customProducts[customIdx].price = parseFloat(newPrice);
+      }
+      if (newStock !== undefined && !isNaN(newStock)) {
+        this.customProducts[customIdx].stock = Math.max(0, parseInt(newStock, 10));
+      }
+      try {
+        localStorage.setItem(this.STORAGE_KEYS.PRODUCTS, JSON.stringify(this.customProducts));
+      } catch (e) {}
+    } else {
+      let stockOverrides = {};
+      let priceOverrides = {};
+      try {
+        stockOverrides = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.STOCK_OVERRIDES) || '{}');
+        priceOverrides = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.PRICE_OVERRIDES) || '{}');
+      } catch (e) {}
+      if (newStock !== undefined && !isNaN(newStock)) {
+        stockOverrides[productId] = Math.max(0, parseInt(newStock, 10));
+        localStorage.setItem(this.STORAGE_KEYS.STOCK_OVERRIDES, JSON.stringify(stockOverrides));
+      }
+      if (newPrice !== undefined && !isNaN(newPrice)) {
+        priceOverrides[productId] = parseFloat(newPrice);
+        localStorage.setItem(this.STORAGE_KEYS.PRICE_OVERRIDES, JSON.stringify(priceOverrides));
+      }
+    }
+
+    if (window.amzSearchFilter && typeof window.amzSearchFilter.applyFilters === 'function') {
+      window.amzSearchFilter.applyFilters();
+    }
+    window.dispatchEvent(new CustomEvent('udaan:product-updated', { detail: { productId } }));
+  }
+
+  getSellerProfile() {
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEYS.SELLER_PROFILE);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  saveSellerProfile(profile) {
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.SELLER_PROFILE, JSON.stringify(profile));
+      window.dispatchEvent(new CustomEvent('udaan:seller-profile-updated', { detail: profile }));
+      return profile;
+    } catch (e) {
+      return null;
+    }
   }
 
   addCustomProduct(product) {
