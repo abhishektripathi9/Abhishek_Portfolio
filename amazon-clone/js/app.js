@@ -135,9 +135,14 @@ class AmazonApp {
       const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
 
-      hoursEl.textContent = String(hours).padStart(2, '0');
-      minsEl.textContent = String(minutes).padStart(2, '0');
-      secsEl.textContent = String(seconds).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minsEl) minsEl.textContent = String(minutes).padStart(2, '0');
+      if (secsEl) secsEl.textContent = String(seconds).padStart(2, '0');
+
+      const flashClock = document.getElementById('flash-clock');
+      if (flashClock) {
+        flashClock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }
 
       if (remaining <= 0) {
         // Reset timer if expired for continuous demonstration
@@ -164,6 +169,18 @@ class AmazonApp {
 
     // Update active currency code badge in navbar
     this.updateCurrencyNavbarBadge();
+    this.updateFeaturedPrices();
+  }
+
+  updateFeaturedPrices() {
+    document.querySelectorAll('.current-price[data-base-price]').forEach(el => {
+      const base = parseFloat(el.getAttribute('data-base-price'));
+      if (!isNaN(base)) el.textContent = this.formatPrice(base);
+    });
+    document.querySelectorAll('.original-price[data-base-price]').forEach(el => {
+      const base = parseFloat(el.getAttribute('data-base-price'));
+      if (!isNaN(base)) el.textContent = this.formatPrice(base);
+    });
   }
 
   setCurrency(currencyCode, showToast = true) {
@@ -177,6 +194,7 @@ class AmazonApp {
       });
 
       this.updateCurrencyNavbarBadge();
+      this.updateFeaturedPrices();
 
       // Refresh product grid and cart to reflect new currency
       if (window.amzSearchFilter) window.amzSearchFilter.applyFilters();

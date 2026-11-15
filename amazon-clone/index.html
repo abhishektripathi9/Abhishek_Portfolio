@@ -16,10 +16,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Application Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=3.1">
-  <link rel="stylesheet" href="css/main.css?v=3.1">
-  <link rel="stylesheet" href="css/components.css?v=3.1">
-  <link rel="stylesheet" href="css/modals.css?v=3.1">
+  <link rel="stylesheet" href="css/variables.css?v=3.5">
+  <link rel="stylesheet" href="css/main.css?v=3.5">
+  <link rel="stylesheet" href="css/components.css?v=3.5">
+  <link rel="stylesheet" href="css/modals.css?v=3.5">
+  <link rel="stylesheet" href="css/stitch-ui.css?v=3.5">
 
   <!-- Instant Theme Initializer to prevent flash of wrong theme -->
   <script>
@@ -38,48 +39,97 @@
   <canvas id="confetti-canvas"></canvas>
 
   <!-- ========================================================================
-       GLOBAL HEADER & SEARCH BAR
+       1. TOP UTILITY & FAST EXPRESS ANNOUNCEMENT BAR
+       ======================================================================== -->
+  <div class="nav-utility-bar">
+    <div class="utility-container">
+      <div class="utility-left" id="nav-deliver-location-btn" role="button" tabindex="0" title="Change delivery location">
+        <span class="utility-pin">📍</span>
+        <span class="utility-deliver-text">Deliver to <strong id="nav-delivery-city">New Delhi 110001</strong></span>
+      </div>
+
+      <div class="utility-center">
+        <span>🚚 Fast Express 3-Day &amp; 24h Village Delivery on orders above $49 • 100% Direct Karigar Payouts • 1-Click UPI &amp; RuPay</span>
+      </div>
+
+      <div class="utility-right">
+        <!-- Language Selector -->
+        <div class="utility-item" id="nav-language-picker" title="Change Language / भाषा बदलें">
+          <span id="nav-current-lang-flag">🌐</span>
+          <select class="utility-select" id="language-selector" aria-label="Select language">
+            <option value="en" selected>EN / INR</option>
+            <option value="hi">HI / INR</option>
+            <option value="es">ES / EUR</option>
+            <option value="fr">FR / EUR</option>
+            <option value="de">DE / EUR</option>
+            <option value="ja">JA / JPY</option>
+            <option value="ar">AR / USD</option>
+          </select>
+        </div>
+
+        <span class="utility-divider">|</span>
+
+        <!-- Currency Selector -->
+        <div class="utility-item" title="Change currency">
+          <span id="nav-current-currency-symbol">💱</span>
+          <select class="utility-select currency-selector" aria-label="Select currency">
+            <option value="INR" selected>INR (₹) / USD</option>
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="JPY">JPY (¥)</option>
+          </select>
+        </div>
+
+        <span class="utility-divider">|</span>
+
+        <!-- Night / Light Mode Toggle -->
+        <button class="utility-item theme-toggle-btn" title="Toggle Dark / Light Theme" aria-label="Theme switch">
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Night Mode</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. GLOBAL HEADER (WHITE LUXURY & BRAND SEARCH)
        ======================================================================== -->
   <header class="nav-header" id="navbar">
     <div class="nav-top-bar">
       <!-- UdaanMart Brand Logo -->
       <a href="#" class="nav-logo-box" aria-label="UdaanMart Home">
         <img src="images/udaanmart-logo-transparent.png" alt="UdaanMart" class="nav-brand-img" />
-        <span class="brand-prime-tag">Prime</span>
       </a>
-
-      <!-- Deliver To Location Widget -->
-      <div class="nav-delivery-box" id="nav-deliver-location-btn" role="button" tabindex="0" title="Change delivery location">
-        <span class="nav-pin-icon">📍</span>
-        <div class="nav-delivery-text">
-          <span class="delivery-line-1">डिलीवरी स्थान</span>
-          <span class="delivery-line-2" id="nav-delivery-city">New Delhi 110001</span>
-        </div>
-      </div>
 
       <!-- Live Search Bar -->
       <div class="nav-search-wrapper">
         <select class="nav-search-category" id="search-category-select" aria-label="Select department">
-          <option value="all">All Departments</option>
-          <option value="clothing">👗 Clothing & Fashion</option>
-          <option value="kitchen">🍳 Home & Kitchen</option>
-          <option value="beauty">💄 Beauty & Personal Care</option>
-          <option value="sports">🏋️ Sports & Fitness</option>
-          <option value="electronics">💻 Electronics & Tech</option>
-          <option value="audio">🎧 Audio & Headphones</option>
-          <option value="smarthome">🏠 Smart Home & Appliances</option>
-          <option value="gaming">🎮 Gaming & VR Consoles</option>
-          <option value="fashion">⌚ Luxury Watches & Bags</option>
+          <option value="all">All Departments ▾</option>
+          <option value="clothing">👗 Clothing &amp; Fashion</option>
+          <option value="kitchen">🍳 Kitchen &amp; Living</option>
+          <option value="beauty">💄 Beauty &amp; Ayurvedic</option>
+          <option value="sports">🏋️ Sports &amp; Fitness</option>
+          <option value="electronics">💻 High-Performance Tech</option>
+          <option value="audio">🎧 Pro Audio &amp; Sound</option>
+          <option value="smarthome">🏠 Smart Home &amp; Robots</option>
+          <option value="gaming">🎮 Pro Gaming &amp; Style</option>
         </select>
 
         <input 
           type="text" 
           class="nav-search-input" 
           id="navbar-search-input" 
-          placeholder="Search UdaanMart, products, brands, or deals..."
+          placeholder="Search 14,000+ Karigar crafts, gadgets..."
           autocomplete="off"
           aria-label="Search"
         />
+
+        <button class="nav-search-voice-btn" id="voice-search-btn" title="Voice Search" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+        </button>
 
         <button class="nav-search-submit" id="navbar-search-submit" aria-label="Submit search">
           <svg class="search-icon-svg" viewBox="0 0 24 24">
@@ -93,50 +143,16 @@
 
       <!-- Action Navigation Links -->
       <div class="nav-actions-group">
-        <!-- Language Selector Pill -->
-        <div class="nav-pill-btn" id="nav-language-picker" title="Change Language / भाषा बदलें">
-          <span id="nav-current-lang-flag">🇮🇳</span>
-          <select class="currency-select-inline" id="language-selector" aria-label="Select language">
-            <option value="hi" selected>हिन्दी (HI)</option>
-            <option value="en">English (EN)</option>
-            <option value="es">Español (ES)</option>
-            <option value="fr">Français (FR)</option>
-            <option value="de">Deutsch (DE)</option>
-            <option value="ja">日本語 (JA)</option>
-            <option value="ar">العربية (AR)</option>
-          </select>
-        </div>
-
-        <!-- Currency Converter Pill -->
-        <div class="nav-pill-btn" title="Change currency">
-          <span id="nav-current-currency-symbol">₹</span>
-          <span id="nav-current-currency-code" style="display:none">INR</span>
-          <select class="currency-select-inline currency-selector" aria-label="Select currency">
-            <option value="INR" selected>INR (₹)</option>
-            <option value="USD">USD ($)</option>
-            <option value="EUR">EUR (€)</option>
-            <option value="GBP">GBP (£)</option>
-            <option value="JPY">JPY (¥)</option>
-            <option value="CAD">CAD (CA$)</option>
-          </select>
-        </div>
-
-        <!-- Theme Mode Toggle Button -->
-        <button class="nav-pill-btn theme-toggle-btn" title="Toggle Dark / Light Theme" aria-label="Theme switch">
-          <span class="theme-icon">🍦</span>
-          <span class="theme-label">Cream Mode</span>
-        </button>
-
         <!-- Account & Lists Trigger -->
         <div class="nav-item-box" id="nav-account-btn" role="button" tabindex="0">
           <span class="nav-item-small">Hello, Abhishek</span>
-          <span class="nav-item-bold">Account & Lists ▾</span>
+          <span class="nav-item-bold">Account &amp; Lists ▾</span>
         </div>
 
         <!-- Returns & Orders Trigger -->
         <div class="nav-item-box" id="nav-orders-btn" role="button" tabindex="0">
           <span class="nav-item-small">Returns</span>
-          <span class="nav-item-bold">& Orders</span>
+          <span class="nav-item-bold">&amp; Orders</span>
         </div>
 
         <!-- Cart Slide-out Drawer Trigger -->
@@ -149,11 +165,16 @@
           </div>
           <span class="nav-cart-label">Cart</span>
         </div>
+
+        <!-- User Profile Avatar Pill -->
+        <div class="nav-user-avatar-wrap" onclick="window.amzModal ? window.amzModal.openAccountModal() : null;" title="Abhishek Tripathi profile" style="cursor: pointer;">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Abhishek" class="nav-user-avatar" />
+        </div>
       </div>
     </div>
 
     <!-- ======================================================================
-         SUB-NAVIGATION STRIP (Mega Menu & Categories)
+         3. SUB-NAVIGATION STRIP (CATEGORIES WITH PILL BADGES)
          ====================================================================== -->
     <nav class="nav-sub-bar" aria-label="Departments Navigation">
       <div class="nav-sub-left">
@@ -167,335 +188,490 @@
           <span>All Departments</span>
         </button>
 
-        <a href="#products-section" class="nav-sub-item is-active" data-filter-category="all">All Products</a>
-        <a href="#products-section" class="nav-sub-item nav-gender-item" data-filter-gender="men">👨 Men's (पुरुष)</a>
-        <a href="#products-section" class="nav-sub-item nav-gender-item" data-filter-gender="women">👩 Women's (महिलाएं)</a>
-        <a href="#products-section" class="nav-sub-item nav-gender-item" data-filter-gender="karigar">🏡 Rural Karigar</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="clothing">👗 Clothing & Fashion</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="kitchen">🍳 Home & Kitchen</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="beauty">💄 Beauty & Care</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="sports">🏋️ Sports & Outdoors</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="electronics">💻 Electronics</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="audio">🎧 Audio & Sound</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="smarthome">🏠 Smart Home</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="gaming">🎮 Gaming</a>
-        <a href="#products-section" class="nav-sub-item" data-filter-category="fashion">⌚ Luxury</a>
-        <a href="#" class="nav-sub-item" id="nav-wishlist-link">❤️ Wish List</a>
-      </div>
+        <a href="#trending-section" class="nav-sub-item">
+          <span>⚡ Today's Deals</span>
+          <span class="sub-badge sub-badge-red">50% OFF</span>
+        </a>
 
-      <div class="nav-sub-right">
-        <button class="seller-hub-pill-btn" id="open-seller-hub-btn" title="Open UdaanMart Seller Central Portal">
-          <span class="seller-pulse-dot"></span>
-          <span class="seller-hub-text">🚀 Seller Central <span class="seller-hindi">(बेचें)</span></span>
+        <a href="#heritage-showcase" class="nav-sub-item">
+          <span>🇮🇳 Rural Karigar Hub</span>
+          <span class="sub-badge sub-badge-gold">GI-TAG PROVEN</span>
+        </a>
+
+        <a href="#products-section" class="nav-sub-item" data-filter-gender="men">Men's Fashion</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-gender="women">Women's Fashion</a>
+        <a href="#products-section" class="nav-sub-item" data-filter-category="kitchen">Home &amp; Essentials</a>
+
+        <button class="nav-sub-item" id="open-seller-hub-btn" title="Open UdaanMart Seller Central Studio">
+          <span>Seller Central</span>
+          <span class="sub-badge sub-badge-studio">Studio</span>
         </button>
-        <span class="prime-special-banner">
-          ⚡ Fast, Free Delivery with Prime
-        </span>
       </div>
     </nav>
   </header>
 
   <!-- ========================================================================
-       MAIN HERO SECTION: E-COMMERCE PROMOTIONS CAROUSEL
+       4. HERO BANNER SECTION (DARK LUXURY SHOWCASE CARD)
        ======================================================================== -->
-  <section class="hero-section" id="hero-carousel" aria-label="UdaanMart Featured Promotions">
-    <div class="hero-carousel">
-      <!-- Slide 1: Electronics & Smart Gadgets -->
-      <div class="hero-slide is-active">
-        <img 
-          src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=1600&q=80" 
-          alt="Top Electronics, Audio and Smart Gadgets" 
-          class="hero-slide-bg" 
-        />
-        <div class="hero-content">
-          <span class="hero-tag">⚡ Festive Mega Savings</span>
-          <h2 class="hero-title">Top Electronics & Smart Gadgets</h2>
-          <p class="hero-desc">
-            Save up to 60% on premium audio, 4K displays, smartphones, and accessories with free same-day express delivery.
-          </p>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="#products-section" class="hero-cta-btn" data-filter-category="electronics">
-              Shop Electronics →
-            </a>
-            <a href="#deals-banner-strip" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);">
-              ⚡ Lightning Deals
-            </a>
-          </div>
+  <section class="hero-stitch-container" aria-label="UdaanMart Hero Showcase">
+    <div class="hero-luxury-card" id="hero-carousel">
+      <img 
+        src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=1600&q=80" 
+        alt="Artisan Craftsmanship &amp; Modern Lifestyle" 
+        class="hero-luxury-bg-image" 
+      />
+      <div class="hero-luxury-content">
+        <div class="hero-badge-row">
+          <span class="hero-gold-chip">✨ UDAAN CURATED • FESTIVE COLLECTION 2026</span>
+          <span class="hero-location-chip">📍 Direct Palanpur, Gujarat</span>
+        </div>
+        <h1 class="hero-headline">Where Heritage Craft Meets Cutting-Edge Lifestyle.</h1>
+        <p class="hero-subheadline">
+          Discover 14,000+ verified rural artisans, Kutch mirror hand-hammered metals alongside high-performance Apple silicon and studio audio fidelity.
+        </p>
+        <div class="hero-actions-row">
+          <a href="#heritage-showcase" class="hero-btn-primary">
+            Shop Premium Karigar (50% Off Welcome)
+          </a>
+          <a href="#curated-flagships" class="hero-btn-secondary">
+            Explore Studio Tech &amp; Gadgets
+          </a>
+        </div>
+        <div class="hero-guarantee-pill">
+          <span>🔒 14-day zero-hassle exchange &amp; trials</span>
+        </div>
+        <div class="hero-stats-ticker">
+          <span><strong>14,200+</strong> Verified Artisans</span>
+          <span class="ticker-dot">•</span>
+          <span><strong>155k+</strong> Pan-India Pincodes</span>
+          <span class="ticker-dot">•</span>
+          <span><strong>14 Million</strong> Free Next-Day Cart</span>
         </div>
       </div>
-
-      <!-- Slide 2: Trending Fashion & Lifestyle -->
-      <div class="hero-slide">
-        <img 
-          src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80" 
-          alt="Trending Fashion and Apparel Collections" 
-          class="hero-slide-bg" 
-        />
-        <div class="hero-content">
-          <span class="hero-tag" style="background: #2563eb;">✨ Fashion & Lifestyle</span>
-          <h2 class="hero-title">Elevate Your Everyday Style</h2>
-          <p class="hero-desc">
-            Explore curated collections for Men & Women, luxury timepieces, denim, footwear, and designer accessories.
-          </p>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="#products-section" class="hero-cta-btn" data-filter-category="clothing">
-              Explore Fashion →
-            </a>
-            <a href="#products-section" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);" data-filter-category="fashion">
-              Luxury Watches & Bags
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3: UdaanMart Karigar Rural Artisans -->
-      <div class="hero-slide">
-        <img 
-          src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&q=80" 
-          alt="Authentic Indian Handloom Sarees and Pottery" 
-          class="hero-slide-bg" 
-        />
-        <div class="hero-content">
-          <span class="hero-tag" style="background: #059669;">🇮🇳 UdaanMart Karigar</span>
-          <h2 class="hero-title">Direct from Master Indian Artisans</h2>
-          <p class="hero-desc">
-            Authentic pure Banarasi silk sarees, Kolhapuri craft, Jaipur blue pottery, and handcrafted heritage pieces.
-          </p>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button type="button" class="hero-cta-btn" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null;">
-              Support Rural Artisans →
-            </button>
-            <a href="#products-section" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);" data-filter-category="clothing">
-              Browse Handlooms
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carousel Navigation Controls -->
-      <button class="hero-nav-btn hero-prev" id="hero-prev-btn" aria-label="Previous Slide">‹</button>
-      <button class="hero-nav-btn hero-next" id="hero-next-btn" aria-label="Next Slide">›</button>
-      <div class="hero-dots" id="hero-dots-container"></div>
-    </div>
-
-    <!-- Gradient fade into product cards -->
-    <div class="hero-gradient-overlay"></div>
-  </section>
-
-  <!-- ========================================================================
-       FLOATING FEATURE QUAD-CARDS OVERLAY
-       ======================================================================== -->
-  <section class="hero-floating-tiles" aria-label="Quick Category Portals">
-    <div class="tiles-grid">
-      <!-- Quad 1: Clothing & Fashion -->
-      <div class="tile-card">
-        <h3 class="tile-title">👗 Clothing & Everyday Fashion</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80" alt="Clothing & Fashion" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="clothing">Shop shirts, dresses & denim →</a>
-      </div>
-
-      <!-- Quad 2: Home & Kitchen -->
-      <div class="tile-card">
-        <h3 class="tile-title">🍳 Kitchen & Everyday Essentials</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80" alt="Kitchen Essentials" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="kitchen">Explore cookware, espresso & fryers →</a>
-      </div>
-
-      <!-- Quad 3: Beauty & Grooming -->
-      <div class="tile-card">
-        <h3 class="tile-title">💄 Beauty, Skincare & Grooming</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Beauty & Grooming" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="beauty">Discover Dyson, CeraVe & trimmers →</a>
-      </div>
-
-      <!-- Quad 4: Sports & Fitness -->
-      <div class="tile-card">
-        <h3 class="tile-title">🏋️ Sports, Fitness & Active Life</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&q=80" alt="Sports & Fitness" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="sports">Shop dumbbells, Garmin & yoga mats →</a>
-      </div>
-
-      <!-- Quad 5: Computing & Laptops -->
-      <div class="tile-card">
-        <h3 class="tile-title">💻 High-Performance Tech</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80" alt="Laptops & Tech" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="electronics">Explore MacBook Pro, iPad & Canon →</a>
-      </div>
-
-      <!-- Quad 6: Audio & Studio -->
-      <div class="tile-card">
-        <h3 class="tile-title">🎧 Pro Audio & Sound Systems</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Audio & Sound" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="audio">Shop Sony ANC & Bose speakers →</a>
-      </div>
-
-      <!-- Quad 7: Smart Home -->
-      <div class="tile-card">
-        <h3 class="tile-title">🏠 Smart Home & Robot Cleaners</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Smart Home" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="smarthome">Explore Roborock & Echo devices →</a>
-      </div>
-
-      <!-- Quad 8: Gaming & Luxury -->
-      <div class="tile-card">
-        <h3 class="tile-title">🎮 Pro Gaming & Luxury Style</h3>
-        <div class="tile-media">
-          <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&q=80" alt="Gaming & Luxury" class="tile-img" />
-        </div>
-        <a href="#products-section" class="tile-link" data-filter-category="gaming">View PS5, OLED screens & watches →</a>
-      </div>
+      <button class="hero-arrow-nav hero-arrow-prev" id="hero-prev-btn" aria-label="Previous Slide">‹</button>
+      <button class="hero-arrow-nav hero-arrow-next" id="hero-next-btn" aria-label="Next Slide">›</button>
     </div>
   </section>
 
   <!-- ========================================================================
-       EXPLORE ALL DEPARTMENTS & EVERYDAY ESSENTIALS VISUAL SHOWCASE
+       5. QUAD CATEGORY CARDS (ROW 1)
        ======================================================================== -->
-  <section class="dept-showcase-section" aria-label="Explore All Departments">
-    <div class="dept-showcase-card-container">
-      <div class="dept-showcase-header">
-        <div class="dept-showcase-title-box">
-          <span class="dept-showcase-badge">All Departments</span>
+  <section class="quad-grid-container" aria-label="Category Quick Links">
+    <div class="quad-cards-grid">
+      <!-- Quad 1 -->
+      <a href="#products-section" class="quad-card" data-filter-category="clothing">
+        <div class="quad-card-header">
+          <h3 class="quad-card-title">Clothing &amp; Fashion</h3>
+          <span class="quad-card-sub">Ethnic &amp; Contemporary</span>
+        </div>
+        <div class="quad-card-media">
+          <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80" alt="Clothing &amp; Fashion" class="quad-card-img" loading="lazy" />
+        </div>
+        <div class="quad-card-footer">
+          <span>Pure Cotton Ikat &amp; Khadi</span>
+          <span class="arrow">Explore →</span>
+        </div>
+      </a>
+
+      <!-- Quad 2 -->
+      <a href="#products-section" class="quad-card" data-filter-category="kitchen">
+        <div class="quad-card-header">
+          <h3 class="quad-card-title">Kitchen &amp; Living</h3>
+          <span class="quad-card-sub">Claypots &amp; Cast Iron</span>
+        </div>
+        <div class="quad-card-media">
+          <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80" alt="Kitchen &amp; Living" class="quad-card-img" loading="lazy" />
+        </div>
+        <div class="quad-card-footer">
+          <span>Pure Stoneware &amp; Ceramic</span>
+          <span class="arrow">Shop Now →</span>
+        </div>
+      </a>
+
+      <!-- Quad 3 -->
+      <a href="#products-section" class="quad-card" data-filter-category="beauty">
+        <div class="quad-card-header">
+          <h3 class="quad-card-title">Beauty &amp; Ayurvedic</h3>
+          <span class="quad-card-sub">100% Herbal Botanicals</span>
+        </div>
+        <div class="quad-card-media">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Beauty &amp; Ayurvedic" class="quad-card-img" loading="lazy" />
+        </div>
+        <div class="quad-card-footer">
+          <span>Pure Kumkumadi &amp; Herbs</span>
+          <span class="arrow">Explore →</span>
+        </div>
+      </a>
+
+      <!-- Quad 4 -->
+      <a href="#products-section" class="quad-card" data-filter-category="sports">
+        <div class="quad-card-header">
+          <h3 class="quad-card-title">Sports &amp; Fitness</h3>
+          <span class="quad-card-sub">Yoga &amp; Hard Training</span>
+        </div>
+        <div class="quad-card-media">
+          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&q=80" alt="Sports &amp; Fitness" class="quad-card-img" loading="lazy" />
+        </div>
+        <div class="quad-card-footer">
+          <span>Weights, Mats &amp; Gear</span>
+          <span class="arrow">Train →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       6. CURATED FLAGSHIPS ("Experience Next-Level Living")
+       ======================================================================== -->
+  <section class="flagships-section" id="curated-flagships" aria-label="Curated Flagships">
+    <div class="flagships-header">
+      <div>
+        <span class="flagships-tag">✨ CURATED FLAGSHIPS</span>
+        <h2 class="flagships-title">Experience Next-Level Living</h2>
+      </div>
+      <div class="flagships-filter-pills">
+        <button class="flagship-pill is-active">All Flagships</button>
+        <button class="flagship-pill" onclick="window.amzFilter ? window.amzFilter.filterByCategory('electronics') : null;">Silicon Laptops</button>
+        <button class="flagship-pill" onclick="window.amzFilter ? window.amzFilter.filterByCategory('audio') : null;">Pro Hi-Fi Sound</button>
+        <button class="flagship-pill" onclick="window.amzFilter ? window.amzFilter.filterByCategory('smarthome') : null;">Smart Sanitation</button>
+        <a href="#products-section" class="flagship-browse-link">Browse All 28 Depts →</a>
+      </div>
+    </div>
+
+    <div class="flagships-grid">
+      <!-- Flagship 1: Tech -->
+      <div class="flagship-card">
+        <div class="flagship-card-top">
+          <h3 class="flagship-card-name">High-Performance Tech</h3>
+          <span class="flagship-spec-chip">M3 Max / Windows</span>
+        </div>
+        <p class="flagship-card-sub">Apple Silicon, Pro Cameras &amp; 120Hz Liquid Retina</p>
+        <div class="flagship-media">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80" alt="Laptops &amp; Tech" class="flagship-img" loading="lazy" />
+        </div>
+        <ul class="flagship-item-list">
+          <li class="flagship-item-row"><span class="flagship-item-name">MacBook Pro 16 M3 Max</span><span class="flagship-item-price">From $1,999</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">iPad Air M2 11-inch</span><span class="flagship-item-price">From $599</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Studio Display Nano-texture</span><span class="flagship-item-price">From $1,299</span></li>
+        </ul>
+        <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('electronics') : null;">Explore High-Performance Tech →</a>
+      </div>
+
+      <!-- Flagship 2: Audio -->
+      <div class="flagship-card">
+        <div class="flagship-card-top">
+          <h3 class="flagship-card-name">Pro Audio &amp; Sound</h3>
+          <span class="flagship-spec-chip">Hi-Res ANC</span>
+        </div>
+        <p class="flagship-card-sub">Studio-grade Hi-Fi spatial audio &amp; environmental noise reduction</p>
+        <div class="flagship-media">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Audio &amp; Sound" class="flagship-img" loading="lazy" />
+        </div>
+        <ul class="flagship-item-list">
+          <li class="flagship-item-row"><span class="flagship-item-name">Sony WH-1000XM5 ANC</span><span class="flagship-item-price">$348.00</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">AirPods Max Silver</span><span class="flagship-item-price">$477.00</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Bose QuietComfort Ultra</span><span class="flagship-item-price">$299.00</span></li>
+        </ul>
+        <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('audio') : null;">Shop ANC &amp; Sound Systems →</a>
+      </div>
+
+      <!-- Flagship 3: Smart Home -->
+      <div class="flagship-card">
+        <div class="flagship-card-top">
+          <h3 class="flagship-card-name">Smart Home &amp; Robots</h3>
+          <span class="flagship-spec-chip">LiDAR AI VSLAM</span>
+        </div>
+        <p class="flagship-card-sub">Auto-homing vacuum bots, sensor nodes &amp; smart door locks</p>
+        <div class="flagship-media">
+          <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Smart Home" class="flagship-img" loading="lazy" />
+        </div>
+        <ul class="flagship-item-list">
+          <li class="flagship-item-row"><span class="flagship-item-name">Roborock S8 Pro Ultra</span><span class="flagship-item-price">$1,199.00</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Amazon Echo Studio Hub</span><span class="flagship-item-price">$199.99</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Philips Hue LightBar Kit</span><span class="flagship-item-price">$129.99</span></li>
+        </ul>
+        <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('smarthome') : null;">Explore Smart Automation Hub →</a>
+      </div>
+
+      <!-- Flagship 4: Gaming -->
+      <div class="flagship-card">
+        <div class="flagship-card-top">
+          <h3 class="flagship-card-name">Pro Gaming &amp; Style</h3>
+          <span class="flagship-spec-chip">4K 240Hz &amp; OLED</span>
+        </div>
+        <p class="flagship-card-sub">Zero-lag mechanical keys &amp; sensor-accurate pro mice</p>
+        <div class="flagship-media">
+          <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&q=80" alt="Gaming &amp; Style" class="flagship-img" loading="lazy" />
+        </div>
+        <ul class="flagship-item-list">
+          <li class="flagship-item-row"><span class="flagship-item-name">BenQ ZOWIE 240Hz OLED</span><span class="flagship-item-price">$699.00</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Ducky One 3 Pro Mini</span><span class="flagship-item-price">$179.00</span></li>
+          <li class="flagship-item-row"><span class="flagship-item-name">Logitech G Pro X Superlight</span><span class="flagship-item-price">$149.99</span></li>
+        </ul>
+        <a href="#products-section" class="flagship-bottom-link" onclick="window.amzFilter ? window.amzFilter.filterByCategory('gaming') : null;">Shop Gaming &amp; Luxury Workspace →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       7. TREASURES OF INDIAN HERITAGE (SHOWCASE BANNER)
+       ======================================================================== -->
+  <section class="heritage-showcase-container" id="heritage-showcase" aria-label="Indian Heritage Showcase">
+    <div class="heritage-card-wrap">
+      <div class="heritage-left-content">
+        <div class="heritage-badge-cluster">
+          <span class="heritage-auth-badge">🌿 100% KARIGAR-DIRECT CERTIFIED AUTHENTIC</span>
+          <span class="heritage-provenance-chip">🇮🇳 Direct from Varanasi, Bhuj &amp; Kondapalli</span>
+          <span class="heritage-provenance-chip">ODOP / Cooperatives / No Middlemen</span>
+        </div>
+        <h2 class="heritage-main-title">Treasures of Indian Heritage, Handcrafted with Soul.</h2>
+        <p class="heritage-main-desc">
+          Connecting 14,200+ master rural weavers, stone sculptors, potters, and generational brass artists directly with your home with zero intermediary margins.
+        </p>
+        <div class="heritage-quote-box">
+          “Every thread carries the story of three generations in Varanasi, woven with pride and passed down.” — Pandit Ramnarayan Sahu, 5th-Gen Master Weaver
+        </div>
+        <div class="heritage-regions-grid">
+          <div class="heritage-region-item">
+            <span class="region-city">Varanasi, UP</span>
+            <span class="region-craft">Banarasi Silk</span>
+            <span class="region-sub">Handloom Pure Zari</span>
+          </div>
+          <div class="heritage-region-item">
+            <span class="region-city">Kolhapur, MH</span>
+            <span class="region-craft">Leather Crafts</span>
+            <span class="region-sub">Vegetable-Tanned Chappals</span>
+          </div>
+          <div class="heritage-region-item">
+            <span class="region-city">Jaipur, RJ</span>
+            <span class="region-craft">Blue Pottery</span>
+            <span class="region-sub">Quartz &amp; Natural Oxides</span>
+          </div>
+          <div class="heritage-region-item">
+            <span class="region-city">Moradabad, UP</span>
+            <span class="region-craft">Pure Brass</span>
+            <span class="region-sub">Hand-hammered Vases</span>
+          </div>
+        </div>
+        <div class="heritage-btn-row">
+          <button type="button" class="heritage-btn-explore" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null;">
+            Explore Rural Karigar Store
+          </button>
+          <a href="#" class="heritage-btn-video" onclick="alert('Playing Weaver Master documentary: 5th Generation Silk Heritage'); return false;">
+            ▷ Watch Weaver Story (2m 15s)
+          </a>
+        </div>
+        <a href="#products-section" class="heritage-dir-link" onclick="window.amzFilter ? window.amzFilter.filterByGender('karigar') : null;">
+          Read Artisan Directory (128) →
+        </a>
+      </div>
+
+      <div class="heritage-right-media">
+        <img 
+          src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1000&q=80" 
+          alt="Traditional Indian Handloom Weaver" 
+          class="heritage-weaver-img" 
+          loading="lazy" 
+        />
+        <div class="heritage-floating-pin">📍 Varanasi #00827</div>
+        <div class="heritage-floating-glass">
           <div>
-            <h2 class="dept-showcase-title">Explore All Departments & Everyday Essentials</h2>
-            <span class="dept-showcase-sub">Browse clothes, kitchenware, personal care, gym equipment, tech, gaming and more</span>
+            <div class="glass-tag-title">GI-Tag Certified Handloom</div>
+            <div class="glass-tag-sub">Silk Mark India Verified</div>
           </div>
+          <button class="glass-btn-meet" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null;">Meet Artisan</button>
         </div>
-        <a href="#products-section" class="tile-link" data-filter-category="all" style="font-size: 0.9rem; font-weight: 700;">
-          View Complete Catalog (26 Items) →
-        </a>
-      </div>
-
-      <div class="dept-showcase-grid">
-        <!-- 1. Clothing & Fashion -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="clothing" title="Shop Clothing, Shoes & Apparel">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=300&q=80" alt="Clothing & Fashion" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">👗 Clothing & Fashion</span>
-          <span class="dept-showcase-count">4 Products</span>
-        </a>
-
-        <!-- 2. Home & Kitchen -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="kitchen" title="Shop Home & Kitchen Essentials">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=300&q=80" alt="Home & Kitchen" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">🍳 Home & Kitchen</span>
-          <span class="dept-showcase-count">4 Products</span>
-        </a>
-
-        <!-- 3. Beauty & Care -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="beauty" title="Shop Beauty & Personal Grooming">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&q=80" alt="Beauty & Care" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">💄 Beauty & Care</span>
-          <span class="dept-showcase-count">4 Products</span>
-        </a>
-
-        <!-- 4. Sports & Fitness -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="sports" title="Shop Sports, Fitness & Outdoors">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=300&q=80" alt="Sports & Fitness" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">🏋️ Sports & Fitness</span>
-          <span class="dept-showcase-count">3 Products</span>
-        </a>
-
-        <!-- 5. Electronics & Tech -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="electronics" title="Shop Electronics, Laptops & Cameras">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&q=80" alt="Electronics & Tech" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">💻 Electronics & Tech</span>
-          <span class="dept-showcase-count">3 Products</span>
-        </a>
-
-        <!-- 6. Audio & Sound -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="audio" title="Shop Audio, Headphones & Speakers">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80" alt="Audio & Sound" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">🎧 Audio & Sound</span>
-          <span class="dept-showcase-count">2 Products</span>
-        </a>
-
-        <!-- 7. Smart Home -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="smarthome" title="Shop Smart Home Automation">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=300&q=80" alt="Smart Home" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">🏠 Smart Home</span>
-          <span class="dept-showcase-count">2 Products</span>
-        </a>
-
-        <!-- 8. Gaming & Consoles -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="gaming" title="Shop Video Games & VR Consoles">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=300&q=80" alt="Gaming & VR" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">🎮 Gaming & VR</span>
-          <span class="dept-showcase-count">2 Products</span>
-        </a>
-
-        <!-- 9. Luxury Watches & Bags -->
-        <a href="#products-section" class="dept-showcase-card" data-filter-category="fashion" title="Shop Luxury Watches & Premium Bags">
-          <div class="dept-showcase-avatar">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80" alt="Luxury Watches" loading="lazy" />
-          </div>
-          <span class="dept-showcase-name">⌚ Luxury & Watches</span>
-          <span class="dept-showcase-count">2 Products</span>
-        </a>
       </div>
     </div>
   </section>
 
   <!-- ========================================================================
-       TODAY'S LIGHTNING DEALS COUNTDOWN BANNER
+       8. TRENDING RECOMMENDATIONS FOR YOU (FLASH DEALS PRODUCT GRID)
        ======================================================================== -->
-  <section class="deals-banner-section" aria-label="Lightning Deals">
-    <div class="deals-banner-card">
-      <div class="deals-banner-left">
-        <span class="deal-lightning-icon">⚡</span>
-        <div>
-          <h2 class="deal-banner-heading">Today's Lightning Deals</h2>
-          <span class="deal-banner-sub">Exclusive flash discounts refreshed throughout the day</span>
+  <section class="trending-deals-container" id="trending-section" aria-label="Trending Recommendations">
+    <div class="trending-deals-header">
+      <div>
+        <span class="trending-flash-pill">⚡ FLASH DEALS OF THE DAY • Ends in <span id="flash-clock">05:42:19</span></span>
+        <h2 class="trending-main-title">Trending Recommendations For You</h2>
+      </div>
+      <div class="trending-filter-tabs">
+        <button class="trending-tab-btn is-active">All Deals</button>
+        <button class="trending-tab-btn" onclick="window.amzFilter ? window.amzFilter.filterByCategory('clothing') : null;">Footwear</button>
+        <button class="trending-tab-btn" onclick="window.amzFilter ? window.amzFilter.filterByCategory('clothing') : null;">Apparel</button>
+        <button class="trending-tab-btn" onclick="window.amzFilter ? window.amzFilter.filterByCategory('electronics') : null;">Electronics</button>
+        <button class="trending-tab-btn" onclick="window.amzFilter ? window.amzFilter.filterByGender('karigar') : null;">Artisan Gifts</button>
+      </div>
+    </div>
+
+    <div class="trending-products-grid">
+      <!-- Product 1: Nike Air Zoom Pegasus -->
+      <div class="trending-prod-card" data-product-id="prod-15">
+        <div class="card-badge-row">
+          <div class="card-badges-left">
+            <span class="badge-amber">#1 Best Seller</span>
+            <span class="badge-gray">New Arrival</span>
+          </div>
+          <button class="btn-wishlist-heart" onclick="window.amzCart ? window.amzCart.toggleWishlist('prod-15', this) : null;" title="Add to Wishlist">♡</button>
+        </div>
+        <div class="trending-prod-thumb-wrap" onclick="window.amzModal ? window.amzModal.openQuickView('prod-15') : null;">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80" alt="Nike Air Zoom Pegasus" class="trending-prod-img" loading="lazy" />
+        </div>
+        <span class="trending-prod-cat">CLOTHING &amp; FOOTWEAR • ZOOM AIR</span>
+        <h4 class="trending-prod-title" onclick="window.amzModal ? window.amzModal.openQuickView('prod-15') : null;">Nike Air Zoom Pegasus Lightweight Breathable Performance Men's &amp; Women's Running Sneakers</h4>
+        <div class="trending-prod-rating">
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-count">4.9 (1,425 reviews)</span>
+        </div>
+        <div class="trending-prod-price-row">
+          <span class="discount-pill-red">-45%</span>
+          <span class="current-price" data-base-price="129.99">$129.99</span>
+          <span class="original-price" data-base-price="239.00">$239.00</span>
+        </div>
+        <span class="stock-tag">Only 4 left in stock</span>
+        <span class="delivery-line"><strong>Prime FREE Delivery</strong> Tomorrow, 11 AM - 3 PM</span>
+        <div class="trending-actions">
+          <button class="btn-card-add-cart" onclick="window.amzCart ? window.amzCart.addToCart('prod-15') : null;">
+            Add to Cart
+          </button>
+          <button class="btn-card-quick-buy" onclick="window.amzCheckout ? window.amzCheckout.openExpressBuy('prod-15') : null;">
+            ⚡ 1-Click Buy Now
+          </button>
         </div>
       </div>
 
-      <!-- Live Real-Time Countdown Clocks -->
-      <div class="deals-countdown-box">
-        <span class="countdown-label">Ends in:</span>
-        <div class="countdown-digits-wrapper">
-          <div class="countdown-unit">
-            <span class="countdown-num" id="deals-hours">07</span>
-            <span class="countdown-sub">Hours</span>
+      <!-- Product 2: Women's Floral Print Summer Dress -->
+      <div class="trending-prod-card" data-product-id="prod-14">
+        <div class="card-badge-row">
+          <div class="card-badges-left">
+            <span class="badge-dark">Editor's Choice</span>
           </div>
-          <span class="countdown-sep">:</span>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="deals-minutes">44</span>
-            <span class="countdown-sub">Mins</span>
-          </div>
-          <span class="countdown-sep">:</span>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="deals-seconds">29</span>
-            <span class="countdown-sub">Secs</span>
-          </div>
+          <button class="btn-wishlist-heart" onclick="window.amzCart ? window.amzCart.toggleWishlist('prod-14', this) : null;" title="Add to Wishlist">♡</button>
         </div>
+        <div class="trending-prod-thumb-wrap" onclick="window.amzModal ? window.amzModal.openQuickView('prod-14') : null;">
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80" alt="Women's Floral Midi Dress" class="trending-prod-img" loading="lazy" />
+        </div>
+        <span class="trending-prod-cat">CLOTHING &amp; FASHION • WOMEN</span>
+        <h4 class="trending-prod-title" onclick="window.amzModal ? window.amzModal.openQuickView('prod-14') : null;">Women's Elegant Floral Print Summer A-Line Bohemian Midi Dress with Hidden Pockets</h4>
+        <div class="trending-prod-rating">
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-count">4.8 (872 reviews)</span>
+        </div>
+        <div class="trending-prod-price-row">
+          <span class="discount-pill-red">-32%</span>
+          <span class="current-price" data-base-price="39.99">$39.99</span>
+          <span class="original-price" data-base-price="59.00">$59.00</span>
+        </div>
+        <span class="stock-tag">Selling fast • 19 remaining</span>
+        <span class="delivery-line"><strong>Prime FREE Delivery</strong> Tomorrow, by 2 PM</span>
+        <div class="trending-actions">
+          <button class="btn-card-add-cart" onclick="window.amzCart ? window.amzCart.addToCart('prod-14') : null;">
+            Add to Cart
+          </button>
+          <button class="btn-card-quick-buy" onclick="window.amzCheckout ? window.amzCheckout.openExpressBuy('prod-14') : null;">
+            ⚡ 1-Click Buy Now
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 3: Sony WH-1000XM5 Headphones -->
+      <div class="trending-prod-card" data-product-id="prod-1">
+        <div class="card-badge-row">
+          <div class="card-badges-left">
+            <span class="badge-red">Limited Time Deal</span>
+          </div>
+          <button class="btn-wishlist-heart" onclick="window.amzCart ? window.amzCart.toggleWishlist('prod-1', this) : null;" title="Add to Wishlist">♡</button>
+        </div>
+        <div class="trending-prod-thumb-wrap" onclick="window.amzModal ? window.amzModal.openQuickView('prod-1') : null;">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80" alt="Sony WH-1000XM5 Headphones" class="trending-prod-img" loading="lazy" />
+        </div>
+        <span class="trending-prod-cat">AUDIO &amp; ELECTRONICS • HI-RES AUDIO</span>
+        <h4 class="trending-prod-title" onclick="window.amzModal ? window.amzModal.openQuickView('prod-1') : null;">Sony WH-1000XM5 Industry Leading Wireless Noise Canceling Headphones with Auto NC Optimizer</h4>
+        <div class="trending-prod-rating">
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-count">4.9 (2,118 reviews)</span>
+        </div>
+        <div class="trending-prod-price-row">
+          <span class="discount-pill-red">-12%</span>
+          <span class="current-price" data-base-price="348.00">$348.00</span>
+          <span class="original-price" data-base-price="399.00">$399.00</span>
+        </div>
+        <span class="stock-tag">Price Drop • High Demand</span>
+        <span class="delivery-line"><strong>Prime FREE Overnight Delivery</strong> by 8 AM</span>
+        <div class="trending-actions">
+          <button class="btn-card-add-cart" onclick="window.amzCart ? window.amzCart.addToCart('prod-1') : null;">
+            Add to Cart
+          </button>
+          <button class="btn-card-quick-buy" onclick="window.amzCheckout ? window.amzCheckout.openExpressBuy('prod-1') : null;">
+            ⚡ 1-Click Buy Now
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 4: UdaanMart Karigar Banarasi Saree -->
+      <div class="trending-prod-card" data-product-id="prod-33">
+        <div class="card-badge-row">
+          <div class="card-badges-left">
+            <span class="badge-karigar">Karigar Direct</span>
+            <span class="badge-amber">ODOP Certified</span>
+          </div>
+          <button class="btn-wishlist-heart" onclick="window.amzCart ? window.amzCart.toggleWishlist('prod-33', this) : null;" title="Add to Wishlist">♡</button>
+        </div>
+        <div class="trending-prod-thumb-wrap" onclick="window.amzModal ? window.amzModal.openQuickView('prod-33') : null;">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80" alt="UdaanMart Karigar Banarasi Saree" class="trending-prod-img" loading="lazy" />
+        </div>
+        <span class="trending-prod-cat">HERITAGE HANDLOOM • VARANASI MASTER LOOM</span>
+        <h4 class="trending-prod-title" onclick="window.amzModal ? window.amzModal.openQuickView('prod-33') : null;">UdaanMart Karigar Handcrafted Pure Banarasi Katan Silk Saree with Real Zari Weaving from Varanasi</h4>
+        <div class="trending-prod-rating">
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-count">5.0 (426 reviews)</span>
+        </div>
+        <div class="trending-prod-price-row">
+          <span class="discount-pill-red">-50%</span>
+          <span class="current-price" data-base-price="119.00">$119.00</span>
+          <span class="original-price" data-base-price="240.00">$240.00</span>
+        </div>
+        <span class="stock-tag">Authentic Batch (Only 2 Left) • 100% Retained</span>
+        <span class="delivery-line"><strong>Rural Express Post</strong> Free 2-Day Doorstep Delivery</span>
+        <div class="trending-actions">
+          <button class="btn-card-add-cart" onclick="window.amzCart ? window.amzCart.addToCart('prod-33') : null;">
+            Add to Cart
+          </button>
+          <button class="btn-card-quick-buy" onclick="window.amzCheckout ? window.amzCheckout.openExpressBuy('prod-33') : null;">
+            ⚡ 1-Click Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       9. TRUST PILLARS BAR ("Why Millions of Patrons Trust UdaanMart")
+       ======================================================================== -->
+  <section class="trust-pillars-section" aria-label="Trust Guarantees">
+    <div class="trust-header-center">
+      <span class="trust-sub-label">FULLY ZERO-RISK &amp; ETHICAL</span>
+      <h2 class="trust-heading">Why Millions of Patrons Trust UdaanMart</h2>
+    </div>
+    <div class="trust-cards-grid">
+      <div class="trust-card">
+        <div class="trust-icon-box">🏡</div>
+        <h3 class="trust-card-title">Village &amp; City Handover</h3>
+        <p class="trust-card-desc">Connecting 155,000+ pincodes through India Post &amp; Express Urban Air fleets.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon-box">⚡</div>
+        <h3 class="trust-card-title">1-Click UPI &amp; Tokenized Pay</h3>
+        <p class="trust-card-desc">No friction checkout, accepting RuPay Zero-Fee UPI, and vaulted card security.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon-box">🛡️</div>
+        <h3 class="trust-card-title">GI-Tag Provenance</h3>
+        <p class="trust-card-desc">Each Karigar batch comes with verifiable authenticity guarantees to protect weaver livelihoods.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon-box">💬</div>
+        <h3 class="trust-card-title">24/7 Verified Support</h3>
+        <p class="trust-card-desc">Dedicated multilingual incident desk in Hindi, English, and 5 regional languages.</p>
       </div>
     </div>
   </section>
@@ -2088,7 +2264,7 @@ Easy 30-Day Replacements</textarea>
   <div class="toast-container" id="toast-container"></div>
 
   <!-- ========================================================================
-       FOOTER
+       10. FOOTER & COPYRIGHT BAR
        ======================================================================== -->
   <footer class="site-footer">
     <button class="footer-back-to-top" id="footer-back-to-top">
@@ -2097,53 +2273,59 @@ Easy 30-Day Replacements</textarea>
 
     <div class="footer-links-grid">
       <div>
-        <h4 class="footer-col-title">Get to Know Us</h4>
+        <h4 class="footer-col-title">GET TO KNOW US</h4>
         <ul class="footer-link-list">
           <li><a href="#">About UdaanMart</a></li>
-          <li><a href="#">Careers & Culture</a></li>
-          <li><a href="#">Sustainability & Green Prime</a></li>
-          <li><a href="#">UdaanMart Science & AI</a></li>
+          <li><a href="#heritage-showcase">Our Heritage &amp; Artisans</a></li>
+          <li><a href="#">Careers at Udaan</a></li>
+          <li><a href="#">Sustainability &amp; Handloom</a></li>
+          <li><a href="#">Press Releases</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-col-title">Make Money with Us</h4>
+        <h4 class="footer-col-title">MAKE MONEY WITH US</h4>
         <ul class="footer-link-list">
-          <li><a href="#" id="footer-sell-link">Sell products on UdaanMart (Seller Hub)</a></li>
-          <li><a href="#" id="footer-karigar-link">UdaanMart Karigar (Rural Artisans)</a></li>
-          <li><a href="#">Sell on UdaanMart Business</a></li>
+          <li><a href="#" onclick="window.amzSeller ? window.amzSeller.openSellerModal() : null; return false;">Sell on UdaanMart</a></li>
+          <li><a href="#" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null; return false;">Rural Karigar Hub Onboarding</a></li>
+          <li><a href="#">Supply to Udaan Wholesale</a></li>
           <li><a href="#">Become an Affiliate Partner</a></li>
-          <li><a href="#">Fulfillment by UdaanMart (FBU)</a></li>
+          <li><a href="#">Advertise Your Products</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-col-title">UdaanMart Payment Products</h4>
+        <h4 class="footer-col-title">UDAANMART PAYMENTS</h4>
         <ul class="footer-link-list">
-          <li><a href="#">UdaanMart Rewards Card</a></li>
-          <li><a href="#">UdaanMart Store Card</a></li>
-          <li><a href="#">Shop with Points & Cash Back</a></li>
-          <li><a href="#">Reload Your Balance</a></li>
+          <li><a href="#">UdaanMart Pay &amp; Wallet</a></li>
+          <li><a href="#">Udaan Rewards Platinum Card</a></li>
+          <li><a href="#">UPI &amp; Net Banking Invoicing</a></li>
+          <li><a href="#">EMI &amp; Easy Pay-Later</a></li>
+          <li><a href="#">Gift Vouchers</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-col-title">Let Us Help You</h4>
+        <h4 class="footer-col-title">CUSTOMER SUPPORT</h4>
         <ul class="footer-link-list">
-          <li><a href="#" onclick="window.amzModal.openOrdersModal('orders'); return false;">Your Account & Orders</a></li>
-          <li><a href="#">Shipping Rates & Policies</a></li>
-          <li><a href="#">Returns & Replacements</a></li>
-          <li><a href="#">UdaanMart Assistant & Help</a></li>
+          <li><a href="#" onclick="window.amzModal ? window.amzModal.openOrdersModal('orders') : null; return false;">Track Your Packages</a></li>
+          <li><a href="#">Shipping Rates &amp; Policies</a></li>
+          <li><a href="#">Returns &amp; Replacements</a></li>
+          <li><a href="#" onclick="window.amzModal ? window.amzModal.openAccountModal() : null; return false;">Manage Your Account</a></li>
+          <li><a href="#">24/7 Help Desk</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-brand-row">
-      <img src="images/udaanmart-logo-transparent.png" alt="UdaanMart" class="footer-brand-logo" />
-    </div>
     <div class="footer-bottom-bar">
-      <div>© 2026 UdaanMart. All rights reserved.</div>
-      <div class="footer-freelancer-note">Crafted with Precision for Freelancing Portfolio & Client Demonstrations</div>
+      <div class="footer-bottom-flex">
+        <div class="footer-bottom-left">
+          <span>🌐 India (Bharat) • INR - Indian Rupee</span>
+        </div>
+        <div>
+          © 2026 UdaanMart E-Commerce Internet Private Limited. All rights reserved. Celebrating authentic Indian craftsmanship and global innovation.
+        </div>
+      </div>
     </div>
   </footer>
 
