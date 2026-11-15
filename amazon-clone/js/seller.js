@@ -107,8 +107,7 @@ class SellerCentralEngine {
   bindTriggers() {
     const triggers = [
       document.getElementById('open-seller-hub-btn'),
-      document.getElementById('footer-sell-link'),
-      document.getElementById('nav-seller-link')
+      document.getElementById('footer-sell-link')
     ];
 
     triggers.forEach(btn => {
@@ -156,6 +155,14 @@ class SellerCentralEngine {
     modal.classList.add('is-open');
     if (overlay) overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+  }
+
+  openSellerModal(tab = 'list') {
+    this.openModal(tab);
+  }
+
+  openKarigarModal() {
+    this.openModal('karigar');
   }
 
   closeModal() {

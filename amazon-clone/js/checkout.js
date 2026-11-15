@@ -159,10 +159,10 @@ class CheckoutEngine {
     }
 
     // Direct Instant UPI Simulation Button
-    const simulateUpiBtn = document.getElementById('btn-simulate-upi-instant');
+    const simulateUpiBtn = document.getElementById('btn-simulate-qr-scan');
     if (simulateUpiBtn) {
       simulateUpiBtn.addEventListener('click', () => {
-        this.simulateInstantUPI();
+        this.simulateInstantUPI(simulateUpiBtn);
       });
     }
   }
@@ -352,7 +352,7 @@ class CheckoutEngine {
 
   updatePaymentPanels(method) {
     const upiBox = document.getElementById('checkout-upi-box');
-    const cardBox = document.getElementById('checkout-card-box');
+    const cardBox = document.getElementById('checkout-card-fields');
 
     if (upiBox) {
       upiBox.style.display = (method === 'upi') ? 'block' : 'none';
@@ -362,8 +362,8 @@ class CheckoutEngine {
     }
   }
 
-  simulateInstantUPI() {
-    const btn = document.getElementById('btn-simulate-upi-instant');
+  simulateInstantUPI(targetBtn = null) {
+    const btn = targetBtn || document.getElementById('btn-simulate-qr-scan');
     if (btn) {
       btn.disabled = true;
       btn.innerHTML = `<span class="btn-spinner"></span> Authenticating UPI with Bank...`;
@@ -429,7 +429,7 @@ class CheckoutEngine {
     const isVillage = ship.addressType === 'village';
 
     // Populate Review Step Shipping Details
-    const addrReview = document.getElementById('review-shipping-address');
+    const addrReview = document.getElementById('checkout-review-shipping-details');
     if (addrReview) {
       addrReview.innerHTML = `
         <strong>${window.amzStore.escapeHTML(ship.fullName)}</strong> (${window.amzStore.escapeHTML(ship.phone)})<br>
@@ -444,7 +444,7 @@ class CheckoutEngine {
     }
 
     // Populate Review Step Payment Details
-    const payReview = document.getElementById('review-payment-method');
+    const payReview = document.getElementById('checkout-review-payment-details');
     if (payReview) {
       let payDesc = '⚡ UPI Instant Pay (Google Pay)';
       if (this.orderData.payment.method === 'cod') {
@@ -456,7 +456,7 @@ class CheckoutEngine {
     }
 
     // Populate Review Items List
-    const itemsReview = document.getElementById('review-items-list');
+    const itemsReview = document.getElementById('checkout-review-items');
     if (itemsReview && window.amzCart) {
       itemsReview.innerHTML = window.amzCart.items.map(item => `
         <div class="review-item-row">
@@ -470,9 +470,9 @@ class CheckoutEngine {
     }
 
     // Populate Pricing Breakdown
-    const subtotalEl = document.getElementById('review-subtotal');
-    const shippingEl = document.getElementById('review-shipping');
-    const totalEl = document.getElementById('review-total');
+    const subtotalEl = document.getElementById('checkout-summary-subtotal');
+    const shippingEl = document.getElementById('checkout-summary-shipping');
+    const totalEl = document.getElementById('checkout-summary-total');
 
     if (subtotalEl) subtotalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `$${summary.subtotal.toFixed(2)}`;
     if (shippingEl) shippingEl.textContent = summary.shipping === 0 ? 'FREE' : (window.amzApp ? window.amzApp.formatPrice(summary.shipping) : `$${summary.shipping.toFixed(2)}`);

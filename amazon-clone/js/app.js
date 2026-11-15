@@ -109,11 +109,8 @@ class AmazonApp {
   // 2. LIGHTNING DEALS COUNTDOWN TIMER
   // ==========================================
   initLightningDealsTimer() {
-    const hoursEl = document.getElementById('deals-hours');
-    const minsEl = document.getElementById('deals-minutes');
-    const secsEl = document.getElementById('deals-seconds');
-
-    if (!hoursEl || !minsEl || !secsEl) return;
+    const flashClock = document.getElementById('flash-clock');
+    if (!flashClock) return;
 
     const updateTimer = () => {
       const remaining = Math.max(0, this.dealEndTime - Date.now());
@@ -122,14 +119,7 @@ class AmazonApp {
       const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
 
-      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-      if (minsEl) minsEl.textContent = String(minutes).padStart(2, '0');
-      if (secsEl) secsEl.textContent = String(seconds).padStart(2, '0');
-
-      const flashClock = document.getElementById('flash-clock');
-      if (flashClock) {
-        flashClock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      }
+      flashClock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
       if (remaining <= 0) {
         this.dealEndTime = Date.now() + 8 * 3600 * 1000;
@@ -193,9 +183,7 @@ class AmazonApp {
   }
 
   updateCurrencyNavbarBadge() {
-    const codeEl = document.getElementById('nav-current-currency-code');
     const symbolEl = document.getElementById('nav-current-currency-symbol');
-    if (codeEl) codeEl.textContent = this.currentCurrency;
     if (symbolEl && typeof CURRENCIES !== 'undefined' && CURRENCIES[this.currentCurrency]) {
       symbolEl.textContent = CURRENCIES[this.currentCurrency].symbol;
     }

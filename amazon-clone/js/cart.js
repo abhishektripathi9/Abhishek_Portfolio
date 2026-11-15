@@ -182,7 +182,17 @@ class CartEngine {
 
   broadcastCartUpdate() {
     const summary = this.getSummary();
+    const countEl = document.getElementById('nav-cart-count');
+    if (countEl) {
+      countEl.textContent = summary.itemCount;
+    }
     window.dispatchEvent(new CustomEvent('cart:updated', {
+      detail: {
+        items: this.items,
+        summary
+      }
+    }));
+    window.dispatchEvent(new CustomEvent('amz:cart-updated', {
       detail: {
         items: this.items,
         summary
@@ -236,3 +246,9 @@ class CartEngine {
 
 // Instantiate global cart engine
 window.amzCart = new CartEngine();
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.amzCart) {
+    window.amzCart.broadcastCartUpdate();
+  }
+});

@@ -457,8 +457,8 @@ class ModalEngine {
   }
 
   renderCartDrawer() {
-    const listEl = document.getElementById('cart-drawer-items-list');
-    const subtotalEl = document.getElementById('cart-drawer-subtotal-val');
+    const listEl = document.getElementById('cart-drawer-items');
+    const subtotalEl = document.getElementById('cart-drawer-subtotal');
     const countEl = document.getElementById('cart-drawer-count');
 
     if (!listEl || !window.amzCart) return;
@@ -488,9 +488,9 @@ class ModalEngine {
       const formattedPrice = window.amzApp ? window.amzApp.formatPrice(item.price) : `$${item.price.toFixed(2)}`;
       return `
         <div class="cart-drawer-item" data-product-id="${item.id}">
-          <img src="${item.image}" alt="${window.amzStore.escapeHTML(item.title)}" class="cart-item-thumb" />
+          <img src="${item.image}" alt="${window.amzStore ? window.amzStore.escapeHTML(item.title) : item.title}" class="cart-item-thumb" />
           <div class="cart-item-details">
-            <h5 class="cart-item-title">${window.amzStore.escapeHTML(item.shortTitle || item.title)}</h5>
+            <h5 class="cart-item-title">${window.amzStore ? window.amzStore.escapeHTML(item.shortTitle || item.title) : (item.shortTitle || item.title)}</h5>
             <div class="cart-item-price">${formattedPrice}</div>
             <div class="cart-item-actions">
               <div class="cart-qty-stepper">
@@ -507,12 +507,14 @@ class ModalEngine {
   }
 
   bindCartReactiveUpdates() {
-    window.addEventListener('amz:cart-updated', () => {
+    const handleCartUpdate = () => {
       const drawer = document.getElementById('cart-drawer');
       if (drawer && drawer.classList.contains('is-open')) {
         this.renderCartDrawer();
       }
-    });
+    };
+    window.addEventListener('amz:cart-updated', handleCartUpdate);
+    window.addEventListener('cart:updated', handleCartUpdate);
   }
 
   // ==========================================
@@ -520,7 +522,7 @@ class ModalEngine {
   // ==========================================
   bindDepartmentDrawer() {
     const hamburgerBtn = document.getElementById('nav-hamburger-btn');
-    const closeBtn = document.getElementById('dept-drawer-close-btn');
+    const closeBtn = document.getElementById('department-drawer-close-btn');
 
     if (hamburgerBtn) {
       hamburgerBtn.addEventListener('click', () => {
@@ -548,7 +550,7 @@ class ModalEngine {
   }
 
   openDepartmentDrawer() {
-    const drawer = document.getElementById('dept-drawer');
+    const drawer = document.getElementById('department-drawer');
     const overlay = document.getElementById('global-overlay');
 
     if (drawer) {
@@ -559,12 +561,12 @@ class ModalEngine {
   }
 
   closeDepartmentDrawer() {
-    const drawer = document.getElementById('dept-drawer');
+    const drawer = document.getElementById('department-drawer');
     const overlay = document.getElementById('global-overlay');
 
     if (drawer) {
       drawer.classList.remove('is-open');
-      if (overlay && !document.querySelector('.amz-modal.is-open, .modal.is-open:not(#dept-drawer), .cart-drawer.is-open')) {
+      if (overlay && !document.querySelector('.amz-modal.is-open, .modal.is-open:not(#department-drawer), .cart-drawer.is-open')) {
         overlay.classList.remove('is-open');
       }
       document.body.style.overflow = '';

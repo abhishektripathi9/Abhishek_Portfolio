@@ -1141,6 +1141,7 @@
                 <label class="form-label" for="ship-zip">PIN / Postal Code (पिन कोड)</label>
                 <input type="text" id="ship-zip" class="form-input" placeholder="e.g. 221001" value="221001" required />
                 <span class="form-hint">6-digit Indian PIN code or local postal code</span>
+                <div id="pincode-trust-badge" class="pincode-trust-badge" style="display: none;"></div>
               </div>
             </div>
 
@@ -2611,8 +2612,8 @@
       <div>
         <h4 class="footer-col-title">MAKE MONEY WITH US</h4>
         <ul class="footer-link-list">
-          <li><a href="#" onclick="window.amzSeller ? window.amzSeller.openSellerModal() : null; return false;">Sell on UdaanMart</a></li>
-          <li><a href="#" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null; return false;">Rural Karigar Hub Onboarding</a></li>
+          <li><a href="#" id="footer-sell-link" onclick="window.amzSeller ? window.amzSeller.openSellerModal() : null; return false;">Sell on UdaanMart</a></li>
+          <li><a href="#" id="footer-karigar-link" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null; return false;">Rural Karigar Hub Onboarding</a></li>
           <li><a href="#">Supply to Udaan Wholesale</a></li>
           <li><a href="#">Become an Affiliate Partner</a></li>
           <li><a href="#">Advertise Your Products</a></li>
