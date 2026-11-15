@@ -475,46 +475,79 @@ class ModalEngine {
   renderCartDrawer() {
     const listEl = document.getElementById('cart-drawer-items');
     const subtotalEl = document.getElementById('cart-drawer-subtotal');
+    const totalEl = document.getElementById('cart-drawer-total');
     const countEl = document.getElementById('cart-drawer-count');
+    const itemsLabelEl = document.getElementById('cart-subtotal-items-label');
+    const emptyStateEl = document.getElementById('cart-drawer-empty');
+    const filledStateEl = document.getElementById('cart-drawer-filled');
+    const quickAddonCard = document.getElementById('cart-quick-addon-card');
 
     if (!listEl || !window.amzCart) return;
 
     const summary = window.amzCart.getSummary();
-
-    if (subtotalEl) {
-      subtotalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `$${summary.subtotal.toFixed(2)}`;
-    }
+    const welfareCheck = document.getElementById('welfare-fund-check');
+    const welfareContribution = (welfareCheck && welfareCheck.checked) ? 100 : 0;
+    const orderTotal = summary.subtotal > 0 ? (summary.subtotal + welfareContribution) : 0;
 
     if (countEl) {
-      countEl.textContent = `${summary.totalCount} items`;
+      countEl.textContent = `${summary.itemCount} Items`;
+    }
+
+    if (itemsLabelEl) {
+      itemsLabelEl.textContent = `Subtotal (${summary.itemCount} Items):`;
+    }
+
+    if (subtotalEl) {
+      subtotalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `₹${summary.subtotal.toLocaleString('en-IN')}`;
+    }
+
+    if (totalEl) {
+      totalEl.textContent = window.amzApp ? window.amzApp.formatPrice(orderTotal) : `₹${orderTotal.toLocaleString('en-IN')}`;
     }
 
     if (window.amzCart.items.length === 0) {
-      listEl.innerHTML = `
-        <div class="empty-cart-state">
-          <div class="empty-icon">🛒</div>
-          <h4>Your UdaanMart Cart is empty</h4>
-          <p>Discover authentic rural weaves, handmade brassware, and lifestyle electronics with 1-click delivery.</p>
-        </div>
-      `;
+      listEl.innerHTML = '';
+      if (emptyStateEl) emptyStateEl.style.display = 'flex';
+      if (filledStateEl) filledStateEl.style.display = 'none';
+      if (quickAddonCard) quickAddonCard.style.display = 'none';
       return;
     }
 
+    if (emptyStateEl) emptyStateEl.style.display = 'none';
+    if (filledStateEl) filledStateEl.style.display = 'block';
+    if (quickAddonCard) quickAddonCard.style.display = 'block';
+
     listEl.innerHTML = window.amzCart.items.map(item => {
-      const formattedPrice = window.amzApp ? window.amzApp.formatPrice(item.price) : `$${item.price.toFixed(2)}`;
+      const formattedPrice = window.amzApp ? window.amzApp.formatPrice(item.price) : `₹${item.price.toLocaleString('en-IN')}`;
+      let catTag = 'HERITAGE HANDLOOM • GI-TAG-UP';
+      let subDesc = 'Direct from Artisan Guild • 100% Authentic Handcrafted';
+
+      if (item.category === 'clothing' || (item.categoryName && item.categoryName.includes('Fashion'))) {
+        catTag = item.id === 'prod-33' ? 'HERITAGE HANDLOOM • GI-TAG-UP' : 'CLOTHING & FASHION • PREMIUM WEAR';
+        subDesc = item.id === 'prod-33' ? 'Patola Zari | Woven in Mohalla Piil, Varanasi Karigar' : 'Comfort Tailored • Premium Breathable Fabric';
+      } else if (item.category === 'audio' || item.category === 'electronics') {
+        catTag = 'AUDIO & ELECTRONICS • 1-YR WARRANTY';
+        subDesc = 'Studio Hi-Fi Fidelity • Fast Bluetooth 5.3 & ANC';
+      } else if (item.category === 'kitchen') {
+        catTag = 'INDIA POTTERY • CERTIFIED';
+        subDesc = 'Natural Raw Quartz | Khurja & Jaipur Artisan Guild';
+      }
+
       return `
         <div class="cart-drawer-item" data-product-id="${item.id}">
           <img src="${item.image}" alt="${window.amzStore ? window.amzStore.escapeHTML(item.title) : item.title}" class="cart-item-thumb" />
           <div class="cart-item-details">
+            <span class="cd-item-tag-pill">${catTag}</span>
             <h5 class="cart-item-title">${window.amzStore ? window.amzStore.escapeHTML(item.shortTitle || item.title) : (item.shortTitle || item.title)}</h5>
-            <div class="cart-item-price">${formattedPrice}</div>
-            <div class="cart-item-actions">
+            <p class="cd-item-spec-line">${subDesc}</p>
+            <div class="cd-item-price-actions-row">
+              <div class="cart-item-price">${formattedPrice}</div>
               <div class="cart-qty-stepper">
-                <button class="qty-btn qty-minus" onclick="window.amzCart.updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                <button type="button" class="qty-btn qty-minus" onclick="window.amzCart.updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
                 <span class="qty-val">${item.quantity}</span>
-                <button class="qty-btn qty-plus" onclick="window.amzCart.updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                <button type="button" class="qty-btn qty-plus" onclick="window.amzCart.updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
               </div>
-              <button class="cart-remove-link" onclick="window.amzCart.removeItem('${item.id}')">Delete</button>
+              <button type="button" class="cart-remove-icon-btn" onclick="window.amzCart.removeItem('${item.id}')" title="Remove item">🗑</button>
             </div>
           </div>
         </div>
