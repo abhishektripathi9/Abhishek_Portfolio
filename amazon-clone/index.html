@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="cream">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amazon Clone 2.0 | Ultra-Modern E-Commerce Portfolio Showcase</title>
-  <meta name="description" content="Production-ready Amazon 2.0 E-Commerce Clone built with modern semantic HTML5, Vanilla CSS, and Modular ES6 JavaScript for freelancing portfolio.">
-  <meta name="keywords" content="Amazon Clone, E-Commerce, Vanilla JS, Portfolio Project, Freelancer, Web Developer">
-  <meta name="author" content="Portfolio Showcase">
+  <title>UdaanMart | Ultra-Modern E-Commerce Marketplace</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/udaanmart-icon.png">
+  <meta name="description" content="UdaanMart - Ultra-Modern E-Commerce Platform with 1-Click Express Buy, UPI and International Payments, and Seller Central Studio.">
+  <meta name="keywords" content="UdaanMart, E-Commerce, Online Shopping, Vanilla JS, Fast Delivery, Marketplace">
+  <meta name="author" content="UdaanMart">
 
   <!-- Google Fonts: Outfit (headings) & Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,11 +16,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Application Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/modals.css">
-  <link rel="stylesheet" href="css/animations-3d.css">
+  <link rel="stylesheet" href="css/variables.css?v=3.1">
+  <link rel="stylesheet" href="css/main.css?v=3.1">
+  <link rel="stylesheet" href="css/components.css?v=3.1">
+  <link rel="stylesheet" href="css/modals.css?v=3.1">
+
+  <!-- Instant Theme Initializer to prevent flash of wrong theme -->
+  <script>
+    (function() {
+      try {
+        localStorage.removeItem('amz_theme_v2');
+        var savedTheme = localStorage.getItem('udaan_theme_v1') || 'cream';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } catch(e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -30,11 +42,9 @@
        ======================================================================== -->
   <header class="nav-header" id="navbar">
     <div class="nav-top-bar">
-      <!-- Amazon Logo -->
-      <a href="#" class="nav-logo-box" aria-label="Amazon Home">
-        <span class="nav-brand-logo">
-          amazon<span class="brand-dot-com">.clone</span>
-        </span>
+      <!-- UdaanMart Brand Logo -->
+      <a href="#" class="nav-logo-box" aria-label="UdaanMart Home">
+        <img src="images/udaanmart-logo-transparent.png" alt="UdaanMart" class="nav-brand-img" />
         <span class="brand-prime-tag">Prime</span>
       </a>
 
@@ -42,8 +52,8 @@
       <div class="nav-delivery-box" id="nav-deliver-location-btn" role="button" tabindex="0" title="Change delivery location">
         <span class="nav-pin-icon">📍</span>
         <div class="nav-delivery-text">
-          <span class="delivery-line-1">Deliver to</span>
-          <span class="delivery-line-2" id="nav-delivery-city">New York 10001</span>
+          <span class="delivery-line-1">डिलीवरी स्थान</span>
+          <span class="delivery-line-2" id="nav-delivery-city">New Delhi 110001</span>
         </div>
       </div>
 
@@ -66,7 +76,7 @@
           type="text" 
           class="nav-search-input" 
           id="navbar-search-input" 
-          placeholder="Search Amazon Clone, products, brands, or deals..."
+          placeholder="Search UdaanMart, products, brands, or deals..."
           autocomplete="off"
           aria-label="Search"
         />
@@ -83,15 +93,29 @@
 
       <!-- Action Navigation Links -->
       <div class="nav-actions-group">
+        <!-- Language Selector Pill -->
+        <div class="nav-pill-btn" id="nav-language-picker" title="Change Language / भाषा बदलें">
+          <span id="nav-current-lang-flag">🇮🇳</span>
+          <select class="currency-select-inline" id="language-selector" aria-label="Select language">
+            <option value="hi" selected>हिन्दी (HI)</option>
+            <option value="en">English (EN)</option>
+            <option value="es">Español (ES)</option>
+            <option value="fr">Français (FR)</option>
+            <option value="de">Deutsch (DE)</option>
+            <option value="ja">日本語 (JA)</option>
+            <option value="ar">العربية (AR)</option>
+          </select>
+        </div>
+
         <!-- Currency Converter Pill -->
         <div class="nav-pill-btn" title="Change currency">
-          <span id="nav-current-currency-symbol">$</span>
-          <span id="nav-current-currency-code" style="display:none">USD</span>
+          <span id="nav-current-currency-symbol">₹</span>
+          <span id="nav-current-currency-code" style="display:none">INR</span>
           <select class="currency-select-inline currency-selector" aria-label="Select currency">
+            <option value="INR" selected>INR (₹)</option>
             <option value="USD">USD ($)</option>
             <option value="EUR">EUR (€)</option>
             <option value="GBP">GBP (£)</option>
-            <option value="INR">INR (₹)</option>
             <option value="JPY">JPY (¥)</option>
             <option value="CAD">CAD (CA$)</option>
           </select>
@@ -99,8 +123,8 @@
 
         <!-- Theme Mode Toggle Button -->
         <button class="nav-pill-btn theme-toggle-btn" title="Toggle Dark / Light Theme" aria-label="Theme switch">
-          <span class="theme-icon">☀️</span>
-          <span class="theme-label">Light Mode</span>
+          <span class="theme-icon">🍦</span>
+          <span class="theme-label">Cream Mode</span>
         </button>
 
         <!-- Account & Lists Trigger -->
@@ -160,7 +184,7 @@
       </div>
 
       <div class="nav-sub-right">
-        <button class="seller-hub-pill-btn" id="open-seller-hub-btn" title="Open Amazon Seller Central Portal">
+        <button class="seller-hub-pill-btn" id="open-seller-hub-btn" title="Open UdaanMart Seller Central Portal">
           <span class="seller-pulse-dot"></span>
           <span class="seller-hub-text">🚀 Seller Central <span class="seller-hindi">(बेचें)</span></span>
         </button>
@@ -172,53 +196,86 @@
   </header>
 
   <!-- ========================================================================
-       MAIN HERO SECTION: 3D SPATIAL ARENA & PROMOTIONS
+       MAIN HERO SECTION: E-COMMERCE PROMOTIONS CAROUSEL
        ======================================================================== -->
-  <section class="hero-section" id="hero-carousel" aria-label="3D Spatial Promotions Arena">
-    <div class="hero-3d-spatial-container">
-      <div class="hero-content">
-        <span class="hero-tag" style="background: linear-gradient(135deg, #ff9900, #f08804); box-shadow: 0 0 16px rgba(255, 153, 0, 0.6); display: inline-flex; align-items: center; gap: 6px;">
-          <span>⚡</span> Next-Gen 3D Interactive
-        </span>
-        <h2 class="hero-title" style="letter-spacing: -0.5px;">
-          Experience Tomorrow's Tech in <span style="background: linear-gradient(135deg, #00f2fe, #4facfe, #febd69); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">True 3D</span>
-        </h2>
-        <p class="hero-desc">
-          Interact with real-time WebGL 3D models, rotate 360° across spherical axes, inspect spatial acoustics, and discover cutting-edge electronics with Prime delivery.
-        </p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="#products-section" class="hero-cta-btn" data-filter-category="audio">
-            Explore 3D Audio Flagship →
-          </a>
-          <a href="#deals-banner-strip" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.12); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25);">
-            ⚡ Today's Lightning Deals
-          </a>
+  <section class="hero-section" id="hero-carousel" aria-label="UdaanMart Featured Promotions">
+    <div class="hero-carousel">
+      <!-- Slide 1: Electronics & Smart Gadgets -->
+      <div class="hero-slide is-active">
+        <img 
+          src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=1600&q=80" 
+          alt="Top Electronics, Audio and Smart Gadgets" 
+          class="hero-slide-bg" 
+        />
+        <div class="hero-content">
+          <span class="hero-tag">⚡ Festive Mega Savings</span>
+          <h2 class="hero-title">Top Electronics & Smart Gadgets</h2>
+          <p class="hero-desc">
+            Save up to 60% on premium audio, 4K displays, smartphones, and accessories with free same-day express delivery.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="#products-section" class="hero-cta-btn" data-filter-category="electronics">
+              Shop Electronics →
+            </a>
+            <a href="#deals-banner-strip" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);">
+              ⚡ Lightning Deals
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Interactive Three.js 3D Canvas Wrapper -->
-      <div class="hero-3d-canvas-wrapper" id="hero-3d-canvas-wrapper" title="Click & drag to rotate 3D gadget in 360°">
-        <canvas id="hero-three-canvas"></canvas>
-
-        <!-- Interactive 3D Spatial Hotspot Pins -->
-        <div class="spatial-hotspot" style="top: 36%; left: 32%;">
-          <div class="hotspot-beacon"></div>
-          <div class="hotspot-label">Titanium Acoustic Arc (Ultra-Light)</div>
-        </div>
-        <div class="spatial-hotspot" style="top: 60%; left: 24%;">
-          <div class="hotspot-beacon"></div>
-          <div class="hotspot-label">Active ANC Matrix (-42dB)</div>
-        </div>
-        <div class="spatial-hotspot" style="top: 55%; left: 64%;">
-          <div class="hotspot-beacon"></div>
-          <div class="hotspot-label">30-Hour Fast Charge Core</div>
-        </div>
-
-        <div class="hero-3d-drag-hint">
-          <span class="drag-icon-rotate">🔄</span>
-          <span>Click & Drag to Rotate in 360°</span>
+      <!-- Slide 2: Trending Fashion & Lifestyle -->
+      <div class="hero-slide">
+        <img 
+          src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80" 
+          alt="Trending Fashion and Apparel Collections" 
+          class="hero-slide-bg" 
+        />
+        <div class="hero-content">
+          <span class="hero-tag" style="background: #2563eb;">✨ Fashion & Lifestyle</span>
+          <h2 class="hero-title">Elevate Your Everyday Style</h2>
+          <p class="hero-desc">
+            Explore curated collections for Men & Women, luxury timepieces, denim, footwear, and designer accessories.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="#products-section" class="hero-cta-btn" data-filter-category="clothing">
+              Explore Fashion →
+            </a>
+            <a href="#products-section" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);" data-filter-category="fashion">
+              Luxury Watches & Bags
+            </a>
+          </div>
         </div>
       </div>
+
+      <!-- Slide 3: UdaanMart Karigar Rural Artisans -->
+      <div class="hero-slide">
+        <img 
+          src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&q=80" 
+          alt="Authentic Indian Handloom Sarees and Pottery" 
+          class="hero-slide-bg" 
+        />
+        <div class="hero-content">
+          <span class="hero-tag" style="background: #059669;">🇮🇳 UdaanMart Karigar</span>
+          <h2 class="hero-title">Direct from Master Indian Artisans</h2>
+          <p class="hero-desc">
+            Authentic pure Banarasi silk sarees, Kolhapuri craft, Jaipur blue pottery, and handcrafted heritage pieces.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button type="button" class="hero-cta-btn" onclick="window.amzSeller ? window.amzSeller.openKarigarModal() : null;">
+              Support Rural Artisans →
+            </button>
+            <a href="#products-section" class="hero-cta-btn" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3);" data-filter-category="clothing">
+              Browse Handlooms
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Navigation Controls -->
+      <button class="hero-nav-btn hero-prev" id="hero-prev-btn" aria-label="Previous Slide">‹</button>
+      <button class="hero-nav-btn hero-next" id="hero-next-btn" aria-label="Next Slide">›</button>
+      <div class="hero-dots" id="hero-dots-container"></div>
     </div>
 
     <!-- Gradient fade into product cards -->
@@ -536,7 +593,7 @@
     <!-- Empty State -->
     <div class="cart-drawer-empty" id="cart-drawer-empty">
       <div class="cart-empty-icon">🛒</div>
-      <h4 class="cart-empty-title">Your Amazon Cart is empty</h4>
+      <h4 class="cart-empty-title">Your UdaanMart Cart is empty</h4>
       <p class="cart-empty-desc">Your shopping cart is currently waiting for something great. Explore lightning deals or popular electronics.</p>
       <button class="amz-btn amz-btn-primary" onclick="window.amzModal.closeCartDrawer()">
         Start Shopping Now
@@ -570,7 +627,7 @@
     <div class="department-drawer-body">
       <div class="dept-menu-section-title">Digital Content & Devices</div>
       <ul class="dept-menu-list">
-        <li><a href="#" class="dept-menu-item" data-side-category="audio"><span>Amazon Prime Music & Audio</span><span class="dept-arrow">›</span></a></li>
+        <li><a href="#" class="dept-menu-item" data-side-category="audio"><span>UdaanMart Prime Music & Audio</span><span class="dept-arrow">›</span></a></li>
         <li><a href="#" class="dept-menu-item" data-side-category="smarthome"><span>Echo & Alexa Smart Devices</span><span class="dept-arrow">›</span></a></li>
         <li><a href="#" class="dept-menu-item" data-side-category="electronics"><span>Fire Tablets & MacBooks</span><span class="dept-arrow">›</span></a></li>
       </ul>
@@ -613,33 +670,13 @@
 
       <div class="modal-body">
         <div class="quickview-layout">
-          <!-- Gallery Column with 3D Studio Switcher -->
+          <!-- Gallery Column -->
           <div class="qv-gallery-col">
-            <div class="qv-view-mode-tabs">
-              <button class="qv-tab-btn is-active" id="qv-tab-photos">
-                <span>📷 Photo Gallery</span>
-              </button>
-              <button class="qv-tab-btn" id="qv-tab-3d">
-                <span>✨ 3D Studio 360°</span>
-              </button>
-            </div>
-
             <!-- Standard Photo Box -->
             <div class="qv-main-image-box">
               <img src="" alt="" class="qv-main-image" />
             </div>
             <div class="qv-thumbnails-strip"></div>
-
-            <!-- Interactive 3D Studio Box -->
-            <div class="qv-3d-studio-container" id="qv-3d-studio-container">
-              <canvas id="qv-three-canvas"></canvas>
-              <div class="qv-3d-controls-overlay">
-                <button class="qv-3d-ctrl-btn" id="qv-3d-wireframe-btn">🕸️ Wireframe</button>
-                <button class="qv-3d-ctrl-btn" id="qv-3d-light-btn">⚡ Cyber Neon</button>
-                <button class="qv-3d-ctrl-btn" id="qv-3d-reset-btn">🔄 Reset Angle</button>
-              </div>
-              <span class="qv-3d-hint-text">Drag model to inspect 360°</span>
-            </div>
           </div>
 
           <!-- Details Column -->
@@ -857,7 +894,7 @@
               <label class="carrier-option-card">
                 <input type="radio" name="ship-carrier" value="ruralexpress" />
                 <div>
-                  <strong>⚡ Amazon Rural Express Hub Partner</strong>
+                  <strong>⚡ UdaanMart Rural Express Hub Partner</strong>
                   <div style="font-size: 0.78rem; color: var(--text-secondary);">Surface express delivery to nearest village hub & doorstep dispatch (FREE)</div>
                 </div>
               </label>
@@ -893,7 +930,7 @@
               <span>🇯🇵 Asia-Pacific (PayPay, Konbini, JCB)</span>
             </button>
             <button type="button" class="country-pay-tab" data-country-pane="global">
-              <span>🌍 Global & Wallets (Amazon Pay, Crypto)</span>
+              <span>🌍 Global & Wallets (UdaanMart Pay, Crypto)</span>
             </button>
           </div>
 
@@ -934,9 +971,9 @@
                     <span class="upi-app-icon">🔵</span>
                     <span class="upi-app-name">Paytm UPI</span>
                   </div>
-                  <div class="upi-app-chip" data-upi-app="Amazon Pay UPI">
+                  <div class="upi-app-chip" data-upi-app="UdaanMart Pay UPI">
                     <span class="upi-app-icon">🟠</span>
-                    <span class="upi-app-name">Amazon Pay</span>
+                    <span class="upi-app-name">UdaanMart Pay</span>
                   </div>
                   <div class="upi-app-chip" data-upi-app="BHIM UPI">
                     <span class="upi-app-icon">🟡</span>
@@ -1150,9 +1187,9 @@
           <!-- PANE 5: GLOBAL & WALLETS -->
           <div class="country-pay-pane" data-country-pane-content="global">
             <label class="payment-method-card">
-              <input type="radio" name="checkout-payment-method" value="amazonpay" />
+              <input type="radio" name="checkout-payment-method" value="udaanmartpay" />
               <div class="pm-label-box" style="flex: 1;">
-                <span class="pm-title">🟠 Amazon Pay Balance & Stored Credentials</span>
+                <span class="pm-title">🟠 UdaanMart Pay Balance & Stored Credentials</span>
                 <span class="pm-desc">Instant 1-click checkout with available account balance</span>
               </div>
             </label>
@@ -1160,7 +1197,7 @@
             <label class="payment-method-card">
               <input type="radio" name="checkout-payment-method" value="giftcard" />
               <div class="pm-label-box" style="flex: 1;">
-                <span class="pm-title">🎁 Redeem Amazon Gift Voucher / Promo Code</span>
+                <span class="pm-title">🎁 Redeem UdaanMart Gift Voucher / Promo Code</span>
                 <span class="pm-desc">Apply 16-digit voucher code to deduct from total</span>
               </div>
             </label>
@@ -1169,13 +1206,13 @@
             <div id="checkout-giftcard-box" style="display: none; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
               <label class="form-label" for="giftcard-code-input">Enter Gift Card or Promotional Code</label>
               <div style="display: flex; gap: 8px;">
-                <input type="text" id="giftcard-code-input" class="form-input" placeholder="e.g. AMZ-GIFT-50" value="AMZ-PRIME-2026" />
+                <input type="text" id="giftcard-code-input" class="form-input" placeholder="e.g. UDAAN-50" value="UDAAN-PRIME-2026" />
                 <button type="button" class="amz-btn amz-btn-primary" id="btn-apply-giftcard" style="width: auto; padding: 0 16px;">
                   Apply
                 </button>
               </div>
               <div class="upi-verify-badge" id="giftcard-success-badge" style="margin-top: 8px;">
-                ✓ Promo code AMZ-PRIME-2026 Applied ($10.00 / ₹835 Discount)
+                ✓ Promo code UDAAN-PRIME-2026 Applied ($10.00 / ₹835 Discount)
               </div>
             </div>
 
@@ -1390,7 +1427,7 @@
               <div class="chip-content">
                 <strong>🏢 City / Urban Residence</strong>
                 <p id="express-addr-city-text">Flat 402, Lotus Heights, Outer Ring Road, New Delhi / Bangalore</p>
-                <span class="chip-badge">Assigned: Amazon Prime Express Van</span>
+                <span class="chip-badge">Assigned: UdaanMart Express Van</span>
               </div>
             </label>
           </div>
@@ -1461,38 +1498,72 @@
        MODAL: DELIVERY LOCATION SELECTOR
        ======================================================================== -->
   <div class="modal" id="location-modal" role="dialog" aria-modal="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-large">
       <div class="modal-header">
-        <h3 class="modal-title">Choose Your Location</h3>
+        <h3 class="modal-title">🌍 Choose Your Delivery Location</h3>
         <button class="modal-close-btn" data-close-modal aria-label="Close modal">×</button>
       </div>
 
       <div class="modal-body">
-        <div style="background: linear-gradient(135deg, rgba(254, 189, 105, 0.15), rgba(0, 242, 254, 0.12)); border: 1px solid rgba(254, 189, 105, 0.4); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 16px; font-size: 0.85rem; color: var(--text-primary); display: flex; align-items: center; gap: 10px;">
-          <span style="font-size: 1.4rem;">🌐</span>
-          <span><strong>Automatic Currency Switching:</strong> Selecting your delivery country automatically converts all catalog prices, cart items, and deals to your local currency!</span>
+        <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(16, 185, 129, 0.12)); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 18px; font-size: 0.88rem; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.8rem;">🚀</span>
+          <div>
+            <strong id="location-guarantee-heading">100% Worldwide & Village Doorstep Delivery Guaranteed:</strong>
+            <div id="location-guarantee-desc" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">
+              Delivering to EVERY PIN code & Gram Panchayat across India via India Post Speed Post, and across 195+ countries worldwide via DHL/FedEx. Selecting any location automatically switches language and currency!
+            </div>
+          </div>
         </div>
 
         <form id="location-form">
           <div style="display: flex; gap: 8px;">
-            <input type="text" id="location-zip-input" class="form-input" placeholder="Type city or country (e.g. Mumbai, London, Paris, Tokyo, 400001, 10001)..." required />
-            <button type="submit" class="amz-btn amz-btn-primary" style="width: auto; white-space: nowrap; padding: 0 20px;">
-              Apply
+            <input type="text" id="location-zip-input" class="form-input" placeholder="Type ANY Village, City, PIN or ZIP code worldwide (e.g. Varanasi, 221001, Tokyo, Paris, London, Dubai, 10001)..." required />
+            <button type="submit" class="amz-btn amz-btn-primary" id="btn-apply-location" style="width: auto; white-space: nowrap; padding: 0 24px;">
+              Apply Location
             </button>
           </div>
         </form>
 
         <div style="margin-top: 22px;">
-          <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Select a global destination:</span>
-          <div class="location-chips-grid" style="margin-top: 10px;">
-            <button class="location-chip-btn" data-preset-location="Mumbai, India" data-currency="INR">🇮🇳 Mumbai, India (₹ INR)</button>
-            <button class="location-chip-btn" data-preset-location="New York, USA" data-currency="USD">🇺🇸 New York, USA ($ USD)</button>
-            <button class="location-chip-btn" data-preset-location="London, UK" data-currency="GBP">🇬🇧 London, UK (£ GBP)</button>
-            <button class="location-chip-btn" data-preset-location="Paris, France" data-currency="EUR">🇫🇷 Paris, France (€ EUR)</button>
-            <button class="location-chip-btn" data-preset-location="Berlin, Germany" data-currency="EUR">🇩🇪 Berlin, Germany (€ EUR)</button>
-            <button class="location-chip-btn" data-preset-location="Tokyo, Japan" data-currency="JPY">🇯🇵 Tokyo, Japan (¥ JPY)</button>
-            <button class="location-chip-btn" data-preset-location="Toronto, Canada" data-currency="CAD">🇨🇦 Toronto, Canada (CA$ CAD)</button>
-            <button class="location-chip-btn" data-preset-location="Seattle, USA" data-currency="USD">🇺🇸 Seattle, USA ($ USD)</button>
+          <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+            Quick Destinations (Auto Language, Currency & Carrier):
+          </div>
+          <div class="location-chips-grid">
+            <!-- India Villages & Cities -->
+            <button type="button" class="location-chip-btn" data-preset-location="Varanasi Village Cluster, UP (221001)" data-currency="INR" data-lang="hi">🇮🇳 वाराणसी देहात (Varanasi Rural - ₹ INR - हिन्दी)</button>
+            <button type="button" class="location-chip-btn" data-preset-location="New Delhi (110001)" data-currency="INR" data-lang="hi">🇮🇳 नई दिल्ली (New Delhi - ₹ INR - हिन्दी)</button>
+            <button type="button" class="location-chip-btn" data-preset-location="Mumbai, Maharashtra (400001)" data-currency="INR" data-lang="hi">🇮🇳 मुंबई (Mumbai - ₹ INR - हिन्दी)</button>
+            <button type="button" class="location-chip-btn" data-preset-location="Bengaluru, Karnataka (560001)" data-currency="INR" data-lang="hi">🇮🇳 बेंगलुरु (Bengaluru - ₹ INR - हिन्दी)</button>
+            <button type="button" class="location-chip-btn" data-preset-location="Azamgarh Rural Tehsil, UP (276001)" data-currency="INR" data-lang="hi">🇮🇳 आज़मगढ़ ग्रामीण (Azamgarh Village - ₹ INR)</button>
+            <button type="button" class="location-chip-btn" data-preset-location="Jaipur Crafts Hub (302001)" data-currency="INR" data-lang="hi">🇮🇳 जयपुर (Jaipur - ₹ INR - हिन्दी)</button>
+
+            <!-- USA -->
+            <button type="button" class="location-chip-btn" data-preset-location="New York, USA (10001)" data-currency="USD" data-lang="en">🇺🇸 New York, USA ($ USD - English)</button>
+            <button type="button" class="location-chip-btn" data-preset-location="Los Angeles, USA (90001)" data-currency="USD" data-lang="en">🇺🇸 Los Angeles, USA ($ USD - English)</button>
+
+            <!-- United Kingdom -->
+            <button type="button" class="location-chip-btn" data-preset-location="London, UK (SW1A 1AA)" data-currency="GBP" data-lang="en">🇬🇧 London, UK (£ GBP - English)</button>
+
+            <!-- Spain / Latin America -->
+            <button type="button" class="location-chip-btn" data-preset-location="Madrid, Spain (28001)" data-currency="EUR" data-lang="es">🇪🇸 Madrid, España (€ EUR - Español)</button>
+
+            <!-- France -->
+            <button type="button" class="location-chip-btn" data-preset-location="Paris, France (75001)" data-currency="EUR" data-lang="fr">🇫🇷 Paris, France (€ EUR - Français)</button>
+
+            <!-- Germany -->
+            <button type="button" class="location-chip-btn" data-preset-location="Berlin, Germany (10115)" data-currency="EUR" data-lang="de">🇩🇪 Berlin, Deutschland (€ EUR - Deutsch)</button>
+
+            <!-- Japan -->
+            <button type="button" class="location-chip-btn" data-preset-location="Tokyo, Japan (100-0001)" data-currency="JPY" data-lang="ja">🇯🇵 東京 (Tokyo, Japan - ¥ JPY - 日本語)</button>
+
+            <!-- UAE & Middle East -->
+            <button type="button" class="location-chip-btn" data-preset-location="Dubai, UAE" data-currency="USD" data-lang="ar">🇦🇪 دبي (Dubai, UAE - $ USD - العربية)</button>
+
+            <!-- Canada -->
+            <button type="button" class="location-chip-btn" data-preset-location="Toronto, Canada (M5H 2N2)" data-currency="CAD" data-lang="en">🇨🇦 Toronto, Canada (CA$ CAD - English)</button>
+
+            <!-- Australia -->
+            <button type="button" class="location-chip-btn" data-preset-location="Sydney, Australia (2000)" data-currency="USD" data-lang="en">🇦🇺 Sydney, Australia ($ USD - English)</button>
           </div>
         </div>
       </div>
@@ -1537,7 +1608,7 @@
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
           <div>
             <span class="hud-badge-tag">Freelance Portfolio Showcase</span>
-            <h2 class="hud-title">Amazon 2.0 Web Application</h2>
+            <h2 class="hud-title">UdaanMart Web Application</h2>
             <p class="hud-sub">Built to demonstrate enterprise-grade frontend architecture, UX polish, and modern vanilla web performance.</p>
           </div>
           <button class="modal-close-btn" id="portfolio-hud-close" style="color: #ffffff;">×</button>
@@ -1573,7 +1644,7 @@
           <div class="hud-feature-card">
             <div class="hud-card-icon">🌐</div>
             <h4 class="hud-card-title">Multi-Currency & Theme Modes</h4>
-            <p class="hud-card-desc">Live conversion between USD ($), EUR (€), GBP (£), and INR (₹), paired with a seamless Amazon Dark Luxury and Classic Light theme toggle.</p>
+            <p class="hud-card-desc">Live conversion between USD ($), EUR (€), GBP (£), and INR (₹), paired with a seamless UdaanMart Dark Luxury and Classic Light theme toggle.</p>
           </div>
 
           <div class="hud-feature-card">
@@ -1609,7 +1680,7 @@
           <div class="seller-badge-icon">🚀</div>
           <div>
             <div class="seller-heading-row">
-              <h2 class="seller-modal-heading" id="seller-modal-heading">Amazon Seller Central</h2>
+              <h2 class="seller-modal-heading" id="seller-modal-heading">UdaanMart Seller Central</h2>
               <span class="seller-hindi-pill">विक्रेता केंद्र</span>
               <span class="seller-karigar-pill">🏡 Karigar Hub</span>
             </div>
@@ -1631,7 +1702,7 @@
           <span>📊</span> Sales & Dispatches
         </button>
         <button class="seller-tab-btn" data-seller-tab="karigar">
-          <span>🏡</span> Amazon Karigar (Rural Artisans)
+          <span>🏡</span> UdaanMart Karigar (Rural Artisans)
         </button>
       </nav>
 
@@ -1782,7 +1853,7 @@ Easy 30-Day Replacements</textarea>
               <label class="seller-checkbox-label">
                 <input type="checkbox" id="seller-prod-karigar" />
                 <div>
-                  <strong>🏡 Amazon Karigar / Rural Indian Artisan Product</strong>
+                  <strong>🏡 UdaanMart Karigar / Rural Indian Artisan Product</strong>
                   <p>Check if handcrafted by rural Indian weavers, potters, or cottage artisans. Free doorstep village courier pickup & 0% listing fee.</p>
                 </div>
               </label>
@@ -1956,14 +2027,14 @@ Easy 30-Day Replacements</textarea>
         </div>
       </div>
 
-      <!-- Panel 4: Amazon Karigar & Rural Artisan Program -->
+      <!-- Panel 4: UdaanMart Karigar & Rural Artisan Program -->
       <div class="seller-tab-panel" id="seller-panel-karigar">
         <div class="karigar-banner">
           <div class="karigar-banner-content">
-            <span class="karigar-hero-tag">🇮🇳 Amazon Karigar & ODOP Initiative</span>
+            <span class="karigar-hero-tag">🇮🇳 UdaanMart Karigar & ODOP Initiative</span>
             <h3 class="karigar-banner-title">Empowering 1.5 Million Rural Indian Artisans & Weavers</h3>
             <p class="karigar-banner-desc">
-              Amazon Karigar connects traditional rural craftspeople directly to over 300 million customers worldwide. With zero upfront fees and doorstep pickup from 155,000+ Indian pincodes, village artisans retain 100% of their fair craft earnings.
+              UdaanMart Karigar connects traditional rural craftspeople directly to over 300 million customers worldwide. With zero upfront fees and doorstep pickup from 155,000+ Indian pincodes, village artisans retain 100% of their fair craft earnings.
             </p>
           </div>
         </div>
@@ -1972,7 +2043,7 @@ Easy 30-Day Replacements</textarea>
           <div class="karigar-pillar-card">
             <div class="pillar-icon">🚚</div>
             <h4>Doorstep Rural Pickup</h4>
-            <p>Amazon Logistics & India Post collect parcels directly from weavers' homes and rural clusters in remote villages.</p>
+            <p>UdaanMart Logistics & India Post collect parcels directly from weavers' homes and rural clusters in remote villages.</p>
           </div>
           <div class="karigar-pillar-card">
             <div class="pillar-icon">💸</div>
@@ -2028,29 +2099,29 @@ Easy 30-Day Replacements</textarea>
       <div>
         <h4 class="footer-col-title">Get to Know Us</h4>
         <ul class="footer-link-list">
-          <li><a href="#">About Amazon Clone</a></li>
+          <li><a href="#">About UdaanMart</a></li>
           <li><a href="#">Careers & Culture</a></li>
           <li><a href="#">Sustainability & Green Prime</a></li>
-          <li><a href="#">Amazon Science & AI</a></li>
+          <li><a href="#">UdaanMart Science & AI</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="footer-col-title">Make Money with Us</h4>
         <ul class="footer-link-list">
-          <li><a href="#" id="footer-sell-link">Sell products on Amazon (Seller Hub)</a></li>
-          <li><a href="#" id="footer-karigar-link">Amazon Karigar (Rural Artisans)</a></li>
-          <li><a href="#">Sell on Amazon Business</a></li>
+          <li><a href="#" id="footer-sell-link">Sell products on UdaanMart (Seller Hub)</a></li>
+          <li><a href="#" id="footer-karigar-link">UdaanMart Karigar (Rural Artisans)</a></li>
+          <li><a href="#">Sell on UdaanMart Business</a></li>
           <li><a href="#">Become an Affiliate Partner</a></li>
-          <li><a href="#">Fulfillment by Amazon (FBA)</a></li>
+          <li><a href="#">Fulfillment by UdaanMart (FBU)</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="footer-col-title">Amazon Payment Products</h4>
+        <h4 class="footer-col-title">UdaanMart Payment Products</h4>
         <ul class="footer-link-list">
-          <li><a href="#">Amazon Rewards Visa Signature</a></li>
-          <li><a href="#">Amazon Store Card</a></li>
+          <li><a href="#">UdaanMart Rewards Card</a></li>
+          <li><a href="#">UdaanMart Store Card</a></li>
           <li><a href="#">Shop with Points & Cash Back</a></li>
           <li><a href="#">Reload Your Balance</a></li>
         </ul>
@@ -2062,29 +2133,29 @@ Easy 30-Day Replacements</textarea>
           <li><a href="#" onclick="window.amzModal.openOrdersModal('orders'); return false;">Your Account & Orders</a></li>
           <li><a href="#">Shipping Rates & Policies</a></li>
           <li><a href="#">Returns & Replacements</a></li>
-          <li><a href="#">Amazon Assistant & Help</a></li>
+          <li><a href="#">UdaanMart Assistant & Help</a></li>
         </ul>
       </div>
     </div>
 
+    <div class="footer-brand-row">
+      <img src="images/udaanmart-logo-transparent.png" alt="UdaanMart" class="footer-brand-logo" />
+    </div>
     <div class="footer-bottom-bar">
-      <div>© 2026 Amazon Clone 2.0. Portfolio Demonstration Project. Not affiliated with Amazon.com, Inc.</div>
+      <div>© 2026 UdaanMart. All rights reserved.</div>
       <div class="footer-freelancer-note">Crafted with Precision for Freelancing Portfolio & Client Demonstrations</div>
     </div>
   </footer>
 
-  <!-- Three.js 3D WebGL Library (Lightweight CDN) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Application Logic Scripts -->
-  <script src="js/products-data.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/search-filter.js"></script>
-  <script src="js/modal.js"></script>
-  <script src="js/checkout.js"></script>
-  <script src="js/seller.js"></script>
-  <script src="js/tilt-3d.js"></script>
-  <script src="js/three-scene.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/i18n.js?v=3.3"></script>
+  <script src="js/products-data.js?v=3.3"></script>
+  <script src="js/cart.js?v=3.1"></script>
+  <script src="js/search-filter.js?v=3.1"></script>
+  <script src="js/modal.js?v=3.1"></script>
+  <script src="js/checkout.js?v=3.1"></script>
+  <script src="js/seller.js?v=3.1"></script>
+  <script src="js/app.js?v=3.1"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 /**
- * AMAZON CLONE - SELLER CENTRAL & RURAL ARTISAN HUB ENGINE
+ * UDAANMART - SELLER CENTRAL & RURAL ARTISAN HUB ENGINE
  * Interactive Merchant Portal allowing sellers & rural artisans to:
  * 1. Ultra-easy product upload with Drag-and-Drop, Photo Chips, and Smart AI Templates
  * 2. Live real-time Buyer's View product card preview
  * 3. Manage real-time inventory and pricing
  * 4. Track sales analytics and village / global city order dispatches
- * 5. Access the Amazon Karigar Rural Artisan Program
+ * 5. Access the UdaanMart Karigar Rural Artisan Program
  */
 
 class SellerCentralEngine {
@@ -32,14 +32,14 @@ class SellerCentralEngine {
         isKarigar: false
       },
       saree: {
-        title: "Amazon Karigar Handcrafted Pure Chanderi Silk Zari Saree from Madhya Pradesh",
+        title: "UdaanMart Karigar Handcrafted Pure Chanderi Silk Zari Saree from Madhya Pradesh",
         shortTitle: "Artisan Chanderi Silk Zari Saree",
         category: "clothing",
         gender: "women",
         price: 119.00,
         stock: 15,
         image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
-        features: "Woven by traditional rural weavers under Amazon Karigar cluster\n100% Pure certified natural silk with metallic golden border\nIncludes matching unstitched blouse piece (0.8m)",
+        features: "Woven by traditional rural weavers under UdaanMart Karigar cluster\n100% Pure certified natural silk with metallic golden border\nIncludes matching unstitched blouse piece (0.8m)",
         isKarigar: true
       },
       watch: {
@@ -76,7 +76,7 @@ class SellerCentralEngine {
         isKarigar: false
       },
       pottery: {
-        title: "Amazon Karigar Handcrafted Terracotta Blue Pottery Ceramic Tableware Set from Jaipur",
+        title: "UdaanMart Karigar Handcrafted Terracotta Blue Pottery Ceramic Tableware Set from Jaipur",
         shortTitle: "Artisan Jaipur Blue Pottery Set",
         category: "kitchen",
         gender: "unisex",
@@ -433,7 +433,7 @@ class SellerCentralEngine {
     }
 
     if (prevBadge) {
-      prevBadge.textContent = isKarigar ? "Amazon Karigar" : "New Seller Launch";
+      prevBadge.textContent = isKarigar ? "UdaanMart Karigar" : "New Seller Launch";
     }
 
     if (prevDelivery) {
@@ -487,7 +487,7 @@ class SellerCentralEngine {
         discountPercent: 23,
         rating: 5.0,
         ratingCount: 1,
-        badge: isRuralKarigar ? "Amazon Karigar" : "New Seller Launch",
+        badge: isRuralKarigar ? "UdaanMart Karigar" : "New Seller Launch",
         isPrime: true,
         delivery: isRuralKarigar ? "FREE Doorstep Village Delivery in 2 Days" : "FREE Delivery Tomorrow, 7 AM - 11 AM",
         stock: stock,
@@ -500,9 +500,9 @@ class SellerCentralEngine {
         ],
         features: featuresRaw.split('\n').map(f => f.trim()).filter(Boolean),
         specs: {
-          "Seller": isRuralKarigar ? "Certified Amazon Karigar Rural Artisan Guild" : "Amazon Verified Marketplace Merchant",
+          "Seller": isRuralKarigar ? "Certified UdaanMart Karigar Rural Artisan Guild" : "UdaanMart Verified Marketplace Merchant",
           "Target Audience": gender === 'men' ? "Men's Collection" : (gender === 'women' ? "Women's Collection" : "Universal / Unisex"),
-          "Dispatch Location": isRuralKarigar ? "Direct Village Craft Center (India)" : "Amazon FBA Fulfillment Hub",
+          "Dispatch Location": isRuralKarigar ? "Direct Village Craft Center (India)" : "UdaanMart Logistics Fulfillment Hub",
           "Warranty": "1-Year Seller Replacement Guarantee"
         }
       };

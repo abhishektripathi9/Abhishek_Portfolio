@@ -556,22 +556,22 @@ const projectData = {
     liveDemo: './smart-billing/index.html'
   },
   'amazon-clone': {
-    title: 'E-Commerce Marketplace & Order Processing System (Amazon 2.0)',
+    title: 'UdaanMart - Global E-Commerce Marketplace & Logistics Platform',
     year: '2026',
-    category: 'Full Stack MERN & 3D WebGL',
+    category: 'Global E-Commerce & Logistics Engine',
     image: 'assets/project-amazon-clone.jpg',
-    desc: 'Scalable full-stack e-commerce web application featuring dynamic product catalogs, persistent shopping cart, and authenticated checkout flows. Engineered with 12+ RESTful APIs with request validation, role-based JWT authorization, automated invoice generation, and relational MySQL transactional ACID safety.',
+    desc: 'Scalable global e-commerce web platform featuring dynamic multi-currency conversion, auto-country language localization (7 languages), guaranteed delivery to 155,000+ Indian village PIN codes & 195+ countries worldwide, aesthetic cream luxury UI, persistent cart, and 1-click Express Buy.',
     highlights: [
-      'Architected a scalable full-stack web application featuring dynamic product catalogs, persistent shopping cart, and authenticated checkout flows.',
-      'Engineered 12+ RESTful API endpoints with request validation, role-based JWT authorization, and automated invoice generation.',
-      'Designed an indexed relational MySQL schema with transactional safety to prevent inventory concurrency errors and double-booking.',
-      'Interactive 3D Three.js Spatial Arena with 360° spherical orbit drag, rotational inertia, and animated pulsing feature hotspots.',
-      'Village & Rural Doorstep Delivery engine supporting 155,000+ India Post PIN codes, Gram Panchayats, and global postal routes.',
-      'Instant UPI payment engine (Google Pay, PhonePe, Paytm, BHIM QR generator) + real-time multi-currency converter (INR, USD, EUR, GBP).'
+      'Ultra-Modern Cream Luxury UI: Crafted with an aesthetic warm porcelain palette (#faf6ee), elevated cards, deep slate typography, and warm amber gold branding.',
+      'Country-Smart Auto Localization: Automatically detects user delivery country / PIN and translates the entire page to Hindi, English, Spanish, French, German, Japanese, or Arabic.',
+      'Universal Logistics Network: 100% doorstep delivery guarantee to 155,000+ Indian villages via India Post Speed Post, and 195+ countries worldwide via DHL/FedEx Express.',
+      'Seller Central Studio: Interactive portal empowering rural Karigar artisans and marketplace sellers with live previews, catalog generators, and dispatch hubs.',
+      '1-Click Express Buy: Streamlined purchase flow with instant UPI integration (Google Pay, PhonePe, Paytm, BHIM QR) and downloadable invoice receipts.',
+      'High-Performance Vanilla Stack: Zero heavy bundler lag, sub-second initial paint, fluid mobile responsiveness, and zero 3D overhead.'
     ],
-    tech: ['React.js', 'Node.js', 'Express.js', 'MySQL', 'JWT Authentication', 'Three.js', 'RESTful APIs'],
+    tech: ['JavaScript ES6+', 'HTML5 Semantic', 'CSS3 Variables', 'i18n Localization', 'Multi-Currency', 'Express Buy'],
     github: 'https://github.com/abhishektripathi9/Amazon-clone-',
-    liveDemo: './amazon-clone/index.html'
+    liveDemo: 'https://abhishektripathi9.github.io/Amazon-clone-/'
   },
   'flipkart-powerbi': {
     title: 'Flipkart E-Commerce Sales & Customer Intelligence',

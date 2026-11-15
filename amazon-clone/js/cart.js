@@ -1,5 +1,5 @@
 /**
- * AMAZON CLONE - CART & WISHLIST ENGINE
+ * UDAANMART - CART & WISHLIST ENGINE
  * Handles reactive shopping cart state, quantity mutations, Free Prime Shipping progress,
  * localStorage persistence, and custom broadcast events.
  */

@@ -1,5 +1,5 @@
 /**
- * AMAZON CLONE - SIMULATED CHECKOUT & ORDER DISPATCH ENGINE
+ * UDAANMART - SIMULATED CHECKOUT & ORDER DISPATCH ENGINE
  * High-fidelity 3-step checkout simulation with client-side form validation,
  * dynamic confetti particle system, and persistent order tracking history.
  */
@@ -438,7 +438,7 @@ class CheckoutEngine {
     }
 
     const carrierName = carrierInput?.value === 'ruralexpress' 
-      ? 'Amazon Rural Express Hub Partner' 
+      ? 'UdaanMart Rural Express Hub Partner' 
       : 'India Post Speed Post (Last-Mile Village Doorstep)';
 
     this.orderData.shipping = {
@@ -621,13 +621,14 @@ class CheckoutEngine {
           payTitle = `🇯🇵 JCB International Card`;
           paySub = `JCB card ending in 8109`;
           break;
+        case 'udaanmartpay':
         case 'amazonpay':
-          payTitle = `🟠 Amazon Pay Balance`;
+          payTitle = `🟠 UdaanMart Pay Balance`;
           paySub = `Deducted from available stored wallet`;
           break;
         case 'giftcard':
-          payTitle = `🎁 Amazon Gift Card / Promo Code`;
-          paySub = `Voucher ${p.giftCode || 'AMZ-PRIME-2026'} applied`;
+          payTitle = `🎁 UdaanMart Gift Card / Promo Code`;
+          paySub = `Voucher ${p.giftCode || 'UDAAN-PRIME-2026'} applied`;
           break;
         case 'crypto':
           payTitle = `🪙 Web3 Crypto Payment`;
@@ -774,7 +775,7 @@ CARRIER: ${order.carrierPartner}
 
     const receiptContent = `
 ============================================================
-              AMAZON 2.0 ORDER CONFIRMATION & RECEIPT
+              UDAANMART ORDER CONFIRMATION & RECEIPT
 ============================================================
 Order ID: ${order.orderId}
 Carrier Tracking: ${order.trackingNumber}
@@ -793,8 +794,8 @@ ${order.items.map(i => `- ${i.title} (Qty: ${i.quantity}) - ${window.amzApp ? wi
 TOTAL CHARGE: ${window.amzApp ? window.amzApp.formatPrice(order.total) : '$' + order.total.toFixed(2)}
 ============================================================
 ✓ Guaranteed Doorstep Delivery to Remote Villages Across India & Globally
-✓ Delivered via India Post Speed Post & Amazon Rural Logistics
-Thank you for using this Amazon Clone portfolio demonstration!
+✓ Delivered via India Post Speed Post & UdaanMart Rural Logistics
+Thank you for shopping at UdaanMart!
 ============================================================
     `.trim();
 
@@ -802,7 +803,7 @@ Thank you for using this Amazon Clone portfolio demonstration!
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Amazon-Receipt-${order.orderId}.txt`;
+    a.download = `UdaanMart-Receipt-${order.orderId}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1032,7 +1033,7 @@ Thank you for using this Amazon Clone portfolio demonstration!
       const total = this.expressProduct.price * (this.expressQty || 1);
       const randomDigits = Math.floor(1000000 + Math.random() * 9000000);
       const orderId = `114-${randomDigits}-7890123`;
-      const carrier = isVillage ? 'India Post Rural Speed Post' : 'Amazon Prime Express Van';
+      const carrier = isVillage ? 'India Post Rural Speed Post' : 'UdaanMart Express Van';
       const trackingNo = isVillage ? `IN${Math.floor(100000000 + Math.random() * 900000000)}RP` : `TBA${Math.floor(100000000000 + Math.random() * 900000000000)}`;
 
       const newOrder = {

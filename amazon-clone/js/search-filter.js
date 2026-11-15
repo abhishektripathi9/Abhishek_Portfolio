@@ -1,5 +1,5 @@
 /**
- * AMAZON CLONE - SEARCH, FILTER & SORT ENGINE
+ * UDAANMART - SEARCH, FILTER & SORT ENGINE
  * Fast live search with debounced autocomplete, multi-facet filtering,
  * and high-performance product grid rendering.
  */
@@ -408,8 +408,8 @@ class SearchFilterEngine {
     let badgeHtml = '';
     if (prod.badge === 'Best Seller') {
       badgeHtml = `<span class="prod-badge badge-bestseller">#1 Best Seller</span>`;
-    } else if (prod.badge === "Amazon's Choice") {
-      badgeHtml = `<span class="prod-badge badge-choice">Amazon's <span class="choice-accent">Choice</span></span>`;
+    } else if (prod.badge === "Udaan's Choice") {
+      badgeHtml = `<span class="prod-badge badge-choice">Udaan's <span class="choice-accent">Choice</span></span>`;
     } else if (prod.badge === 'Limited Deal') {
       badgeHtml = `<span class="prod-badge badge-deal">Limited time deal</span>`;
     } else if (prod.badge) {
@@ -468,7 +468,7 @@ class SearchFilterEngine {
             <span class="prod-category-tag">${prod.categoryName}</span>
             ${
               prod.isRuralKarigar 
-                ? '<span class="prod-tag-pill tag-karigar" title="Amazon Karigar Rural Certified">🏡 Karigar</span>'
+                ? '<span class="prod-tag-pill tag-karigar" title="UdaanMart Karigar Rural Certified">🏡 Karigar</span>'
                 : prod.gender === 'men'
                   ? '<span class="prod-tag-pill tag-men" title="Men Fashion and Grooming">👨 Men</span>'
                   : prod.gender === 'women'
@@ -508,10 +508,10 @@ class SearchFilterEngine {
 
         <div class="prod-card-actions">
           <button class="amz-btn amz-btn-primary add-to-cart-btn" data-add-to-cart="${prod.id}">
-            Add to Cart
+            ${window.udaanI18n ? window.udaanI18n.t('add_to_cart') : 'Add to Cart'}
           </button>
           <button class="amz-btn amz-btn-buy-now buy-now-btn" data-buy-now="${prod.id}">
-            Buy Now
+            ${window.udaanI18n ? window.udaanI18n.t('buy_now') : '⚡ Buy Now'}
           </button>
         </div>
       </article>

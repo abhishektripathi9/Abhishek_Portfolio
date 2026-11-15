@@ -1,5 +1,5 @@
 /**
- * AMAZON CLONE - MODALS, DRAWERS & INTERACTIVE PANELS
+ * UDAANMART - MODALS, DRAWERS & INTERACTIVE PANELS
  * Handles Quick View popover, Cart slide-out drawer, Department side-menu,
  * Delivery location selector, and Wishlist / Orders modal.
  */
@@ -150,40 +150,11 @@ class ModalEngine {
       };
     }
 
-    // Bind 3D Studio vs Photo Gallery view tabs
-    const photoTab = modal.querySelector('#qv-tab-photos');
-    const studioTab = modal.querySelector('#qv-tab-3d');
+    // Ensure photo gallery and thumbnails are visible
     const photoBox = modal.querySelector('.qv-main-image-box');
     const thumbStrip = modal.querySelector('.qv-thumbnails-strip');
-    const studioBox = modal.querySelector('#qv-3d-studio-container');
-
-    if (photoTab && studioTab && photoBox && studioBox) {
-      // Default to photo view
-      photoTab.classList.add('is-active');
-      studioTab.classList.remove('is-active');
-      photoBox.style.display = 'flex';
-      if (thumbStrip) thumbStrip.style.display = 'flex';
-      studioBox.classList.remove('is-active');
-
-      photoTab.onclick = () => {
-        photoTab.classList.add('is-active');
-        studioTab.classList.remove('is-active');
-        photoBox.style.display = 'flex';
-        if (thumbStrip) thumbStrip.style.display = 'flex';
-        studioBox.classList.remove('is-active');
-      };
-
-      studioTab.onclick = () => {
-        studioTab.classList.add('is-active');
-        photoTab.classList.remove('is-active');
-        photoBox.style.display = 'none';
-        if (thumbStrip) thumbStrip.style.display = 'none';
-        studioBox.classList.add('is-active');
-        if (window.amzThree) {
-          window.amzThree.resizeStudio();
-        }
-      };
-    }
+    if (photoBox) photoBox.style.display = 'flex';
+    if (thumbStrip) thumbStrip.style.display = 'flex';
 
     this.showModal(modal);
   }
@@ -430,7 +401,8 @@ class ModalEngine {
       btn.addEventListener('click', () => {
         const loc = btn.dataset.presetLocation;
         const cur = btn.dataset.currency;
-        this.updateDeliveryLocation(loc, cur);
+        const lang = btn.dataset.lang;
+        this.updateDeliveryLocation(loc, cur, lang);
         this.hideModal(modal);
       });
     });
@@ -482,28 +454,36 @@ class ModalEngine {
     return 'USD';
   }
 
-  updateDeliveryLocation(locationStr, explicitCurrency = null) {
+  updateDeliveryLocation(locationStr, explicitCurrency = null, explicitLang = null) {
     this.currentLocation = locationStr;
     const headerDisplay = document.getElementById('nav-delivery-city');
     if (headerDisplay) {
       headerDisplay.textContent = locationStr;
     }
 
-    // Automatically detect country currency
-    const targetCurrency = explicitCurrency || this.detectCurrencyFromLocation(locationStr);
+    // Automatically detect country, language, currency, and verified delivery carrier
+    let details = { lang: 'hi', currency: 'INR', flag: '🇮🇳', carrier: 'India Post Speed Post & Rural Delivery' };
+    if (window.udaanI18n) {
+      details = window.udaanI18n.detectCountryAndDetails(locationStr);
+    }
 
+    const targetLang = explicitLang || details.lang;
+    const targetCurrency = explicitCurrency || details.currency;
+
+    // 1. Switch language automatically based on country
+    if (window.udaanI18n) {
+      window.udaanI18n.applyLanguage(targetLang, false);
+    }
+
+    // 2. Switch currency automatically based on country
     if (window.amzApp) {
-      const prevCurrency = window.amzApp.currentCurrency;
       window.amzApp.setCurrency(targetCurrency, false);
+    }
 
-      const curInfo = CURRENCIES[targetCurrency] || CURRENCIES.USD;
-      if (window.amzCart) {
-        if (prevCurrency !== targetCurrency) {
-          window.amzCart.showToast(`📍 Location set to "${locationStr}". Currency automatically switched to ${curInfo.name} (${curInfo.symbol})!`, "success");
-        } else {
-          window.amzCart.showToast(`📍 Delivery location set to "${locationStr}" (${curInfo.symbol})`, "success");
-        }
-      }
+    // 3. Announce universal delivery guarantee
+    if (window.amzCart) {
+      const langName = window.udaanI18n ? (window.udaanI18n.translations[targetLang]?.name || targetLang) : targetLang;
+      window.amzCart.showToast(`📍 Delivery confirmed to "${locationStr}"!\n🚚 Carrier: ${details.carrier}\n🌐 Language: ${langName} | Currency: ${targetCurrency}`, "success");
     }
   }
 

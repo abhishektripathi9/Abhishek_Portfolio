@@ -1,5 +1,5 @@
 /**
- * AMAZON CLONE - 3D CARD TILT & SPECULAR LIGHT ENGINE
+ * UDAANMART - 3D CARD TILT & SPECULAR LIGHT ENGINE
  * Ultra-smooth 60fps perspective tilt physics with dynamic glare sheen
  * following the user's cursor across product cards.
  */

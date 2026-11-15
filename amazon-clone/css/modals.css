@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AMAZON 2.0 PORTFOLIO CLONE - MODALS & SPECIAL PANELS CSS
+   UDAANMART 2.0 PORTFOLIO - MODALS & SPECIAL PANELS CSS
    ========================================================================== */
 
 /* Base Modal Container */
@@ -1985,7 +1985,7 @@ body.theme-dark .badge-delivered {
   color: #00e5ff;
 }
 
-/* Amazon Karigar Tab */
+/* UdaanMart Karigar Tab */
 .karigar-banner {
   background: linear-gradient(135deg, #131921, #067d62);
   border-radius: var(--radius-md);

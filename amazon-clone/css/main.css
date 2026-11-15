@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AMAZON 2.0 PORTFOLIO CLONE - MAIN LAYOUT & NAVIGATION CSS
+   UDAANMART 2.0 PORTFOLIO - MAIN LAYOUT & NAVIGATION CSS
    ========================================================================== */
 
 *, *::before, *::after {
@@ -79,7 +79,41 @@ img {
   margin: 0 auto;
 }
 
-/* Amazon Brand Logo */
+/* UdaanMart Brand Logo */
+
+.nav-brand-img {
+  height: 34px;
+  width: auto;
+  max-width: 155px;
+  object-fit: contain;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.nav-logo-box:hover .nav-brand-img {
+  transform: scale(1.02);
+}
+
+.footer-brand-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-brand-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  transition: opacity var(--transition-fast);
+}
+
+.footer-brand-logo:hover {
+  opacity: 1;
+}
+
 .nav-logo-box {
   display: flex;
   align-items: center;
@@ -169,60 +203,68 @@ img {
   flex: 1;
   position: relative;
   display: flex;
-  height: 42px;
-  border-radius: var(--radius-sm);
+  height: 44px;
+  border-radius: var(--radius-full);
   background: #ffffff;
-  box-shadow: 0 0 0 0 transparent;
-  transition: box-shadow var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: all var(--transition-fast);
+  overflow: hidden;
+  border: 2px solid transparent;
 }
 
 .nav-search-wrapper:focus-within {
-  box-shadow: 0 0 0 3px var(--border-focus);
+  border-color: var(--amz-gold);
+  box-shadow: 0 0 0 3px rgba(254, 189, 105, 0.35);
 }
 
 .nav-search-category {
-  background-color: #e6e6e6;
+  background-color: #f1f5f9;
   border: none;
-  border-top-left-radius: var(--radius-sm);
-  border-bottom-left-radius: var(--radius-sm);
-  padding: 0 10px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #333333;
+  border-top-left-radius: var(--radius-full);
+  border-bottom-left-radius: var(--radius-full);
+  padding: 0 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
   cursor: pointer;
-  border-right: 1px solid #cdcdcd;
+  border-right: 1px solid #e2e8f0;
   outline: none;
   transition: background-color var(--transition-fast);
 }
 
 .nav-search-category:hover {
-  background-color: #dadada;
+  background-color: #e2e8f0;
 }
 
 .nav-search-input {
   flex: 1;
+  height: 100%;
   border: none;
-  padding: 0 12px;
+  padding: 0 16px;
   font-size: 0.95rem;
-  color: #0f1111;
+  color: #0f172a;
   outline: none;
   background: transparent;
+  font-family: var(--font-body);
 }
 
 .nav-search-submit {
-  width: 46px;
-  background-color: var(--amz-gold);
-  border-top-right-radius: var(--radius-sm);
-  border-bottom-right-radius: var(--radius-sm);
+  width: 52px;
+  height: 100%;
+  background: linear-gradient(135deg, var(--amz-gold), #f59e0b);
+  border: none;
+  border-top-right-radius: var(--radius-full);
+  border-bottom-right-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #111111;
-  transition: background-color var(--transition-fast);
+  cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
 .nav-search-submit:hover {
-  background-color: var(--amz-gold-hover);
+  background: linear-gradient(135deg, #f3a847, #d97706);
+  transform: scale(1.04);
 }
 
 .search-icon-svg {
@@ -544,6 +586,130 @@ img {
 
 .hero-section {
   position: relative;
+  max-width: calc(var(--max-width) - 32px);
+  margin: 16px auto 0;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 480px;
+  background: #0b1120;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+}
+
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.02);
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.hero-slide-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 15, 23, 0.92) 0%, rgba(11, 15, 23, 0.65) 45%, rgba(11, 15, 23, 0.2) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 65%,
+    rgba(10, 14, 20, 0.8) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-content {
+  position: absolute;
+  top: 18%;
+  left: 6%;
+  max-width: 600px;
+  z-index: 3;
+  color: #ffffff;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, var(--amz-orange), #d97706);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(240, 136, 4, 0.35);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  margin-bottom: 24px;
+  line-height: 1.55;
+  max-width: 520px;
+}
+
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--amz-gold), #f59e0b);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 26px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.hero-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.6);
+  color: #0f172a;
+}
+/* old hero replaced */
+.hero-section-old {
+  position: relative;
   max-width: var(--max-width);
   margin: 0 auto;
   overflow: hidden;
@@ -570,6 +736,16 @@ img {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+
+
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 15, 23, 0.88) 0%, rgba(11, 15, 23, 0.6) 45%, rgba(11, 15, 23, 0.15) 100%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero-slide-bg {
@@ -653,6 +829,11 @@ img {
 
 /* Hero Navigation Arrows */
 .hero-nav-btn {
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+  top: 40%;
   position: absolute;
   top: 35%;
   width: 48px;
@@ -707,7 +888,7 @@ img {
 }
 
 /* ==========================================
-   FEATURE TILES OVERLAY (Amazon Quad Cards)
+   FEATURE TILES OVERLAY (UdaanMart Quad Cards)
    ========================================== */
 
 .hero-floating-tiles {
@@ -727,6 +908,8 @@ img {
 }
 
 .tile-card {
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   background: var(--bg-card);
   padding: 20px;
   border-radius: var(--radius-md);
@@ -758,6 +941,13 @@ img {
 }
 
 .tile-img {
+  border-radius: 12px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tile-card:hover .tile-img {
+  transform: scale(1.06);
+}
+.tile-img-base {
   width: 100%;
   height: 220px;
   object-fit: cover;

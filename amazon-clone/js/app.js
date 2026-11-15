@@ -1,5 +1,5 @@
 /**
- * AMAZON CLONE - MAIN APPLICATION CONTROLLER
+ * UDAANMART - MAIN APPLICATION CONTROLLER
  * Bootstraps Hero Carousel, Lightning Deals Countdown, Currency Switcher,
  * Theme Mode (Dark/Light), Back-to-Top, and Freelancer Portfolio Showcase HUD.
  */
@@ -7,7 +7,8 @@
 class AmazonApp {
   constructor() {
     this.currentCurrency = localStorage.getItem('amz_currency_v2') || 'USD';
-    this.currentTheme = localStorage.getItem('amz_theme_v2') || 'dark'; // default to stunning dark luxury mode
+    localStorage.removeItem('amz_theme_v2');
+    this.currentTheme = localStorage.getItem('udaan_theme_v1') || 'cream'; // default to stunning dark luxury mode
     this.carouselIndex = 0;
     this.carouselTimer = null;
     this.dealEndTime = Date.now() + (7 * 3600 + 44 * 60 + 29) * 1000; // ~7h 44m from now
@@ -229,7 +230,7 @@ class AmazonApp {
 
     toggleBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const nextTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        const nextTheme = this.currentTheme === 'dark' ? 'cream' : 'dark';
         this.applyTheme(nextTheme);
       });
     });
@@ -237,13 +238,13 @@ class AmazonApp {
 
   applyTheme(theme) {
     this.currentTheme = theme;
-    localStorage.setItem('amz_theme_v2', theme);
+    localStorage.setItem('udaan_theme_v1', theme);
     document.documentElement.setAttribute('data-theme', theme);
 
     // Update icons on toggle buttons
     document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
       btn.innerHTML = theme === 'dark' 
-        ? `<span class="theme-icon">☀️</span> <span class="theme-label">Light Mode</span>`
+        ? `<span class="theme-icon">🍦</span> <span class="theme-label">Cream Mode</span>`
         : `<span class="theme-icon">🌙</span> <span class="theme-label">Dark Mode</span>`;
     });
   }
