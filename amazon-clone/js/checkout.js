@@ -618,10 +618,36 @@ class CheckoutEngine {
     }
   }
 
-  openExpressBuy(product, quantity = 1) {
+  openExpressBuy(productOrId, quantity = 1) {
+    if (!productOrId) return;
+    let product = productOrId;
+    if (typeof productOrId === 'string' || typeof productOrId === 'number') {
+      product = window.amzStore ? window.amzStore.getProductById(productOrId) : null;
+      if (!product && window.PRODUCTS_DATA) {
+        product = window.PRODUCTS_DATA.find(p => String(p.id) === String(productOrId));
+      }
+    }
     if (!product) return;
-    this.expressProduct = product;
-    this.expressQty = quantity;
+
+    const numPrice = typeof product.price === 'number' ? product.price : (parseFloat(product.price) || 999);
+    const numMrp = typeof product.mrp === 'number' ? product.mrp : (parseFloat(product.mrp) || Math.round(numPrice * 1.35));
+    const prodImg = product.image || (Array.isArray(product.images) && product.images[0]) || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80';
+    const prodTitle = product.title || product.shortTitle || 'Artisan Craft Item';
+    const prodShortTitle = product.shortTitle || prodTitle;
+    const seller = product.sellerName || product.artisan || product.origin || 'UdaanMart Karigar Guild';
+
+    this.expressProduct = {
+      ...product,
+      id: product.id,
+      title: prodTitle,
+      shortTitle: prodShortTitle,
+      price: numPrice,
+      mrp: numMrp,
+      image: prodImg,
+      sellerName: seller,
+      delivery: product.delivery || `FREE Express Delivery to ${this.orderData.shipping.city || 'your address'}`
+    };
+    this.expressQty = parseInt(quantity, 10) || 1;
 
     const modal = document.getElementById('express-buy-modal');
     const overlay = document.getElementById('global-overlay');
@@ -633,15 +659,16 @@ class CheckoutEngine {
     const deliveryEl = document.getElementById('express-delivery-text');
     const qtySelect = document.getElementById('express-qty-select');
 
-    if (imgEl) imgEl.src = product.images ? product.images[0] : '';
-    if (titleEl) titleEl.textContent = product.shortTitle || product.title;
-    if (priceEl) priceEl.textContent = window.amzApp ? window.amzApp.formatPrice(product.price) : ("$" + product.price.toFixed(2));
-    if (deliveryEl) deliveryEl.textContent = product.delivery || `FREE Express Delivery to ${this.orderData.shipping.city}`;
-    if (qtySelect) qtySelect.value = quantity.toString();
+    if (imgEl) imgEl.src = this.expressProduct.image;
+    if (titleEl) titleEl.textContent = this.expressProduct.shortTitle;
+    if (priceEl) priceEl.textContent = window.amzApp ? window.amzApp.formatPrice(this.expressProduct.price) : `₹${this.expressProduct.price}`;
+    if (deliveryEl) deliveryEl.textContent = this.expressProduct.delivery;
+    if (qtySelect) qtySelect.value = String(this.expressQty);
 
     this.updateExpressTotals();
 
     modal.classList.add('is-open');
+    modal.classList.add('active');
     if (overlay) overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
@@ -652,6 +679,7 @@ class CheckoutEngine {
     if (!modal) return;
 
     modal.classList.remove('is-open');
+    modal.classList.remove('active');
     if (overlay && !document.querySelector('.amz-modal.is-open:not(#express-buy-modal), .modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
       overlay.classList.remove('is-open');
     }
@@ -660,8 +688,9 @@ class CheckoutEngine {
 
   updateExpressTotals() {
     if (!this.expressProduct) return;
-    const total = this.expressProduct.price * (this.expressQty || 1);
-    const formatted = window.amzApp ? window.amzApp.formatPrice(total) : ("$" + total.toFixed(2));
+    const price = typeof this.expressProduct.price === 'number' ? this.expressProduct.price : (parseFloat(this.expressProduct.price) || 0);
+    const total = price * (this.expressQty || 1);
+    const formatted = window.amzApp ? window.amzApp.formatPrice(total) : `₹${total}`;
 
     const totalEl = document.getElementById('express-total-amount');
     if (totalEl) totalEl.textContent = formatted;
@@ -748,7 +777,16 @@ class CheckoutEngine {
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
         const modal = document.getElementById('gst-invoice-modal');
-        if (modal) modal.classList.remove('is-open');
+        const overlay = document.getElementById('global-overlay');
+        if (modal) {
+          modal.classList.remove('is-open');
+          modal.classList.remove('active');
+        }
+        if (overlay && !document.querySelector('.amz-modal.is-open:not(#gst-invoice-modal), .modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
+          overlay.classList.remove('is-open');
+          overlay.classList.remove('is-active');
+        }
+        document.body.style.overflow = '';
       });
     }
   }
@@ -842,7 +880,11 @@ class CheckoutEngine {
     }
 
     modal.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-open');
+    modal.classList.add('active');
+    if (overlay) {
+      overlay.classList.add('is-open');
+      overlay.classList.add('is-active');
+    }
   }
 
   // ==========================================================================

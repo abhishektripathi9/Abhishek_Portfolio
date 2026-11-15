@@ -562,7 +562,7 @@ class SearchFilterEngine {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         const prodId = el.dataset.productId;
-        const targetProd = this.allProducts.find(p => p.id === prodId);
+        const targetProd = this.allProducts.find(p => String(p.id) === String(prodId)) || (window.amzStore ? window.amzStore.getProductById(prodId) : null);
         if (targetProd && window.amzModal) {
           window.amzModal.openQuickView(targetProd);
         }
@@ -574,7 +574,7 @@ class SearchFilterEngine {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const prodId = btn.dataset.addToCart;
-        const targetProd = this.allProducts.find(p => p.id === prodId);
+        const targetProd = this.allProducts.find(p => String(p.id) === String(prodId)) || (window.amzStore ? window.amzStore.getProductById(prodId) : null);
         if (targetProd && window.amzCart) {
           // Visual click ripple feedback
           btn.classList.add('btn-clicked');
@@ -590,7 +590,7 @@ class SearchFilterEngine {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const prodId = btn.dataset.buyNow;
-        const targetProd = this.allProducts.find(p => p.id === prodId);
+        const targetProd = this.allProducts.find(p => String(p.id) === String(prodId)) || (window.amzStore ? window.amzStore.getProductById(prodId) : null);
         if (targetProd && window.amzCheckout) {
           window.amzCheckout.openExpressBuy(targetProd, 1);
         }

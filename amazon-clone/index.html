@@ -1851,6 +1851,132 @@
   </div>
 
   <!-- ========================================================================
+       MODAL: BUYER LOGIN & REGISTRATION (AMAZON / FLIPKART STYLE OTP AUTH)
+       ======================================================================== -->
+  <div class="modal buyer-auth-modal" id="buyer-auth-modal" role="dialog" aria-modal="true" aria-labelledby="buyer-auth-heading">
+    <div class="modal-dialog modal-dialog-md" style="max-width: 480px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem;">🛍️</span>
+          <div>
+            <h3 class="modal-title" id="buyer-auth-heading" style="color: #ffffff; margin: 0; font-size: 1.15rem;">Buyer Portal (ग्राहक खाता)</h3>
+            <span style="font-size: 0.76rem; color: #cbd5e1;">Amazon &amp; Flipkart Style 10-Digit Mobile + OTP Login</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="buyer-auth-close" aria-label="Close" style="color: #ffffff;">×</button>
+      </div>
+
+      <div class="modal-body" style="padding: 24px;">
+        <!-- Logged-In Profile Card (shown when logged in) -->
+        <div id="buyer-profile-card" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid #ebe4d8;">
+            <img id="buyer-card-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Avatar" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b;" />
+            <div>
+              <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; font-weight: 700;">Signed in as Buyer</div>
+              <h4 id="buyer-card-name" style="margin: 2px 0; font-size: 1.25rem; color: #1e293b; font-weight: 800;">Abhishek Tripathi</h4>
+              <span id="buyer-card-phone" style="font-size: 0.85rem; color: #64748b; font-weight: 600;">📱 +91 98765 43210</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;">
+            <button type="button" class="amz-btn amz-btn-secondary" id="btn-buyer-orders" style="justify-content: flex-start; padding: 12px; font-size: 0.86rem;">
+              <span>📦 Past Orders &amp; Tracking</span>
+            </button>
+            <button type="button" class="amz-btn amz-btn-secondary" id="btn-buyer-wishlist" style="justify-content: flex-start; padding: 12px; font-size: 0.86rem;">
+              <span>❤️ Saved Wishlist</span>
+            </button>
+            <button type="button" class="amz-btn amz-btn-secondary" id="btn-buyer-location" style="justify-content: flex-start; padding: 12px; font-size: 0.86rem;">
+              <span>📍 Delivery Location</span>
+            </button>
+            <button type="button" class="amz-btn amz-btn-secondary" id="btn-buyer-switch-seller" style="justify-content: flex-start; padding: 12px; font-size: 0.86rem; border-color: #f59e0b; color: #d97706;">
+              <span>🏭 Karigar Studio</span>
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 16px;">
+            <button type="button" class="amz-btn amz-btn-secondary" id="btn-buyer-switch-account" style="flex: 1;">
+              🔄 Switch Account
+            </button>
+            <button type="button" class="amz-btn amz-btn-ghost" id="btn-buyer-signout" style="color: #dc2626; border-color: rgba(220, 38, 38, 0.3);">
+              🚪 Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Auth Form Tabs (shown when not logged in or switching account) -->
+        <div id="buyer-auth-form-wrap">
+          <div class="modal-tabs-header" style="margin-bottom: 20px;">
+            <button type="button" class="modal-tab-btn is-active" id="tab-btn-buyer-login">
+              📱 Mobile &amp; OTP Login
+            </button>
+            <button type="button" class="modal-tab-btn" id="tab-btn-buyer-register">
+              ✨ New Buyer Register
+            </button>
+          </div>
+
+          <!-- Tab Pane: OTP Login -->
+          <form id="buyer-otp-login-form" style="display: block;">
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label for="buyer-login-phone" style="font-weight: 700; font-size: 0.85rem; color: #1e293b; margin-bottom: 6px; display: block;">
+                Mobile Number (10 डिजिट मोबाइल नंबर) *
+              </label>
+              <div style="display: flex; gap: 8px;">
+                <span style="display: flex; align-items: center; padding: 0 12px; background: #f1f5f9; border: 1px solid #dcd4c6; border-radius: 10px; font-weight: 700; color: #475569;">+91</span>
+                <input type="tel" id="buyer-login-phone" class="amz-input" placeholder="e.g. 9876543210" maxlength="10" pattern="[0-9]{10}" required style="flex: 1;" />
+                <button type="button" class="amz-btn amz-btn-secondary" id="btn-send-buyer-otp" style="white-space: nowrap; font-size: 0.84rem;">
+                  Get OTP
+                </button>
+              </div>
+            </div>
+
+            <!-- OTP Input Row (revealed after clicking Get OTP) -->
+            <div id="buyer-otp-row" style="margin-bottom: 16px; display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label for="buyer-otp-input" style="font-weight: 700; font-size: 0.85rem; color: #1e293b;">Enter 6-Digit OTP *</label>
+                <span id="buyer-otp-hint" style="font-size: 0.78rem; color: #059669; font-weight: 700; cursor: pointer;">Hint: 123456 (Tap to Auto-fill)</span>
+              </div>
+              <input type="text" id="buyer-otp-input" class="amz-input" placeholder="123456" maxlength="6" pattern="[0-9]{6}" style="letter-spacing: 6px; font-size: 1.2rem; text-align: center; font-weight: 800;" />
+            </div>
+
+            <button type="submit" class="amz-btn amz-btn-primary" id="btn-verify-buyer-otp" style="width: 100%; padding: 12px; font-size: 0.95rem; margin-top: 8px;">
+              ⚡ Verify &amp; Sign In
+            </button>
+          </form>
+
+          <!-- Tab Pane: New Buyer Register -->
+          <form id="buyer-register-form" style="display: none;">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="buyer-reg-name" style="font-weight: 700; font-size: 0.85rem; color: #1e293b; margin-bottom: 4px; display: block;">Full Name *</label>
+              <input type="text" id="buyer-reg-name" class="amz-input" placeholder="e.g. Abhishek Tripathi" required style="width: 100%;" />
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="buyer-reg-phone" style="font-weight: 700; font-size: 0.85rem; color: #1e293b; margin-bottom: 4px; display: block;">10-Digit Mobile *</label>
+              <input type="tel" id="buyer-reg-phone" class="amz-input" placeholder="e.g. 9876543210" maxlength="10" pattern="[0-9]{10}" required style="width: 100%;" />
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label for="buyer-reg-city" style="font-weight: 700; font-size: 0.85rem; color: #1e293b; margin-bottom: 4px; display: block;">Delivery City &amp; Pincode *</label>
+              <input type="text" id="buyer-reg-city" class="amz-input" placeholder="e.g. New Delhi, 110001" required style="width: 100%;" />
+            </div>
+
+            <button type="submit" class="amz-btn amz-btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem;">
+              🚀 Create Account &amp; Start Shopping
+            </button>
+          </form>
+
+          <!-- Quick 1-Click Demo Login Pill -->
+          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed #dcd4c6; text-align: center;">
+            <button type="button" class="btn-demo-autofill" id="btn-quick-demo-buyer" style="width: 100%; font-size: 0.85rem; padding: 10px;">
+              ⚡ 1-Click Demo Login as Abhishek Tripathi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        MODAL: ORDERS & WISHLIST HUB
        ======================================================================== -->
   <div class="modal" id="orders-wishlist-modal" role="dialog" aria-modal="true">
@@ -2129,7 +2255,12 @@
             <p class="seller-modal-sub">List products, manage live inventory, analyze village & city orders, and sell to millions of buyers worldwide.</p>
           </div>
         </div>
-        <button class="modal-close-btn" id="seller-modal-close" aria-label="Close Seller Central">×</button>
+        <div class="seller-header-actions" style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="amz-btn amz-btn-secondary" id="btn-back-to-storefront" style="background: rgba(255,255,255,0.15); color: #ffffff; border: 1px solid rgba(255,255,255,0.3); font-size: 0.84rem; padding: 7px 14px; border-radius: 8px;">
+            ← Back to Buyer Storefront
+          </button>
+          <button class="modal-close-btn" id="seller-modal-close" aria-label="Close Seller Central">×</button>
+        </div>
       </div>
 
       <!-- Step A: 30-Second Shop & Karigar Onboarding View -->
@@ -2767,6 +2898,7 @@
   <script src="js/i18n.js?v=4.0"></script>
   <script src="js/products-data.js?v=4.0"></script>
   <script src="js/store.js?v=4.0"></script>
+  <script src="js/auth.js?v=4.0"></script>
   <script src="js/cart.js?v=4.0"></script>
   <script src="js/search-filter.js?v=4.0"></script>
   <script src="js/modal.js?v=4.0"></script>

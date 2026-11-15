@@ -1,48 +1,212 @@
 /* ==========================================================================
    UDAANMART 2.0 PORTFOLIO - MODALS & SPECIAL PANELS CSS
+   Strict Full-Screen Glassmorphic Backdrop, Default Hidden, Zero Page Leak
    ========================================================================== */
 
-/* Base Modal Container */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-modal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+/* 1. UNIVERSAL MODAL RESET: All modals hidden by default (display: none !important) */
+.modal,
+.amz-modal,
+.express-modal-overlay,
+#quickview-modal,
+#checkout-modal,
+#order-success-modal,
+#express-buy-modal,
+#location-modal,
+#orders-wishlist-modal,
+#portfolio-hud-modal,
+#shipping-label-modal,
+#gst-invoice-modal,
+#seller-modal,
+#buyer-auth-modal,
+#seller-auth-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(10, 15, 29, 0.65) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  z-index: 9999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-.modal.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+/* Activated State: Toggled via .is-open or .active */
+.modal.is-open,
+.modal.active,
+.amz-modal.is-open,
+.amz-modal.active,
+.express-modal-overlay.is-open,
+.express-modal-overlay.active,
+#quickview-modal.is-open,
+#quickview-modal.active,
+#checkout-modal.is-open,
+#checkout-modal.active,
+#order-success-modal.is-open,
+#order-success-modal.active,
+#express-buy-modal.is-open,
+#express-buy-modal.active,
+#location-modal.is-open,
+#location-modal.active,
+#orders-wishlist-modal.is-open,
+#orders-wishlist-modal.active,
+#portfolio-hud-modal.is-open,
+#portfolio-hud-modal.active,
+#shipping-label-modal.is-open,
+#shipping-label-modal.active,
+#gst-invoice-modal.is-open,
+#gst-invoice-modal.active,
+#seller-modal.is-open,
+#seller-modal.active,
+#buyer-auth-modal.is-open,
+#buyer-auth-modal.active,
+#seller-auth-modal.is-open,
+#seller-auth-modal.active {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 .modal-dialog {
   background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
   width: 100%;
   max-width: 680px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-light, #dcd4c6);
   transform: translateY(20px) scale(0.98);
-  transition: transform var(--transition-smooth);
+  transition: transform var(--transition-smooth, 0.25s cubic-bezier(0.16, 1, 0.3, 1));
+  box-sizing: border-box;
+  margin: auto;
 }
 
-.modal.is-open .modal-dialog {
+.modal.is-open .modal-dialog,
+.modal.active .modal-dialog,
+.amz-modal.is-open .modal-dialog,
+.amz-modal.active .modal-dialog,
+.express-modal-overlay.is-open .modal-dialog,
+.express-modal-overlay.active .modal-dialog {
   transform: translateY(0) scale(1);
 }
 
-.modal-dialog-large {
+.modal-dialog-md {
+  max-width: 580px;
+}
+
+.modal-dialog-large,
+.modal-dialog-lg {
   max-width: 960px;
+}
+
+/* 2. MODERN FORM INPUTS, DROPDOWNS & BUTTONS INSIDE MODALS */
+.modal input[type="text"],
+.modal input[type="tel"],
+.modal input[type="email"],
+.modal input[type="number"],
+.modal input[type="password"],
+.modal select,
+.modal textarea,
+.amz-modal input[type="text"],
+.amz-modal input[type="tel"],
+.amz-modal input[type="email"],
+.amz-modal input[type="number"],
+.amz-modal input[type="password"],
+.amz-modal select,
+.amz-modal textarea,
+.express-buy-modal input,
+.express-buy-modal select,
+.seller-modal input,
+.seller-modal select,
+.seller-modal textarea,
+.buyer-auth-modal input,
+.buyer-auth-modal select {
+  border: 1px solid #dcd4c6 !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-family: inherit !important;
+  font-size: 0.92rem !important;
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  box-sizing: border-box !important;
+}
+
+[data-theme="dark"] .modal input,
+[data-theme="dark"] .modal select,
+[data-theme="dark"] .modal textarea,
+[data-theme="dark"] .amz-modal input,
+[data-theme="dark"] .amz-modal select,
+[data-theme="dark"] .amz-modal textarea {
+  background-color: #1a2234 !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+.modal input:focus,
+.modal select:focus,
+.modal textarea:focus,
+.amz-modal input:focus,
+.amz-modal select:focus,
+.amz-modal textarea:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+}
+
+.modal .amz-btn,
+.amz-modal .amz-btn,
+.modal-dialog button.amz-btn {
+  border-radius: 10px !important;
+  padding: 10px 18px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.modal .amz-btn-primary,
+.amz-modal .amz-btn-primary {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #ffffff !important;
+  border: 1px solid #d97706 !important;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.25) !important;
+}
+
+.modal .amz-btn-primary:hover,
+.amz-modal .amz-btn-primary:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 14px rgba(245, 158, 11, 0.35) !important;
+}
+
+.modal .amz-btn-secondary,
+.amz-modal .amz-btn-secondary {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #dcd4c6 !important;
+}
+
+.modal .amz-btn-secondary:hover,
+.amz-modal .amz-btn-secondary:hover {
+  background: #f8f6f0 !important;
+  border-color: #c7beaf !important;
 }
 
 .modal-header {

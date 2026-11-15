@@ -68,14 +68,25 @@ class ModalEngine {
   // ==========================================
   // 1. HIGH-TRUST PRODUCT QUICK VIEW MODAL
   // ==========================================
-  openQuickView(product) {
+  openQuickView(productOrId) {
+    if (!productOrId) return;
+    let product = productOrId;
+    if (typeof productOrId === 'string' || typeof productOrId === 'number') {
+      product = window.amzStore ? window.amzStore.getProductById(productOrId) : null;
+      if (!product && window.PRODUCTS_DATA) {
+        product = window.PRODUCTS_DATA.find(p => String(p.id) === String(productOrId));
+      }
+    }
     if (!product) return;
+
     this.currentQuickViewProduct = product;
     const modal = document.getElementById('quickview-modal');
     if (!modal) return;
 
-    const formattedPrice = window.amzApp ? window.amzApp.formatPrice(product.price) : `$${product.price.toFixed(2)}`;
-    const formattedOrig = product.originalPrice ? (window.amzApp ? window.amzApp.formatPrice(product.originalPrice) : `$${product.originalPrice.toFixed(2)}`) : null;
+    const numPrice = typeof product.price === 'number' ? product.price : (parseFloat(product.price) || 999);
+    const numOrig = product.originalPrice || product.mrp;
+    const formattedPrice = window.amzApp ? window.amzApp.formatPrice(numPrice) : `₹${numPrice}`;
+    const formattedOrig = numOrig ? (window.amzApp ? window.amzApp.formatPrice(numOrig) : `₹${numOrig}`) : null;
 
     // Build specs table rows
     const specsRows = Object.entries(product.specs || {}).map(([key, val]) => `
@@ -86,10 +97,15 @@ class ModalEngine {
     `).join('');
 
     // Build features bullets
-    const featuresList = (product.features || []).map(f => `<li>${window.amzStore ? window.amzStore.escapeHTML(f) : f}</li>`).join('');
+    const rawFeatures = Array.isArray(product.features) ? product.features : (product.features ? [product.features] : []);
+    const featuresList = rawFeatures.map(f => `<li>${window.amzStore ? window.amzStore.escapeHTML(f) : f}</li>`).join('');
 
     // Build thumbnails
-    const thumbnailsHtml = (product.images || []).map((img, idx) => `
+    const imagesList = Array.isArray(product.images) && product.images.length > 0 
+      ? product.images 
+      : [product.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80'];
+
+    const thumbnailsHtml = imagesList.map((img, idx) => `
       <button class="qv-thumb-btn ${idx === 0 ? 'is-active' : ''}" data-image-url="${img}">
         <img src="${img}" alt="Angle ${idx + 1}" />
       </button>
@@ -97,8 +113,8 @@ class ModalEngine {
 
     const mainImgEl = modal.querySelector('.qv-main-image');
     if (mainImgEl) {
-      mainImgEl.src = product.images ? product.images[0] : '';
-      mainImgEl.alt = product.title;
+      mainImgEl.src = imagesList[0];
+      mainImgEl.alt = product.title || 'Product Image';
     }
 
     const thumbStrip = modal.querySelector('.qv-thumbnails-strip');
@@ -966,37 +982,53 @@ class ModalEngine {
   // ==========================================
   // 7. MODAL VISIBILITY HELPERS
   // ==========================================
+  openAccountModal() {
+    if (window.amzAuth) {
+      window.amzAuth.openBuyerAuthModal();
+    }
+  }
+
   showModal(modal) {
     if (!modal) return;
     this.activeModal = modal;
     const overlay = document.getElementById('global-overlay');
 
     modal.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-open');
+    modal.classList.add('active');
+    if (overlay) {
+      overlay.classList.add('is-open');
+      overlay.classList.add('is-active');
+    }
     document.body.style.overflow = 'hidden';
   }
 
   hideModal(modal) {
     if (!modal) return;
     modal.classList.remove('is-open');
+    modal.classList.remove('active');
     const overlay = document.getElementById('global-overlay');
 
-    if (overlay && !document.querySelector('.modal.is-open, .amz-modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
+    if (overlay && !document.querySelector('.modal.is-open, .modal.active, .amz-modal.is-open, .amz-modal.active, .cart-drawer.is-open, .dept-drawer.is-open')) {
       overlay.classList.remove('is-open');
+      overlay.classList.remove('is-active');
     }
     document.body.style.overflow = '';
     this.activeModal = null;
   }
 
   closeAllModalsAndDrawers() {
-    document.querySelectorAll('.modal.is-open, .amz-modal.is-open').forEach(m => m.classList.remove('is-open'));
+    document.querySelectorAll('.modal, .amz-modal, .express-modal-overlay').forEach(m => {
+      m.classList.remove('is-open');
+      m.classList.remove('active');
+    });
     this.closeCartDrawer();
     this.closeDepartmentDrawer();
-
     const overlay = document.getElementById('global-overlay');
-    if (overlay) overlay.classList.remove('is-open');
+    if (overlay) {
+      overlay.classList.remove('is-open');
+      overlay.classList.remove('is-active');
+    }
     document.body.style.overflow = '';
-    this.activeModal = null;
   }
 }
 

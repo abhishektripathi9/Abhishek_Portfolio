@@ -165,7 +165,11 @@ class SellerCentralEngine {
     this.updateAapkiKamai();
 
     modal.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-open');
+    modal.classList.add('active');
+    if (overlay) {
+      overlay.classList.add('is-open');
+      overlay.classList.add('is-active');
+    }
     document.body.style.overflow = 'hidden';
   }
 
@@ -302,8 +306,10 @@ class SellerCentralEngine {
     if (!modal) return;
 
     modal.classList.remove('is-open');
+    modal.classList.remove('active');
     if (overlay && !document.querySelector('.amz-modal.is-open:not(#seller-modal), .modal.is-open, .cart-drawer.is-open, .dept-drawer.is-open')) {
       overlay.classList.remove('is-open');
+      overlay.classList.remove('is-active');
     }
     document.body.style.overflow = '';
   }
@@ -995,12 +1001,19 @@ class SellerCentralEngine {
     }
 
     modal.classList.add('is-open');
-    if (overlay) overlay.classList.add('is-open');
+    modal.classList.add('active');
+    if (overlay) {
+      overlay.classList.add('is-open');
+      overlay.classList.add('is-active');
+    }
   }
 
   closeShippingLabelModal() {
     const modal = document.getElementById('shipping-label-modal');
-    if (modal) modal.classList.remove('is-open');
+    if (modal) {
+      modal.classList.remove('is-open');
+      modal.classList.remove('active');
+    }
   }
 
   isShippingLabelModalOpen() {
