@@ -538,6 +538,24 @@ function initProjectsAutoScroll() {
    10. PROJECT QUICK-VIEW MODAL
    ===================================================== */
 const projectData = {
+  'ecommerce-admin': {
+    title: 'BharatBazaar: Direct Retail & Admin Control Room Ecosystem',
+    year: '2026',
+    category: 'Full-Stack E-Commerce & Executive Control Room',
+    image: 'assets/project-ecommerce-admin.jpg',
+    desc: 'Production-grade enterprise e-commerce platform built from scratch with Node.js, Express, MySQL 8.0, React, and Tailwind CSS. Features a pixel-perfect Google Stitch high-contrast monochrome customer storefront coupled with a secure, role-based internal Admin Control Room (Super Admin, Order Manager, Inventory Manager), real-time inventory decrement, and compliant GST invoice generator.',
+    highlights: [
+      'Dual Portal Architecture: Public high-contrast monochrome customer storefront (catalog, slide-over cart, coupon validation, checkout) connected to the same MySQL database as the protected executive Admin Control Room.',
+      'Strict Role-Based Access Control (RBAC): JWT-authenticated internal portal with role isolation for Super Admin (Owner), Order Manager (Fulfillment), and Inventory Manager (Catalog & Restock) with instant access revoke.',
+      'Real-Time Fulfillment Pipeline: Order status progression (Pending → Confirmed → Packed → Shipped → Delivered) with live tracking progress bar for customers.',
+      'Indian GST & Invoice Engine: Printable GST tax invoice generator with automatic CGST/SGST breakdowns, HSN codes, and business registration details.',
+      'Dynamic Marketing & Promotions: Real-time coupon validator with minimum cart thresholds and promotional banner management.',
+      'Automated Inventory Restock: Instant low-stock alerts (< 5 units) with +10 / +50 warehouse restock actions and complete audit logs.'
+    ],
+    tech: ['React.js', 'Node.js', 'Express.js', 'MySQL 8.0', 'JWT & Bcrypt', 'Tailwind CSS', 'Recharts', 'Indian GST'],
+    github: 'https://github.com/abhishektripathi9/E-commerce-Admin-Panel',
+    liveDemo: './ecommerce-admin/index.html'
+  },
   'smart-billing': {
     title: 'smartBiz – Smart Billing & Inventory Management System',
     year: '2026',
