@@ -3,615 +3,793 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RentEase – Verified PG & Room Finder Platform | Live Demo</title>
-  <meta name="description" content="RentEase is a full-stack student & professional PG room finder platform featuring verified listings, amenity filters, and direct booking workflow." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <title>RentEase PRO – Verified PG & Room Finder | Zero Brokerage</title>
+  <meta name="description" content="Find verified student PGs and co-living rooms near campus with zero brokerage, atomic bed reservations, and verified host amenities." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
   <style>
-    :root {
-      --bg: #090e17;
-      --card-bg: rgba(15, 23, 42, 0.85);
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(56, 189, 248, 0.4);
-      --cyan: #38bdf8;
-      --emerald: #10b981;
-      --purple: #818cf8;
-      --amber: #f59e0b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Outfit', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-      background-image: radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.08) 0%, transparent 40%),
-                        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #FFFFFF;
+      color: #0F172A;
     }
-    .top-bar {
-      background: rgba(10, 15, 30, 0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #040711;
-      font-weight: 900;
-    }
-    .demo-badge {
-      font-size: 0.72rem;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid var(--emerald);
-      color: var(--emerald);
-      padding: 4px 10px;
-      border-radius: 99px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.88rem;
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      transition: all 0.2s ease;
-    }
-    .back-btn:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 240, 255, 0.05); }
-
-    .hero-banner {
-      padding: 50px 24px 30px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .hero-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-    .hero-title span {
-      background: linear-gradient(135deg, var(--cyan), #38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-sub { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; }
-
-    /* Search & Filter Controls */
-    .search-box {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      padding: 18px 24px;
-      border-radius: 16px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr auto;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-    .control-group { text-align: left; }
-    .control-label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
-    .control-select, .control-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      border-radius: 8px;
-      color: #fff;
-      font-family: inherit;
-      outline: none;
-      font-size: 0.92rem;
-    }
-    .control-select:focus, .control-input:focus { border-color: var(--cyan); }
-    .search-btn {
-      background: linear-gradient(135deg, var(--cyan), #0284c7);
-      color: #040711;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-    .search-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
-
-    /* Category Filter Tabs */
-    .filter-pills {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 36px;
-    }
-    .pill {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      padding: 8px 18px;
-      border-radius: 99px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    .pill.active, .pill:hover {
-      background: rgba(0, 240, 255, 0.15);
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    /* Property Grid */
-    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px 60px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 28px;
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-hover);
-      box-shadow: 0 20px 40px rgba(0, 240, 255, 0.15);
-    }
-    .card-img-wrap {
-      height: 200px;
-      position: relative;
-      background: #1e293b;
-      overflow: hidden;
-    }
-    .card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    .card:hover .card-img { transform: scale(1.06); }
-    .card-badge {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(16, 185, 129, 0.9);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      backdrop-filter: blur(8px);
-    }
-    .card-price {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      background: rgba(7, 10, 20, 0.85);
-      border: 1px solid var(--border);
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 8px;
-    }
-    .card-price span { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
-    .card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-    .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
-    .card-loc { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; }
-    .amenities { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; flex: 1; }
-    .amenity-tag {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-    .btn-book {
-      flex: 1;
-      background: linear-gradient(135deg, var(--cyan), #0284c7);
-      color: #040711;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .btn-book:hover { box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
-    .btn-call {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-call:hover { border-color: var(--emerald); color: var(--emerald); }
-
-    /* Booking Modal */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .modal.open { display: flex; }
-    .modal-box {
-      background: #0d1326;
-      border: 1px solid var(--cyan);
-      border-radius: 20px;
-      max-width: 500px;
-      width: 100%;
-      padding: 30px;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0, 240, 255, 0.2);
-    }
-    .modal-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 1.5rem;
-    }
-    .modal-close:hover { color: #fff; }
-    .modal-h { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
-    .modal-sub { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px; }
-    .modal-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      padding: 12px 14px;
-      border-radius: 8px;
-      color: #fff;
-      margin-bottom: 14px;
-      outline: none;
-      font-family: inherit;
-    }
-    .modal-input:focus { border-color: var(--cyan); }
-    .modal-btn {
-      width: 100%;
-      background: linear-gradient(135deg, var(--emerald), var(--cyan));
-      color: #040711;
-      font-weight: 700;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .search-box { grid-template-columns: 1fr; }
-      .hero-title { font-size: 1.9rem; }
-    }
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
   </style>
 </head>
-<body>
+<body class="bg-white text-slate-900 antialiased selection:bg-slate-900 selection:text-white min-h-screen flex flex-col justify-between">
 
-  <!-- Top Navigation Bar -->
-  <header class="top-bar">
-    <a href="./index.html" class="brand">
-      <div class="brand-icon">RE</div>
-      <span>RentEase</span>
-      <span class="demo-badge">LIVE DEMO</span>
-    </a>
-    <a href="../index.html#projects" class="back-btn">
-      <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-      <span>Back to Portfolio</span>
-    </a>
+  <!-- ========================================================
+       TOP NAVIGATION BAR (Clean Airbnb Style)
+       ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="./index.html" class="flex items-center gap-3 group text-decoration-none">
+        <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-sm group-hover:bg-black transition-colors">
+          <i data-lucide="building-2" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-xl text-slate-900 tracking-tight">RentEase</span>
+            <span class="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full border border-slate-200">
+              0% Brokerage
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-500 font-normal">
+            Verified PG &amp; Room Finder
+          </p>
+        </div>
+      </a>
+
+      <!-- Center Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-600">
+        <button onclick="filterCategory('ALL')" class="hover:text-slate-900 transition-colors font-bold text-slate-900">
+          Explore
+        </button>
+        <button onclick="toggleWishlistDrawer()" class="flex items-center gap-1.5 hover:text-slate-900 transition-colors">
+          <i data-lucide="heart" class="w-4 h-4 text-rose-500"></i>
+          <span>Saved PGs (<span id="wishlist-count">2</span>)</span>
+        </button>
+        <button onclick="openBookingsModal()" class="flex items-center gap-1.5 hover:text-slate-900 transition-colors">
+          <i data-lucide="calendar-check" class="w-4 h-4 text-slate-600"></i>
+          <span>My Bookings</span>
+        </button>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-2.5">
+        <!-- + List PG -->
+        <button onclick="openAddPgModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-400 hover:text-slate-900 transition-all cursor-pointer shadow-sm">
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-slate-600"></i>
+          <span>List Your PG</span>
+        </button>
+
+        <!-- RentEase PRO Admin Panel Toggle -->
+        <button onclick="toggleAdminPanel()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-900 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 transition-all cursor-pointer shadow-sm">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-700"></i>
+          <span class="hidden sm:inline">Admin PRO</span>
+          <span class="sm:hidden">Admin</span>
+        </button>
+
+        <!-- Back to Portfolio Link -->
+        <a href="../index.html" class="inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-bold text-white bg-slate-900 hover:bg-black transition-all cursor-pointer shadow-sm">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Portfolio</span>
+        </a>
+      </div>
+
+    </div>
   </header>
 
-  <!-- Hero Banner -->
-  <section class="hero-banner">
-    <h1 class="hero-title">Find Verified Student &amp; Professional <span>PG Rooms</span></h1>
-    <p class="hero-sub">Search across Prayagraj, Banda, Delhi NCR, and Bangalore with verified amenities, zero brokerage, and instant booking token advance.</p>
-
-    <!-- Search Controls -->
-    <div class="search-box">
-      <div class="control-group">
-        <label class="control-label">Location / City</label>
-        <select class="control-select" id="city-select">
-          <option value="all">All Cities</option>
-          <option value="Prayagraj" selected>Prayagraj (Near UIT &amp; Civil Lines)</option>
-          <option value="Banda">Banda (Near Station &amp; Bypass)</option>
-          <option value="Delhi">Delhi NCR (Noida &amp; South Campus)</option>
-          <option value="Bangalore">Bangalore (Koramangala &amp; BTM)</option>
-        </select>
+  <!-- ========================================================
+       CENTERED MINIMALIST HERO & CAPSULE SEARCH
+       ======================================================== -->
+  <section class="bg-white pt-10 pb-6 px-4 sm:px-6 lg:px-8 border-b border-slate-100 text-center">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- Top Pill -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold mb-3">
+        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+        <span>100% Verified Campus PGs &amp; Direct Owners</span>
       </div>
 
-      <div class="control-group">
-        <label class="control-label">Sharing / Room Type</label>
-        <select class="control-select" id="type-select">
-          <option value="all">Any Room Type</option>
-          <option value="single">Single Private Room</option>
-          <option value="double">Double Sharing PG</option>
-          <option value="flat">1BHK / 2BHK Apartment</option>
-        </select>
+      <!-- Title -->
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-2.5">
+        Find verified PG rooms near your campus.
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mb-7 font-normal">
+        Direct owner listings, zero brokerage fees, and physically audited student co-living across Prayagraj, Bangalore, Delhi NCR &amp; Banda.
+      </p>
+
+      <!-- Capsule Search Bar -->
+      <form onsubmit="handleSearch(event)" class="bg-white border border-slate-200 rounded-full p-2 shadow-sm hover:shadow-md transition-shadow max-w-3xl mx-auto text-left">
+        <div class="flex flex-col sm:flex-row items-center divide-y sm:divide-y-0 sm:divide-x divide-slate-100 gap-1 sm:gap-0">
+          
+          <!-- City / Area -->
+          <div class="flex-1 w-full px-5 py-1.5">
+            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+              City / Area
+            </label>
+            <div class="flex items-center gap-1.5 mt-0.5">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+              <input
+                id="search-location"
+                type="text"
+                placeholder="Civil Lines, Koramangala, Banda..."
+                class="w-full text-xs font-semibold text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <!-- Room Type -->
+          <div class="w-full sm:w-44 px-4 py-1.5">
+            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+              Room Type
+            </label>
+            <select id="search-room-type" class="w-full text-xs font-semibold text-slate-800 bg-transparent focus:outline-none cursor-pointer mt-0.5">
+              <option value="ALL">All Sharing</option>
+              <option value="Single Studio">Single Room</option>
+              <option value="Twin Share">Twin Sharing</option>
+              <option value="Triple Share">Triple Sharing</option>
+            </select>
+          </div>
+
+          <!-- Max Rent -->
+          <div class="w-full sm:w-40 px-4 py-1.5">
+            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+              Max Rent
+            </label>
+            <select id="search-max-rent" class="w-full text-xs font-semibold text-slate-800 bg-transparent focus:outline-none cursor-pointer mt-0.5">
+              <option value="999999">Any Budget</option>
+              <option value="8000">Up to ₹8,000</option>
+              <option value="12000">Up to ₹12,000</option>
+              <option value="18000">Up to ₹18,000</option>
+            </select>
+          </div>
+
+          <!-- Black Button -->
+          <div class="p-1 w-full sm:w-auto">
+            <button type="submit" class="w-full sm:w-auto bg-slate-900 hover:bg-black text-white px-6 py-2.5 rounded-full font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-95">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+              <span>Search</span>
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-5" id="category-pills">
+        <button onclick="filterCategory('ALL')" class="pill-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900 text-white shadow-sm transition-all" data-category="ALL">
+          All PGs
+        </button>
+        <button onclick="filterCategory('Student Hubs')" class="pill-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-category="Student Hubs">
+          Student Hubs
+        </button>
+        <button onclick="filterCategory('Techie Stays')" class="pill-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-category="Techie Stays">
+          Techie Stays
+        </button>
+        <button onclick="filterCategory('Girls Exclusive')" class="pill-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-category="Girls Exclusive">
+          Girls Exclusive
+        </button>
+        <button onclick="filterCategory('Co-Living')" class="pill-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-category="Co-Living">
+          Co-Living
+        </button>
       </div>
 
-      <div class="control-group">
-        <label class="control-label">Max Monthly Budget</label>
-        <select class="control-select" id="budget-select">
-          <option value="all">Any Budget</option>
-          <option value="5000">Under ₹5,000 / mo</option>
-          <option value="8000">Under ₹8,000 / mo</option>
-          <option value="12000">Under ₹12,000 / mo</option>
-        </select>
-      </div>
-
-      <button class="search-btn" id="search-btn">
-        <i data-lucide="search" style="width:18px;height:18px;"></i>
-        <span>Search</span>
-      </button>
-    </div>
-
-    <!-- Category Pills -->
-    <div class="filter-pills">
-      <button class="pill active" data-cat="all">All Listings (6)</button>
-      <button class="pill" data-cat="boys">Boys PG</button>
-      <button class="pill" data-cat="girls">Girls PG</button>
-      <button class="pill" data-cat="single">Single Rooms</button>
-      <button class="pill" data-cat="flat">Independent Flats</button>
     </div>
   </section>
 
-  <!-- Properties Grid -->
-  <main class="container">
-    <div class="grid" id="properties-grid">
-      <!-- Populated via JavaScript -->
+  <!-- ========================================================
+       CLEAN 3-COLUMN MINIMALIST PG CATALOG GRID
+       ======================================================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex-1 w-full">
+    
+    <div class="flex items-center justify-between mb-6 pb-2 border-b border-slate-100">
+      <div>
+        <h2 class="text-lg font-black text-slate-900 tracking-tight">
+          Available Verified Rooms
+        </h2>
+        <p class="text-xs text-slate-500" id="results-count-text">
+          Showing 8 verified residences
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+          <i data-lucide="check" class="w-3 h-3 text-emerald-600"></i>
+          <span>Direct Host Connect</span>
+        </span>
+      </div>
     </div>
+
+    <!-- PG Cards Grid -->
+    <div id="pg-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Injected by JavaScript -->
+    </div>
+
   </main>
 
-  <!-- Booking Modal -->
-  <div class="modal" id="book-modal">
-    <div class="modal-box">
-      <button class="modal-close" id="modal-close-btn">&times;</button>
-      <h3 class="modal-h" id="modal-prop-title">Book Room Visit</h3>
-      <p class="modal-sub" id="modal-prop-loc">Pay refundable ₹499 visit token or lock booking instantly via simulated UPI.</p>
-      
-      <input type="text" class="modal-input" placeholder="Your Full Name" required />
-      <input type="tel" class="modal-input" placeholder="Phone Number / WhatsApp" required />
-      <input type="date" class="modal-input" id="visit-date" />
+  <!-- ========================================================
+       MINIMALIST TRUST SECTION
+       ======================================================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 mb-12 w-full">
+    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-8 sm:p-10">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center sm:text-left">
+        <div class="flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-slate-900 mb-1">0% Brokerage Guarantee</h4>
+            <p class="text-xs text-slate-500">Direct agreement between student and host without any middleman commission.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-slate-900 mb-1">Physically Verified Rooms</h4>
+            <p class="text-xs text-slate-500">Every room is audited for Wi-Fi speed, security, cleanliness, and food quality.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-slate-900 mb-1">Instant Move-In</h4>
+            <p class="text-xs text-slate-500">Hold your bed with a ₹500 token deposit and receive your instant digital booking pass.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <button class="modal-btn" id="confirm-booking-btn">
-        <span>Confirm Visit &amp; Token Advance (₹499)</span>
+  <!-- Clean Minimalist Footer -->
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 RentEase PRO. Designed by Abhishek Tripathi.</p>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="hover:text-slate-900 font-medium">Portfolio</a>
+        <a href="https://github.com/abhishektripathi9/RentEase-PG-Room-Finder" target="_blank" class="hover:text-slate-900 font-medium">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       MODALS: PROPERTY DETAILS, BOOKING PASS, ADMIN PRO
+       ======================================================== -->
+
+  <!-- Property Details Modal -->
+  <div id="details-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto border border-slate-200">
+      <button onclick="closeDetailsModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 rounded-full hover:bg-slate-100 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="aspect-video w-full rounded-2xl overflow-hidden mb-5 bg-slate-100">
+        <img id="modal-img" src="" alt="PG Room" class="w-full h-full object-cover">
+      </div>
+
+      <div class="flex items-start justify-between gap-4 mb-3">
+        <div>
+          <span id="modal-category" class="inline-block text-[10px] uppercase font-bold tracking-wider bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full mb-1 border border-slate-200">
+            Student Co-Living
+          </span>
+          <h2 id="modal-title" class="text-xl font-black text-slate-900">PG Name</h2>
+          <p id="modal-address" class="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            <span>Address</span>
+          </p>
+        </div>
+
+        <div class="text-right">
+          <span id="modal-price" class="text-2xl font-black text-slate-900">₹6,500</span>
+          <span class="text-xs text-slate-400 block font-normal">per month</span>
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <div class="grid grid-cols-3 gap-2 my-4 text-center">
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="text-[10px] text-slate-400 block font-medium">Beds Available</span>
+          <span id="modal-beds" class="text-xs font-bold text-slate-800">2 beds left</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="text-[10px] text-slate-400 block font-medium">Sharing Type</span>
+          <span id="modal-sharing" class="text-xs font-bold text-slate-800">Twin Sharing</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="text-[10px] text-slate-400 block font-medium">Food Plan</span>
+          <span class="text-xs font-bold text-slate-800">3x Meals / Day</span>
+        </div>
+      </div>
+
+      <!-- Amenities -->
+      <div class="mb-6">
+        <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">Amenities Included</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-lg border border-slate-200">✓ High-Speed Wi-Fi</span>
+          <span class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-lg border border-slate-200">✓ 3x Meals Buffet</span>
+          <span class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-lg border border-slate-200">✓ 24/7 Power Backup</span>
+          <span class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-lg border border-slate-200">✓ RO Drinking Water</span>
+          <span class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-lg border border-slate-200">✓ Biometric Security</span>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex items-center gap-3 pt-3 border-t border-slate-100">
+        <button onclick="scheduleVisitFromModal()" class="flex-1 py-3 rounded-xl border border-slate-300 hover:border-slate-800 text-slate-800 font-bold text-xs transition-colors">
+          Schedule Free Visit
+        </button>
+        <button onclick="bookBedFromModal()" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5">
+          <span>Book Bed (₹500 Token)</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Digital Booking Pass Modal -->
+  <div id="pass-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl text-center border border-slate-200">
+      <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="check" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-xl font-black text-slate-900 mb-1">Bed Reserved Successfully!</h3>
+      <p class="text-xs text-slate-500 mb-4">
+        Your ₹500 token deposit is held. Show this verified pass to your host on arrival.
+      </p>
+
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left space-y-2 mb-5 text-xs">
+        <div class="flex justify-between border-b border-slate-200 pb-2">
+          <span class="text-slate-400">Pass ID</span>
+          <span id="pass-id" class="font-mono font-bold text-slate-900">RE-829144</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-200 pb-2">
+          <span class="text-slate-400">Property</span>
+          <span id="pass-property" class="font-bold text-slate-900">Shanti Niwas PG</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-200 pb-2">
+          <span class="text-slate-400">Hold Token</span>
+          <span class="font-bold text-emerald-600">₹500.00 (Adjusted in 1st Month Rent)</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Zero Brokerage Guarantee</span>
+          <span class="font-bold text-slate-900">100% Free Pass</span>
+        </div>
+      </div>
+
+      <button onclick="closePassModal()" class="w-full py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-black">
+        Done / Return to Browse
       </button>
     </div>
   </div>
 
+  <!-- RentEase PRO Admin Panel Drawer / Slide-Over -->
+  <div id="admin-panel" class="fixed inset-y-0 right-0 z-50 w-full max-w-xl bg-white shadow-2xl border-l border-slate-200 transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+    <div class="p-6 overflow-y-auto flex-1 custom-scroll">
+      
+      <!-- Admin Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+            <i data-lucide="shield" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-black text-base text-slate-900">RentEase PRO Admin</h3>
+            <p class="text-[11px] text-slate-500">Security &amp; PG Approval Gateway</p>
+          </div>
+        </div>
+        <button onclick="toggleAdminPanel()" class="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Live KPI Cards -->
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+          <span class="text-[10px] font-bold text-slate-400 uppercase">Verified PGs Live</span>
+          <p id="kpi-live-count" class="text-2xl font-black text-slate-900 mt-1">8</p>
+          <span class="text-[10px] text-emerald-600 font-semibold">100% Audited</span>
+        </div>
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+          <span class="text-[10px] font-bold text-slate-400 uppercase">Pending Approvals</span>
+          <p id="kpi-pending-count" class="text-2xl font-black text-amber-600 mt-1">1</p>
+          <span class="text-[10px] text-amber-600 font-semibold">Review Required</span>
+        </div>
+      </div>
+
+      <!-- Pending PG Approvals Queue -->
+      <div class="mb-6">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+          PG Verification Queue
+        </h4>
+        <div id="pending-queue" class="space-y-3">
+          <!-- Pending item -->
+          <div class="p-4 border border-amber-200 bg-amber-50/50 rounded-2xl flex items-center justify-between">
+            <div>
+              <p class="font-bold text-xs text-slate-900">Heritage Deluxe PG</p>
+              <p class="text-[11px] text-slate-500">Civil Lines, Prayagraj • ₹7,000/mo</p>
+              <span class="inline-block mt-1 text-[9px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">KYC Pending</span>
+            </div>
+            <button onclick="approvePendingPg()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors">
+              Approve &amp; Publish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Delegation & Audit Logs -->
+      <div class="p-4 bg-slate-900 text-white rounded-2xl text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-slate-200">Owner Access Gateway</span>
+          <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">ACTIVE</span>
+        </div>
+        <p class="text-[11px] text-slate-400 mb-3">
+          Delegated managers can approve PGs, manage student token holds, and export compliance reports.
+        </p>
+        <div class="space-y-1.5 font-mono text-[10px] text-slate-300">
+          <p>• [AUDIT] 18:30: Admin approved Koramangala Nest</p>
+          <p>• [AUDIT] 18:45: Token hold ₹500 generated</p>
+          <p>• [AUDIT] 19:00: Security permissions synced</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Admin Footer -->
+    <div class="p-4 bg-slate-50 border-t border-slate-200 text-center">
+      <button onclick="toggleAdminPanel()" class="w-full py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-white">
+        Close Admin View ↗
+      </button>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Logic -->
   <script>
-    const listings = [
+    // Initial PG Dataset (Real high-res Unsplash room images)
+    const initialProperties = [
       {
         id: 1,
-        title: "United Scholars Residency (Boys PG)",
+        name: "Shanti Niwas Luxury PG",
+        locality: "Civil Lines",
         city: "Prayagraj",
-        area: "Naini, Near UIT Campus",
-        price: 5500,
-        type: "double",
-        gender: "boys",
-        badge: "Near UIT Campus",
-        image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=700&q=80",
-        amenities: ["WiFi (100Mbps)", "3x Meals Included", "Power Backup", "RO Water", "RO Water"]
+        price: 6500,
+        sharing: "Twin Share",
+        category: "Student Hubs",
+        rating: 4.9,
+        available_beds: 3,
+        image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 2,
-        title: "Civil Lines Elite Studio",
-        city: "Prayagraj",
-        area: "Civil Lines Market",
-        price: 8500,
-        type: "single",
-        gender: "all",
-        badge: "Zero Brokerage",
-        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
-        amenities: ["Air Conditioned", "Private Attached Bath", "Geyser", "Smart TV", "Parking"]
+        name: "Koramangala Techie Haven",
+        locality: "5th Block, Koramangala",
+        city: "Bangalore",
+        price: 14500,
+        sharing: "Single Studio",
+        category: "Techie Stays",
+        rating: 4.8,
+        available_beds: 2,
+        image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 3,
-        title: "St. Mary's Girls Haven PG",
+        name: "Saraswati Girls Executive Stay",
+        locality: "Near UIT Campus",
         city: "Prayagraj",
-        area: "George Town",
-        price: 6500,
-        type: "double",
-        gender: "girls",
-        badge: "24/7 CCTV & Security",
-        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=700&q=80",
-        amenities: ["High Security", "Food Included", "Washing Machine", "Study Table", "Garden"]
+        price: 5800,
+        sharing: "Triple Share",
+        category: "Girls Exclusive",
+        rating: 4.9,
+        available_beds: 4,
+        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 4,
-        title: "Banda Royal Residency",
-        city: "Banda",
-        area: "Civil Lines & Bypass",
-        price: 4500,
-        type: "single",
-        gender: "boys",
-        badge: "Budget Choice",
-        image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=700&q=80",
-        amenities: ["Spacious Balcony", "Water Cooler", "Power Inverter", "Bike Parking"]
+        name: "HSR Urban Co-Living",
+        locality: "Sector 3, HSR Layout",
+        city: "Bangalore",
+        price: 16000,
+        sharing: "Single Studio",
+        category: "Co-Living",
+        rating: 4.9,
+        available_beds: 1,
+        image: "https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 5,
-        title: "Noida Tech-Park 1BHK Flat",
-        city: "Delhi",
-        area: "Sector 62, Noida NCR",
-        price: 11500,
-        type: "flat",
-        gender: "all",
-        badge: "Metro 5 Min Walk",
-        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=700&q=80",
-        amenities: ["Modular Kitchen", "Clubhouse & Gym", "High-Speed Lift", "24/7 Security"]
+        name: "Ganga View Residency",
+        locality: "Civil Lines",
+        city: "Banda",
+        price: 4500,
+        sharing: "Twin Share",
+        category: "Student Hubs",
+        rating: 4.7,
+        available_beds: 5,
+        image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 6,
-        title: "Koramangala Executive Co-Living",
+        name: "North Campus Scholars Stay",
+        locality: "Vijay Nagar",
+        city: "Delhi NCR",
+        price: 9500,
+        sharing: "Twin Share",
+        category: "Student Hubs",
+        rating: 4.8,
+        available_beds: 2,
+        image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 7,
+        name: "Indiranagar Executive PG",
+        locality: "100ft Road, Indiranagar",
         city: "Bangalore",
-        area: "5th Block Koramangala",
-        price: 12000,
-        type: "single",
-        gender: "all",
-        badge: "Co-Working Lounge",
-        image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=700&q=80",
-        amenities: ["Gaming Room", "Housekeeping Included", "Chef Meals", "Rooftop Cafe"]
+        price: 18500,
+        sharing: "Single Studio",
+        category: "Co-Living",
+        rating: 4.9,
+        available_beds: 2,
+        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 8,
+        name: "Banda Tech Campus Lodge",
+        locality: "University Road",
+        city: "Banda",
+        price: 4200,
+        sharing: "Triple Share",
+        category: "Student Hubs",
+        rating: 4.6,
+        available_beds: 3,
+        image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80"
       }
     ];
 
-    function renderListings(items) {
-      const grid = document.getElementById('properties-grid');
-      if (items.length === 0) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;color:var(--text-muted);"><h3>No listings match your filter criteria.</h3><p>Try resetting city or budget filters.</p></div>';
-        return;
+    let properties = [...initialProperties];
+    let wishlist = [1, 3];
+    let selectedPgForModal = null;
+    let activeFilter = 'ALL';
+
+    function renderProperties() {
+      const grid = document.getElementById('pg-grid');
+      const locationQuery = document.getElementById('search-location').value.toLowerCase().trim();
+      const roomTypeQuery = document.getElementById('search-room-type').value;
+      const maxRentQuery = Number(document.getElementById('search-max-rent').value);
+
+      const filtered = properties.filter(pg => {
+        const matchesCategory = activeFilter === 'ALL' || pg.category === activeFilter;
+        const matchesLocation = !locationQuery || 
+          pg.name.toLowerCase().includes(locationQuery) || 
+          pg.locality.toLowerCase().includes(locationQuery) || 
+          pg.city.toLowerCase().includes(locationQuery);
+        const matchesRoom = roomTypeQuery === 'ALL' || pg.sharing.includes(roomTypeQuery);
+        const matchesRent = pg.price <= maxRentQuery;
+
+        return matchesCategory && matchesLocation && matchesRoom && matchesRent;
+      });
+
+      document.getElementById('results-count-text').innerText = `Showing ${filtered.length} verified residences`;
+
+      grid.innerHTML = filtered.map(pg => {
+        const isSaved = wishlist.includes(pg.id);
+        return `
+          <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-200 group flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                <img src="${pg.image}" alt="${pg.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                
+                <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-slate-900 text-[10px] font-bold px-2.5 py-1 rounded-full border border-slate-200 shadow-sm flex items-center gap-1">
+                  <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i>
+                  <span>Verified</span>
+                </span>
+
+                <button onclick="toggleWishlist(${pg.id}, event)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-slate-700 hover:text-rose-600 transition-colors shadow-sm">
+                  <i data-lucide="heart" class="w-4 h-4 ${isSaved ? 'text-rose-500 fill-rose-500' : ''}"></i>
+                </button>
+
+                <div class="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded-md flex items-center gap-1">
+                  <i data-lucide="zap" class="w-2.5 h-2.5 text-emerald-400"></i>
+                  <span>${pg.available_beds > 0 ? pg.available_beds + ' Beds Left' : 'Full'}</span>
+                </div>
+              </div>
+
+              <div class="p-4">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <h3 class="font-bold text-sm text-slate-900 group-hover:text-black line-clamp-1">${pg.name}</h3>
+                  <div class="flex items-center gap-1 text-[11px] font-bold text-slate-700 shrink-0">
+                    <i data-lucide="star" class="w-3 h-3 text-amber-500 fill-amber-500"></i>
+                    <span>${pg.rating}</span>
+                  </div>
+                </div>
+
+                <p class="text-xs text-slate-500 mb-2.5 flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-slate-400 shrink-0"></i>
+                  <span class="truncate">${pg.locality}, ${pg.city}</span>
+                </p>
+
+                <p class="text-[11px] text-slate-600 mb-3 line-clamp-1">
+                  Wi-Fi • Food Included • Power Backup • ${pg.sharing}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-4 pb-4 pt-2 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-base font-black text-slate-900">₹${pg.price.toLocaleString('en-IN')}</span>
+                <span class="text-[11px] text-slate-400 font-normal"> /month</span>
+              </div>
+              <button onclick="openDetailsModal(${pg.id})" class="px-3.5 py-1.5 rounded-xl border border-slate-300 hover:border-slate-900 text-slate-800 hover:text-black text-xs font-bold transition-all bg-white hover:bg-slate-50 cursor-pointer">
+                View Details
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function filterCategory(cat) {
+      activeFilter = cat;
+      document.querySelectorAll('#category-pills .pill-btn').forEach(btn => {
+        if (btn.dataset.category === cat) {
+          btn.className = "pill-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900 text-white shadow-sm transition-all";
+        } else {
+          btn.className = "pill-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all";
+        }
+      });
+      renderProperties();
+    }
+
+    function handleSearch(e) {
+      e.preventDefault();
+      renderProperties();
+    }
+
+    function toggleWishlist(id, e) {
+      if (e) e.stopPropagation();
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(x => x !== id);
+      } else {
+        wishlist.push(id);
       }
-      grid.innerHTML = items.map(p => `
-        <div class="card">
-          <div class="card-img-wrap">
-            <img src="${p.image}" alt="${p.title}" class="card-img" loading="lazy" />
-            <span class="card-badge">${p.badge}</span>
-            <div class="card-price">₹${p.price.toLocaleString('en-IN')} <span>/mo</span></div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">${p.title}</h3>
-            <div class="card-loc">
-              <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--cyan);"></i>
-              <span>${p.area}, ${p.city}</span>
-            </div>
-            <div class="amenities">
-              ${p.amenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
-            </div>
-            <div class="card-actions">
-              <button class="btn-book" onclick="openBookModal('${p.title}', '${p.area}, ${p.city}')">
-                <i data-lucide="calendar" style="width:16px;height:16px;"></i>
-                <span>Book Visit</span>
-              </button>
-              <button class="btn-call" onclick="alert('Connecting with landlord for ${p.title}...')">
-                <i data-lucide="phone" style="width:16px;height:16px;"></i>
-              </button>
-            </div>
-          </div>
+      document.getElementById('wishlist-count').innerText = wishlist.length;
+      renderProperties();
+    }
+
+    function openDetailsModal(id) {
+      const pg = properties.find(p => p.id === id);
+      if (!pg) return;
+      selectedPgForModal = pg;
+
+      document.getElementById('modal-img').src = pg.image;
+      document.getElementById('modal-title').innerText = pg.name;
+      document.getElementById('modal-address').innerText = `${pg.locality}, ${pg.city}`;
+      document.getElementById('modal-price').innerText = `₹${pg.price.toLocaleString('en-IN')}`;
+      document.getElementById('modal-beds').innerText = `${pg.available_beds} beds left`;
+      document.getElementById('modal-sharing').innerText = pg.sharing;
+      document.getElementById('modal-category').innerText = pg.category;
+
+      document.getElementById('details-modal').classList.remove('hidden');
+      document.getElementById('details-modal').classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeDetailsModal() {
+      document.getElementById('details-modal').classList.add('hidden');
+      document.getElementById('details-modal').classList.remove('flex');
+    }
+
+    function bookBedFromModal() {
+      if (!selectedPgForModal) return;
+      closeDetailsModal();
+      
+      // decrement bed
+      if (selectedPgForModal.available_beds > 0) {
+        selectedPgForModal.available_beds -= 1;
+      }
+      renderProperties();
+
+      // Show pass
+      document.getElementById('pass-id').innerText = `RE-${Math.floor(100000 + Math.random() * 900000)}`;
+      document.getElementById('pass-property').innerText = selectedPgForModal.name;
+      document.getElementById('pass-modal').classList.remove('hidden');
+      document.getElementById('pass-modal').classList.add('flex');
+      
+      confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+      lucide.createIcons();
+    }
+
+    function closePassModal() {
+      document.getElementById('pass-modal').classList.add('hidden');
+      document.getElementById('pass-modal').classList.remove('flex');
+    }
+
+    function scheduleVisitFromModal() {
+      alert(`Free visit scheduled for ${selectedPgForModal.name}! The PG host will contact you.`);
+      closeDetailsModal();
+    }
+
+    function toggleAdminPanel() {
+      const panel = document.getElementById('admin-panel');
+      if (panel.classList.contains('translate-x-full')) {
+        panel.classList.remove('translate-x-full');
+      } else {
+        panel.classList.add('translate-x-full');
+      }
+      lucide.createIcons();
+    }
+
+    function approvePendingPg() {
+      properties.unshift({
+        id: Date.now(),
+        name: "Heritage Deluxe PG",
+        locality: "Civil Lines",
+        city: "Prayagraj",
+        price: 7000,
+        sharing: "Single Studio",
+        category: "Student Hubs",
+        rating: 5.0,
+        available_beds: 4,
+        image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80"
+      });
+      document.getElementById('pending-queue').innerHTML = `
+        <div class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold text-center">
+          ✓ Approved! PG is now live on the public website.
         </div>
-      `).join('');
-
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      `;
+      document.getElementById('kpi-live-count').innerText = properties.length;
+      document.getElementById('kpi-pending-count').innerText = 0;
+      renderProperties();
     }
 
-    function applyFilters() {
-      const city = document.getElementById('city-select').value;
-      const type = document.getElementById('type-select').value;
-      const budget = document.getElementById('budget-select').value;
-      const activePill = document.querySelector('.pill.active').getAttribute('data-cat');
-
-      let filtered = listings.filter(item => {
-        const matchesCity = city === 'all' || item.city === city;
-        const matchesType = type === 'all' || item.type === type;
-        const matchesBudget = budget === 'all' || item.price <= parseInt(budget);
-        
-        let matchesCat = true;
-        if (activePill === 'boys') matchesCat = item.gender === 'boys';
-        if (activePill === 'girls') matchesCat = item.gender === 'girls';
-        if (activePill === 'single') matchesCat = item.type === 'single';
-        if (activePill === 'flat') matchesCat = item.type === 'flat';
-
-        return matchesCity && matchesType && matchesBudget && matchesCat;
+    function openAddPgModal() {
+      const name = prompt("Enter your PG / Hostel Name:");
+      if (!name) return;
+      const city = prompt("Enter City (e.g. Prayagraj, Bangalore):") || "Prayagraj";
+      const rent = Number(prompt("Enter Monthly Rent (₹):") || 6000);
+      
+      properties.unshift({
+        id: Date.now(),
+        name: name,
+        locality: "Near Campus",
+        city: city,
+        price: rent,
+        sharing: "Twin Share",
+        category: "Student Hubs",
+        rating: 4.9,
+        available_beds: 3,
+        image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80"
       });
-
-      renderListings(filtered);
+      alert("PG submitted! It is now published on the platform.");
+      renderProperties();
     }
 
-    document.getElementById('search-btn').addEventListener('click', applyFilters);
-    document.querySelectorAll('.pill').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        applyFilters();
-      });
-    });
-
-    const modal = document.getElementById('book-modal');
-    function openBookModal(title, loc) {
-      document.getElementById('modal-prop-title').textContent = title;
-      document.getElementById('modal-prop-loc').textContent = loc + ' • Token advance ₹499';
-      modal.classList.add('open');
+    function toggleWishlistDrawer() {
+      alert(`You have ${wishlist.length} saved PGs in your wishlist.`);
     }
-    document.getElementById('modal-close-btn').addEventListener('click', () => modal.classList.remove('open'));
-    document.getElementById('confirm-booking-btn').addEventListener('click', () => {
-      alert('🎉 Booking Scheduled! A confirmation SMS and WhatsApp invite with exact landlord location coordinates has been generated.');
-      modal.classList.remove('open');
-    });
 
-    // Initial render
-    document.addEventListener('DOMContentLoaded', () => {
-      renderListings(listings);
-      const today = new Date().toISOString().split('T')[0];
-      const dateInput = document.getElementById('visit-date');
-      if (dateInput) dateInput.value = today;
-    });
+    function openBookingsModal() {
+      alert("My Bookings: You have 1 active ₹500 token reservation pass.");
+    }
+
+    // Init
+    window.onload = () => {
+      renderProperties();
+    };
   </script>
 </body>
 </html>
