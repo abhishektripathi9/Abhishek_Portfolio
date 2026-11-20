@@ -709,19 +709,20 @@ const projectData = {
     liveDemo: './weather/index.html'
   },
   salary: {
-    title: 'PayPulse – ML Compensation Predictor & Analytics',
+    title: 'SalaryAI — Tech Compensation & Leveling Engine',
     year: '2026',
-    category: 'Machine Learning & Predictive Analytics',
+    category: 'Machine Learning & Leveling Architecture',
     image: 'assets/project-salary.jpg',
-    desc: 'Predictive machine learning regression engine analyzing experience, technical specialization, geography, and equity data to calculate real-time compensation benchmarks with feature-importance visualizations.',
+    desc: 'Production-grade Machine Learning compensation engine & leveling platform trained on 2,540 verified Indian tech offers. Features 3 Scikit-Learn regression pipelines, 90% confidence intervals, dynamic bell-curve distributions, and dual Public + Admin Control Room architecture.',
     highlights: [
-      'Interactive salary distribution engine trained with Scikit-learn Random Forest regression models.',
-      'Real-time compensation benchmark estimator with dynamic percentiles (25th, 50th, 75th, 90th).',
-      'Interactive radar analytics comparing developer base, bonus, stock grants, and career growth trajectories.',
-      'Automated input validation and instantaneous salary curve updates.'
+      'Unified Monorepo running Public Predictor (/) and Admin Control Panel (/admin) simultaneously in React 19 + Flask.',
+      'Trained and serialized 3 real Scikit-Learn regression models: Random Forest v4.2 (R² 0.942), Gradient Boosting v4.1, and Ridge Regression v3.8.',
+      '90% confidence interval estimation (min/max CTC), Base/Bonus/Equity package breakdown, and SHAP-style feature attribution.',
+      'Live market bell-curve distribution with exact percentile rank benchmarking across 2,540 verified tech offers.',
+      'Admin Control Room with live inference stream audit log, one-click model switcher, and CSV dataset ingestion.'
     ],
-    tech: ['Python', 'Scikit-Learn', 'FastAPI', 'Pandas', 'NumPy', 'Chart.js', 'Bootstrap'],
-    github: 'https://github.com/abhishektripathi9',
+    tech: ['Python 3', 'Flask', 'Scikit-Learn', 'React 19', 'Tailwind CSS', 'Recharts', 'SQLite', 'PyJWT'],
+    github: 'https://github.com/abhishektripathi9/Salary-Prediction-System',
     liveDemo: './salary/index.html'
   }
 };

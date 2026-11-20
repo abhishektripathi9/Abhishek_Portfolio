@@ -58,7 +58,7 @@
 | 6 | 🏠 **RentEase – PG &amp; Room Finder** | React.js &bull; Java &bull; Spring Boot &bull; MySQL &bull; REST APIs | Full-stack student PG room finder with city filters, amenity tags, owner portal, and token booking advance. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/rentease/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/RentEase-PG-Room-Finder) |
 | 7 | 🏋️ **FitPulse Studio – Boutique Strength** | HTML5 Semantic &bull; CSS3 Custom &bull; Vanilla JS &bull; WhatsApp API | Civil Lines Prayagraj boutique barbell gym and athletic conditioning portal with coach callback engine and schedule tiers. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/fitpulse/index.html)<br>[💻 Live Web](https://abhishek-portfolio-uir4.onrender.com/fitpulse/index.html) |
 | 7 | 🌤️ **AuraWeather – Atmospheric Telemetry** | React.js &bull; OpenWeather &bull; REST APIs &bull; CSS3 Glassmorphism | Glassmorphic telemetry web app with live weather ingestion, 7-day projections, air quality radar (AQI), and wind analysis. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/weather/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Weather-App) |
-| 8 | 📈 **PayPulse – ML Compensation Predictor** | Python &bull; Scikit-Learn &bull; FastAPI &bull; Chart.js &bull; Regression | Machine Learning regression engine analyzing experience and skills to calculate real-time compensation benchmarks with radar analytics. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/salary/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9) |
+| 8 | 📈 **SalaryAI — Tech Compensation & Leveling Engine** | Python 3 &bull; Scikit-Learn &bull; Flask &bull; React 19 &bull; Tailwind CSS &bull; Recharts | Production-grade ML compensation leveling platform with 3 regression models (R² 0.942), 90% confidence intervals, and dual Public + Admin Control Room architecture. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/salary/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Salary-Prediction-System) |
 | 9 | 📊 **Flipkart E-Commerce Sales Intelligence** | Power BI &bull; DAX Measures &bull; Power Query &bull; BI Modeling | Enterprise business intelligence analyzing ₹18.4M+ revenue turnover, 142k+ orders, regional market share, and payment gateway split. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/powerbi-analytics/index.html#flipkart)<br>[💻 PBIX Model](https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects) |
 | 10 | 🚗 **Tesla Automotive Fleet &amp; Safety Telemetry** | Power BI &bull; Automotive BI &bull; DAX &bull; Pricing Models | Fleet valuation telemetry tracking Model S/3/X/Y prices, odometer decay, and clean title safety ratio (84.6%). | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/powerbi-analytics/index.html#tesla)<br>[💻 PBIX Model](https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects) |
 
@@ -85,7 +85,7 @@ Abhishek_Portfolio/
 ├── land-registry/               # BhoomiChain Web3 Land Registry DApp
 ├── rentease/                    # RentEase PG & Room Finder Platform
 ├── weather/                     # AuraWeather Atmospheric Telemetry
-├── salary/                      # PayPulse ML Compensation Predictor
+├── salary/                      # SalaryAI Tech Compensation & Leveling Engine
 └── assets/                      # High-resolution project mockups, badges & icons
 ```
 
