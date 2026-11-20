@@ -431,12 +431,11 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = canvas.offsetWidth * dpr;
-      canvas.height = canvas.offsetHeight * dpr;
+      const w = canvas.offsetWidth > 0 ? canvas.offsetWidth : (canvas.parentElement ? canvas.parentElement.clientWidth - 48 : 500);
+      const h = canvas.offsetHeight > 0 ? canvas.offsetHeight : 160;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       ctx.scale(dpr, dpr);
-
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
 
       // Draw normal distribution curve
@@ -490,11 +489,10 @@
       ctx.fillText('₹45L+ (Staff)', w - 10, h - 8);
     }
 
-    document.querySelectorAll('#skills-container label').forEach(lbl => {
-      lbl.addEventListener('click', (e) => {
-        const chk = lbl.querySelector('input');
-        if (e.target !== chk) chk.checked = !chk.checked;
-        lbl.classList.toggle('selected', chk.checked);
+    document.querySelectorAll('#skills-container input[type="checkbox"]').forEach(chk => {
+      chk.addEventListener('change', () => {
+        const lbl = chk.closest('label');
+        if (lbl) lbl.classList.toggle('selected', chk.checked);
         calculateSalary();
       });
     });
