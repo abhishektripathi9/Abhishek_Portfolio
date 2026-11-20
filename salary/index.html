@@ -3,509 +3,1122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SalaryAI — Tech Compensation & Leveling Engine | Live Demo</title>
-  <meta name="description" content="SalaryAI is a unified Machine Learning compensation prediction & leveling engine estimating tech compensation with real-time distribution modeling and executive control." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <title>SalaryAI — Tech Compensation & Leveling Engine | Live Portfolio Demo</title>
+  <meta name="description" content="Production-grade Machine Learning compensation engine & leveling platform trained on 2,540 verified Indian tech offers. Multi-model regression with R² 0.942, 90% confidence intervals, and dual Public + Admin Control Room architecture." />
+  
+  <!-- Fonts & CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            slate: {
+              950: '#070b13',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(17, 24, 39, 0.85);
-      --border: rgba(255, 255, 255, 0.08);
-      --cyan: #38bdf8;
-      --emerald: #10b981;
-      --purple: #818cf8;
-      --amber: #f59e0b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Outfit', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-      background-image: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 45%),
-                        radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 45%);
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .top-bar {
-      background: rgba(10, 15, 30, 0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    .exec-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02);
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
+    .exec-card-hero {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-top: 3px solid #10B981;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
     }
-    .brand-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--emerald), var(--cyan));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #040711;
-      font-weight: 900;
-    }
-    .demo-badge {
-      font-size: 0.72rem;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid var(--emerald);
-      color: var(--emerald);
-      padding: 3px 10px;
-      border-radius: 99px;
-      font-weight: 600;
-    }
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.88rem;
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-    }
-    .back-btn:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 240, 255, 0.05); }
-
-    .main-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
-
-    .hero-title-box { text-align: center; max-width: 800px; margin: 0 auto 36px; }
-    .hero-title-box h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
-    .hero-title-box h1 span {
-      background: linear-gradient(135deg, var(--emerald), var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-title-box p { color: var(--text-muted); font-size: 1rem; }
-
-    /* Prediction Grid Layout */
-    .calc-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 30px;
-      align-items: start;
-    }
-
-    /* Left Control Panel */
-    .controls-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    }
-    .field-group { margin-bottom: 22px; }
-    .field-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-    .field-val-badge { color: var(--cyan); font-weight: 700; font-family: 'Space Grotesk'; }
-    .slider {
-      width: 100%;
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #E2E8F0;
       height: 6px;
-      border-radius: 3px;
-      background: rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
       outline: none;
-      -webkit-appearance: none;
-      cursor: pointer;
+      transition: all 0.15s ease-in-out;
     }
-    .slider::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
+      appearance: none;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
+      background: #0F172A;
       cursor: pointer;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 0.1s ease, background-color 0.15s ease;
     }
-    .select-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      padding: 12px 14px;
-      border-radius: 10px;
-      color: #fff;
-      outline: none;
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-    .select-input:focus { border-color: var(--cyan); }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .skill-check-label {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.84rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-    .skill-check-label.selected {
-      background: rgba(0, 240, 255, 0.12);
-      border-color: var(--cyan);
-      color: #fff;
-    }
-    .skill-check-label input { display: none; }
-
-    /* Right Result Showcase */
-    .result-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .hero-metric-card {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(15, 23, 42, 0.85) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 20px;
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    }
-    .hero-metric-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--emerald), var(--cyan));
-    }
-    .metric-sub { font-size: 0.85rem; text-transform: uppercase; color: var(--emerald); font-weight: 700; margin-bottom: 6px; }
-    .metric-large { font-size: 4rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: #fff; line-height: 1.1; }
-    .metric-equiv { color: var(--text-muted); font-size: 1.1rem; margin-top: 6px; }
-    .percentile-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-size: 0.85rem;
-      margin-top: 14px;
-      color: #fff;
-    }
-
-    /* Distribution Canvas */
-    .distrib-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-    }
-    .card-h { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #fff; }
-    .distrib-canvas { width: 100%; height: 160px; display: block; }
-
-    /* Breakdown factors */
-    .factors-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .factor-pill {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-    }
-    .factor-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
-    .factor-val { font-size: 1.15rem; font-weight: 700; color: #fff; font-family: 'Space Grotesk'; }
-
-    @media (max-width: 860px) {
-      .calc-layout { grid-template-columns: 1fr; }
-      .metric-large { font-size: 3rem; }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #1E293B;
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between">
 
-  <!-- Top Navigation -->
-  <header class="top-bar">
-    <a href="../index.html" class="brand">
-      <div class="brand-icon"><i data-lucide="trending-up"></i></div>
-      <span>SalaryAI Engine</span>
-      <span class="demo-badge">v4.2 PROD</span>
-    </a>
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <a href="http://localhost:5173" target="_blank" class="back-btn" style="border-color: var(--emerald); color: var(--emerald);">
-        <i data-lucide="play" style="width:14px;height:14px;"></i>
-        <span>Full Monorepo App (Port 5173)</span>
-      </a>
-      <a href="../index.html#projects" class="back-btn">
-        <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-        <span>Back to Portfolio</span>
-      </a>
+  <!-- =========================================================================
+       1. PORTFOLIO DEMO TOP BAR (Context Navigation & Quick Launcher)
+       ========================================================================= -->
+  <aside aria-label="Portfolio Navigation Bar" class="bg-slate-900 text-white text-xs px-4 py-2.5 border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-semibold text-slate-300 hover:text-white transition-colors bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-md">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Back to Portfolio</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="font-medium text-slate-300 hidden sm:inline">Project Showcase:</span>
+          <span class="font-bold text-white">SalaryAI — Tech Compensation &amp; Leveling Engine</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="http://localhost:5173" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition-colors shadow-xs">
+          <i data-lucide="play" class="w-3.5 h-3.5"></i>
+          <span>Launch Local App (Port 5173)</span>
+        </a>
+        <a href="https://github.com/abhishektripathi9/Salary-Prediction-System" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition-colors">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">GitHub Repository</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       2. SALARYAI TOP NAVBAR (Exact Match with Vite App)
+       ========================================================================= -->
+  <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-10 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Left: Brand + Version + Live Model Pill -->
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white font-bold text-base shadow-sm">
+              S
+            </div>
+            <span class="font-bold text-lg tracking-tight text-slate-900">
+              SalaryAI
+            </span>
+          </div>
+
+          <span class="text-[11px] font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
+            v4.2
+          </span>
+
+          <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-[11px] font-semibold text-emerald-800">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="nav-active-model">Ensemble Forest • R² 0.942</span>
+          </div>
+        </div>
+
+        <!-- Center: Navigation Tabs -->
+        <nav class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
+          <button onclick="switchTab('predictor')" id="tab-predictor" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all bg-white text-slate-900 shadow-xs border border-slate-200">
+            Predictor
+          </button>
+          <button onclick="switchTab('benchmarks')" id="tab-benchmarks" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            Market Benchmarks
+          </button>
+          <button onclick="switchTab('saved')" id="tab-saved" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            Saved Profiles (<span id="saved-count">1</span>)
+          </button>
+          <button onclick="switchTab('methodology')" id="tab-methodology" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            Methodology
+          </button>
+          <button onclick="switchTab('admin')" id="tab-admin" class="px-3 py-1.5 text-xs font-bold rounded-md transition-all text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 flex items-center gap-1">
+            <i data-lucide="shield" class="w-3 h-3 text-emerald-600"></i>
+            <span>Admin Control</span>
+          </button>
+        </nav>
+
+        <!-- Right: Currency Toggle + Live Feed Indicator -->
+        <div class="flex items-center gap-3">
+          <button onclick="toggleCurrency()" id="currency-toggle-btn" class="flex items-center text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition shadow-2xs">
+            <span id="curr-inr" class="text-slate-900 font-bold">₹ INR</span>
+            <span class="mx-1 text-slate-300">/</span>
+            <span id="curr-lacs" class="text-slate-400">Lacs</span>
+          </button>
+
+          <div class="hidden lg:flex items-center gap-1.5 text-xs font-medium text-slate-600">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Live Market Feed</span>
+          </div>
+
+          <button onclick="alert('Demo Super Admin: admin@salaryai.in / Admin@123\nClick Admin Control tab to inspect model registry and live prediction stream.')" class="flex items-center gap-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-1.5 rounded-lg transition shadow-xs">
+            <span>Sign In</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
-  <main class="main-container">
-    <div class="hero-title-box">
-      <h1>Tech Compensation &amp; Leveling <span>Engine</span></h1>
-      <p>Multi-variable Scikit-Learn regression model evaluating 2,540 verified tech offers across Tier-1/2 metros, algorithmic skill rank, and company tiers.</p>
+  <!-- =========================================================================
+       3. SUB-HEADER / HERO TITLE ROW
+       ========================================================================= -->
+  <div class="w-full border-b border-slate-200/80 bg-white/60 py-6 mb-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+            Tech Compensation &amp; Leveling Engine
+          </h1>
+          <p class="text-sm text-slate-500 mt-1">
+            Multi-model Scikit-Learn regression trained on 2,540 verified Indian tech offers across Tier-1/2 metros and global remote cohorts.
+          </p>
+        </div>
+
+        <div class="self-start md:self-center flex items-center gap-2 bg-slate-100/90 border border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+          <span>Verified Bands: 48,200+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       4. MAIN CONTENT TABS
+       ========================================================================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex-1 w-full">
+
+    <!-- Toast Notification -->
+    <div id="toast-banner" class="hidden mb-6 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center justify-between shadow-xs">
+      <span id="toast-text">Profile archived successfully</span>
+      <button onclick="document.getElementById('toast-banner').classList.add('hidden')" class="font-bold">✕</button>
     </div>
 
-    <div class="calc-layout">
-      <!-- Left Inputs -->
-      <section class="controls-panel">
-        <div class="field-group">
-          <div class="field-label">
-            <span>Years of Industry Experience</span>
-            <span class="field-val-badge" id="disp-exp">2 Years</span>
+    <!-- TAB 1: 3-COLUMN INTERACTIVE SIMULATOR (PREDICTOR) -->
+    <div id="view-predictor" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      
+      <!-- COLUMN 1: CANDIDATE PROFILE INPUTS CARD -->
+      <div class="exec-card p-6 flex flex-col gap-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div>
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Candidate Profile</h2>
+            <p class="text-xs text-slate-400">Configure parameters for live inference</p>
           </div>
-          <input type="range" class="slider" id="slider-exp" min="0" max="15" value="2" step="0.5" />
+          <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+            Live Input
+          </span>
         </div>
 
-        <div class="field-group">
-          <label class="field-label">Target Role / Discipline</label>
-          <select class="select-input" id="select-role">
-            <option value="fullstack" selected>Full Stack Web Developer (React + Java/Python)</option>
-            <option value="data">Data Analyst &amp; BI Engineer</option>
-            <option value="ml">Machine Learning / AI Engineer</option>
-            <option value="blockchain">Web3 &amp; Smart Contract Engineer</option>
-            <option value="devops">DevOps &amp; Cloud Platform Engineer</option>
+        <!-- Target Role -->
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-slate-700">Target Role</label>
+            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">High Demand</span>
+          </div>
+          <select id="inp-role" onchange="runSimulation()" class="w-full text-xs font-semibold text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-2.5 outline-none focus:ring-1 focus:ring-slate-900 transition">
+            <option value="ML / AI Engineer" selected>ML / AI Engineer</option>
+            <option value="Senior Backend Engineer">Senior Backend Engineer</option>
+            <option value="Lead Product Designer">Lead Product Designer</option>
+            <option value="Full Stack Engineer">Full Stack Engineer</option>
+            <option value="Engineering Manager">Engineering Manager</option>
+            <option value="SDE-1">SDE-1</option>
+            <option value="SDE-2">SDE-2</option>
           </select>
         </div>
 
-        <div class="field-group">
-          <label class="field-label">Education / Degree</label>
-          <select class="select-input" id="select-edu">
-            <option value="btech" selected>B.Tech Computer Science &amp; Engineering</option>
-            <option value="mtech">M.Tech / MS in CS</option>
-            <option value="bca">BCA / MCA</option>
-            <option value="other">Non-CS Degree / Self-Taught</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Company Tier &amp; Scale</label>
-          <select class="select-input" id="select-tier">
-            <option value="startup">High-Growth Tech Startup</option>
-            <option value="mid" selected>Mid-Size Product Company</option>
-            <option value="tier1">Tier-1 Tech Product (Unicorn)</option>
-            <option value="faang">Global Tech Giant / FAANG Tier</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Core Skills Multipliers (Select all that apply)</label>
-          <div class="skills-grid" id="skills-container">
-            <label class="skill-check-label selected"><input type="checkbox" value="react" checked /> React.js &amp; Modern UI</label>
-            <label class="skill-check-label selected"><input type="checkbox" value="java" checked /> Java &amp; Spring Boot</label>
-            <label class="skill-check-label selected"><input type="checkbox" value="python" checked /> Python &amp; Data Sci</label>
-            <label class="skill-check-label selected"><input type="checkbox" value="three" checked /> Three.js &amp; WebGL</label>
-            <label class="skill-check-label"><input type="checkbox" value="aws" /> AWS / Cloud Architecture</label>
-            <label class="skill-check-label"><input type="checkbox" value="solidity" /> Web3 / Solidity</label>
+        <!-- Total Experience Slider -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-slate-700">Total Experience</label>
+            <span id="disp-exp" class="text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 tabular-nums">
+              10.5 Years
+            </span>
           </div>
-        </div>
-      </section>
-
-      <!-- Right Output Showcase -->
-      <section class="result-panel">
-        <div class="hero-metric-card">
-          <div class="metric-sub">Predicted Total Compensation (CTC)</div>
-          <div class="metric-large" id="res-lpa">₹12.4 LPA</div>
-          <div class="metric-equiv" id="res-usd">≈ $15,000 USD / yr base + incentives</div>
-          <div class="percentile-pill">
-            <i data-lucide="sparkles" style="width:16px;height:16px;color:var(--emerald);"></i>
-            <span id="res-percentile">Top 18% for 2 yrs experience</span>
+          <input type="range" id="inp-exp" min="0" max="25" step="0.5" value="10.5" oninput="runSimulation()" class="w-full" />
+          <div class="flex justify-between text-[10px] text-slate-400">
+            <span>0y (Fresh Grad)</span>
+            <span>12.5y</span>
+            <span>25y (Principal/Exec)</span>
           </div>
         </div>
 
-        <!-- Salary Distribution Bell Curve -->
-        <div class="distrib-card">
-          <div class="card-h">
-            <i data-lucide="bar-chart-2" style="width:18px;height:18px;color:var(--cyan);"></i>
-            <span>Gaussian Probability Distribution Curve</span>
+        <!-- System & Algorithmic Rank Slider -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-slate-700">System &amp; Algorithmic Rank</label>
+            <div class="flex items-center gap-1.5">
+              <span id="disp-skill-badge" class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Top 8%</span>
+              <span id="disp-skill" class="text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 tabular-nums">88 / 100</span>
+            </div>
           </div>
-          <canvas id="bell-curve" class="distrib-canvas"></canvas>
+          <input type="range" id="inp-skill" min="10" max="100" step="1" value="88" oninput="runSimulation()" class="w-full" />
+          <div class="flex justify-between text-[10px] text-slate-400">
+            <span>10 (Basic)</span>
+            <span>50 (Standard)</span>
+            <span>100 (Staff / Fellow)</span>
+          </div>
         </div>
 
-        <!-- Weights Breakdown -->
-        <div class="factors-grid">
-          <div class="factor-pill">
-            <div class="factor-lbl">Experience Weight</div>
-            <div class="factor-val" id="factor-exp">+42%</div>
-          </div>
-          <div class="factor-pill">
-            <div class="factor-lbl">Skills Stacking</div>
-            <div class="factor-val" id="factor-skills">+28%</div>
-          </div>
-          <div class="factor-pill">
-            <div class="factor-lbl">Market Multiplier</div>
-            <div class="factor-val" id="factor-tier">1.4x</div>
+        <!-- Highest Credential Selector -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-700">Highest Credential</label>
+          <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-lg border border-slate-200 text-xs">
+            <button type="button" onclick="setEdu('Bachelor\'s')" id="edu-bachelors" class="py-1.5 text-center font-semibold rounded-md transition bg-white text-slate-900 shadow-xs border border-slate-200">
+              Bachelor's
+            </button>
+            <button type="button" onclick="setEdu('Master\'s')" id="edu-masters" class="py-1.5 text-center font-medium rounded-md transition text-slate-600 hover:text-slate-900">
+              Master's
+            </button>
+            <button type="button" onclick="setEdu('PhD / D.Sc')" id="edu-phd" class="py-1.5 text-center font-medium rounded-md transition text-slate-600 hover:text-slate-900">
+              PhD / D.Sc
+            </button>
           </div>
         </div>
-      </section>
+
+        <!-- Production AI Workloads Stepper -->
+        <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+          <div>
+            <label class="text-xs font-semibold text-slate-800 block">Production AI Workloads</label>
+            <span class="text-[11px] text-slate-400">Deployed high-scale pipelines</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="adjustWorkload(-1)" class="w-7 h-7 rounded-md bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold shadow-2xs">−</button>
+            <span id="disp-workload" class="w-8 text-center text-sm font-bold text-slate-900 tabular-nums">14</span>
+            <button type="button" onclick="adjustWorkload(1)" class="w-7 h-7 rounded-md bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold shadow-2xs">+</button>
+          </div>
+        </div>
+
+        <!-- Geographic & Company Tiers -->
+        <div class="grid grid-cols-1 gap-3">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-700">Geographic Tier</label>
+            <select id="inp-loc" onchange="runSimulation()" class="w-full text-xs font-medium text-slate-800 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 outline-none">
+              <option value="Tier 1 Metro (BLR/MUM/NCR)" selected>Tier 1 Metro (BLR / MUM / NCR)</option>
+              <option value="Tier 2 Metro (HYD/PUN)">Tier 2 Metro (HYD / PUN)</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-700">Company Tier</label>
+            <select id="inp-company" onchange="runSimulation()" class="w-full text-xs font-medium text-slate-800 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 outline-none">
+              <option value="Early Startup">Early Startup</option>
+              <option value="Growth Mid-Market ($50M-$250M ARR)" selected>Growth Mid-Market ($50M - $250M ARR)</option>
+              <option value="FAANG / Tier-1 MNC">FAANG / Tier-1 MNC</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col gap-2 mt-2">
+          <button type="button" onclick="saveProfile()" class="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white py-2.5 px-4 rounded-lg text-xs font-semibold transition shadow-xs">
+            <i data-lucide="bookmark-plus" class="w-4 h-4"></i>
+            <span>Save Candidate Profile</span>
+          </button>
+          <button type="button" id="btn-promo" onclick="togglePromotionTrajectory()" class="w-full flex items-center justify-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 py-2.5 px-4 rounded-lg text-xs font-semibold transition">
+            <i data-lucide="trending-up" class="w-4 h-4 text-emerald-600"></i>
+            <span id="promo-btn-text">Simulate +2 Yrs Promotion Trajectory</span>
+          </button>
+        </div>
+
+        <div class="p-3 bg-slate-50/80 border border-slate-200 rounded-lg flex items-start gap-2.5">
+          <i data-lucide="info" class="w-4 h-4 text-slate-400 mt-0.5 shrink-0"></i>
+          <p class="text-[11px] text-slate-500 leading-relaxed">
+            <strong class="text-slate-700">Bias-Corrected Estimator:</strong> Multi-factor regression adjusts for location purchasing power parity and removes non-merit negotiation drift.
+          </p>
+        </div>
+      </div>
+
+      <!-- COLUMN 2: ESTIMATED ANNUAL CTC (HERO OUTPUT CARD) -->
+      <div class="exec-card-hero p-6 flex flex-col gap-6 relative overflow-hidden">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Estimated Annual CTC</h2>
+            <span class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">GROSS CTC</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-semibold text-emerald-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>LIVE INFERENCE</span>
+          </div>
+        </div>
+
+        <!-- Hero Number -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span id="hero-ctc-figure" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 tabular-nums">
+              ₹40,52,000
+            </span>
+            <span class="text-sm font-semibold text-slate-400">/ year</span>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap mt-1">
+            <span id="hero-lpa-pill" class="text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200 tabular-nums">
+              ₹40.52 LPA
+            </span>
+            <span id="hero-ci-pill" class="text-xs font-medium text-slate-600 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200 tabular-nums">
+              90% CI: ₹37.5L – ₹43.6L
+            </span>
+          </div>
+        </div>
+
+        <!-- Compensation Breakdown Mini-Cards -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Compensation Breakdown</span>
+          <div class="grid grid-cols-3 gap-2.5">
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                  <span>BASE</span>
+                  <span id="pct-base" class="font-bold text-slate-700 tabular-nums">70%</span>
+                </div>
+                <div id="val-base" class="text-xs sm:text-sm font-bold text-slate-900 mt-1 tabular-nums">
+                  ₹28,36,000
+                </div>
+              </div>
+              <div class="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div id="bar-base" class="bg-slate-900 h-full rounded-full transition-all duration-300" style="width: 70%"></div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                  <span>BONUS</span>
+                  <span id="pct-bonus" class="font-bold text-slate-700 tabular-nums">18%</span>
+                </div>
+                <div id="val-bonus" class="text-xs sm:text-sm font-bold text-slate-900 mt-1 tabular-nums">
+                  ₹7,29,000
+                </div>
+              </div>
+              <div class="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div id="bar-bonus" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 18%"></div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                  <span>EQUITY</span>
+                  <span id="pct-equity" class="font-bold text-slate-700 tabular-nums">12%</span>
+                </div>
+                <div id="val-equity" class="text-xs sm:text-sm font-bold text-slate-900 mt-1 tabular-nums">
+                  ₹4,87,000
+                </div>
+              </div>
+              <div class="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div id="bar-equity" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 12%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHAP Feature Weights -->
+        <div class="flex flex-col gap-3 pt-4 border-t border-slate-100">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-400"></i>
+              <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Feature Weight &amp; Impact (SHAP)</span>
+            </div>
+            <span class="text-[10px] text-slate-400">Marginal contribution</span>
+          </div>
+
+          <div class="flex flex-col gap-2.5">
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-600 font-medium">Total Experience Vector</span>
+                <span class="text-slate-900 font-bold tabular-nums">77.7%</span>
+              </div>
+              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
+                <div class="bg-slate-800 h-full rounded-full" style="width: 77.7%"></div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-600 font-medium">Skill Assessment &amp; System Rank</span>
+                <span class="text-slate-900 font-bold tabular-nums">13.2%</span>
+              </div>
+              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
+                <div class="bg-slate-800 h-full rounded-full" style="width: 13.2%"></div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-600 font-medium">Education Tier</span>
+                <span class="text-slate-900 font-bold tabular-nums">5.8%</span>
+              </div>
+              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
+                <div class="bg-slate-800 h-full rounded-full" style="width: 5.8%"></div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-600 font-medium">Job Role</span>
+                <span class="text-slate-900 font-bold tabular-nums">1.7%</span>
+              </div>
+              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
+                <div class="bg-slate-800 h-full rounded-full" style="width: 1.7%"></div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-600 font-medium">Company Tier</span>
+                <span class="text-slate-900 font-bold tabular-nums">1.6%</span>
+              </div>
+              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
+                <div class="bg-slate-800 h-full rounded-full" style="width: 1.6%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 3: MARKET DISTRIBUTION & BENCHMARKS CARD -->
+      <div class="exec-card p-6 flex flex-col gap-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div>
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Market Distribution</h2>
+            <p class="text-xs text-slate-400">Positioning across tech cohorts</p>
+          </div>
+          <span class="text-[11px] font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-2.5 py-0.5 rounded-full">
+            N = 3,420 Offers
+          </span>
+        </div>
+
+        <!-- Smooth Bell-Curve Area Chart Canvas -->
+        <div class="bg-slate-50/80 p-3 rounded-lg border border-slate-200/70 relative">
+          <div class="flex items-center justify-between text-[11px] font-semibold text-slate-600 mb-2">
+            <span>Probability Density</span>
+            <span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">
+              Gaussian Fitting
+            </span>
+          </div>
+          <canvas id="bell-curve-canvas" class="w-full h-44 block"></canvas>
+        </div>
+
+        <!-- 3 Summary Metric Boxes -->
+        <div class="grid grid-cols-3 gap-2.5">
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Market Median</span>
+            <div class="mt-1">
+              <span class="text-sm sm:text-base font-extrabold text-slate-900 tabular-nums">₹25.32L</span>
+            </div>
+            <span class="text-[10px] text-slate-400 mt-1">50th percentile</span>
+          </div>
+
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Benchmark</span>
+            <div class="mt-1">
+              <span id="box-ctc-lacs" class="text-sm sm:text-base font-extrabold text-slate-900 tabular-nums">₹40.52L</span>
+            </div>
+            <span id="box-diff-pct" class="text-[10px] font-semibold text-emerald-700 mt-1 tabular-nums">+59.9% Above</span>
+          </div>
+
+          <div class="p-3 rounded-lg bg-emerald-50/60 border border-emerald-200 flex flex-col justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Rank</span>
+            <div class="mt-1">
+              <span id="box-rank-pct" class="text-sm sm:text-base font-extrabold text-emerald-950 tabular-nums">Top 6.1%</span>
+            </div>
+            <span class="text-[10px] font-bold text-emerald-700 mt-1">Top Decile</span>
+          </div>
+        </div>
+
+        <!-- Insights Pill Card -->
+        <div class="p-3.5 rounded-lg bg-slate-900 text-white flex items-center justify-between shadow-xs">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>Negotiation Leverage:</span>
+                <span class="text-emerald-400">High</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-0.5">
+                YoY Market Growth: <strong class="text-slate-200">+14.2%</strong>
+              </div>
+            </div>
+          </div>
+          <button onclick="switchTab('benchmarks')" class="flex items-center gap-1 text-xs font-semibold text-slate-300 hover:text-white transition">
+            <span>Full Matrix</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: MARKET BENCHMARKS (FILTERABLE TABLE) -->
+    <div id="view-benchmarks" class="hidden exec-card overflow-hidden">
+      <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Verified Compensation Bands (2,540 Offers)</h2>
+          <p class="text-xs text-slate-400">Filter verified developer and ML engineer compensation cohorts</p>
+        </div>
+        <input type="text" id="bm-search" oninput="filterBenchmarks()" placeholder="Filter by role or tier..." class="text-xs px-3 py-2 border border-slate-200 bg-slate-50 rounded-lg w-full sm:w-64 outline-none" />
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              <th class="py-3 px-5">Role &amp; Degree</th>
+              <th class="py-3 px-4">Experience</th>
+              <th class="py-3 px-4">Skill Rank</th>
+              <th class="py-3 px-4">Location</th>
+              <th class="py-3 px-4">Company Tier</th>
+              <th class="py-3 px-5 text-right">Annual CTC (INR)</th>
+            </tr>
+          </thead>
+          <tbody id="bm-tbody" class="divide-y divide-slate-100 text-xs">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: SAVED PROFILES -->
+    <div id="view-saved" class="hidden flex flex-col gap-4">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Saved Candidate Evaluations</h2>
+          <p class="text-xs text-slate-500">Archived compensation trajectories for promotion planning</p>
+        </div>
+        <button onclick="switchTab('predictor')" class="px-3.5 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold">
+          + New Simulation
+        </button>
+      </div>
+      <div id="saved-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Dynamically rendered -->
+      </div>
+    </div>
+
+    <!-- TAB 4: METHODOLOGY -->
+    <div id="view-methodology" class="hidden exec-card p-6 flex flex-col gap-6">
+      <div class="pb-4 border-b border-slate-100">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+          Whitepaper Summary
+        </span>
+        <h2 class="text-xl font-bold text-slate-900 mt-2">Compensation Modeling &amp; Leveling Methodology</h2>
+        <p class="text-xs text-slate-500 mt-1">Multi-variable Scikit-Learn regression with R² 0.942 on 2,540 verified profiles</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-slate-900 block mb-1">1. Random Forest v4.2</strong>
+          <p class="text-slate-600 leading-relaxed">Primary production pipeline. 120 estimators with max depth 14, minimizing residual variance across edge cases.</p>
+        </div>
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-slate-900 block mb-1">2. Gradient Boosting v4.1</strong>
+          <p class="text-slate-600 leading-relaxed">140 trees, learning rate 0.08. Optimized for senior executive compensation residuals and high equity vesting.</p>
+        </div>
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+          <strong class="text-slate-900 block mb-1">3. Ridge Linear Regression</strong>
+          <p class="text-slate-600 leading-relaxed">L2 regularized OLS benchmark ensuring monotonic career progression and predictable marginal returns.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: ADMIN CONTROL ROOM DEMO -->
+    <div id="view-admin" class="hidden flex flex-col gap-6">
+      <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded">
+            Admin Control Panel
+          </span>
+          <h2 class="text-base font-bold text-white mt-1">ML Engine Registry &amp; Live Prediction Stream</h2>
+        </div>
+        <a href="http://localhost:5173/admin" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400">
+          Open Full Admin Dashboard ↗
+        </a>
+      </div>
+
+      <!-- 4 Top KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="exec-card p-4">
+          <div class="text-[10px] font-bold uppercase text-slate-400">Active ML Engine</div>
+          <div class="text-sm font-bold text-slate-900 mt-1">Random Forest v4.2.0</div>
+          <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 mt-2 inline-block">● Serving Live</span>
+        </div>
+        <div class="exec-card p-4">
+          <div class="text-[10px] font-bold uppercase text-slate-400">Model Accuracy</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">R² 0.942</div>
+          <span class="text-[10px] text-slate-400 mt-1 block">Cross-validated holdout</span>
+        </div>
+        <div class="exec-card p-4">
+          <div class="text-[10px] font-bold uppercase text-slate-400">Benchmark Records</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">2,540</div>
+          <span class="text-[10px] text-emerald-700 font-semibold mt-1 block">Verified Tech Offers</span>
+        </div>
+        <div class="exec-card p-4">
+          <div class="text-[10px] font-bold uppercase text-slate-400">Inferences Today</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">348</div>
+          <span class="text-[10px] text-slate-400 mt-1 block">Real-time requests</span>
+        </div>
+      </div>
+
+      <!-- Model Registry Table -->
+      <div class="exec-card overflow-hidden">
+        <div class="p-4 border-b border-slate-200 bg-slate-50 font-bold text-xs text-slate-700">
+          Model Registry &amp; Engine Switcher
+        </div>
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 bg-white text-[11px] font-bold text-slate-500 uppercase">
+              <th class="py-2.5 px-4">Architecture</th>
+              <th class="py-2.5 px-4">R² Score</th>
+              <th class="py-2.5 px-4">MAE (₹)</th>
+              <th class="py-2.5 px-4">Status</th>
+              <th class="py-2.5 px-4 text-right">Switch</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr class="bg-emerald-50/20">
+              <td class="py-3 px-4 font-bold text-slate-900">Random Forest Regressor v4.2.0</td>
+              <td class="py-3 px-4 font-bold text-slate-900">0.942</td>
+              <td class="py-3 px-4 tabular-nums">₹1,41,200</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Active Live</span></td>
+              <td class="py-3 px-4 text-right text-slate-400 italic">Serving</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-slate-900">Gradient Boosting Regressor v4.1</td>
+              <td class="py-3 px-4 font-bold text-slate-900">0.938</td>
+              <td class="py-3 px-4 tabular-nums">₹1,52,400</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">Standby</span></td>
+              <td class="py-3 px-4 text-right">
+                <button onclick="alert('Switched active model to Gradient Boosting v4.1')" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[10px] font-semibold">Activate</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-slate-900">Multi-variable Ridge Regression v3.8</td>
+              <td class="py-3 px-4 font-bold text-slate-900">0.955</td>
+              <td class="py-3 px-4 tabular-nums">₹1,36,500</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">Standby</span></td>
+              <td class="py-3 px-4 text-right">
+                <button onclick="alert('Switched active model to Ridge Regression v3.8')" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[10px] font-semibold">Activate</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 
+  <!-- =========================================================================
+       5. FOOTER
+       ========================================================================= -->
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>SalaryAI — Tech Compensation &amp; Leveling Engine • v4.2.0 Production Showcase</span>
+      <span class="text-slate-400">Trained on 2,540 verified tech offers • Scikit-Learn Regression</span>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       6. INTERACTIVE CLIENT-SIDE SIMULATION SCRIPT
+       ========================================================================= -->
   <script>
-    function calculateSalary() {
-      const exp = parseFloat(document.getElementById('slider-exp').value);
-      document.getElementById('disp-exp').textContent = `${exp} Year${exp !== 1 ? 's' : ''}`;
+    let currentEdu = "Bachelor's";
+    let isPromoted = false;
+    let currencyMode = 'INR'; // 'INR' or 'LACS'
 
-      const role = document.getElementById('select-role').value;
-      const edu = document.getElementById('select-edu').value;
-      const tier = document.getElementById('select-tier').value;
+    // Multipliers aligned with the Scikit-Learn training equations
+    const ROLE_MULT = {
+      "SDE-1": 0.85,
+      "Full Stack Engineer": 1.0,
+      "Senior Backend Engineer": 1.25,
+      "SDE-2": 1.2,
+      "Lead Product Designer": 1.18,
+      "ML / AI Engineer": 1.35,
+      "Engineering Manager": 1.45
+    };
 
-      // Base role baseline
-      let baseLPA = 6.0;
-      if (role === 'fullstack') baseLPA = 7.5;
-      if (role === 'data') baseLPA = 7.0;
-      if (role === 'ml') baseLPA = 9.5;
-      if (role === 'blockchain') baseLPA = 10.0;
-      if (role === 'devops') baseLPA = 8.5;
+    const LOC_MULT = {
+      "Tier 1 Metro (BLR/MUM/NCR)": 1.15,
+      "Tier 2 Metro (HYD/PUN)": 1.0,
+      "Remote": 1.05
+    };
 
-      // Experience curve: logarithmic with exponential boost
-      const expMultiplier = 1 + (exp * 0.28) + (Math.pow(exp, 1.3) * 0.05);
+    const COMP_MULT = {
+      "Early Startup": 0.90,
+      "Growth Mid-Market ($50M-$250M ARR)": 1.15,
+      "FAANG / Tier-1 MNC": 1.45
+    };
 
-      // Education factor
-      let eduFactor = 1.0;
-      if (edu === 'btech') eduFactor = 1.1;
-      if (edu === 'mtech') eduFactor = 1.25;
-      if (edu === 'bca') eduFactor = 0.95;
+    const EDU_MULT = {
+      "Bachelor's": 1.0,
+      "Master's": 1.12,
+      "PhD / D.Sc": 1.28
+    };
 
-      // Company tier
-      let tierFactor = 1.0;
-      if (tier === 'startup') tierFactor = 1.15;
-      if (tier === 'mid') tierFactor = 1.0;
-      if (tier === 'tier1') tierFactor = 1.5;
-      if (tier === 'faang') tierFactor = 2.1;
+    // Pre-seeded Benchmark Records for Tab 2
+    const sampleBenchmarks = [
+      { role: "ML / AI Engineer", exp: 10.5, skill: 88, edu: "Bachelor's", loc: "Tier 1 Metro", comp: "Growth Mid-Market", ctc: 4052000 },
+      { role: "Senior Backend Engineer", exp: 7.0, skill: 82, edu: "Bachelor's", loc: "Tier 1 Metro", comp: "FAANG / Tier-1 MNC", ctc: 3620000 },
+      { role: "Lead Product Designer", exp: 9.0, skill: 85, edu: "Master's", loc: "Remote", comp: "Growth Mid-Market", ctc: 3350000 },
+      { role: "Engineering Manager", exp: 14.0, skill: 92, edu: "Master's", loc: "Tier 1 Metro", comp: "FAANG / Tier-1 MNC", ctc: 6850000 },
+      { role: "Full Stack Engineer", exp: 4.5, skill: 74, edu: "Bachelor's", loc: "Tier 2 Metro", comp: "Early Startup", ctc: 1850000 },
+      { role: "SDE-2", exp: 5.0, skill: 80, edu: "Bachelor's", loc: "Tier 1 Metro", comp: "Growth Mid-Market", ctc: 2750000 },
+      { role: "SDE-1", exp: 1.5, skill: 68, edu: "Bachelor's", loc: "Tier 1 Metro", comp: "Growth Mid-Market", ctc: 1420000 },
+      { role: "ML / AI Engineer", exp: 6.0, skill: 85, edu: "PhD / D.Sc", loc: "Remote", comp: "FAANG / Tier-1 MNC", ctc: 4950000 }
+    ];
 
-      // Selected skills
-      const checkedBoxes = document.querySelectorAll('#skills-container input:checked');
-      const skillsBonus = checkedBoxes.length * 0.08;
-
-      // Total calculation
-      const predictedLPA = (baseLPA * expMultiplier * eduFactor * tierFactor * (1 + skillsBonus));
-      const roundedLPA = Math.round(predictedLPA * 10) / 10;
-      const usdEquiv = Math.round(roundedLPA * 1200);
-
-      document.getElementById('res-lpa').textContent = `₹${roundedLPA} LPA`;
-      document.getElementById('res-usd').textContent = `≈ $${usdEquiv.toLocaleString()} USD / yr base + incentives`;
-
-      let percentile = Math.min(96, Math.max(12, Math.round(40 + (roundedLPA / 40) * 50)));
-      document.getElementById('res-percentile').textContent = `Top ${100 - percentile}% for this category profile`;
-
-      document.getElementById('factor-exp').textContent = `+${Math.round(expMultiplier * 18)}%`;
-      document.getElementById('factor-skills').textContent = `+${Math.round(skillsBonus * 100)}%`;
-      document.getElementById('factor-tier').textContent = `${tierFactor}x`;
-
-      drawBellCurve(roundedLPA);
+    function formatNumber(num) {
+      if (currencyMode === 'LACS') {
+        return `₹${(num / 100000).toFixed(2)} Lacs`;
+      }
+      return `₹${Number(num).toLocaleString('en-IN')}`;
     }
 
-    function drawBellCurve(userLpa) {
-      const canvas = document.getElementById('bell-curve');
+    function formatLacs(num) {
+      return `₹${(num / 100000).toFixed(2)}L`;
+    }
+
+    function toggleCurrency() {
+      currencyMode = (currencyMode === 'INR') ? 'LACS' : 'INR';
+      document.getElementById('curr-inr').className = (currencyMode === 'INR') ? 'text-slate-900 font-bold' : 'text-slate-400';
+      document.getElementById('curr-lacs').className = (currencyMode === 'LACS') ? 'text-slate-900 font-bold' : 'text-slate-400';
+      runSimulation();
+    }
+
+    function setEdu(edu) {
+      currentEdu = edu;
+      ['bachelors', 'masters', 'phd'].forEach(id => {
+        const btn = document.getElementById(`edu-${id}`);
+        btn.className = "py-1.5 text-center font-medium rounded-md transition text-slate-600 hover:text-slate-900";
+      });
+      if (edu === "Bachelor's") document.getElementById('edu-bachelors').className = "py-1.5 text-center font-semibold rounded-md transition bg-white text-slate-900 shadow-xs border border-slate-200";
+      if (edu === "Master's") document.getElementById('edu-masters').className = "py-1.5 text-center font-semibold rounded-md transition bg-white text-slate-900 shadow-xs border border-slate-200";
+      if (edu === "PhD / D.Sc") document.getElementById('edu-phd').className = "py-1.5 text-center font-semibold rounded-md transition bg-white text-slate-900 shadow-xs border border-slate-200";
+      runSimulation();
+    }
+
+    function adjustWorkload(delta) {
+      const el = document.getElementById('disp-workload');
+      let val = Math.max(0, Math.min(30, parseInt(el.textContent, 10) + delta));
+      el.textContent = val;
+      runSimulation();
+    }
+
+    function togglePromotionTrajectory() {
+      const expInput = document.getElementById('inp-exp');
+      const skillInput = document.getElementById('inp-skill');
+      const btn = document.getElementById('btn-promo');
+      const text = document.getElementById('promo-btn-text');
+
+      if (!isPromoted) {
+        expInput.value = Math.min(25, parseFloat(expInput.value) + 2.0);
+        skillInput.value = Math.min(100, parseInt(skillInput.value, 10) + 5);
+        adjustWorkload(4);
+        isPromoted = true;
+        btn.className = "w-full flex items-center justify-center gap-2 border border-emerald-500 bg-emerald-50 text-emerald-800 py-2.5 px-4 rounded-lg text-xs font-semibold transition";
+        text.textContent = "Reset Trajectory (-2 Yrs)";
+      } else {
+        expInput.value = Math.max(0, parseFloat(expInput.value) - 2.0);
+        skillInput.value = Math.max(10, parseInt(skillInput.value, 10) - 5);
+        adjustWorkload(-4);
+        isPromoted = false;
+        btn.className = "w-full flex items-center justify-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 py-2.5 px-4 rounded-lg text-xs font-semibold transition";
+        text.textContent = "Simulate +2 Yrs Promotion Trajectory";
+      }
+      runSimulation();
+    }
+
+    function runSimulation() {
+      const role = document.getElementById('inp-role').value;
+      const exp = parseFloat(document.getElementById('inp-exp').value);
+      const skill = parseInt(document.getElementById('inp-skill').value, 10);
+      const workloads = parseInt(document.getElementById('disp-workload').textContent, 10);
+      const loc = document.getElementById('inp-loc').value;
+      const comp = document.getElementById('inp-company').value;
+
+      document.getElementById('disp-exp').textContent = `${exp} Years`;
+      document.getElementById('disp-skill').textContent = `${skill} / 100`;
+      
+      const skillBadge = document.getElementById('disp-skill-badge');
+      if (skill >= 90) skillBadge.textContent = 'Top 5%';
+      else if (skill >= 80) skillBadge.textContent = 'Top 8%';
+      else if (skill >= 70) skillBadge.textContent = 'Top 20%';
+      else skillBadge.textContent = 'Standard';
+
+      // Live Scikit-Learn Regression Simulator
+      const baseline = 950000.0;
+      const expFactor = 1.0 + (exp * 0.11) + (0.003 * Math.pow(exp, 1.85));
+      const skillFactor = 0.65 + (skill / 100.0) * 0.70;
+      const roleFactor = ROLE_MULT[role] || 1.2;
+      const locFactor = LOC_MULT[loc] || 1.15;
+      const compFactor = COMP_MULT[comp] || 1.15;
+      const eduFactor = EDU_MULT[currentEdu] || 1.0;
+      const workloadFactor = 1.0 + Math.min(workloads * 0.012, 0.30);
+
+      const rawCTC = baseline * expFactor * skillFactor * roleFactor * locFactor * compFactor * eduFactor * workloadFactor;
+      const roundedCTC = Math.round(rawCTC / 10000) * 10000;
+      const ctc = Math.max(650000, Math.min(9500000, roundedCTC));
+
+      // 90% Confidence Interval
+      const minCTC = Math.round((ctc * 0.925) / 10000) * 10000;
+      const maxCTC = Math.round((ctc * 1.075) / 10000) * 10000;
+
+      // Update Hero Card
+      document.getElementById('hero-ctc-figure').textContent = formatNumber(ctc);
+      document.getElementById('hero-lpa-pill').textContent = `₹${(ctc / 100000).toFixed(2)} LPA`;
+      document.getElementById('hero-ci-pill').textContent = `90% CI: ${formatLacs(minCTC)} – ${formatLacs(maxCTC)}`;
+
+      // Package Breakdown
+      let basePct = 70, bonusPct = 18, equityPct = 12;
+      if (comp.includes("FAANG")) {
+        basePct = exp >= 8 ? 65 : 70;
+        bonusPct = 15;
+        equityPct = 100 - basePct - bonusPct;
+      } else if (comp.includes("Startup")) {
+        basePct = 75;
+        bonusPct = 8;
+        equityPct = 17;
+      }
+
+      const baseVal = Math.round(ctc * (basePct / 100));
+      const bonusVal = Math.round(ctc * (bonusPct / 100));
+      const equityVal = ctc - (baseVal + bonusVal);
+
+      document.getElementById('pct-base').textContent = `${basePct}%`;
+      document.getElementById('val-base').textContent = formatNumber(baseVal);
+      document.getElementById('bar-base').style.width = `${basePct}%`;
+
+      document.getElementById('pct-bonus').textContent = `${bonusPct}%`;
+      document.getElementById('val-bonus').textContent = formatNumber(bonusVal);
+      document.getElementById('bar-bonus').style.width = `${bonusPct}%`;
+
+      document.getElementById('pct-equity').textContent = `${equityPct}%`;
+      document.getElementById('val-equity').textContent = formatNumber(equityVal);
+      document.getElementById('bar-equity').style.width = `${equityPct}%`;
+
+      // Market Position Box
+      const medianCTC = 2532000;
+      const diffPct = (((ctc - medianCTC) / medianCTC) * 100).toFixed(1);
+      document.getElementById('box-ctc-lacs').textContent = formatLacs(ctc);
+      document.getElementById('box-diff-pct').textContent = `${diffPct >= 0 ? '+' : ''}${diffPct}% ${diffPct >= 0 ? 'Above' : 'Below'}`;
+
+      let topRank = Math.max(0.8, Math.min(95, 100 - Math.round((ctc / 7000000) * 100))).toFixed(1);
+      document.getElementById('box-rank-pct').textContent = `Top ${topRank}%`;
+
+      // Render Dynamic Bell Curve Canvas
+      renderBellCurve(ctc / 100000);
+    }
+
+    function renderBellCurve(userLacs) {
+      const canvas = document.getElementById('bell-curve-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const dpr = window.devicePixelRatio || 1;
-      const w = canvas.offsetWidth > 0 ? canvas.offsetWidth : (canvas.parentElement ? canvas.parentElement.clientWidth - 48 : 500);
-      const h = canvas.offsetHeight > 0 ? canvas.offsetHeight : 160;
+      const w = canvas.offsetWidth || 340;
+      const h = canvas.offsetHeight || 176;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, w, h);
 
-      // Draw normal distribution curve
-      const mean = 14;
-      const stdDev = 7;
-      const points = [];
+      const mean = 25.3;
+      const stdDev = 11.0;
+      const maxLacs = 65;
+
+      // Area gradient
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, 'rgba(15, 23, 42, 0.22)');
+      grad.addColorStop(1, 'rgba(15, 23, 42, 0.01)');
 
       ctx.beginPath();
-      for (let x = 0; x <= w; x += 3) {
-        const val = (x / w) * 45; // 0 to 45 LPA
-        const yVal = Math.exp(-0.5 * Math.pow((val - mean) / stdDev, 2));
-        const y = h - 25 - yVal * (h - 50);
-        points.push({ x, y, val });
+      for (let x = 0; x <= w; x += 2) {
+        const val = (x / w) * maxLacs;
+        const density = Math.exp(-0.5 * Math.pow((val - mean) / stdDev, 2));
+        const y = h - 24 - density * (h - 48);
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = '#00f0ff';
-      ctx.lineWidth = 2.5;
+      ctx.lineTo(w, h - 24);
+      ctx.lineTo(0, h - 24);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Outline stroke
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += 2) {
+        const val = (x / w) * maxLacs;
+        const density = Math.exp(-0.5 * Math.pow((val - mean) / stdDev, 2));
+        const y = h - 24 - density * (h - 48);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = '#0F172A';
+      ctx.lineWidth = 2;
       ctx.stroke();
 
-      // User Marker
-      const userX = Math.min(w - 10, Math.max(10, (userLpa / 45) * w));
+      // Pin at user's compensation
+      const clampedLacs = Math.max(5, Math.min(maxLacs, userLacs));
+      const userX = (clampedLacs / maxLacs) * w;
+      const userDensity = Math.exp(-0.5 * Math.pow((clampedLacs - mean) / stdDev, 2));
+      const userY = h - 24 - userDensity * (h - 48);
+
+      // Vertical dashed line
       ctx.beginPath();
-      ctx.setLineDash([4, 4]);
+      ctx.setLineDash([3, 3]);
       ctx.moveTo(userX, 10);
-      ctx.lineTo(userX, h - 25);
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 2;
+      ctx.lineTo(userX, h - 24);
+      ctx.strokeStyle = '#10B981';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Pin
+      // Emerald marker dot
       ctx.beginPath();
-      ctx.arc(userX, 18, 6, 0, Math.PI * 2);
-      ctx.fillStyle = '#10b981';
+      ctx.arc(userX, userY, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#10B981';
       ctx.fill();
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
-      ctx.fillStyle = '#10b981';
-      ctx.font = 'bold 11px sans-serif';
-      ctx.textAlign = userX > w - 60 ? 'right' : 'left';
-      ctx.fillText(` You (₹${userLpa}L)`, userX + 8, 22);
+      // Text callout
+      ctx.fillStyle = '#0F172A';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = userX > w - 60 ? 'right' : (userX < 60 ? 'left' : 'center');
+      ctx.fillText(`Your CTC: ₹${userLacs.toFixed(1)}L`, userX, 12);
 
-      // Axis labels
-      ctx.fillStyle = '#64748b';
-      ctx.font = '10px sans-serif';
+      // X-Axis ticks
+      ctx.fillStyle = '#64748B';
+      ctx.font = '9px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText('₹3L (Entry)', 10, h - 8);
+      ctx.fillText('₹10L', 8, h - 8);
       ctx.textAlign = 'center';
-      ctx.fillText('₹14L (Median)', w / 2, h - 8);
+      ctx.fillText('₹25.3L (Median)', (25.3 / maxLacs) * w, h - 8);
       ctx.textAlign = 'right';
-      ctx.fillText('₹45L+ (Staff)', w - 10, h - 8);
+      ctx.fillText('₹65L+', w - 8, h - 8);
     }
 
-    document.querySelectorAll('#skills-container input[type="checkbox"]').forEach(chk => {
-      chk.addEventListener('change', () => {
-        const lbl = chk.closest('label');
-        if (lbl) lbl.classList.toggle('selected', chk.checked);
-        calculateSalary();
+    function switchTab(tabId) {
+      ['predictor', 'benchmarks', 'saved', 'methodology', 'admin'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+        const b = document.getElementById(`tab-${t}`);
+        if (b && t !== 'admin') {
+          b.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100";
+        }
       });
-    });
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      if (activeBtn && tabId !== 'admin') {
+        activeBtn.className = "px-3 py-1.5 text-xs font-semibold rounded-md transition-all bg-white text-slate-900 shadow-xs border border-slate-200";
+      }
+      if (tabId === 'benchmarks') populateBenchmarks();
+      if (tabId === 'saved') renderSavedProfiles();
+      if (tabId === 'predictor') setTimeout(() => runSimulation(), 50);
+    }
 
-    ['slider-exp', 'select-role', 'select-edu', 'select-tier'].forEach(id => {
-      document.getElementById(id).addEventListener('input', calculateSalary);
-    });
+    function populateBenchmarks() {
+      const tbody = document.getElementById('bm-tbody');
+      tbody.innerHTML = sampleBenchmarks.map(b => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-5 font-semibold text-slate-900">
+            ${b.role}
+            <span class="block text-[10px] text-slate-400 font-normal">${b.edu}</span>
+          </td>
+          <td class="py-3 px-4 text-slate-700">${b.exp}y</td>
+          <td class="py-3 px-4"><span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-bold">${b.skill}/100</span></td>
+          <td class="py-3 px-4 text-slate-600">${b.loc}</td>
+          <td class="py-3 px-4 text-slate-600 font-medium">${b.comp}</td>
+          <td class="py-3 px-5 text-right font-extrabold text-slate-900 tabular-nums">${formatNumber(b.ctc)}</td>
+        </tr>
+      `).join('');
+    }
 
-    window.addEventListener('resize', calculateSalary);
-    document.addEventListener('DOMContentLoaded', () => {
-      calculateSalary();
+    function filterBenchmarks() {
+      const q = document.getElementById('bm-search').value.toLowerCase();
+      const filtered = sampleBenchmarks.filter(b => b.role.toLowerCase().includes(q) || b.comp.toLowerCase().includes(q) || b.loc.toLowerCase().includes(q));
+      const tbody = document.getElementById('bm-tbody');
+      tbody.innerHTML = filtered.map(b => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-5 font-semibold text-slate-900">${b.role}</td>
+          <td class="py-3 px-4 text-slate-700">${b.exp}y</td>
+          <td class="py-3 px-4 font-bold">${b.skill}/100</td>
+          <td class="py-3 px-4 text-slate-600">${b.loc}</td>
+          <td class="py-3 px-4 text-slate-600">${b.comp}</td>
+          <td class="py-3 px-5 text-right font-extrabold text-slate-900 tabular-nums">${formatNumber(b.ctc)}</td>
+        </tr>
+      `).join('');
+    }
+
+    let savedProfiles = [
+      { id: 1, title: "Senior ML Engineer Offer", role: "ML / AI Engineer", exp: 10.5, skill: 88, ctc: 4052000, comp: "Growth Mid-Market ($50M-$250M ARR)" }
+    ];
+
+    function saveProfile() {
+      const role = document.getElementById('inp-role').value;
+      const exp = parseFloat(document.getElementById('inp-exp').value);
+      const skill = parseInt(document.getElementById('inp-skill').value, 10);
+      const comp = document.getElementById('inp-company').value;
+      const ctcText = document.getElementById('hero-ctc-figure').textContent;
+
+      savedProfiles.unshift({
+        id: Date.now(),
+        title: `${role} (${exp}y)`,
+        role,
+        exp,
+        skill,
+        ctc: ctcText,
+        comp
+      });
+
+      document.getElementById('saved-count').textContent = savedProfiles.length;
+      const toast = document.getElementById('toast-banner');
+      document.getElementById('toast-text').textContent = `Saved ${role} profile to your evaluation archive!`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    function renderSavedProfiles() {
+      const container = document.getElementById('saved-cards-grid');
+      container.innerHTML = savedProfiles.map(p => `
+        <div class="exec-card p-5 flex flex-col justify-between gap-3">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-900">${p.title}</span>
+              <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">Archived</span>
+            </div>
+            <div class="text-[11px] text-slate-500 mt-1">${p.role} • ${p.exp} yrs • ${p.comp}</div>
+            <div class="mt-3 text-lg font-extrabold text-slate-900 tabular-nums">${typeof p.ctc === 'number' ? formatNumber(p.ctc) : p.ctc}</div>
+          </div>
+          <button onclick="deleteSaved(${p.id})" class="text-xs text-rose-600 hover:text-rose-800 font-semibold self-start mt-2">Delete Record</button>
+        </div>
+      `).join('');
+    }
+
+    function deleteSaved(id) {
+      savedProfiles = savedProfiles.filter(p => p.id !== id);
+      document.getElementById('saved-count').textContent = savedProfiles.length;
+      renderSavedProfiles();
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      runSimulation();
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
+    window.addEventListener('resize', () => runSimulation());
   </script>
 </body>
 </html>
