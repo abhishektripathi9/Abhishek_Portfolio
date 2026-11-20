@@ -677,18 +677,18 @@ const projectData = {
     liveDemo: './land-registry/index.html'
   },
   rentease: {
-    title: 'RentEase – PG & Room Finder Platform',
+    title: 'RentEase PRO – Zero Brokerage PG & Room Platform',
     year: '2026',
-    category: 'Full Stack & Database',
+    category: 'Full Stack & Monorepo',
     image: 'assets/project-rentease.jpg',
-    desc: 'RentEase is a production-grade full-stack web application developed to modernize the student and professional housing search. It provides an intuitive, high-speed interface for browsing verified PG rooms and flats, submitting rental applications, and tracking bookings.',
+    desc: 'RentEase PRO is an enterprise-grade full-stack co-living and student housing platform engineered with an Airbnb-inspired minimalist design, atomic bed reservation engine, RentEase PRO Admin Control Panel, and a delegated security access control gateway with audit logging.',
     highlights: [
-      'Comprehensive RESTful backend built with Java and Spring Boot connecting to MySQL relational database.',
-      'Dynamic interactive map view displaying nearby amenities, metros, and price density markers.',
-      'Role-based access control (RBAC) supporting Tenants, Room Owners, and System Administrators.',
-      'Responsive React frontend featuring instant keyword filters and real-time availability badges.'
+      'Production Node.js + Express + MySQL relational backend with atomic transactions and 3-role RBAC (student, owner, admin).',
+      'RentEase PRO Admin Control Panel (/admin) featuring real-time KPI metrics, PG catalog verification queue, and live revenue analytics.',
+      'Enterprise Security & Access Control Gateway (/admin/security) allowing the Owner to delegate granular permissions and track audit logs.',
+      'Clean, airy Airbnb-inspired React 19 frontend with instant search, atomic bed booking (₹500 token), and zero-brokerage booking passes.'
     ],
-    tech: ['React.js', 'Java', 'Spring Boot', 'MySQL', 'REST APIs', 'CSS3 Grid'],
+    tech: ['React 19', 'Node.js', 'Express.js', 'MySQL 8.0', 'JWT Auth', 'Tailwind CSS', 'Recharts'],
     github: 'https://github.com/abhishektripathi9/RentEase-PG-Room-Finder',
     liveDemo: './rentease/index.html'
   },
