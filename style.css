@@ -8435,3 +8435,40 @@ html.fluid .projects-swiper {
     display: none;
   }
 }
+
+
+/* =====================================================
+   HIGH PERFORMANCE OPTIMIZATIONS FOR ALL GADGETS & DEVICES
+   ===================================================== */
+/* Modern GPU compositing & tap highlights */
+html {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+/* Off-screen section rendering optimization: skips rendering until scrolled near */
+@supports (content-visibility: auto) {
+  #skills,
+  #experience,
+  #education,
+  #certifications,
+  #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 750px;
+  }
+}
+
+/* Image rendering optimizations */
+img {
+  content-visibility: auto;
+}
+
+/* Disable heavy 3D transforms & transitions on low-power devices / reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

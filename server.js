@@ -63,6 +63,8 @@ function broadcastEvent(eventType, data) {
   }
 }
 
+const MEMORY_CACHE = new Map();
+
 const server = http.createServer((req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = decodeURIComponent(parsedUrl.pathname);
@@ -322,7 +324,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Static File Serving
+  // Static File Serving with RAM Cache, Brotli (br) & Gzip, and Strong ETag Caching
   const filePath = pathname === '/' ? '/index.html' : pathname;
   const safePath = path.normalize(path.join(PUBLIC_DIR, filePath));
 
@@ -352,7 +354,6 @@ const server = http.createServer((req, res) => {
 
     fs.stat(targetPath, (fileErr, fileStats) => {
       if (fileErr || !fileStats.isFile()) {
-        // Fallback to root index.html for SPA routing
         const fallbackPath = path.join(PUBLIC_DIR, 'index.html');
         fs.readFile(fallbackPath, (readErr, content) => {
           if (readErr) {
@@ -368,38 +369,99 @@ const server = http.createServer((req, res) => {
 
       const ext = path.extname(targetPath).toLowerCase();
       const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      const mtimeMs = fileStats.mtimeMs;
       const mtime = fileStats.mtime.toUTCString();
+      const acceptEncoding = req.headers['accept-encoding'] || '';
 
-      // High-speed conditional caching: instant 304 on reload
+      // Compression selection: Brotli (br) > Gzip > Raw
+      const isCompressible = /text|javascript|json|xml|svg/i.test(contentType);
+      let selectedEncoding = 'identity';
+      if (isCompressible) {
+        if (acceptEncoding.includes('br') && typeof zlib.brotliCompressSync === 'function') {
+          selectedEncoding = 'br';
+        } else if (acceptEncoding.includes('gzip')) {
+          selectedEncoding = 'gzip';
+        }
+      }
+
+      const cacheKey = `${targetPath}:${selectedEncoding}`;
+      let cached = MEMORY_CACHE.get(cacheKey);
+
+      if (!cached || cached.mtimeMs < mtimeMs) {
+        try {
+          const rawBuffer = fs.readFileSync(targetPath);
+          let finalBuffer = rawBuffer;
+          if (selectedEncoding === 'br') {
+            finalBuffer = zlib.brotliCompressSync(rawBuffer, {
+              params: {
+                [zlib.constants.BROTLI_PARAM_QUALITY]: 5
+              }
+            });
+          } else if (selectedEncoding === 'gzip') {
+            finalBuffer = zlib.gzipSync(rawBuffer, { level: 6 });
+          }
+
+          const baseEtag = `"${fileStats.size.toString(16)}-${Math.floor(mtimeMs).toString(16)}"`;
+          const etag = `W/${baseEtag}`;
+
+          cached = {
+            buffer: finalBuffer,
+            etag,
+            baseEtag,
+            mtimeMs,
+            mtime,
+            contentType,
+            encoding: selectedEncoding
+          };
+
+          if (rawBuffer.length <= 3 * 1024 * 1024) {
+            MEMORY_CACHE.set(cacheKey, cached);
+          }
+        } catch (readErr) {
+          console.error('Error reading/compressing file:', readErr);
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end('Internal Server Error');
+          return;
+        }
+      }
+
+      // Fast 304 Not Modified validation
+      const ifNoneMatch = req.headers['if-none-match'];
       const ifModifiedSince = req.headers['if-modified-since'];
-      if (ifModifiedSince && ifModifiedSince === mtime) {
-        res.writeHead(304, { 'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=86400' });
+      const matchEtag = ifNoneMatch && (ifNoneMatch === cached.etag || ifNoneMatch === cached.baseEtag || ifNoneMatch.replace(/^W\//, '') === cached.baseEtag);
+      const matchMtime = ifModifiedSince && ifModifiedSince === cached.mtime;
+
+      if (matchEtag || matchMtime) {
+        res.writeHead(304, {
+          'ETag': cached.etag,
+          'Cache-Control': ext === '.html' ? 'public, max-age=0, must-revalidate' : 'public, max-age=31536000, immutable',
+          'Vary': 'Accept-Encoding'
+        });
         res.end();
         return;
       }
 
-      // Set caching headers
-      const cacheControl = ext === '.html' ? 'no-cache' : 'public, max-age=86400';
-      const acceptEncoding = req.headers['accept-encoding'] || '';
-      const isCompressible = /text|javascript|json|xml|svg/i.test(contentType);
+      // Cache-Control headers
+      const cacheControl = ext === '.html'
+        ? 'public, max-age=0, must-revalidate'
+        : 'public, max-age=31536000, immutable';
 
       const headers = {
-        'Content-Type': contentType,
+        'Content-Type': cached.contentType,
+        'Content-Length': cached.buffer.length,
         'Cache-Control': cacheControl,
-        'Last-Modified': mtime,
-        'X-Content-Type-Options': 'nosniff'
+        'ETag': cached.etag,
+        'Last-Modified': cached.mtime,
+        'X-Content-Type-Options': 'nosniff',
+        'Vary': 'Accept-Encoding'
       };
 
-      if (isCompressible && acceptEncoding.includes('gzip')) {
-        headers['Content-Encoding'] = 'gzip';
-        res.writeHead(200, headers);
-        const stream = fs.createReadStream(targetPath);
-        stream.pipe(zlib.createGzip({ level: 6 })).pipe(res);
-      } else {
-        res.writeHead(200, headers);
-        const stream = fs.createReadStream(targetPath);
-        stream.pipe(res);
+      if (cached.encoding !== 'identity') {
+        headers['Content-Encoding'] = cached.encoding;
       }
+
+      res.writeHead(200, headers);
+      res.end(cached.buffer);
     });
   });
 });
