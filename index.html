@@ -256,7 +256,9 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.3" />
+  <link rel="stylesheet" href="style.css?v=4.4" />
+  <!-- Swiper 3D Coverflow Stylesheet -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body>
 
@@ -1047,14 +1049,15 @@
   <!-- =====================================================
        FEATURED PROJECTS SECTION
        ===================================================== -->
-  <section class="section section--alt" id="projects">
+    <section class="section section--alt scroll-mt-20" id="projects">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-subtitle">PORTFOLIO WORK</span>
-        <h2 class="section-title">
-          Featured <span class="highlight">Projects</span>
+      <div class="projects-section-head reveal">
+        <div class="projects-pill-badge">
+          <span class="projects-pulse-dot"></span> PROJECTS
+        </div>
+        <h2 class="projects-heading-title">
+          Projects<span class="highlight">.</span>
         </h2>
-        <div class="section-title-bar"></div>
       </div>
 
       <!-- Project Filter Tabs -->
@@ -1062,1157 +1065,518 @@
         <button class="filter-btn active" data-project-filter="all">All Projects (11)</button>
         <button class="filter-btn" data-project-filter="powerbi">Power BI &amp; Analytics</button>
         <button class="filter-btn" data-project-filter="fullstack">MERN Stack</button>
-        <button class="filter-btn" data-project-filter="software">Java &amp; Enterprise</button>
+        <button class="filter-btn" data-project-filter="software">Java &amp; POS</button>
         <button class="filter-btn" data-project-filter="blockchain">Web3 &amp; Blockchain</button>
         <button class="filter-btn" data-project-filter="ai-data">AI / ML</button>
       </div>
 
-      <!-- Projects Auto-Scroll Header Controls -->
-      <div class="projects-carousel-bar reveal">
-        <div class="carousel-status-pill">
-          <span class="carousel-pulse-dot"></span>
-          <span class="carousel-status-text" id="carousel-status-text">Auto-Slide (3s)</span>
-          <span class="carousel-status-hint">(Hover card to pause)</span>
-        </div>
-        <div class="carousel-nav-controls">
-          <button class="carousel-nav-btn" id="carousel-prev-btn" aria-label="Previous project" title="Previous Project">
-            <i data-lucide="chevron-left"></i>
-          </button>
-          <button class="carousel-nav-btn carousel-play-btn" id="carousel-toggle-btn" aria-label="Pause Auto-Slide" title="Pause / Play Auto-Slide">
-            <i data-lucide="pause" id="carousel-play-icon"></i>
-          </button>
-          <button class="carousel-nav-btn" id="carousel-next-btn" aria-label="Next project" title="Next Project">
-            <i data-lucide="chevron-right"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="projects-carousel-wrapper" id="projects-carousel-wrapper">
-        <div class="projects-grid" id="projects-grid">
-        <!-- NEWEST FLAGSHIP PROJECT: BharatBazaar - Amazon-Style Direct Retail & Admin Control Room Ecosystem -->
-        <div class="project-card glass-panel reveal" data-category="fullstack software" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-ecommerce-admin.jpg"
-              alt="BharatBazaar Direct Retail &amp; Enterprise Admin Control Room Ecosystem Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">React 19 / Node / MySQL / RBAC</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="ecommerce-admin"
-                aria-label="Quick View BharatBazaar E-Commerce Ecosystem"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./ecommerce-admin/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
+      <!-- Projects 3D Coverflow Deck Slider -->
+      <div class="projects-swiper-container reveal">
+        <div class="swiper projects-swiper">
+          <div class="swiper-wrapper">
+            <!-- Slide: BharatBazaar -->
+            <div class="swiper-slide" data-category="fullstack software">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">01 / FULLSTACK • RETAIL • ADMIN</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> FLAGSHIP</span>
+                </div>
+                <h3 class="pc-title">BharatBazaar</h3>
+                <p class="pc-tagline">Amazon-Style Direct Retail & Admin Control Room.</p>
+                <p class="pc-desc">Production-grade dual ecosystem with high-contrast customer storefront, executive RBAC Admin Control Room, real-time MySQL inventory tracking & GST billing.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">₹18.4M+</div>
+              <div class="pc-stat-lbl">VOLUME</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">100%</div>
+              <div class="pc-stat-lbl">GST READY</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">RBAC</div>
+              <div class="pc-stat-lbl">CONTROL</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">React 19</span><span class="pc-tech-pill">Node.js</span><span class="pc-tech-pill">Express</span><span class="pc-tech-pill">MySQL</span><span class="pc-tech-pill">Tailwind</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./ecommerce-admin/index.html" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live BharatBazaar">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for BharatBazaar">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="ecommerce-admin" aria-label="Quick View BharatBazaar" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: smartBiz POS -->
+            <div class="swiper-slide" data-category="software fullstack">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">02 / APP • JAVA • POS</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> LIVE DEMO</span>
+                </div>
+                <h3 class="pc-title">smartBiz POS</h3>
+                <p class="pc-tagline">High-speed retail billing with Indian GST & barcode engine.</p>
+                <p class="pc-desc">High-performance Point of Sale (POS) and inventory platform with Indian GST engine (CGST/SGST/IGST), barcode scanning, 80mm thermal & A4 invoicing, and customer credit ledger.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">0.1s</div>
+              <div class="pc-stat-lbl">BILLING</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">100%</div>
+              <div class="pc-stat-lbl">GST READY</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">A4+80mm</div>
+              <div class="pc-stat-lbl">INVOICING</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Spring Boot 3</span><span class="pc-tech-pill">React.js</span><span class="pc-tech-pill">Java 17</span><span class="pc-tech-pill">MySQL</span><span class="pc-tech-pill">Tailwind</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./smart-billing/index.html" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live smartBiz POS">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for smartBiz POS">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="smart-billing" aria-label="Quick View smartBiz POS" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: Flipkart Analytics -->
+            <div class="swiper-slide" data-category="powerbi ai-data">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">03 / POWER BI • DAX • BUSINESS BI</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> CERTIFIED</span>
+                </div>
+                <h3 class="pc-title">Flipkart Analytics</h3>
+                <p class="pc-tagline">Turnover, margins & payment distribution intelligence.</p>
+                <p class="pc-desc">Official Techpile certified Power BI model tracking ₹10M sales, 5K orders, payment mode behavior, regional sales distribution, and customer satisfaction ratings.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">10M</div>
+              <div class="pc-stat-lbl">TURNOVER</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">10.09K</div>
+              <div class="pc-stat-lbl">AVG TICKET</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">5K</div>
+              <div class="pc-stat-lbl">ORDERS</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Power BI</span><span class="pc-tech-pill">DAX</span><span class="pc-tech-pill">Power Query</span><span class="pc-tech-pill">Star Schema</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./powerbi-analytics/index.html#flipkart" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live Flipkart Analytics">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for Flipkart Analytics">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="flipkart-powerbi" aria-label="Quick View Flipkart Analytics" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: Tesla Stock Insights -->
+            <div class="swiper-slide" data-category="powerbi ai-data">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">04 / POWER BI • AUTOMOTIVE • TELEMETRY</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> LIVE DEMO</span>
+                </div>
+                <h3 class="pc-title">Tesla Stock Insights</h3>
+                <p class="pc-tagline">Fleet valuation, mileage decay & safety ratio telemetry.</p>
+                <p class="pc-desc">Interactive Power BI dashboard tracking $42.84M fleet value, 12.42M odometer miles, clean title safety ratio (84.6%), and Autopilot DAS adoption across US states.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">$42.84M</div>
+              <div class="pc-stat-lbl">VALUATION</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">12.42M</div>
+              <div class="pc-stat-lbl">MILEAGE</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">84.6%</div>
+              <div class="pc-stat-lbl">CLEAN TITLE</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Power BI</span><span class="pc-tech-pill">DAX</span><span class="pc-tech-pill">Star Schema</span><span class="pc-tech-pill">Fleet BI</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./powerbi-analytics/index.html#tesla" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live Tesla Stock Insights">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for Tesla Stock Insights">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="tesla-powerbi" aria-label="Quick View Tesla Stock Insights" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: Amazon Clone -->
+            <div class="swiper-slide" data-category="fullstack web">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">05 / FULLSTACK • MERN • PAYMENTS</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> LIVE DEMO</span>
+                </div>
+                <h3 class="pc-title">Amazon Clone</h3>
+                <p class="pc-tagline">Full-scale marketplace with cart, checkout & admin.</p>
+                <p class="pc-desc">Engineered high-concurrency cart state, session persistence, product filtering, secure JWT authentication, and interactive product galleries.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">15+</div>
+              <div class="pc-stat-lbl">REST APIS</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">100%</div>
+              <div class="pc-stat-lbl">RESPONSIVE</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">JWT</div>
+              <div class="pc-stat-lbl">SECURE</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">React.js</span><span class="pc-tech-pill">Node.js</span><span class="pc-tech-pill">Express</span><span class="pc-tech-pill">MySQL</span><span class="pc-tech-pill">JWT</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./amazon-clone/index.html" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live Amazon Clone">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Amazon-clone-" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for Amazon Clone">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="amazon-clone" aria-label="Quick View Amazon Clone" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: Land Registry DApp -->
+            <div class="swiper-slide" data-category="blockchain software">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">06 / WEB3 • BLOCKCHAIN • SMART CONTRACT</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> SHIPPED</span>
+                </div>
+                <h3 class="pc-title">Land Registry DApp</h3>
+                <p class="pc-tagline">Decentralized tamper-proof property titles on Ethereum.</p>
+                <p class="pc-desc">Decentralized land registration eliminating intermediaries, verifying ownership with Ethereum smart contracts, IPFS document storage, and MetaMask auth.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">0</div>
+              <div class="pc-stat-lbl">BROKERS</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">IPFS</div>
+              <div class="pc-stat-lbl">STORAGE</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">ETH</div>
+              <div class="pc-stat-lbl">SOLIDITY</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Solidity</span><span class="pc-tech-pill">Ethereum</span><span class="pc-tech-pill">MetaMask</span><span class="pc-tech-pill">Web3.js</span><span class="pc-tech-pill">IPFS</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="#contact" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Inquire Demo Land Registry DApp">
+                    <span>Inquire Demo</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Abhishek_Portfolio" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for Land Registry DApp">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="voting-system" aria-label="Quick View Land Registry DApp" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: EduQuiz Portal -->
+            <div class="swiper-slide" data-category="fullstack web">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">07 / EDTECH • FULLSTACK • ASSESSMENTS</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> LIVE DEMO</span>
+                </div>
+                <h3 class="pc-title">EduQuiz Portal</h3>
+                <p class="pc-tagline">Dynamic exam engine with instant automated scoring.</p>
+                <p class="pc-desc">Full-stack examination portal supporting dynamic course catalogs, timed tests, automated scoring, student dashboards, and performance tracking.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val"><100ms</div>
+              <div class="pc-stat-lbl">SCORING</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">8+</div>
+              <div class="pc-stat-lbl">ENDPOINTS</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">RBAC</div>
+              <div class="pc-stat-lbl">ROLES</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">React.js</span><span class="pc-tech-pill">Node.js</span><span class="pc-tech-pill">Express</span><span class="pc-tech-pill">MySQL</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./quiz-portal/index.html" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live EduQuiz Portal">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/student-quiz-portal" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for EduQuiz Portal">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="quiz-portal" aria-label="Quick View EduQuiz Portal" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: BloodBridge LifeSaver -->
+            <div class="swiper-slide" data-category="software web">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">08 / HEALTHCARE • REAL-TIME • CRITICAL</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> LIVE DEMO</span>
+                </div>
+                <h3 class="pc-title">BloodBridge LifeSaver</h3>
+                <p class="pc-tagline">Emergency donor matching with geocoding & alerts.</p>
+                <p class="pc-desc">Critical healthcare platform matching blood recipients with compatible verified donors in real time with inventory tracking and instant dispatching.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val"><3 min</div>
+              <div class="pc-stat-lbl">MATCH</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">8</div>
+              <div class="pc-stat-lbl">BLOOD TYPES</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">24/7</div>
+              <div class="pc-stat-lbl">DISPATCH</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Java</span><span class="pc-tech-pill">Spring Boot</span><span class="pc-tech-pill">MySQL</span><span class="pc-tech-pill">REST API</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="./hospital-system/index.html" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live BloodBridge LifeSaver">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Hospital-Management-System" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for BloodBridge LifeSaver">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="hospital-system" aria-label="Quick View BloodBridge LifeSaver" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: CyberPulse Portfolio -->
+            <div class="swiper-slide" data-category="fullstack web">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">09 / CREATIVE DEV • THREE.JS • WEBGL</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> LIVE</span>
+                </div>
+                <h3 class="pc-title">CyberPulse Portfolio</h3>
+                <p class="pc-tagline">High-performance technical portfolio with dynamic 3D visuals.</p>
+                <p class="pc-desc">Developer showcase with Three.js particle canvas, interactive soundscapes, coverflow card deck, and live Power BI report embedding.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">60 FPS</div>
+              <div class="pc-stat-lbl">CANVAS</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">99</div>
+              <div class="pc-stat-lbl">LIGHTHOUSE</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">ZERO</div>
+              <div class="pc-stat-lbl">LATENCY</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">HTML5</span><span class="pc-tech-pill">CSS3</span><span class="pc-tech-pill">JavaScript</span><span class="pc-tech-pill">Three.js</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="https://abhishek-portfolio-uir4.onrender.com/" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Launch Live CyberPulse Portfolio">
+                    <span>Launch Live</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Abhishek_Portfolio" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for CyberPulse Portfolio">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="portfolio-site" aria-label="Quick View CyberPulse Portfolio" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: Sentiment AI Engine -->
+            <div class="swiper-slide" data-category="ai-data">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">10 / AI / ML • NLP • TEXT MINING</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> SHIPPED</span>
+                </div>
+                <h3 class="pc-title">Sentiment AI Engine</h3>
+                <p class="pc-tagline">Multiclass sentiment classifier with TF-IDF vectorization.</p>
+                <p class="pc-desc">NLP intelligence engine classifying customer reviews, social commentary, and support tickets with confidence scoring and high classification accuracy.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">92.4%</div>
+              <div class="pc-stat-lbl">ACCURACY</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">TF-IDF</div>
+              <div class="pc-stat-lbl">NLP</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val"><15ms</div>
+              <div class="pc-stat-lbl">INFERENCE</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Python</span><span class="pc-tech-pill">Scikit-learn</span><span class="pc-tech-pill">Pandas</span><span class="pc-tech-pill">NLTK</span><span class="pc-tech-pill">Flask</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="#contact" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Inquire Demo Sentiment AI Engine">
+                    <span>Inquire Demo</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Sentiment-Analysis-System" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for Sentiment AI Engine">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="sentiment-analysis" aria-label="Quick View Sentiment AI Engine" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <!-- Slide: AlphaPredict Stock AI -->
+            <div class="swiper-slide" data-category="ai-data">
+              <article class="project-card">
+                <div class="pc-top-row">
+                  <span class="pc-num">11 / AI / ML • TIME SERIES • LSTM</span>
+                  <span class="pc-status-pill"><span class="pc-pulse-dot"></span> SHIPPED</span>
+                </div>
+                <h3 class="pc-title">AlphaPredict Stock AI</h3>
+                <p class="pc-tagline">Time-series forecasting with moving-average indicators.</p>
+                <p class="pc-desc">Predictive quantitative modeling platform computing RSI, MACD, and Bollinger bands with machine learning regression forecasting future equity prices.</p>
+                
+                <div class="pc-stats-grid">
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">88.7%</div>
+              <div class="pc-stat-lbl">DIRECTION</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">5+</div>
+              <div class="pc-stat-lbl">INDICATORS</div>
+            </div>
+            <div class="pc-stat-box">
+              <div class="pc-stat-val">REAL-TIME</div>
+              <div class="pc-stat-lbl">DATA</div>
+            </div>
+                </div>
+                
+                <div class="pc-tech-tags">
+                  <span class="pc-tech-pill">Python</span><span class="pc-tech-pill">LSTM</span><span class="pc-tech-pill">Pandas</span><span class="pc-tech-pill">NumPy</span><span class="pc-tech-pill">Matplotlib</span>
+                </div>
+                
+                <div class="pc-actions">
+                  <a href="#contact" target="_blank" rel="noopener noreferrer" class="pc-btn-primary" aria-label="Inquire Demo AlphaPredict Stock AI">
+                    <span>Inquire Demo</span>
+                    <i data-lucide="external-link"></i>
+                  </a>
+                  <a href="https://github.com/abhishektripathi9/Stock-Market-Prediction" target="_blank" rel="noopener noreferrer" class="pc-btn-secondary" aria-label="Code on GitHub for AlphaPredict Stock AI">
+                    <i data-lucide="github"></i>
+                    <span>Code</span>
+                  </a>
+                  <button class="pc-btn-details btn-quick-view" data-project-id="stock-prediction" aria-label="Quick View AlphaPredict Stock AI" title="Quick View Specs">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </article>
             </div>
           </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sparkles"></i> New Flagship</span>
-            </div>
-            <h3 class="project-title">BharatBazaar: Direct Retail &amp; Admin Control Room</h3>
-            <p class="project-desc">
-              Production-grade Amazon-style dual ecosystem: High-contrast minimalist customer storefront seamlessly coupled with an executive role-based Admin Control Room, real-time MySQL inventory tracking, live GST invoicing, and fulfillment pipeline.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">React.js</span>
-              <span class="tech-tag">Node.js</span>
-              <span class="tech-tag">Express</span>
-              <span class="tech-tag">MySQL 8.0</span>
-              <span class="tech-tag">JWT &amp; RBAC</span>
-              <span class="tech-tag">Tailwind CSS</span>
-              <span class="tech-tag">Recharts</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./ecommerce-admin/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="ecommerce-admin"
-                aria-label="Quick View BharatBazaar E-Commerce Ecosystem"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- NEWEST FLAGSHIP PROJECT: Smart Billing & Inventory Management System (smartBiz) -->
-        <div class="project-card glass-panel reveal" data-category="software fullstack" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-smart-billing.jpg"
-              alt="smartBiz Smart Billing &amp; Inventory Management POS System Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">Spring Boot 3 / React POS</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="smart-billing"
-                aria-label="Quick View Smart Billing System"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./smart-billing/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sparkles"></i> New Flagship</span>
-            </div>
-            <h3 class="project-title">Smart Billing &amp; Inventory POS (smartBiz)</h3>
-            <p class="project-desc">
-              High-performance Point of Sale (POS) and inventory platform with Indian GST engine (CGST/SGST/IGST), barcode scanning, 80mm thermal &amp; A4 invoicing, and customer credit ledger (Khata book).
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">React.js</span>
-              <span class="tech-tag">Spring Boot 3</span>
-              <span class="tech-tag">Java 17</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">Indian GST</span>
-              <span class="tech-tag">Tailwind</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./smart-billing/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="smart-billing"
-                aria-label="Quick View Smart Billing System"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- RESUME PROJECT 1: UdaanMart - Global E-Commerce & Logistics Platform -->
-        <div class="project-card glass-panel reveal" data-category="fullstack web" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-amazon-clone.jpg"
-              alt="UdaanMart - Global E-Commerce Marketplace &amp; Logistics Platform"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">Global E-Commerce &amp; Logistics</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="amazon-clone"
-                aria-label="Quick View UdaanMart E-Commerce"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./amazon-clone/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/Amazon-clone-"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sparkles"></i> Resume Featured</span>
-            </div>
-            <h3 class="project-title">UdaanMart - Global E-Commerce &amp; Logistics Platform</h3>
-            <p class="project-desc">
-              Scalable global e-commerce marketplace featuring aesthetic cream luxury UI, auto-country language localization (7 languages), universal doorstep delivery to 155,000+ Indian villages &amp; 195+ countries worldwide, and 1-click Express Buy.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">JavaScript ES6+</span>
-              <span class="tech-tag">Cream Luxury UI</span>
-              <span class="tech-tag">i18n Localization</span>
-              <span class="tech-tag">Global Delivery</span>
-              <span class="tech-tag">Express Buy</span>
-              <span class="tech-tag">REST APIs</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./amazon-clone/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="amazon-clone"
-                aria-label="Quick View UdaanMart E-Commerce"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/Amazon-clone-"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- TECHPILE POWER BI PROJECT 1: Flipkart E-Commerce Sales & Customer Intelligence -->
-        <div class="project-card glass-panel reveal" data-category="powerbi ai-data" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-flipkart-powerbi.jpg"
-              alt="Flipkart E-Commerce Sales Intelligence Power BI Dashboard"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">Power BI / DAX / Analytics</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="flipkart-powerbi"
-                aria-label="Quick View Flipkart Power BI Dashboard"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./powerbi-analytics/index.html#flipkart"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="bar-chart-3"></i> Techpile / Power BI</span>
-            </div>
-            <h3 class="project-title">Flipkart E-Commerce Sales Intelligence</h3>
-            <p class="project-desc">
-              Comprehensive Power BI analytics dashboard calculating 10M total sales, 10.09K average ticket size, product category volume breakdown, and multi-channel payment distribution (UPI/COD/Cards).
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">Power BI</span>
-              <span class="tech-tag">DAX Measures</span>
-              <span class="tech-tag">Power Query</span>
-              <span class="tech-tag">Data Modeling</span>
-              <span class="tech-tag">E-Commerce BI</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./powerbi-analytics/index.html#flipkart"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="flipkart-powerbi"
-                aria-label="Quick View Flipkart Power BI Dashboard"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- TECHPILE POWER BI PROJECT 2: Tesla Automotive Fleet Telemetry & Safety Intelligence -->
-        <div class="project-card glass-panel reveal" data-category="powerbi ai-data" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-tesla-powerbi.jpg"
-              alt="Tesla Stock Sales Analysis Power BI Dashboard"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">Power BI / DAX / Analytics</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="tesla-powerbi"
-                aria-label="Quick View Tesla Power BI Dashboard"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./powerbi-analytics/index.html#tesla"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="award"></i> Techpile / Power BI</span>
-            </div>
-            <h3 class="project-title">Tesla Stock Sales &amp; Price Insights</h3>
-            <p class="project-desc">
-              Vehicle sales intelligence dashboard tracking $42.84M in stock valuation, 12.42M odometer mileage, $3.85M EMI financing, 84.6% clean title safety ratio, and Autopilot DAS adoption across US states.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">Power BI</span>
-              <span class="tech-tag">DAX Measures</span>
-              <span class="tech-tag">Star Schema</span>
-              <span class="tech-tag">Safety Index</span>
-              <span class="tech-tag">Pricing Model</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./powerbi-analytics/index.html#tesla"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="tesla-powerbi"
-                aria-label="Quick View Tesla Power BI Dashboard"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- RESUME PROJECT 2: Student Quiz & Course Learning Portal -->
-        <div class="project-card glass-panel reveal" data-category="fullstack web" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-quiz-portal.jpg"
-              alt="Student Quiz &amp; Course Learning Portal Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">MERN Stack / EdTech</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="quiz-portal"
-                aria-label="Quick View Student Quiz Portal"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./quiz-portal/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sparkles"></i> Resume Featured</span>
-            </div>
-            <h3 class="project-title">Student Quiz &amp; Course Learning Portal</h3>
-            <p class="project-desc">
-              End-to-end e-learning platform with student authentication, dynamic course catalogs, automated quiz scoring, 8+ secure Express.js REST APIs with input validation, and sub-100ms state transitions.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">React.js</span>
-              <span class="tech-tag">Node.js</span>
-              <span class="tech-tag">Express.js</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">REST APIs</span>
-              <span class="tech-tag">Context API</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./quiz-portal/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="quiz-portal"
-                aria-label="Quick View Student Quiz Portal"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- RESUME PROJECT 3: Enterprise Banking Management System -->
-        <div class="project-card glass-panel reveal" data-category="software fullstack" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-banking-system.jpg"
-              alt="Enterprise Banking Management System Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">Java / Enterprise</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="banking-system"
-                aria-label="Quick View Banking System"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./banking-system/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2025</span>
-              <span class="project-stars"><i data-lucide="shield-check"></i> Resume Featured</span>
-            </div>
-            <h3 class="project-title">Enterprise Banking Management System</h3>
-            <p class="project-desc">
-              Desktop &amp; enterprise banking platform built with MVC patterns, JDBC PreparedStatements input sanitization eliminating SQL injection, and strict ACID transaction rollbacks guaranteeing ledger consistency.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">Java</span>
-              <span class="tech-tag">JDBC</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">MVC Architecture</span>
-              <span class="tech-tag">ACID Safety</span>
-              <span class="tech-tag">OOP</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./banking-system/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="banking-system"
-                aria-label="Quick View Banking System"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 0: Advanced Land Registry DApp (FLAGSHIP WITH LIVE DEMO) -->
-        <div class="project-card glass-panel reveal" data-category="blockchain" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-land-registry.jpg"
-              alt="Advanced Land Registry Web3 DApp Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">Web3 / Blockchain</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="land-registry"
-                aria-label="Quick View Advanced Land Registry"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./land-registry/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sparkles"></i> Flagship DApp</span>
-            </div>
-            <h3 class="project-title">Advanced Land Registry DApp</h3>
-            <p class="project-desc">
-              Decentralized, tamper-proof property title registration &amp; ownership transfer platform powered by Ethereum smart contracts, IPFS immutable deed storage, and MetaMask integration for fraud-proof real estate.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">Solidity</span>
-              <span class="tech-tag">Ethereum</span>
-              <span class="tech-tag">Web3.js</span>
-              <span class="tech-tag">React.js</span>
-              <span class="tech-tag">IPFS</span>
-              <span class="tech-tag">MetaMask</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./land-registry/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="land-registry"
-                aria-label="Quick View Advanced Land Registry"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 5: RentEase – PG & Room Finder -->
-        <div class="project-card glass-panel reveal" data-category="fullstack software" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-rentease.jpg"
-              alt="RentEase Platform Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="rentease"
-                aria-label="Quick View RentEase"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./rentease/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/RentEase-PG-Room-Finder"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-            <span class="project-badge">Node.js Express / React 19 / MySQL / Admin PRO</span>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sparkles"></i> Featured</span>
-            </div>
-            <h3 class="project-title">RentEase PRO – Zero Brokerage PG &amp; Room Finder</h3>
-            <p class="project-desc">
-              Zero-brokerage managed co-living &amp; student hostel platform with Airbnb-inspired minimalism, atomic bed reservations, RentEase PRO Admin Control Panel, and owner security access control gateway.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">React 19</span>
-              <span class="tech-tag">Node.js</span>
-              <span class="tech-tag">Express.js</span>
-              <span class="tech-tag">MySQL 8.0</span>
-              <span class="tech-tag">JWT RBAC</span>
-              <span class="tech-tag">Recharts</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./rentease/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="rentease"
-                aria-label="Quick View RentEase"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/RentEase-PG-Room-Finder"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 6: AuraWeather – Atmospheric & AQI Telemetry -->
-        <div class="project-card glass-panel reveal" data-category="ai-data web" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-weather.jpg"
-              alt="AuraWeather Telemetry Application Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">OpenWeather / React</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="weather"
-                aria-label="Quick View AuraWeather"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./weather/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="sun"></i> Live Telemetry</span>
-            </div>
-            <h3 class="project-title">AuraWeather – Atmospheric &amp; AQI Telemetry</h3>
-            <p class="project-desc">
-              Glassmorphic telemetry web app ingesting live atmospheric feeds with 7-day projections, air quality radar (AQI), wind analysis, and real-time solar tracking.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">React.js</span>
-              <span class="tech-tag">REST APIs</span>
-              <span class="tech-tag">OpenWeather</span>
-              <span class="tech-tag">Telemetry</span>
-              <span class="tech-tag">Glassmorphism</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./weather/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="weather"
-                aria-label="Quick View AuraWeather"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 7: SalaryAI — Tech Compensation & Leveling Engine -->
-        <div class="project-card glass-panel reveal" data-category="ai-data" data-tilt>
-          <div class="project-media-wrap">
-            <img
-              src="assets/project-salary.jpg"
-              alt="SalaryAI Tech Compensation & Leveling Engine Mockup"
-              class="project-img"
-              loading="lazy"
-            />
-            <span class="live-demo-tag">
-              <span class="pulse-indicator-live"></span>
-              Live Demo
-            </span>
-            <span class="project-badge">AI / ML Model</span>
-
-            <div class="project-overlay-3d">
-              <button
-                class="btn-quick-view"
-                data-project-id="salary"
-                aria-label="Quick View SalaryAI"
-              >
-                <i data-lucide="eye"></i>
-                <span>Quick View</span>
-              </button>
-              <div class="overlay-links">
-                <a
-                  href="./salary/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-live-demo-pill"
-                  aria-label="Launch Live Demo"
-                  title="Launch Live Demo"
-                >
-                  <i data-lucide="external-link"></i>
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href="https://github.com/abhishektripathi9/Salary-Prediction-System"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="icon-link-btn"
-                  aria-label="GitHub Repository"
-                  title="GitHub Repository"
-                >
-                  <img src="assets/github-logo.png" alt="GitHub" class="project-card-gh-icon" width="18" height="18" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-body">
-            <div class="project-header-meta">
-              <span class="project-year">2026</span>
-              <span class="project-stars"><i data-lucide="trending-up"></i> ML Predictive</span>
-            </div>
-            <h3 class="project-title">SalaryAI — Tech Compensation & Leveling Engine</h3>
-            <p class="project-desc">
-              Production-grade Machine Learning compensation engine & leveling platform trained on 2,540 verified Indian tech offers. Features 3 Scikit-Learn regression pipelines (Ensemble Forest R² 0.942), 90% confidence intervals, dynamic bell-curve distributions, and dual Public + Admin Control Room architecture.
-            </p>
-            <div class="project-tech-tags">
-              <span class="tech-tag">Python 3</span>
-              <span class="tech-tag">Scikit-Learn</span>
-              <span class="tech-tag">Flask</span>
-              <span class="tech-tag">React 19</span>
-              <span class="tech-tag">Tailwind CSS</span>
-              <span class="tech-tag">Recharts</span>
-            </div>
-            <div class="project-card-actions">
-              <a
-                href="./salary/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-live-demo"
-                title="Launch Live Demo in new tab"
-              >
-                <i data-lucide="external-link"></i>
-                <span>Live Demo</span>
-              </a>
-              <button
-                class="btn-card-quick-view"
-                data-project-id="salary"
-                aria-label="Quick View SalaryAI"
-                title="View Full Architecture Specs"
-              >
-                <i data-lucide="eye"></i>
-                <span>Details</span>
-              </button>
-              <a
-                href="https://github.com/abhishektripathi9/Salary-Prediction-System"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-card-github"
-                aria-label="GitHub Repository"
-                title="View Source on GitHub"
-              >
-                <img src="assets/github-logo.png" alt="GitHub" width="18" height="18" />
-              </a>
-            </div>
-          </div>
+          <!-- Swiper Pagination -->
+          <div class="swiper-pagination"></div>
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-prev" aria-label="Previous Project" title="Previous Project"></div>
+          <div class="swiper-button-next" aria-label="Next Project" title="Next Project"></div>
         </div>
       </div>
-    </div>
-
-    <!-- Carousel Progress Dots -->
-    <div class="projects-carousel-dots" id="projects-carousel-dots">
-      <button class="carousel-dot active" data-index="0" aria-label="Go to project 1"></button>
-      <button class="carousel-dot" data-index="1" aria-label="Go to project 2"></button>
-      <button class="carousel-dot" data-index="2" aria-label="Go to project 3"></button>
-      <button class="carousel-dot" data-index="3" aria-label="Go to project 4"></button>
-      <button class="carousel-dot" data-index="4" aria-label="Go to project 5"></button>
-      <button class="carousel-dot" data-index="5" aria-label="Go to project 6"></button>
-      <button class="carousel-dot" data-index="6" aria-label="Go to project 7"></button>
-      <button class="carousel-dot" data-index="7" aria-label="Go to project 8"></button>
-      <button class="carousel-dot" data-index="8" aria-label="Go to project 9"></button>
-      <button class="carousel-dot" data-index="9" aria-label="Go to project 10"></button>
-      <button class="carousel-dot" data-index="10" aria-label="Go to project 11"></button>
-    </div>
 
       <!-- GitHub Repositories Showcase Banner -->
       <div class="projects-more-cta reveal">
@@ -3090,6 +2454,7 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=4.3"></script>
+  <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
+  <script src="script.js?v=4.4"></script>
 </body>
 </html>
