@@ -8351,3 +8351,87 @@ ul {
     display: none;
   }
 }
+
+
+/* =====================================================
+   FULL-WIDTH FLUID SCREEN EXPANSION (EDGE-TO-EDGE LAYOUT)
+   ===================================================== */
+html.fluid {
+  --container-max: 100%;
+}
+
+html.fluid .container,
+html.fluid .hero-container,
+html.fluid .nav-container,
+html.fluid .footer-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: clamp(1.25rem, 3.5vw, 4rem) !important;
+  padding-right: clamp(1.25rem, 3.5vw, 4rem) !important;
+}
+
+html.fluid .projects-swiper-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: clamp(0.75rem, 2vw, 2.5rem) !important;
+  padding-right: clamp(0.75rem, 2vw, 2.5rem) !important;
+}
+
+html.fluid .projects-swiper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Navbar Screen Expansion Buttons */
+.nav-screen-toggle-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-screen-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: #09090b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+}
+
+.nav-screen-btn i,
+.nav-screen-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.2;
+}
+
+.nav-screen-btn:hover {
+  background: #f4f4f5;
+  border-color: rgba(0, 0, 0, 0.32);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.nav-screen-btn[aria-pressed="true"] {
+  background: #09090b;
+  color: #ffffff;
+  border-color: #09090b;
+}
+
+.nav-screen-btn[aria-pressed="true"]:hover {
+  background: #27272a;
+}
+
+@media (max-width: 900px) {
+  .nav-screen-toggle-item {
+    display: none;
+  }
+}

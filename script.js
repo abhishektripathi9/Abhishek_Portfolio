@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatCounters();
   initProjectFilters();
   initProjectsCoverflow();
+  initFluidAndFullscreen();
   initProjectModal();
   initResumeModal();
   initCertViewer();
@@ -2273,3 +2274,97 @@ function initRealtimeSync() {
 
 
 
+
+
+/* =====================================================
+   FULL-WIDTH FLUID LAYOUT & FULLSCREEN MANAGER
+   ===================================================== */
+function initFluidAndFullscreen() {
+  const htmlEl = document.documentElement;
+  const fluidBtn = document.getElementById('fluidBtn');
+  const fsBtn = document.getElementById('fsBtn');
+
+  // Load saved preference, default to 'on' (full screen expanded)
+  const savedFluid = localStorage.getItem('fluid');
+  if (savedFluid === 'off') {
+    htmlEl.classList.remove('fluid');
+  } else {
+    htmlEl.classList.add('fluid');
+  }
+
+  function refreshFluidBtn() {
+    if (!fluidBtn) return;
+    const isFluid = htmlEl.classList.contains('fluid');
+    fluidBtn.setAttribute('aria-pressed', isFluid ? 'true' : 'false');
+    fluidBtn.innerHTML = isFluid 
+      ? '<i data-lucide="minimize-2"></i>' 
+      : '<i data-lucide="maximize-2"></i>';
+    fluidBtn.title = isFluid 
+      ? 'Compress layout to standard width (Alt+W)' 
+      : 'Expand layout to full screen width (Alt+W)';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  function refreshFsBtn() {
+    if (!fsBtn) return;
+    const isFs = !!document.fullscreenElement;
+    fsBtn.setAttribute('aria-pressed', isFs ? 'true' : 'false');
+    fsBtn.innerHTML = isFs 
+      ? '<i data-lucide="shrink"></i>' 
+      : '<i data-lucide="expand"></i>';
+    fsBtn.title = isFs 
+      ? 'Exit browser fullscreen (Esc / F)' 
+      : 'Enter browser fullscreen (F)';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  if (fluidBtn) {
+    fluidBtn.addEventListener('click', () => {
+      htmlEl.classList.toggle('fluid');
+      const isFluid = htmlEl.classList.contains('fluid');
+      localStorage.setItem('fluid', isFluid ? 'on' : 'off');
+      refreshFluidBtn();
+      if (window.projectsSwiper) {
+        setTimeout(() => window.projectsSwiper.update(), 120);
+      }
+    });
+  }
+
+  if (fsBtn) {
+    fsBtn.addEventListener('click', async () => {
+      try {
+        if (!document.fullscreenElement) {
+          await document.documentElement.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (err) {
+        console.warn('Fullscreen request blocked:', err);
+      }
+    });
+  }
+
+  document.addEventListener('fullscreenchange', () => {
+    refreshFsBtn();
+    if (window.projectsSwiper) {
+      setTimeout(() => window.projectsSwiper.update(), 150);
+    }
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+    if (e.altKey && (e.key === 'w' || e.key === 'W')) {
+      e.preventDefault();
+      if (fluidBtn) fluidBtn.click();
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!e.ctrlKey && !e.altKey && !e.metaKey && fsBtn) {
+        e.preventDefault();
+        fsBtn.click();
+      }
+    }
+  });
+
+  refreshFluidBtn();
+  refreshFsBtn();
+}

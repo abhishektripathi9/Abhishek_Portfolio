@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth fluid">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -256,7 +256,7 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.4" />
+  <link rel="stylesheet" href="style.css?v=4.5" />
   <!-- Swiper 3D Coverflow Stylesheet -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css"/>
 </head>
@@ -317,6 +317,14 @@
         <li><a href="#contact" class="nav-link">Contact</a></li>
         <li class="nav-hire-item">
           <a href="#contact" class="btn-ref-hire">Hire Me</a>
+        </li>
+        <li class="nav-screen-toggle-item">
+          <button id="fluidBtn" class="nav-screen-btn" aria-label="Toggle full-width layout" aria-pressed="true" title="Toggle full-width layout (Alt+W)">
+            <i data-lucide="minimize-2"></i>
+          </button>
+          <button id="fsBtn" class="nav-screen-btn" aria-label="Toggle browser fullscreen" aria-pressed="false" title="Toggle browser fullscreen (F)">
+            <i data-lucide="expand"></i>
+          </button>
         </li>
         <li class="nav-contact-item">
           <a href="#contact" class="btn-ref-contact">
@@ -2455,6 +2463,6 @@
 
   <!-- Main JavaScript File -->
   <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=4.4"></script>
+  <script src="script.js?v=4.5"></script>
 </body>
 </html>
