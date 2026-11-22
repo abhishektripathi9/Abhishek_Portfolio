@@ -418,6 +418,24 @@ function initProjectsCoverflow() {
    10. PROJECT QUICK-VIEW MODAL
    ===================================================== */
 const projectData = {
+  'drivecraft-academy': {
+    title: 'DriveCraft Academy: Dual-Control Driving School & Operations Dispatch SaaS Platform',
+    year: '2026',
+    category: 'Full-Stack SaaS & Fleet Operations Management',
+    image: 'assets/project-drivecraft.jpg',
+    desc: 'Production-ready, white-label full-stack Car Driving School & Fleet Operations Management SaaS web application engineered with React 19, Vite, Express.js, MySQL 8.0, and Tailwind CSS. Features a strict high-contrast minimalist monochrome design system, real-time slot conflict resolution, live GPS fleet telemetry radar, Indian RTO quiz simulator, Sarathi LL/DL license application stepper, QR attendance check-in, and GST tax invoice generation.',
+    highlights: [
+      'Dual Portal Architecture: Public-facing student academy with zero admin exposure coupled with an internal secret Admin Operations Dispatch Console with live 1-click view-website switching.',
+      'Anti-Collision Slot Booking: Multi-step booking engine with 7-day rolling calendar, branch selection, and backend validation preventing double-booking of training vehicles on overlapping dates/slots.',
+      '1-Click Quick Apply Auto-Pairing: Automatically pairs pending cadet bookings with available transmission-matched vehicles and least-busy mentors, with optimistic UI updates.',
+      'Sarathi LL/DL License Application Stepper: 4-stage visual progress pipeline (Docs Verified → LL Applied → RTO Slot Booked → DL Approved) controllable by admin.',
+      'In-Cabin Telemetry & QR Attendance: Scannable QR code lesson check-in with instant session logging and live competency scoring progress bars (Clutch bite, Reverse parking, Highway merging).',
+      'White-Label & Compliance: Dynamic school settings editor (logo, GSTIN, branches) stored in MySQL, printable SAC 999293 GST tax receipts, and public QR certificate verification.'
+    ],
+    tech: ['React 19', 'Vite 8', 'Node.js', 'Express.js', 'MySQL 8.0', 'Tailwind CSS v4', 'JWT Auth', 'Bcrypt (12 Rounds)', 'Helmet'],
+    github: 'https://github.com/abhishektripathi9/DriveCraft-Academy',
+    liveDemo: './drivecraft-academy/index.html'
+  },
   'ecommerce-admin': {
     title: 'BharatBazaar: Direct Retail & Admin Control Room Ecosystem',
     year: '2026',

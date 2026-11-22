@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DriveCraft Academy – Dual-Control Driving School & Operations Dispatch SaaS Platform | Abhishek Tripathi Portfolio</title>
+  <meta name="description" content="Production-grade, white-label full-stack Car Driving School & Fleet Operations Management SaaS platform with strict monochrome UI, anti-collision slot booking, live GPS fleet telemetry radar, LL/DL license stepper, and GST invoicing." />
+  
+  <!-- Fonts & CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-white text-[#0A0A0A] font-sans antialiased selection:bg-[#0A0A0A] selection:text-white min-h-screen flex flex-col">
+
+  <!-- =========================================================================
+       PORTFOLIO TOP BAR (Launch Local / Back to Portfolio)
+       ========================================================================= -->
+  <aside aria-label="Portfolio Navigation Bar" class="bg-[#0A0A0A] text-white text-xs px-4 py-2.5 border-b border-neutral-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-bold text-neutral-300 hover:text-white transition-colors bg-neutral-900 hover:bg-neutral-800 px-3 py-1 border border-neutral-800">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Back to Portfolio</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+          <span class="font-medium text-neutral-400 hidden sm:inline">Project Showcase:</span>
+          <span class="font-black text-white uppercase tracking-wider">DriveCraft Academy SaaS</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 font-mono text-[11px]">
+        <a href="http://localhost:5173" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-[#0A0A0A] font-bold uppercase hover:bg-neutral-200 transition-colors shadow-xs">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Launch Local App (Port 5173)</span>
+        </a>
+        <a href="https://github.com/abhishektripathi9/DriveCraft-Academy" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 bg-neutral-900 text-neutral-300 hover:text-white border border-neutral-700 transition-colors">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">GitHub Repository</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       INTERACTIVE TAB SELECTOR: Public Academy vs Cadet Dossier vs Admin Dispatch
+       ========================================================================= -->
+  <div class="bg-[#FAFAFA] border-b border-[#E5E5E5] sticky top-10 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+      <div class="flex items-center gap-2 font-bold">
+        <button onclick="switchTab('academy')" id="tab-academy-btn" class="px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-[#0A0A0A] text-white cursor-pointer">
+          <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+          <span>Public Academy</span>
+          <span class="text-[9px] bg-white/20 px-1 py-0.2 uppercase">Visitor</span>
+        </button>
+        <button onclick="switchTab('student')" id="tab-student-btn" class="px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-white text-[#0A0A0A] border border-[#E5E5E5] hover:border-[#0A0A0A] cursor-pointer">
+          <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+          <span>Cadet Dossier</span>
+          <span class="text-[9px] bg-neutral-200 text-neutral-800 px-1 py-0.2 uppercase">Student</span>
+        </button>
+        <button onclick="switchTab('admin')" id="tab-admin-btn" class="px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-white text-[#0A0A0A] border border-[#E5E5E5] hover:border-[#0A0A0A] cursor-pointer">
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+          <span>Operations Dispatch</span>
+          <span class="text-[9px] bg-neutral-200 text-neutral-800 px-1 py-0.2 uppercase">Admin</span>
+        </button>
+      </div>
+
+      <div class="text-[11px] text-[#525252] flex items-center gap-3">
+        <div class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-[#0A0A0A]"></span>
+          <span>MoRTH Govt Reg # DL-01-EXP</span>
+        </div>
+        <span class="hidden md:inline">•</span>
+        <span class="hidden md:inline font-bold text-[#0A0A0A]">React 19 + Express + MySQL 8.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 1: PUBLIC ACADEMY STOREFRONT & PROGRAMS
+       ========================================================================= -->
+  <main id="view-academy" class="block flex-1 bg-white">
+    <!-- Hero Section -->
+    <section class="border-b border-[#E5E5E5] pt-14 pb-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex items-center gap-2 border border-[#0A0A0A] px-3 py-1 font-mono text-[11px] uppercase tracking-widest bg-[#FAFAFA]">
+              <span class="w-1.5 h-1.5 bg-[#0A0A0A]"></span>
+              <span>LICENSED DRIVING TRAINING PARTNER | MoRTH AUDITED</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#0A0A0A] leading-tight">
+              Master Confident <br />Driving on Real Roads.
+            </h1>
+            <p class="text-sm text-[#525252] leading-relaxed max-w-xl">
+              Premium dual-pedal fleet & certified mentors training for absolute beginners and highway-nervous drivers. Structured defensive road craft, high-speed lane merges, and reverse precision parking.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">
+              <a href="http://localhost:5173/#booking" target="_blank" class="px-5 py-3 bg-[#0A0A0A] text-white font-bold uppercase hover:bg-neutral-800 transition flex items-center gap-2 shadow-sm">
+                <span>Configure Training Slot</span>
+                <span>→</span>
+              </a>
+              <a href="http://localhost:5173/quiz" target="_blank" class="px-5 py-3 bg-white text-[#0A0A0A] border border-[#0A0A0A] font-bold uppercase hover:bg-[#FAFAFA] transition">
+                <span>Free RTO Simulator</span>
+              </a>
+            </div>
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-[#E5E5E5] font-mono">
+              <div>
+                <div class="text-2xl font-black text-[#0A0A0A]">99.4%</div>
+                <div class="text-[10px] text-[#737373] uppercase mt-0.5">First Attempt Pass</div>
+              </div>
+              <div>
+                <div class="text-2xl font-black text-[#0A0A0A]">2,850+</div>
+                <div class="text-[10px] text-[#737373] uppercase mt-0.5">Licensed Cadets</div>
+              </div>
+              <div>
+                <div class="text-2xl font-black text-[#0A0A0A]">100%</div>
+                <div class="text-[10px] text-[#737373] uppercase mt-0.5">Dual-Control Fleet</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Telemetry HUD Simulation Card -->
+          <div class="lg:col-span-5">
+            <div class="border-2 border-[#0A0A0A] bg-white p-6 shadow-xl font-mono text-xs">
+              <div class="flex justify-between items-center border-b border-[#E5E5E5] pb-3 mb-4">
+                <span class="font-bold uppercase tracking-wider text-[#0A0A0A]">LIVE COCKPIT TELEMETRY</span>
+                <span class="bg-[#0A0A0A] text-white px-2 py-0.5 text-[9px] uppercase font-bold">ARMED (10/10)</span>
+              </div>
+              <div class="text-center py-6 border border-[#E5E5E5] bg-[#FAFAFA] mb-4 relative">
+                <div class="text-5xl font-black text-[#0A0A0A]">34</div>
+                <div class="text-[10px] text-[#737373] uppercase mt-1">KM/H • ROAD SPEED TELEMETRY</div>
+                <div class="mt-3 flex justify-center gap-4 text-[10px] text-[#525252]">
+                  <span>Clutch Bite: <strong>Nominal</strong></span>
+                  <span>Brake Sync: <strong>Active</strong></span>
+                </div>
+              </div>
+              <div class="space-y-2 text-[11px] text-[#525252]">
+                <div class="flex justify-between"><span>Training Vehicle:</span><strong class="text-[#0A0A0A]">Volkswagen Polo TSI (DL 01 AB 4491)</strong></div>
+                <div class="flex justify-between"><span>MoRTH Mentor:</span><strong class="text-[#0A0A0A]">Vikram Singh (Grade-4 Senior)</strong></div>
+                <div class="flex justify-between"><span>Hub Location:</span><strong class="text-[#0A0A0A]">Sector 44 CyberPark Hub</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 Structured Programs -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 border-b border-[#E5E5E5] pb-4">
+        <div>
+          <div class="font-mono text-[10px] uppercase text-[#737373] tracking-widest">PRACTICAL ON-ROAD SYLLABUS</div>
+          <h2 class="text-3xl font-black uppercase tracking-tight text-[#0A0A0A]">Structured Driving Programs</h2>
+        </div>
+        <div class="font-mono text-xs text-[#525252] mt-2 sm:mt-0">MoRTH Certified Modules with GST Invoices</div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Beginner -->
+        <div class="border border-[#E5E5E5] p-6 bg-white hover:border-[#0A0A0A] transition flex flex-col justify-between">
+          <div>
+            <div class="flex gap-2 font-mono text-[10px] mb-3 text-[#525252]">
+              <span class="border border-[#E5E5E5] px-2 py-0.5">15 SESSIONS</span>
+              <span class="border border-[#E5E5E5] px-2 py-0.5">MANUAL &amp; AUTO</span>
+            </div>
+            <h3 class="text-xl font-bold uppercase text-[#0A0A0A] mb-2">Beginner Foundation</h3>
+            <p class="text-xs text-[#525252] leading-relaxed mb-6">Zero to independent driver: clutch bite control, reverse parallel parking, and certified RTO test track training.</p>
+          </div>
+          <div class="border-t border-[#E5E5E5] pt-4 font-mono">
+            <div class="text-2xl font-black text-[#0A0A0A] mb-3">₹8,500 <span class="text-xs font-normal text-[#737373]">INC. GST</span></div>
+            <a href="http://localhost:5173/#booking" target="_blank" class="w-full block text-center bg-[#0A0A0A] text-white py-2.5 text-xs font-bold uppercase hover:bg-neutral-800 transition">Enroll in Program →</a>
+          </div>
+        </div>
+
+        <!-- Highway Mastery (Featured) -->
+        <div class="border-2 border-[#0A0A0A] p-6 bg-white shadow-lg flex flex-col justify-between relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0A0A0A] text-white px-3 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider">
+            ★ MOST POPULAR FOR CITY DRIVERS
+          </div>
+          <div>
+            <div class="flex gap-2 font-mono text-[10px] mb-3 mt-1 text-[#525252]">
+              <span class="bg-[#0A0A0A] text-white px-2 py-0.5">10 SESSIONS</span>
+              <span class="border border-[#E5E5E5] px-2 py-0.5">MANUAL / AUTO</span>
+            </div>
+            <h3 class="text-xl font-bold uppercase text-[#0A0A0A] mb-2">Highway &amp; Traffic Mastery</h3>
+            <p class="text-xs text-[#525252] leading-relaxed mb-6">Master high-speed 80 km/h expressway lane merges, heavy flyover crawl, night navigation, and ABS wet-weather maneuvers.</p>
+          </div>
+          <div class="border-t border-[#E5E5E5] pt-4 font-mono">
+            <div class="text-2xl font-black text-[#0A0A0A] mb-3">₹6,900 <span class="text-xs font-normal text-[#737373]">INC. GST</span></div>
+            <a href="http://localhost:5173/#booking" target="_blank" class="w-full block text-center bg-[#0A0A0A] text-white py-2.5 text-xs font-bold uppercase hover:bg-neutral-800 transition shadow-sm">Enroll in Program →</a>
+          </div>
+        </div>
+
+        <!-- Automatic Express -->
+        <div class="border border-[#E5E5E5] p-6 bg-white hover:border-[#0A0A0A] transition flex flex-col justify-between">
+          <div>
+            <div class="flex gap-2 font-mono text-[10px] mb-3 text-[#525252]">
+              <span class="border border-[#E5E5E5] px-2 py-0.5">8 SESSIONS</span>
+              <span class="border border-[#E5E5E5] px-2 py-0.5">AUTOMATIC ONLY</span>
+            </div>
+            <h3 class="text-xl font-bold uppercase text-[#0A0A0A] mb-2">Automatic Car Express</h3>
+            <p class="text-xs text-[#525252] leading-relaxed mb-6">Tailored specifically for CVT, AT, DSG, and EV drivetrains. Zero stall anxiety, basement multi-level ramp climbs, and city crawls.</p>
+          </div>
+          <div class="border-t border-[#E5E5E5] pt-4 font-mono">
+            <div class="text-2xl font-black text-[#0A0A0A] mb-3">₹5,500 <span class="text-xs font-normal text-[#737373]">INC. GST</span></div>
+            <a href="http://localhost:5173/#booking" target="_blank" class="w-full block text-center bg-[#0A0A0A] text-white py-2.5 text-xs font-bold uppercase hover:bg-neutral-800 transition">Enroll in Program →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 2: STUDENT CADET DOSSIER (With LL/DL Stepper, QR Attendance, GST)
+       ========================================================================= -->
+  <div id="view-student" class="hidden flex-1 bg-[#FAFAFA] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Dossier Header Card -->
+      <div class="border-2 border-[#0A0A0A] bg-white p-6 sm:p-8 mb-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[#E5E5E5] pb-6 mb-6">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-[#0A0A0A] text-white font-mono font-bold text-xl flex items-center justify-center">PS</div>
+            <div>
+              <div class="font-mono text-[10px] uppercase text-[#737373]">CERTIFIED DRIVING CADET</div>
+              <h2 class="text-2xl font-black uppercase text-[#0A0A0A]">Pooja Sharma</h2>
+              <div class="font-mono text-xs text-[#525252]">Email: pooja@drivecraft.in • Phone: +91 98201 44120 • DL: DL-NCR-2024-8841</div>
+            </div>
+          </div>
+          <div class="text-right font-mono text-xs">
+            <span class="bg-[#0A0A0A] text-white px-3 py-1 font-bold uppercase text-[11px]">TELEMETRY ACTIVE</span>
+            <div class="text-[10px] text-[#737373] mt-1">HUB: DELHI NCR // CYBERCITY</div>
+          </div>
+        </div>
+
+        <!-- 4 Competency Bars -->
+        <div class="mb-6 font-mono text-xs">
+          <div class="font-bold uppercase text-[#0A0A0A] mb-3">CADET SKILLS COMPETENCY MATRIX (LIVE DATABASE TELEMETRY)</div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <div class="bg-[#FAFAFA] border border-[#E5E5E5] p-3">
+              <div class="flex justify-between text-[11px] mb-1"><span>CLUTCH BITE &amp; STALL</span><strong class="text-[#0A0A0A]">95%</strong></div>
+              <div class="w-full bg-[#E5E5E5] h-1.5"><div class="bg-[#0A0A0A] h-1.5 w-[95%]"></div></div>
+            </div>
+            <div class="bg-[#FAFAFA] border border-[#E5E5E5] p-3">
+              <div class="flex justify-between text-[11px] mb-1"><span>REVERSE PARALLEL</span><strong class="text-[#0A0A0A]">88%</strong></div>
+              <div class="w-full bg-[#E5E5E5] h-1.5"><div class="bg-[#0A0A0A] h-1.5 w-[88%]"></div></div>
+            </div>
+            <div class="bg-[#FAFAFA] border border-[#E5E5E5] p-3">
+              <div class="flex justify-between text-[11px] mb-1"><span>HIGHWAY MERGING</span><strong class="text-[#0A0A0A]">85%</strong></div>
+              <div class="w-full bg-[#E5E5E5] h-1.5"><div class="bg-[#0A0A0A] h-1.5 w-[85%]"></div></div>
+            </div>
+            <div class="bg-[#FAFAFA] border border-[#E5E5E5] p-3">
+              <div class="flex justify-between text-[11px] mb-1"><span>TRAFFIC DISCIPLINE</span><strong class="text-[#0A0A0A]">96%</strong></div>
+              <div class="w-full bg-[#E5E5E5] h-1.5"><div class="bg-[#0A0A0A] h-1.5 w-[96%]"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LL/DL License Application Pipeline Stepper -->
+        <div class="border border-[#0A0A0A] p-4 bg-white font-mono">
+          <div class="flex justify-between items-center border-b border-[#E5E5E5] pb-2 mb-3 text-xs">
+            <span class="font-bold uppercase text-[#0A0A0A]">SARATHI / PARIVAHAN LL &amp; DL LICENSE PIPELINE</span>
+            <span class="text-[#737373]">Application #: <strong class="text-[#0A0A0A]">DL-LL-2024-8841</strong></span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+            <div class="border border-[#0A0A0A] bg-[#FAFAFA] p-2.5">
+              <div class="flex justify-between items-center text-[10px] font-bold mb-1"><span>STAGE 01</span><i data-lucide="check" class="w-3.5 h-3.5 text-[#0A0A0A]"></i></div>
+              <div class="font-bold text-[11px] uppercase">Docs Verified</div>
+              <div class="text-[9px] text-[#737373]">Form 1A &amp; Aadhaar Approved</div>
+            </div>
+            <div class="border border-[#0A0A0A] bg-[#FAFAFA] p-2.5">
+              <div class="flex justify-between items-center text-[10px] font-bold mb-1"><span>STAGE 02</span><i data-lucide="check" class="w-3.5 h-3.5 text-[#0A0A0A]"></i></div>
+              <div class="font-bold text-[11px] uppercase">LL Applied</div>
+              <div class="text-[9px] text-[#737373]">Learner License Issued</div>
+            </div>
+            <div class="border border-[#0A0A0A] bg-[#0A0A0A] text-white p-2.5 shadow-xs">
+              <div class="flex justify-between items-center text-[10px] font-bold mb-1"><span>STAGE 03</span><span class="w-2 h-2 rounded-full bg-white animate-pulse"></span></div>
+              <div class="font-bold text-[11px] uppercase">RTO Slot Booked</div>
+              <div class="text-[9px] text-neutral-300">Track Test: 28 Oct 2024</div>
+            </div>
+            <div class="border border-[#E5E5E5] bg-white text-[#A3A3A3] p-2.5">
+              <div class="flex justify-between items-center text-[10px] font-bold mb-1"><span>STAGE 04</span></div>
+              <div class="font-bold text-[11px] uppercase">DL Approved</div>
+              <div class="text-[9px] text-[#A3A3A3]">Permanent Smart Card</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+        <div class="text-[#525252]">Active Enrolled Batch: <strong>Beginner Foundation (15-Day) • 4 of 15 Sessions Completed</strong></div>
+        <div class="flex items-center gap-3">
+          <a href="http://localhost:5173/dashboard" target="_blank" class="bg-[#0A0A0A] text-white px-4 py-2 font-bold uppercase hover:bg-neutral-800 transition">
+            Launch Live Student Dashboard →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 3: ADMIN OPERATIONS DISPATCH CONSOLE
+       ========================================================================= -->
+  <div id="view-admin" class="hidden flex-1 bg-white py-10 font-mono">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center border-b border-[#E5E5E5] pb-4 mb-6 text-xs">
+        <div>
+          <div class="text-[10px] text-[#737373] uppercase tracking-wider">MISSION STATION // STATION 01-NCR // OPERATIONS BOARD</div>
+          <h2 class="text-2xl font-black uppercase text-[#0A0A0A]">Operations &amp; Dispatch Overview</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="bg-[#0A0A0A] text-white px-2 py-1 text-[10px] font-bold uppercase">LIVE FEED</span>
+          <a href="http://localhost:5173/admin" target="_blank" class="border border-[#0A0A0A] px-3 py-1 text-xs font-bold uppercase hover:bg-[#0A0A0A] hover:text-white transition">
+            Open Admin Panel →
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8 text-xs">
+        <div class="border border-[#E5E5E5] p-4 bg-white">
+          <div class="text-[10px] text-[#737373] uppercase">CADETS ACTIVE</div>
+          <div class="text-2xl font-black text-[#0A0A0A] mt-1">154</div>
+          <div class="text-[10px] text-[#525252] mt-1">+14.6% enrolled this week</div>
+        </div>
+        <div class="border border-[#E5E5E5] p-4 bg-white">
+          <div class="text-[10px] text-[#737373] uppercase">BOOKING INTAKE QUEUE</div>
+          <div class="text-2xl font-black text-[#0A0A0A] mt-1">9</div>
+          <div class="text-[10px] text-[#525252] mt-1">4 awaiting vehicle dispatch</div>
+        </div>
+        <div class="border border-[#E5E5E5] p-4 bg-white">
+          <div class="text-[10px] text-[#737373] uppercase">DUAL-PEDAL FLEET</div>
+          <div class="text-2xl font-black text-[#0A0A0A] mt-1">9/10 Active</div>
+          <div class="text-[10px] text-[#525252] mt-1">90% fleet road utilization</div>
+        </div>
+        <div class="border border-[#E5E5E5] p-4 bg-white">
+          <div class="text-[10px] text-[#737373] uppercase">GROSS REVENUE (OCT)</div>
+          <div class="text-2xl font-black text-[#0A0A0A] mt-1">₹3.85L</div>
+          <div class="text-[10px] text-[#525252] mt-1">91.6% target achieved</div>
+        </div>
+      </div>
+
+      <!-- Quick Apply Highlight Feature Box -->
+      <div class="border-2 border-[#0A0A0A] p-6 bg-[#FAFAFA] text-xs">
+        <div class="flex items-center gap-2 text-sm font-black uppercase text-[#0A0A0A] mb-2">
+          <i data-lucide="zap" class="w-4 h-4 text-[#0A0A0A]"></i>
+          <span>1-Click "Quick Apply" Auto-Pairing Algorithm</span>
+        </div>
+        <p class="text-[#525252] mb-4">
+          Matches any incoming student reservation to an available transmission-matching dual-pedal car (Manual/Automatic) and an instructor with the fewest active sessions—instantly updating database state and UI counters without full-page reloads.
+        </p>
+        <div class="flex gap-3">
+          <a href="http://localhost:5173/admin" target="_blank" class="bg-[#0A0A0A] text-white px-4 py-2 font-bold uppercase hover:bg-neutral-800 transition">
+            Test Dispatch on Admin Dashboard →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-[#E5E5E5] py-6 text-center font-mono text-xs text-[#737373]">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div>DriveCraft Academy • Developed by <strong>Abhishek Tripathi</strong></div>
+      <div class="flex gap-4">
+        <a href="https://github.com/abhishektripathi9/DriveCraft-Academy" target="_blank" class="underline hover:text-[#0A0A0A]">GitHub Code</a>
+        <a href="../index.html#projects" class="underline hover:text-[#0A0A0A]">Portfolio Main</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    function switchTab(tabId) {
+      document.getElementById('view-academy').classList.add('hidden');
+      document.getElementById('view-student').classList.add('hidden');
+      document.getElementById('view-admin').classList.add('hidden');
+
+      document.getElementById('tab-academy-btn').className = 'px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-white text-[#0A0A0A] border border-[#E5E5E5] hover:border-[#0A0A0A] cursor-pointer';
+      document.getElementById('tab-student-btn').className = 'px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-white text-[#0A0A0A] border border-[#E5E5E5] hover:border-[#0A0A0A] cursor-pointer';
+      document.getElementById('tab-admin-btn').className = 'px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-white text-[#0A0A0A] border border-[#E5E5E5] hover:border-[#0A0A0A] cursor-pointer';
+
+      if (tabId === 'academy') {
+        document.getElementById('view-academy').classList.remove('hidden');
+        document.getElementById('tab-academy-btn').className = 'px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-[#0A0A0A] text-white cursor-pointer';
+      } else if (tabId === 'student') {
+        document.getElementById('view-student').classList.remove('hidden');
+        document.getElementById('tab-student-btn').className = 'px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-[#0A0A0A] text-white cursor-pointer';
+      } else if (tabId === 'admin') {
+        document.getElementById('view-admin').classList.remove('hidden');
+        document.getElementById('tab-admin-btn').className = 'px-3.5 py-1.5 transition-all flex items-center gap-1.5 bg-[#0A0A0A] text-white cursor-pointer';
+      }
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
