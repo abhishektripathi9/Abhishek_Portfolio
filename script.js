@@ -559,19 +559,20 @@ const projectData = {
     liveDemo: './banking-system/index.html'
   },
   'land-registry': {
-    title: 'Advanced Land Registry DApp – Web3 & Blockchain Platform',
+    title: 'BhumiChain – Decentralized Land Registry & UP-GIS Sovereign Ledger',
     year: '2026',
-    category: 'Blockchain & Smart Contracts',
+    category: 'Blockchain, Web3 & GIS Engineering',
     image: 'assets/project-land-registry.jpg',
-    desc: 'The Advanced Land Registry is a decentralized application (DApp) designed to revolutionize land registry governance and eradicate property ownership fraud. Built with Solidity smart contracts deployed on Ethereum/Polygon, it guarantees tamper-proof immutable title records, transparent ownership lineage, and cryptographic deed verification.',
+    desc: 'BhumiChain is a sovereign, decentralized cadastral land registry system designed to eradicate property ownership fraud, bypass intermediaries, and modernize land governance across all 75 districts of Uttar Pradesh. Built with Solidity smart contracts deployed on Polygon/Ethereum, it features live integration with Government Bhulekh APIs, India Post branch offices, and OpenStreetMap satellite mapping.',
     highlights: [
-      'Self-executing Solidity Smart Contracts managing land titles, escrow deposits, and registrar approvals.',
-      'IPFS (InterPlanetary File System) decentralized document storage for legal deeds, surveys, and agreements.',
-      'MetaMask Web3 provider integration for cryptographic wallet authentication and digital signing.',
-      'Interactive 3D geospatial land plot map with verified ownership tokens, coordinates, and real-time transaction ledger.'
+      '100% Live-API-first hierarchy for all 75 UP Districts, Tehsils, Blocks, and verified Villages.',
+      '3-Layer Indian Postal PIN resolution service guaranteeing verified 6-digit local postal codes.',
+      'Self-executing Solidity smart contracts managing land deeds, 10% tokenized escrow, and registrar verification.',
+      'Interactive satellite GIS cadastre with DGPS coordinate readouts and one-click Khatauni Nakal generation.',
+      'Government Registrar & Super Admin console with dual-layer security gates and AI valuation ensemble.'
     ],
-    tech: ['Solidity', 'Ethereum', 'Web3.js', 'React.js', 'IPFS', 'MetaMask', 'Hardhat'],
-    github: 'https://github.com/abhishektripathi9/Advanced-Land-Registry-Dapp',
+    tech: ['React.js', 'Solidity', 'Node.js', 'Express', 'Leaflet GIS', 'Ethers.js', 'IPFS', 'MetaMask', 'TailwindCSS'],
+    github: 'https://github.com/abhishektripathi9/bhumichain-land-registry',
     liveDemo: './land-registry/index.html'
   },
   rentease: {
