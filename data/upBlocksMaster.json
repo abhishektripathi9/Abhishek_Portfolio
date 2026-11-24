@@ -1,0 +1,5535 @@
+{
+  "Prayagraj": [
+    {
+      "id": "Karchhana",
+      "nameEn": "Karchhana",
+      "nameHi": "करछना",
+      "tehsil": "Karchhana",
+      "district": "Prayagraj",
+      "center": [
+        25.0158,
+        81.8063
+      ],
+      "lat": 25.0158,
+      "lng": 81.8063
+    },
+    {
+      "id": "Kaundhiyara",
+      "nameEn": "Kaundhiyara",
+      "nameHi": "कौंधियारा",
+      "tehsil": "Karchhana",
+      "district": "Prayagraj",
+      "center": [
+        25.0558,
+        81.8463
+      ],
+      "lat": 25.0558,
+      "lng": 81.8463
+    },
+    {
+      "id": "Chaka",
+      "nameEn": "Chaka",
+      "nameHi": "चाका (नैनी)",
+      "tehsil": "Karchhana",
+      "district": "Prayagraj",
+      "center": [
+        25.0958,
+        81.8863
+      ],
+      "lat": 25.0958,
+      "lng": 81.8863
+    },
+    {
+      "id": "Bahria",
+      "nameEn": "Bahria",
+      "nameHi": "बहरिया",
+      "tehsil": "Phulpur",
+      "district": "Prayagraj",
+      "center": [
+        25.1358,
+        81.8063
+      ],
+      "lat": 25.1358,
+      "lng": 81.8063
+    },
+    {
+      "id": "Kaurihar",
+      "nameEn": "Kaurihar",
+      "nameHi": "कौड़िहार",
+      "tehsil": "Soraon",
+      "district": "Prayagraj",
+      "center": [
+        25.1758,
+        81.8463
+      ],
+      "lat": 25.1758,
+      "lng": 81.8463
+    },
+    {
+      "id": "Holagarh",
+      "nameEn": "Holagarh",
+      "nameHi": "होलगढ़",
+      "tehsil": "Soraon",
+      "district": "Prayagraj",
+      "center": [
+        25.2158,
+        81.8863
+      ],
+      "lat": 25.2158,
+      "lng": 81.8863
+    },
+    {
+      "id": "Mauaima",
+      "nameEn": "Mauaima",
+      "nameHi": "मऊआइमा",
+      "tehsil": "Soraon",
+      "district": "Prayagraj",
+      "center": [
+        25.2558,
+        81.8063
+      ],
+      "lat": 25.2558,
+      "lng": 81.8063
+    },
+    {
+      "id": "Soraon",
+      "nameEn": "Soraon",
+      "nameHi": "सोरांव",
+      "tehsil": "Soraon",
+      "district": "Prayagraj",
+      "center": [
+        25.2958,
+        81.8463
+      ],
+      "lat": 25.2958,
+      "lng": 81.8463
+    },
+    {
+      "id": "Phulpur",
+      "nameEn": "Phulpur",
+      "nameHi": "फूलपुर",
+      "tehsil": "Phulpur",
+      "district": "Prayagraj",
+      "center": [
+        25.3358,
+        81.8863
+      ],
+      "lat": 25.3358,
+      "lng": 81.8863
+    },
+    {
+      "id": "Bahadurpur",
+      "nameEn": "Bahadurpur",
+      "nameHi": "बहादुरपुर",
+      "tehsil": "Phulpur",
+      "district": "Prayagraj",
+      "center": [
+        25.3758,
+        81.8063
+      ],
+      "lat": 25.3758,
+      "lng": 81.8063
+    },
+    {
+      "id": "Handia",
+      "nameEn": "Handia",
+      "nameHi": "हंडिया",
+      "tehsil": "Handia",
+      "district": "Prayagraj",
+      "center": [
+        25.4158,
+        81.8463
+      ],
+      "lat": 25.4158,
+      "lng": 81.8463
+    },
+    {
+      "id": "Pratappur",
+      "nameEn": "Pratappur",
+      "nameHi": "प्रतापपुर",
+      "tehsil": "Handia",
+      "district": "Prayagraj",
+      "center": [
+        25.4558,
+        81.8863
+      ],
+      "lat": 25.4558,
+      "lng": 81.8863
+    },
+    {
+      "id": "Dhanupur",
+      "nameEn": "Dhanupur",
+      "nameHi": "धनुपुर",
+      "tehsil": "Handia",
+      "district": "Prayagraj",
+      "center": [
+        25.4958,
+        81.8063
+      ],
+      "lat": 25.4958,
+      "lng": 81.8063
+    },
+    {
+      "id": "Saidabad",
+      "nameEn": "Saidabad",
+      "nameHi": "सैदाबाद",
+      "tehsil": "Handia",
+      "district": "Prayagraj",
+      "center": [
+        25.5358,
+        81.8463
+      ],
+      "lat": 25.5358,
+      "lng": 81.8463
+    },
+    {
+      "id": "Meja",
+      "nameEn": "Meja",
+      "nameHi": "मेजा",
+      "tehsil": "Meja",
+      "district": "Prayagraj",
+      "center": [
+        25.5758,
+        81.8863
+      ],
+      "lat": 25.5758,
+      "lng": 81.8863
+    },
+    {
+      "id": "Uruwa",
+      "nameEn": "Uruwa",
+      "nameHi": "उरुवा",
+      "tehsil": "Meja",
+      "district": "Prayagraj",
+      "center": [
+        25.6158,
+        81.8063
+      ],
+      "lat": 25.6158,
+      "lng": 81.8063
+    },
+    {
+      "id": "Jasra",
+      "nameEn": "Jasra",
+      "nameHi": "जसरा",
+      "tehsil": "Bara",
+      "district": "Prayagraj",
+      "center": [
+        25.6558,
+        81.8463
+      ],
+      "lat": 25.6558,
+      "lng": 81.8463
+    },
+    {
+      "id": "Shankargarh",
+      "nameEn": "Shankargarh",
+      "nameHi": "शंकरगढ़",
+      "tehsil": "Bara",
+      "district": "Prayagraj",
+      "center": [
+        25.6958,
+        81.8863
+      ],
+      "lat": 25.6958,
+      "lng": 81.8863
+    },
+    {
+      "id": "Koraon",
+      "nameEn": "Koraon",
+      "nameHi": "कोरांव",
+      "tehsil": "Koraon",
+      "district": "Prayagraj",
+      "center": [
+        25.7358,
+        81.8063
+      ],
+      "lat": 25.7358,
+      "lng": 81.8063
+    },
+    {
+      "id": "Manda",
+      "nameEn": "Manda",
+      "nameHi": "मांडा",
+      "tehsil": "Meja",
+      "district": "Prayagraj",
+      "center": [
+        25.7758,
+        81.8463
+      ],
+      "lat": 25.7758,
+      "lng": 81.8463
+    },
+    {
+      "id": "Singrur Uparhar",
+      "nameEn": "Singrur Uparhar",
+      "nameHi": "श्रृंगवेरपुर धाम",
+      "tehsil": "Soraon",
+      "district": "Prayagraj",
+      "center": [
+        25.8158,
+        81.8863
+      ],
+      "lat": 25.8158,
+      "lng": 81.8863
+    }
+  ],
+  "Banda": [
+    {
+      "id": "Baberu",
+      "nameEn": "Baberu",
+      "nameHi": "बबेरू",
+      "tehsil": "Baberu",
+      "district": "Banda",
+      "center": [
+        25.3162,
+        80.2995
+      ],
+      "lat": 25.3162,
+      "lng": 80.2995
+    },
+    {
+      "id": "Kamasin",
+      "nameEn": "Kamasin",
+      "nameHi": "कमासिन",
+      "tehsil": "Baberu",
+      "district": "Banda",
+      "center": [
+        25.3562,
+        80.3395
+      ],
+      "lat": 25.3562,
+      "lng": 80.3395
+    },
+    {
+      "id": "Bisanda",
+      "nameEn": "Bisanda",
+      "nameHi": "बिसंडा",
+      "tehsil": "Baberu",
+      "district": "Banda",
+      "center": [
+        25.3962,
+        80.3795
+      ],
+      "lat": 25.3962,
+      "lng": 80.3795
+    },
+    {
+      "id": "Tindwari",
+      "nameEn": "Tindwari",
+      "nameHi": "तिंदवारी",
+      "tehsil": "Pailani",
+      "district": "Banda",
+      "center": [
+        25.4362,
+        80.2995
+      ],
+      "lat": 25.4362,
+      "lng": 80.2995
+    },
+    {
+      "id": "Naraini",
+      "nameEn": "Naraini",
+      "nameHi": "नरैनी",
+      "tehsil": "Naraini",
+      "district": "Banda",
+      "center": [
+        25.4762,
+        80.3395
+      ],
+      "lat": 25.4762,
+      "lng": 80.3395
+    },
+    {
+      "id": "Jaspura",
+      "nameEn": "Jaspura",
+      "nameHi": "जसपुरा",
+      "tehsil": "Pailani",
+      "district": "Banda",
+      "center": [
+        25.5162,
+        80.3795
+      ],
+      "lat": 25.5162,
+      "lng": 80.3795
+    },
+    {
+      "id": "Mahuva",
+      "nameEn": "Mahuva",
+      "nameHi": "महुआ",
+      "tehsil": "Atarra",
+      "district": "Banda",
+      "center": [
+        25.5562,
+        80.2995
+      ],
+      "lat": 25.5562,
+      "lng": 80.2995
+    },
+    {
+      "id": "Badokhar Khurd",
+      "nameEn": "Badokhar Khurd",
+      "nameHi": "बड़ोखर खुर्द",
+      "tehsil": "Sadar",
+      "district": "Banda",
+      "center": [
+        25.5962,
+        80.3395
+      ],
+      "lat": 25.5962,
+      "lng": 80.3395
+    }
+  ],
+  "Chitrakoot": [
+    {
+      "id": "Karwi",
+      "nameEn": "Karwi",
+      "nameHi": "कर्वी",
+      "tehsil": "Karwi",
+      "district": "Chitrakoot",
+      "center": [
+        25.0762,
+        80.8254
+      ],
+      "lat": 25.0762,
+      "lng": 80.8254
+    },
+    {
+      "id": "Manikpur",
+      "nameEn": "Manikpur",
+      "nameHi": "मानिकपुर",
+      "tehsil": "Manikpur",
+      "district": "Chitrakoot",
+      "center": [
+        25.1162,
+        80.8654
+      ],
+      "lat": 25.1162,
+      "lng": 80.8654
+    },
+    {
+      "id": "Mau",
+      "nameEn": "Mau",
+      "nameHi": "मऊ",
+      "tehsil": "Mau",
+      "district": "Chitrakoot",
+      "center": [
+        25.1562,
+        80.9054
+      ],
+      "lat": 25.1562,
+      "lng": 80.9054
+    },
+    {
+      "id": "Pahari",
+      "nameEn": "Pahari",
+      "nameHi": "पहाड़ी",
+      "tehsil": "Karwi",
+      "district": "Chitrakoot",
+      "center": [
+        25.1962,
+        80.8254
+      ],
+      "lat": 25.1962,
+      "lng": 80.8254
+    },
+    {
+      "id": "Ramnagar",
+      "nameEn": "Ramnagar",
+      "nameHi": "रामनगर",
+      "tehsil": "Rajapur",
+      "district": "Chitrakoot",
+      "center": [
+        25.276,
+        81.144
+      ],
+      "lat": 25.276,
+      "lng": 81.144,
+      "pincode": "210207"
+    }
+  ],
+  "Lucknow": [
+    {
+      "id": "Bakshi Ka Talab",
+      "nameEn": "Bakshi Ka Talab",
+      "nameHi": "बख्शी का तालाब",
+      "tehsil": "Bakshi Ka Talab",
+      "district": "Lucknow",
+      "center": [
+        26.6867,
+        80.9062
+      ],
+      "lat": 26.6867,
+      "lng": 80.9062
+    },
+    {
+      "id": "Chinhat",
+      "nameEn": "Chinhat",
+      "nameHi": "चिनहट",
+      "tehsil": "Sadar",
+      "district": "Lucknow",
+      "center": [
+        26.7267,
+        80.9462
+      ],
+      "lat": 26.7267,
+      "lng": 80.9462
+    },
+    {
+      "id": "Gosainganj",
+      "nameEn": "Gosainganj",
+      "nameHi": "गोसाईंगंज",
+      "tehsil": "Mohanlalganj",
+      "district": "Lucknow",
+      "center": [
+        26.7667,
+        80.9862
+      ],
+      "lat": 26.7667,
+      "lng": 80.9862
+    },
+    {
+      "id": "Kakori",
+      "nameEn": "Kakori",
+      "nameHi": "काकोरी",
+      "tehsil": "Malihabad",
+      "district": "Lucknow",
+      "center": [
+        26.8067,
+        80.9062
+      ],
+      "lat": 26.8067,
+      "lng": 80.9062
+    },
+    {
+      "id": "Mal",
+      "nameEn": "Mal",
+      "nameHi": "माल",
+      "tehsil": "Malihabad",
+      "district": "Lucknow",
+      "center": [
+        26.8467,
+        80.9462
+      ],
+      "lat": 26.8467,
+      "lng": 80.9462
+    },
+    {
+      "id": "Malihabad",
+      "nameEn": "Malihabad",
+      "nameHi": "मलिहाबाद",
+      "tehsil": "Malihabad",
+      "district": "Lucknow",
+      "center": [
+        26.8867,
+        80.9862
+      ],
+      "lat": 26.8867,
+      "lng": 80.9862
+    },
+    {
+      "id": "Mohanlalganj",
+      "nameEn": "Mohanlalganj",
+      "nameHi": "मोहनलालगंज",
+      "tehsil": "Mohanlalganj",
+      "district": "Lucknow",
+      "center": [
+        26.9267,
+        80.9062
+      ],
+      "lat": 26.9267,
+      "lng": 80.9062
+    },
+    {
+      "id": "Sarojini Nagar",
+      "nameEn": "Sarojini Nagar",
+      "nameHi": "सरोजिनी नगर",
+      "tehsil": "Sadar",
+      "district": "Lucknow",
+      "center": [
+        26.9667,
+        80.9462
+      ],
+      "lat": 26.9667,
+      "lng": 80.9462
+    }
+  ],
+  "Varanasi": [
+    {
+      "id": "Araziline",
+      "nameEn": "Araziline",
+      "nameHi": "अराजीलाइन",
+      "tehsil": "Raja Talab",
+      "district": "Varanasi",
+      "center": [
+        25.1576,
+        82.9339
+      ],
+      "lat": 25.1576,
+      "lng": 82.9339
+    },
+    {
+      "id": "Baragaon",
+      "nameEn": "Baragaon",
+      "nameHi": "बड़ागांव",
+      "tehsil": "Pindra",
+      "district": "Varanasi",
+      "center": [
+        25.1976,
+        82.9739
+      ],
+      "lat": 25.1976,
+      "lng": 82.9739
+    },
+    {
+      "id": "Chiraigaon",
+      "nameEn": "Chiraigaon",
+      "nameHi": "चिरईगांव",
+      "tehsil": "Sadar",
+      "district": "Varanasi",
+      "center": [
+        25.2376,
+        83.0139
+      ],
+      "lat": 25.2376,
+      "lng": 83.0139
+    },
+    {
+      "id": "Cholapur",
+      "nameEn": "Cholapur",
+      "nameHi": "चोलापुर",
+      "tehsil": "Sadar",
+      "district": "Varanasi",
+      "center": [
+        25.2776,
+        82.9339
+      ],
+      "lat": 25.2776,
+      "lng": 82.9339
+    },
+    {
+      "id": "Harahua",
+      "nameEn": "Harahua",
+      "nameHi": "हरहुआ",
+      "tehsil": "Pindra",
+      "district": "Varanasi",
+      "center": [
+        25.3176,
+        82.9739
+      ],
+      "lat": 25.3176,
+      "lng": 82.9739
+    },
+    {
+      "id": "Kashi Vidyapeeth",
+      "nameEn": "Kashi Vidyapeeth",
+      "nameHi": "काशी विद्यापीठ",
+      "tehsil": "Sadar",
+      "district": "Varanasi",
+      "center": [
+        25.3576,
+        83.0139
+      ],
+      "lat": 25.3576,
+      "lng": 83.0139
+    },
+    {
+      "id": "Pindra",
+      "nameEn": "Pindra",
+      "nameHi": "पिंडरा",
+      "tehsil": "Pindra",
+      "district": "Varanasi",
+      "center": [
+        25.3976,
+        82.9339
+      ],
+      "lat": 25.3976,
+      "lng": 82.9339
+    },
+    {
+      "id": "Sewapuri",
+      "nameEn": "Sewapuri",
+      "nameHi": "सेवापुरी",
+      "tehsil": "Raja Talab",
+      "district": "Varanasi",
+      "center": [
+        25.4376,
+        82.9739
+      ],
+      "lat": 25.4376,
+      "lng": 82.9739
+    }
+  ],
+  "Gautam Buddha Nagar": [
+    {
+      "id": "Sadar (Noida)",
+      "nameEn": "Sadar (Noida)",
+      "nameHi": "सदर (नोएडा)",
+      "tehsil": "Sadar (Noida)",
+      "district": "Gautam Buddha Nagar",
+      "center": [
+        28.4905,
+        77.376
+      ],
+      "lat": 28.4905,
+      "lng": 77.376
+    },
+    {
+      "id": "Dadri",
+      "nameEn": "Dadri",
+      "nameHi": "दादरी",
+      "tehsil": "Dadri",
+      "district": "Gautam Buddha Nagar",
+      "center": [
+        28.5205,
+        77.406
+      ],
+      "lat": 28.5205,
+      "lng": 77.406
+    },
+    {
+      "id": "Jewar",
+      "nameEn": "Jewar",
+      "nameHi": "जेवर",
+      "tehsil": "Jewar",
+      "district": "Gautam Buddha Nagar",
+      "center": [
+        28.5505,
+        77.376
+      ],
+      "lat": 28.5505,
+      "lng": 77.376
+    }
+  ],
+  "Kanpur Nagar": [
+    {
+      "id": "Kalyanpur",
+      "nameEn": "Kalyanpur",
+      "nameHi": "कल्याणपुर",
+      "tehsil": "Sadar",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.2499,
+        80.2919
+      ],
+      "lat": 26.2499,
+      "lng": 80.2919
+    },
+    {
+      "id": "Bidhnu",
+      "nameEn": "Bidhnu",
+      "nameHi": "बिधनू",
+      "tehsil": "Sadar",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.2899,
+        80.3319
+      ],
+      "lat": 26.2899,
+      "lng": 80.3319
+    },
+    {
+      "id": "Sarsaul",
+      "nameEn": "Sarsaul",
+      "nameHi": "सरसौल",
+      "tehsil": "Narwal",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.3299,
+        80.3719
+      ],
+      "lat": 26.3299,
+      "lng": 80.3719
+    },
+    {
+      "id": "Chaubepur",
+      "nameEn": "Chaubepur",
+      "nameHi": "चौबेपुर",
+      "tehsil": "Bilhaur",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.3699,
+        80.2919
+      ],
+      "lat": 26.3699,
+      "lng": 80.2919
+    },
+    {
+      "id": "Shivrajpur",
+      "nameEn": "Shivrajpur",
+      "nameHi": "शिवराजपुर",
+      "tehsil": "Bilhaur",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.4099,
+        80.3319
+      ],
+      "lat": 26.4099,
+      "lng": 80.3319
+    },
+    {
+      "id": "Bilhaur",
+      "nameEn": "Bilhaur",
+      "nameHi": "बिल्हौर",
+      "tehsil": "Bilhaur",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.4499,
+        80.3719
+      ],
+      "lat": 26.4499,
+      "lng": 80.3719
+    },
+    {
+      "id": "Kakwan",
+      "nameEn": "Kakwan",
+      "nameHi": "ककवन",
+      "tehsil": "Bilhaur",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.4899,
+        80.2919
+      ],
+      "lat": 26.4899,
+      "lng": 80.2919
+    },
+    {
+      "id": "Ghatampur",
+      "nameEn": "Ghatampur",
+      "nameHi": "घाटमपुर",
+      "tehsil": "Ghatampur",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.5299,
+        80.3319
+      ],
+      "lat": 26.5299,
+      "lng": 80.3319
+    },
+    {
+      "id": "Patara",
+      "nameEn": "Patara",
+      "nameHi": "पतारा",
+      "tehsil": "Ghatampur",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.5699,
+        80.3719
+      ],
+      "lat": 26.5699,
+      "lng": 80.3719
+    },
+    {
+      "id": "Bhitargaon",
+      "nameEn": "Bhitargaon",
+      "nameHi": "भीतरगांव",
+      "tehsil": "Narwal",
+      "district": "Kanpur Nagar",
+      "center": [
+        26.6099,
+        80.2919
+      ],
+      "lat": 26.6099,
+      "lng": 80.2919
+    }
+  ],
+  "Gorakhpur": [
+    {
+      "id": "Bansgaon",
+      "nameEn": "Bansgaon",
+      "nameHi": "बांसगांव",
+      "tehsil": "Bansgaon",
+      "district": "Gorakhpur",
+      "center": [
+        26.4006,
+        83.3332
+      ],
+      "lat": 26.4006,
+      "lng": 83.3332
+    },
+    {
+      "id": "Barhalganj",
+      "nameEn": "Barhalganj",
+      "nameHi": "बड़हलगंज",
+      "tehsil": "Gola",
+      "district": "Gorakhpur",
+      "center": [
+        26.4406,
+        83.3732
+      ],
+      "lat": 26.4406,
+      "lng": 83.3732
+    },
+    {
+      "id": "Belghat",
+      "nameEn": "Belghat",
+      "nameHi": "बेलघाट",
+      "tehsil": "Bansgaon",
+      "district": "Gorakhpur",
+      "center": [
+        26.4806,
+        83.4132
+      ],
+      "lat": 26.4806,
+      "lng": 83.4132
+    },
+    {
+      "id": "Bhathat",
+      "nameEn": "Bhathat",
+      "nameHi": "भटहट",
+      "tehsil": "Sadar",
+      "district": "Gorakhpur",
+      "center": [
+        26.5206,
+        83.3332
+      ],
+      "lat": 26.5206,
+      "lng": 83.3332
+    },
+    {
+      "id": "Brahmpur",
+      "nameEn": "Brahmpur",
+      "nameHi": "ब्रह्मपुर",
+      "tehsil": "Chauri Chaura",
+      "district": "Gorakhpur",
+      "center": [
+        26.5606,
+        83.3732
+      ],
+      "lat": 26.5606,
+      "lng": 83.3732
+    },
+    {
+      "id": "Campierganj",
+      "nameEn": "Campierganj",
+      "nameHi": "कैंपियरगंज",
+      "tehsil": "Campierganj",
+      "district": "Gorakhpur",
+      "center": [
+        26.6006,
+        83.4132
+      ],
+      "lat": 26.6006,
+      "lng": 83.4132
+    },
+    {
+      "id": "Chargawan",
+      "nameEn": "Chargawan",
+      "nameHi": "चरगांवा",
+      "tehsil": "Sadar",
+      "district": "Gorakhpur",
+      "center": [
+        26.6406,
+        83.3332
+      ],
+      "lat": 26.6406,
+      "lng": 83.3332
+    },
+    {
+      "id": "Gagaha",
+      "nameEn": "Gagaha",
+      "nameHi": "गगहा",
+      "tehsil": "Bansgaon",
+      "district": "Gorakhpur",
+      "center": [
+        26.6806,
+        83.3732
+      ],
+      "lat": 26.6806,
+      "lng": 83.3732
+    },
+    {
+      "id": "Gola",
+      "nameEn": "Gola",
+      "nameHi": "गोला",
+      "tehsil": "Gola",
+      "district": "Gorakhpur",
+      "center": [
+        26.7206,
+        83.4132
+      ],
+      "lat": 26.7206,
+      "lng": 83.4132
+    },
+    {
+      "id": "Jangikaur",
+      "nameEn": "Jangikaur",
+      "nameHi": "जंगल कौड़िया",
+      "tehsil": "Campierganj",
+      "district": "Gorakhpur",
+      "center": [
+        26.7606,
+        83.3332
+      ],
+      "lat": 26.7606,
+      "lng": 83.3332
+    },
+    {
+      "id": "Khajni",
+      "nameEn": "Khajni",
+      "nameHi": "खजनी",
+      "tehsil": "Khajni",
+      "district": "Gorakhpur",
+      "center": [
+        26.8006,
+        83.3732
+      ],
+      "lat": 26.8006,
+      "lng": 83.3732
+    },
+    {
+      "id": "Khorabar",
+      "nameEn": "Khorabar",
+      "nameHi": "खोराबार",
+      "tehsil": "Sadar",
+      "district": "Gorakhpur",
+      "center": [
+        26.8406,
+        83.4132
+      ],
+      "lat": 26.8406,
+      "lng": 83.4132
+    },
+    {
+      "id": "Pipraich",
+      "nameEn": "Pipraich",
+      "nameHi": "पिपराइच",
+      "tehsil": "Sadar",
+      "district": "Gorakhpur",
+      "center": [
+        26.8806,
+        83.3332
+      ],
+      "lat": 26.8806,
+      "lng": 83.3332
+    },
+    {
+      "id": "Piprauli",
+      "nameEn": "Piprauli",
+      "nameHi": "पिपरौली",
+      "tehsil": "Sadar",
+      "district": "Gorakhpur",
+      "center": [
+        26.9206,
+        83.3732
+      ],
+      "lat": 26.9206,
+      "lng": 83.3732
+    },
+    {
+      "id": "Sahjanwa",
+      "nameEn": "Sahjanwa",
+      "nameHi": "सहजनवा",
+      "tehsil": "Sahjanwa",
+      "district": "Gorakhpur",
+      "center": [
+        26.9606,
+        83.4132
+      ],
+      "lat": 26.9606,
+      "lng": 83.4132
+    },
+    {
+      "id": "Sardarnagar",
+      "nameEn": "Sardarnagar",
+      "nameHi": "सरदारनगर",
+      "tehsil": "Chauri Chaura",
+      "district": "Gorakhpur",
+      "center": [
+        27.0006,
+        83.3332
+      ],
+      "lat": 27.0006,
+      "lng": 83.3332
+    },
+    {
+      "id": "Urwa",
+      "nameEn": "Urwa",
+      "nameHi": "उरुवा",
+      "tehsil": "Gola",
+      "district": "Gorakhpur",
+      "center": [
+        27.0406,
+        83.3732
+      ],
+      "lat": 27.0406,
+      "lng": 83.3732
+    },
+    {
+      "id": "Pali",
+      "nameEn": "Pali",
+      "nameHi": "पाली",
+      "tehsil": "Sahjanwa",
+      "district": "Gorakhpur",
+      "center": [
+        27.0806,
+        83.4132
+      ],
+      "lat": 27.0806,
+      "lng": 83.4132
+    }
+  ],
+  "Ayodhya": [
+    {
+      "id": "Amaniganj",
+      "nameEn": "Amaniganj",
+      "nameHi": "अमानीगंज",
+      "tehsil": "Milkipur",
+      "district": "Ayodhya",
+      "center": [
+        26.5722,
+        82.1598
+      ],
+      "lat": 26.5722,
+      "lng": 82.1598
+    },
+    {
+      "id": "Bikapur",
+      "nameEn": "Bikapur",
+      "nameHi": "बीकापुर",
+      "tehsil": "Bikapur",
+      "district": "Ayodhya",
+      "center": [
+        26.6122,
+        82.1998
+      ],
+      "lat": 26.6122,
+      "lng": 82.1998
+    },
+    {
+      "id": "Harringtonganj",
+      "nameEn": "Harringtonganj",
+      "nameHi": "हरिंगटनगंज",
+      "tehsil": "Milkipur",
+      "district": "Ayodhya",
+      "center": [
+        26.6522,
+        82.2398
+      ],
+      "lat": 26.6522,
+      "lng": 82.2398
+    },
+    {
+      "id": "Masodha",
+      "nameEn": "Masodha",
+      "nameHi": "मसोधा",
+      "tehsil": "Sadar",
+      "district": "Ayodhya",
+      "center": [
+        26.6922,
+        82.1598
+      ],
+      "lat": 26.6922,
+      "lng": 82.1598
+    },
+    {
+      "id": "Maya Bazar",
+      "nameEn": "Maya Bazar",
+      "nameHi": "माया बाजार",
+      "tehsil": "Sadar",
+      "district": "Ayodhya",
+      "center": [
+        26.7322,
+        82.1998
+      ],
+      "lat": 26.7322,
+      "lng": 82.1998
+    },
+    {
+      "id": "Milkipur",
+      "nameEn": "Milkipur",
+      "nameHi": "मिल्कीपुर",
+      "tehsil": "Milkipur",
+      "district": "Ayodhya",
+      "center": [
+        26.7722,
+        82.2398
+      ],
+      "lat": 26.7722,
+      "lng": 82.2398
+    },
+    {
+      "id": "Pura Bazar",
+      "nameEn": "Pura Bazar",
+      "nameHi": "पूरा बाजार",
+      "tehsil": "Sadar",
+      "district": "Ayodhya",
+      "center": [
+        26.8122,
+        82.1598
+      ],
+      "lat": 26.8122,
+      "lng": 82.1598
+    },
+    {
+      "id": "Rudauli",
+      "nameEn": "Rudauli",
+      "nameHi": "रुदौली",
+      "tehsil": "Rudauli",
+      "district": "Ayodhya",
+      "center": [
+        26.8522,
+        82.1998
+      ],
+      "lat": 26.8522,
+      "lng": 82.1998
+    },
+    {
+      "id": "Sohawal",
+      "nameEn": "Sohawal",
+      "nameHi": "सोहावल",
+      "tehsil": "Sohawal",
+      "district": "Ayodhya",
+      "center": [
+        26.8922,
+        82.2398
+      ],
+      "lat": 26.8922,
+      "lng": 82.2398
+    },
+    {
+      "id": "Tarun",
+      "nameEn": "Tarun",
+      "nameHi": "तारुन",
+      "tehsil": "Bikapur",
+      "district": "Ayodhya",
+      "center": [
+        26.9322,
+        82.1598
+      ],
+      "lat": 26.9322,
+      "lng": 82.1598
+    },
+    {
+      "id": "Mawai",
+      "nameEn": "Mawai",
+      "nameHi": "मवई",
+      "tehsil": "Rudauli",
+      "district": "Ayodhya",
+      "center": [
+        26.9722,
+        82.1998
+      ],
+      "lat": 26.9722,
+      "lng": 82.1998
+    }
+  ],
+  "Agra": [
+    {
+      "id": "Achhnera",
+      "nameEn": "Achhnera",
+      "nameHi": "अछनेरा",
+      "tehsil": "Kiraoli",
+      "district": "Agra",
+      "center": [
+        26.8767,
+        77.9681
+      ],
+      "lat": 26.8767,
+      "lng": 77.9681
+    },
+    {
+      "id": "Akola",
+      "nameEn": "Akola",
+      "nameHi": "अकोला",
+      "tehsil": "Kiraoli",
+      "district": "Agra",
+      "center": [
+        26.9167,
+        78.0081
+      ],
+      "lat": 26.9167,
+      "lng": 78.0081
+    },
+    {
+      "id": "Bah",
+      "nameEn": "Bah",
+      "nameHi": "बाह",
+      "tehsil": "Bah",
+      "district": "Agra",
+      "center": [
+        26.9567,
+        78.0481
+      ],
+      "lat": 26.9567,
+      "lng": 78.0481
+    },
+    {
+      "id": "Barauli Ahir",
+      "nameEn": "Barauli Ahir",
+      "nameHi": "बरौली अहीर",
+      "tehsil": "Sadar",
+      "district": "Agra",
+      "center": [
+        26.9967,
+        77.9681
+      ],
+      "lat": 26.9967,
+      "lng": 77.9681
+    },
+    {
+      "id": "Bichpuri",
+      "nameEn": "Bichpuri",
+      "nameHi": "बिचपुरी",
+      "tehsil": "Sadar",
+      "district": "Agra",
+      "center": [
+        27.0367,
+        78.0081
+      ],
+      "lat": 27.0367,
+      "lng": 78.0081
+    },
+    {
+      "id": "Etmadpur",
+      "nameEn": "Etmadpur",
+      "nameHi": "एत्मादपुर",
+      "tehsil": "Etmadpur",
+      "district": "Agra",
+      "center": [
+        27.0767,
+        78.0481
+      ],
+      "lat": 27.0767,
+      "lng": 78.0481
+    },
+    {
+      "id": "Fatehabad",
+      "nameEn": "Fatehabad",
+      "nameHi": "फतेहाबाद",
+      "tehsil": "Fatehabad",
+      "district": "Agra",
+      "center": [
+        27.1167,
+        77.9681
+      ],
+      "lat": 27.1167,
+      "lng": 77.9681
+    },
+    {
+      "id": "Fatehpur Sikri",
+      "nameEn": "Fatehpur Sikri",
+      "nameHi": "फतेहपुर सीकरी",
+      "tehsil": "Kiraoli",
+      "district": "Agra",
+      "center": [
+        27.1567,
+        78.0081
+      ],
+      "lat": 27.1567,
+      "lng": 78.0081
+    },
+    {
+      "id": "Jagner",
+      "nameEn": "Jagner",
+      "nameHi": "जगनेर",
+      "tehsil": "Kheragarh",
+      "district": "Agra",
+      "center": [
+        27.1967,
+        78.0481
+      ],
+      "lat": 27.1967,
+      "lng": 78.0481
+    },
+    {
+      "id": "Jaitpur Kalan",
+      "nameEn": "Jaitpur Kalan",
+      "nameHi": "जैतपुर कलां",
+      "tehsil": "Bah",
+      "district": "Agra",
+      "center": [
+        27.2367,
+        77.9681
+      ],
+      "lat": 27.2367,
+      "lng": 77.9681
+    },
+    {
+      "id": "Khandauli",
+      "nameEn": "Khandauli",
+      "nameHi": "खंदौली",
+      "tehsil": "Etmadpur",
+      "district": "Agra",
+      "center": [
+        27.2767,
+        78.0081
+      ],
+      "lat": 27.2767,
+      "lng": 78.0081
+    },
+    {
+      "id": "Kheragarh",
+      "nameEn": "Kheragarh",
+      "nameHi": "खेरागढ़",
+      "tehsil": "Kheragarh",
+      "district": "Agra",
+      "center": [
+        27.3167,
+        78.0481
+      ],
+      "lat": 27.3167,
+      "lng": 78.0481
+    },
+    {
+      "id": "Pinahat",
+      "nameEn": "Pinahat",
+      "nameHi": "पिनाहट",
+      "tehsil": "Bah",
+      "district": "Agra",
+      "center": [
+        27.3567,
+        77.9681
+      ],
+      "lat": 27.3567,
+      "lng": 77.9681
+    },
+    {
+      "id": "Saiyan",
+      "nameEn": "Saiyan",
+      "nameHi": "सैंया",
+      "tehsil": "Kheragarh",
+      "district": "Agra",
+      "center": [
+        27.3967,
+        78.0081
+      ],
+      "lat": 27.3967,
+      "lng": 78.0081
+    },
+    {
+      "id": "Shamsabad",
+      "nameEn": "Shamsabad",
+      "nameHi": "शमसाबाद",
+      "tehsil": "Fatehabad",
+      "district": "Agra",
+      "center": [
+        27.4367,
+        78.0481
+      ],
+      "lat": 27.4367,
+      "lng": 78.0481
+    }
+  ],
+  "Meerut": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "सदर",
+      "tehsil": "Sadar",
+      "district": "Meerut",
+      "center": [
+        28.9395,
+        77.6914
+      ],
+      "lat": 28.9395,
+      "lng": 77.6914
+    },
+    {
+      "id": "Mawana",
+      "nameEn": "Mawana",
+      "nameHi": "मवाना",
+      "tehsil": "Mawana",
+      "district": "Meerut",
+      "center": [
+        28.9695,
+        77.7214
+      ],
+      "lat": 28.9695,
+      "lng": 77.7214
+    },
+    {
+      "id": "Sardhana",
+      "nameEn": "Sardhana",
+      "nameHi": "सरधना",
+      "tehsil": "Sardhana",
+      "district": "Meerut",
+      "center": [
+        28.9995,
+        77.6914
+      ],
+      "lat": 28.9995,
+      "lng": 77.6914
+    }
+  ],
+  "Ghaziabad": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "सदर",
+      "tehsil": "Sadar",
+      "district": "Ghaziabad",
+      "center": [
+        28.6242,
+        77.4388
+      ],
+      "lat": 28.6242,
+      "lng": 77.4388
+    },
+    {
+      "id": "Modinagar",
+      "nameEn": "Modinagar",
+      "nameHi": "मोदीनगर",
+      "tehsil": "Modinagar",
+      "district": "Ghaziabad",
+      "center": [
+        28.6542,
+        77.4688
+      ],
+      "lat": 28.6542,
+      "lng": 77.4688
+    },
+    {
+      "id": "Loni",
+      "nameEn": "Loni",
+      "nameHi": "लोनी",
+      "tehsil": "Loni",
+      "district": "Ghaziabad",
+      "center": [
+        28.6842,
+        77.4388
+      ],
+      "lat": 28.6842,
+      "lng": 77.4388
+    }
+  ],
+  "Jhansi": [
+    {
+      "id": "Babina",
+      "nameEn": "Babina",
+      "nameHi": "बबीना",
+      "tehsil": "Jhansi",
+      "district": "Jhansi",
+      "center": [
+        25.2884,
+        78.5285
+      ],
+      "lat": 25.2884,
+      "lng": 78.5285
+    },
+    {
+      "id": "Badagaon",
+      "nameEn": "Badagaon",
+      "nameHi": "बड़ागांव",
+      "tehsil": "Jhansi",
+      "district": "Jhansi",
+      "center": [
+        25.3284,
+        78.5685
+      ],
+      "lat": 25.3284,
+      "lng": 78.5685
+    },
+    {
+      "id": "Bamaur",
+      "nameEn": "Bamaur",
+      "nameHi": "बामौर",
+      "tehsil": "Garautha",
+      "district": "Jhansi",
+      "center": [
+        25.3684,
+        78.6085
+      ],
+      "lat": 25.3684,
+      "lng": 78.6085
+    },
+    {
+      "id": "Chirgaon",
+      "nameEn": "Chirgaon",
+      "nameHi": "चिरगांव",
+      "tehsil": "Moth",
+      "district": "Jhansi",
+      "center": [
+        25.4084,
+        78.5285
+      ],
+      "lat": 25.4084,
+      "lng": 78.5285
+    },
+    {
+      "id": "Gursarai",
+      "nameEn": "Gursarai",
+      "nameHi": "गुरसराय",
+      "tehsil": "Garautha",
+      "district": "Jhansi",
+      "center": [
+        25.4484,
+        78.5685
+      ],
+      "lat": 25.4484,
+      "lng": 78.5685
+    },
+    {
+      "id": "Mauranipur",
+      "nameEn": "Mauranipur",
+      "nameHi": "मऊरानीपुर",
+      "tehsil": "Mauranipur",
+      "district": "Jhansi",
+      "center": [
+        25.4884,
+        78.6085
+      ],
+      "lat": 25.4884,
+      "lng": 78.6085
+    },
+    {
+      "id": "Moth",
+      "nameEn": "Moth",
+      "nameHi": "मोठ",
+      "tehsil": "Moth",
+      "district": "Jhansi",
+      "center": [
+        25.5284,
+        78.5285
+      ],
+      "lat": 25.5284,
+      "lng": 78.5285
+    },
+    {
+      "id": "Bangra",
+      "nameEn": "Bangra",
+      "nameHi": "बंगरा",
+      "tehsil": "Mauranipur",
+      "district": "Jhansi",
+      "center": [
+        25.5684,
+        78.5685
+      ],
+      "lat": 25.5684,
+      "lng": 78.5685
+    }
+  ],
+  "Mathura": [
+    {
+      "id": "Mathura",
+      "nameEn": "Mathura",
+      "nameHi": "मथुरा",
+      "tehsil": "Mathura",
+      "district": "Mathura",
+      "center": [
+        27.4174,
+        77.6587
+      ],
+      "lat": 27.4174,
+      "lng": 77.6587
+    },
+    {
+      "id": "Goverdhan",
+      "nameEn": "Goverdhan",
+      "nameHi": "गोवर्धन",
+      "tehsil": "Goverdhan",
+      "district": "Mathura",
+      "center": [
+        27.4474,
+        77.6887
+      ],
+      "lat": 27.4474,
+      "lng": 77.6887
+    },
+    {
+      "id": "Chhata",
+      "nameEn": "Chhata",
+      "nameHi": "छाता",
+      "tehsil": "Chhata",
+      "district": "Mathura",
+      "center": [
+        27.4774,
+        77.6587
+      ],
+      "lat": 27.4774,
+      "lng": 77.6587
+    },
+    {
+      "id": "Mant",
+      "nameEn": "Mant",
+      "nameHi": "मांट",
+      "tehsil": "Mant",
+      "district": "Mathura",
+      "center": [
+        27.5074,
+        77.6887
+      ],
+      "lat": 27.5074,
+      "lng": 77.6887
+    },
+    {
+      "id": "Mahavan",
+      "nameEn": "Mahavan",
+      "nameHi": "महावन",
+      "tehsil": "Mahavan",
+      "district": "Mathura",
+      "center": [
+        27.5374,
+        77.6587
+      ],
+      "lat": 27.5374,
+      "lng": 77.6587
+    }
+  ],
+  "Aligarh": [
+    {
+      "id": "Atrauli",
+      "nameEn": "Atrauli",
+      "nameHi": "अतरौली",
+      "tehsil": "Atrauli",
+      "district": "Aligarh",
+      "center": [
+        27.6574,
+        78.048
+      ],
+      "lat": 27.6574,
+      "lng": 78.048
+    },
+    {
+      "id": "Bijoli",
+      "nameEn": "Bijoli",
+      "nameHi": "बिजौली",
+      "tehsil": "Atrauli",
+      "district": "Aligarh",
+      "center": [
+        27.6974,
+        78.088
+      ],
+      "lat": 27.6974,
+      "lng": 78.088
+    },
+    {
+      "id": "Chandaus",
+      "nameEn": "Chandaus",
+      "nameHi": "चंडौस",
+      "tehsil": "Gabhana",
+      "district": "Aligarh",
+      "center": [
+        27.7374,
+        78.128
+      ],
+      "lat": 27.7374,
+      "lng": 78.128
+    },
+    {
+      "id": "Dhanipur",
+      "nameEn": "Dhanipur",
+      "nameHi": "धनीपुर",
+      "tehsil": "Koil",
+      "district": "Aligarh",
+      "center": [
+        27.7774,
+        78.048
+      ],
+      "lat": 27.7774,
+      "lng": 78.048
+    },
+    {
+      "id": "Gabhana",
+      "nameEn": "Gabhana",
+      "nameHi": "गभाना",
+      "tehsil": "Gabhana",
+      "district": "Aligarh",
+      "center": [
+        27.8174,
+        78.088
+      ],
+      "lat": 27.8174,
+      "lng": 78.088
+    },
+    {
+      "id": "Gangiri",
+      "nameEn": "Gangiri",
+      "nameHi": "गंगीरी",
+      "tehsil": "Atrauli",
+      "district": "Aligarh",
+      "center": [
+        27.8574,
+        78.128
+      ],
+      "lat": 27.8574,
+      "lng": 78.128
+    },
+    {
+      "id": "Iglas",
+      "nameEn": "Iglas",
+      "nameHi": "इगलास",
+      "tehsil": "Iglas",
+      "district": "Aligarh",
+      "center": [
+        27.8974,
+        78.048
+      ],
+      "lat": 27.8974,
+      "lng": 78.048
+    },
+    {
+      "id": "Jawan Sikandarpur",
+      "nameEn": "Jawan Sikandarpur",
+      "nameHi": "जवां सिकंदरपुर",
+      "tehsil": "Koil",
+      "district": "Aligarh",
+      "center": [
+        27.9374,
+        78.088
+      ],
+      "lat": 27.9374,
+      "lng": 78.088
+    },
+    {
+      "id": "Khair",
+      "nameEn": "Khair",
+      "nameHi": "खैर",
+      "tehsil": "Khair",
+      "district": "Aligarh",
+      "center": [
+        27.9774,
+        78.128
+      ],
+      "lat": 27.9774,
+      "lng": 78.128
+    },
+    {
+      "id": "Lodha",
+      "nameEn": "Lodha",
+      "nameHi": "लोधा",
+      "tehsil": "Koil",
+      "district": "Aligarh",
+      "center": [
+        28.0174,
+        78.048
+      ],
+      "lat": 28.0174,
+      "lng": 78.048
+    },
+    {
+      "id": "Tappal",
+      "nameEn": "Tappal",
+      "nameHi": "टप्पल",
+      "tehsil": "Khair",
+      "district": "Aligarh",
+      "center": [
+        28.0574,
+        78.088
+      ],
+      "lat": 28.0574,
+      "lng": 78.088
+    },
+    {
+      "id": "Gonda",
+      "nameEn": "Gonda",
+      "nameHi": "गोंडा",
+      "tehsil": "Iglas",
+      "district": "Aligarh",
+      "center": [
+        28.0974,
+        78.128
+      ],
+      "lat": 28.0974,
+      "lng": 78.128
+    }
+  ],
+  "Bareilly": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "सदर",
+      "tehsil": "Sadar",
+      "district": "Bareilly",
+      "center": [
+        28.277,
+        79.4154
+      ],
+      "lat": 28.277,
+      "lng": 79.4154
+    },
+    {
+      "id": "Aonla",
+      "nameEn": "Aonla",
+      "nameHi": "आंवला",
+      "tehsil": "Aonla",
+      "district": "Bareilly",
+      "center": [
+        28.307,
+        79.4454
+      ],
+      "lat": 28.307,
+      "lng": 79.4454
+    },
+    {
+      "id": "Faridpur",
+      "nameEn": "Faridpur",
+      "nameHi": "फरीदपुर",
+      "tehsil": "Faridpur",
+      "district": "Bareilly",
+      "center": [
+        28.337,
+        79.4154
+      ],
+      "lat": 28.337,
+      "lng": 79.4154
+    },
+    {
+      "id": "Baheri",
+      "nameEn": "Baheri",
+      "nameHi": "बहेड़ी",
+      "tehsil": "Baheri",
+      "district": "Bareilly",
+      "center": [
+        28.367,
+        79.4454
+      ],
+      "lat": 28.367,
+      "lng": 79.4454
+    },
+    {
+      "id": "Nawabganj",
+      "nameEn": "Nawabganj",
+      "nameHi": "नवाबगंज",
+      "tehsil": "Nawabganj",
+      "district": "Bareilly",
+      "center": [
+        28.397,
+        79.4154
+      ],
+      "lat": 28.397,
+      "lng": 79.4154
+    },
+    {
+      "id": "Meerganj",
+      "nameEn": "Meerganj",
+      "nameHi": "मीरगंज",
+      "tehsil": "Meerganj",
+      "district": "Bareilly",
+      "center": [
+        28.427,
+        79.4454
+      ],
+      "lat": 28.427,
+      "lng": 79.4454
+    }
+  ],
+  "Moradabad": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "सदर",
+      "tehsil": "Sadar",
+      "district": "Moradabad",
+      "center": [
+        28.7786,
+        78.7583
+      ],
+      "lat": 28.7786,
+      "lng": 78.7583
+    },
+    {
+      "id": "Kanth",
+      "nameEn": "Kanth",
+      "nameHi": "कांठ",
+      "tehsil": "Kanth",
+      "district": "Moradabad",
+      "center": [
+        28.8086,
+        78.7883
+      ],
+      "lat": 28.8086,
+      "lng": 78.7883
+    },
+    {
+      "id": "Bilari",
+      "nameEn": "Bilari",
+      "nameHi": "बिलारी",
+      "tehsil": "Bilari",
+      "district": "Moradabad",
+      "center": [
+        28.8386,
+        78.7583
+      ],
+      "lat": 28.8386,
+      "lng": 78.7583
+    },
+    {
+      "id": "Thakurdwara",
+      "nameEn": "Thakurdwara",
+      "nameHi": "ठाकुरद्वारा",
+      "tehsil": "Thakurdwara",
+      "district": "Moradabad",
+      "center": [
+        28.8686,
+        78.7883
+      ],
+      "lat": 28.8686,
+      "lng": 78.7883
+    }
+  ],
+  "Saharanpur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "सदर",
+      "tehsil": "Sadar",
+      "district": "Saharanpur",
+      "center": [
+        29.8929,
+        77.5301
+      ],
+      "lat": 29.8929,
+      "lng": 77.5301
+    },
+    {
+      "id": "Deoband",
+      "nameEn": "Deoband",
+      "nameHi": "देवबंद",
+      "tehsil": "Deoband",
+      "district": "Saharanpur",
+      "center": [
+        29.9229,
+        77.5601
+      ],
+      "lat": 29.9229,
+      "lng": 77.5601
+    },
+    {
+      "id": "Nakur",
+      "nameEn": "Nakur",
+      "nameHi": "नकुड़",
+      "tehsil": "Nakur",
+      "district": "Saharanpur",
+      "center": [
+        29.9529,
+        77.5301
+      ],
+      "lat": 29.9529,
+      "lng": 77.5301
+    },
+    {
+      "id": "Behat",
+      "nameEn": "Behat",
+      "nameHi": "बेहट",
+      "tehsil": "Behat",
+      "district": "Saharanpur",
+      "center": [
+        29.9829,
+        77.5601
+      ],
+      "lat": 29.9829,
+      "lng": 77.5601
+    },
+    {
+      "id": "Rampur Maniharan",
+      "nameEn": "Rampur Maniharan",
+      "nameHi": "रामपुर मनिहारान",
+      "tehsil": "Rampur Maniharan",
+      "district": "Saharanpur",
+      "center": [
+        30.0129,
+        77.5301
+      ],
+      "lat": 30.0129,
+      "lng": 77.5301
+    }
+  ],
+  "Firozabad": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Firozabad",
+      "center": [
+        27.0847,
+        78.3807
+      ],
+      "lat": 27.0847,
+      "lng": 78.3807
+    },
+    {
+      "id": "Shikohabad",
+      "nameEn": "Shikohabad",
+      "nameHi": "Shikohabad",
+      "tehsil": "Shikohabad",
+      "district": "Firozabad",
+      "center": [
+        27.1147,
+        78.4107
+      ],
+      "lat": 27.1147,
+      "lng": 78.4107
+    },
+    {
+      "id": "Jasrana",
+      "nameEn": "Jasrana",
+      "nameHi": "Jasrana",
+      "tehsil": "Jasrana",
+      "district": "Firozabad",
+      "center": [
+        27.1447,
+        78.3807
+      ],
+      "lat": 27.1447,
+      "lng": 78.3807
+    },
+    {
+      "id": "Tundla",
+      "nameEn": "Tundla",
+      "nameHi": "Tundla",
+      "tehsil": "Tundla",
+      "district": "Firozabad",
+      "center": [
+        27.1747,
+        78.4107
+      ],
+      "lat": 27.1747,
+      "lng": 78.4107
+    },
+    {
+      "id": "Sirsaganj",
+      "nameEn": "Sirsaganj",
+      "nameHi": "Sirsaganj",
+      "tehsil": "Sirsaganj",
+      "district": "Firozabad",
+      "center": [
+        27.2047,
+        78.3807
+      ],
+      "lat": 27.2047,
+      "lng": 78.3807
+    }
+  ],
+  "Mainpuri": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Mainpuri",
+      "center": [
+        27.1593,
+        79.013
+      ],
+      "lat": 27.1593,
+      "lng": 79.013
+    },
+    {
+      "id": "Bhongaon",
+      "nameEn": "Bhongaon",
+      "nameHi": "Bhongaon",
+      "tehsil": "Bhongaon",
+      "district": "Mainpuri",
+      "center": [
+        27.1893,
+        79.043
+      ],
+      "lat": 27.1893,
+      "lng": 79.043
+    },
+    {
+      "id": "Karhal",
+      "nameEn": "Karhal",
+      "nameHi": "Karhal",
+      "tehsil": "Karhal",
+      "district": "Mainpuri",
+      "center": [
+        27.2193,
+        79.013
+      ],
+      "lat": 27.2193,
+      "lng": 79.013
+    },
+    {
+      "id": "Kishni",
+      "nameEn": "Kishni",
+      "nameHi": "Kishni",
+      "tehsil": "Kishni",
+      "district": "Mainpuri",
+      "center": [
+        27.2493,
+        79.043
+      ],
+      "lat": 27.2493,
+      "lng": 79.043
+    },
+    {
+      "id": "Kuraoli",
+      "nameEn": "Kuraoli",
+      "nameHi": "Kuraoli",
+      "tehsil": "Kuraoli",
+      "district": "Mainpuri",
+      "center": [
+        27.2793,
+        79.013
+      ],
+      "lat": 27.2793,
+      "lng": 79.013
+    }
+  ],
+  "Etah": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Etah",
+      "center": [
+        27.5133,
+        78.65
+      ],
+      "lat": 27.5133,
+      "lng": 78.65
+    },
+    {
+      "id": "Aliganj",
+      "nameEn": "Aliganj",
+      "nameHi": "Aliganj",
+      "tehsil": "Aliganj",
+      "district": "Etah",
+      "center": [
+        27.5433,
+        78.68
+      ],
+      "lat": 27.5433,
+      "lng": 78.68
+    },
+    {
+      "id": "Jalesar",
+      "nameEn": "Jalesar",
+      "nameHi": "Jalesar",
+      "tehsil": "Jalesar",
+      "district": "Etah",
+      "center": [
+        27.5733,
+        78.65
+      ],
+      "lat": 27.5733,
+      "lng": 78.65
+    }
+  ],
+  "Hathras": [
+    {
+      "id": "Hathras",
+      "nameEn": "Hathras",
+      "nameHi": "Hathras",
+      "tehsil": "Hathras",
+      "district": "Hathras",
+      "center": [
+        27.5383,
+        78.0369
+      ],
+      "lat": 27.5383,
+      "lng": 78.0369
+    },
+    {
+      "id": "Sadabad",
+      "nameEn": "Sadabad",
+      "nameHi": "Sadabad",
+      "tehsil": "Sadabad",
+      "district": "Hathras",
+      "center": [
+        27.5683,
+        78.0669
+      ],
+      "lat": 27.5683,
+      "lng": 78.0669
+    },
+    {
+      "id": "Sasni",
+      "nameEn": "Sasni",
+      "nameHi": "Sasni",
+      "tehsil": "Sasni",
+      "district": "Hathras",
+      "center": [
+        27.5983,
+        78.0369
+      ],
+      "lat": 27.5983,
+      "lng": 78.0369
+    },
+    {
+      "id": "Sikandra Rao",
+      "nameEn": "Sikandra Rao",
+      "nameHi": "Sikandra Rao",
+      "tehsil": "Sikandra Rao",
+      "district": "Hathras",
+      "center": [
+        27.6283,
+        78.0669
+      ],
+      "lat": 27.6283,
+      "lng": 78.0669
+    }
+  ],
+  "Kasganj": [
+    {
+      "id": "Kasganj",
+      "nameEn": "Kasganj",
+      "nameHi": "Kasganj",
+      "tehsil": "Kasganj",
+      "district": "Kasganj",
+      "center": [
+        27.763,
+        78.6333
+      ],
+      "lat": 27.763,
+      "lng": 78.6333
+    },
+    {
+      "id": "Patiyali",
+      "nameEn": "Patiyali",
+      "nameHi": "Patiyali",
+      "tehsil": "Patiyali",
+      "district": "Kasganj",
+      "center": [
+        27.793,
+        78.6633
+      ],
+      "lat": 27.793,
+      "lng": 78.6633
+    },
+    {
+      "id": "Sahawar",
+      "nameEn": "Sahawar",
+      "nameHi": "Sahawar",
+      "tehsil": "Sahawar",
+      "district": "Kasganj",
+      "center": [
+        27.823,
+        78.6333
+      ],
+      "lat": 27.823,
+      "lng": 78.6333
+    }
+  ],
+  "Fatehpur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Fatehpur",
+      "center": [
+        25.8836,
+        80.798
+      ],
+      "lat": 25.8836,
+      "lng": 80.798
+    },
+    {
+      "id": "Bindki",
+      "nameEn": "Bindki",
+      "nameHi": "Bindki",
+      "tehsil": "Bindki",
+      "district": "Fatehpur",
+      "center": [
+        25.9136,
+        80.828
+      ],
+      "lat": 25.9136,
+      "lng": 80.828
+    },
+    {
+      "id": "Khaga",
+      "nameEn": "Khaga",
+      "nameHi": "Khaga",
+      "tehsil": "Khaga",
+      "district": "Fatehpur",
+      "center": [
+        25.9436,
+        80.798
+      ],
+      "lat": 25.9436,
+      "lng": 80.798
+    }
+  ],
+  "Kaushambi": [
+    {
+      "id": "Manjhanpur",
+      "nameEn": "Manjhanpur",
+      "nameHi": "Manjhanpur",
+      "tehsil": "Manjhanpur",
+      "district": "Kaushambi",
+      "center": [
+        25.4892,
+        81.3869
+      ],
+      "lat": 25.4892,
+      "lng": 81.3869
+    },
+    {
+      "id": "Chail",
+      "nameEn": "Chail",
+      "nameHi": "Chail",
+      "tehsil": "Chail",
+      "district": "Kaushambi",
+      "center": [
+        25.5192,
+        81.4169
+      ],
+      "lat": 25.5192,
+      "lng": 81.4169
+    },
+    {
+      "id": "Sirathu",
+      "nameEn": "Sirathu",
+      "nameHi": "Sirathu",
+      "tehsil": "Sirathu",
+      "district": "Kaushambi",
+      "center": [
+        25.5492,
+        81.3869
+      ],
+      "lat": 25.5492,
+      "lng": 81.3869
+    }
+  ],
+  "Pratapgarh": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Pratapgarh",
+      "center": [
+        25.8224,
+        81.9324
+      ],
+      "lat": 25.8224,
+      "lng": 81.9324
+    },
+    {
+      "id": "Kunda",
+      "nameEn": "Kunda",
+      "nameHi": "Kunda",
+      "tehsil": "Kunda",
+      "district": "Pratapgarh",
+      "center": [
+        25.8524,
+        81.9624
+      ],
+      "lat": 25.8524,
+      "lng": 81.9624
+    },
+    {
+      "id": "Patti",
+      "nameEn": "Patti",
+      "nameHi": "Patti",
+      "tehsil": "Patti",
+      "district": "Pratapgarh",
+      "center": [
+        25.8824,
+        81.9324
+      ],
+      "lat": 25.8824,
+      "lng": 81.9324
+    },
+    {
+      "id": "Lalganj",
+      "nameEn": "Lalganj",
+      "nameHi": "Lalganj",
+      "tehsil": "Lalganj",
+      "district": "Pratapgarh",
+      "center": [
+        25.9124,
+        81.9624
+      ],
+      "lat": 25.9124,
+      "lng": 81.9624
+    },
+    {
+      "id": "Raniganj",
+      "nameEn": "Raniganj",
+      "nameHi": "Raniganj",
+      "tehsil": "Raniganj",
+      "district": "Pratapgarh",
+      "center": [
+        25.9424,
+        81.9324
+      ],
+      "lat": 25.9424,
+      "lng": 81.9324
+    }
+  ],
+  "Azamgarh": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Azamgarh",
+      "center": [
+        25.9488,
+        83.169
+      ],
+      "lat": 25.9488,
+      "lng": 83.169
+    },
+    {
+      "id": "Sagri",
+      "nameEn": "Sagri",
+      "nameHi": "Sagri",
+      "tehsil": "Sagri",
+      "district": "Azamgarh",
+      "center": [
+        25.9788,
+        83.199
+      ],
+      "lat": 25.9788,
+      "lng": 83.199
+    },
+    {
+      "id": "Phulpur",
+      "nameEn": "Phulpur",
+      "nameHi": "Phulpur",
+      "tehsil": "Phulpur",
+      "district": "Azamgarh",
+      "center": [
+        26.0088,
+        83.169
+      ],
+      "lat": 26.0088,
+      "lng": 83.169
+    },
+    {
+      "id": "Lalganj",
+      "nameEn": "Lalganj",
+      "nameHi": "Lalganj",
+      "tehsil": "Lalganj",
+      "district": "Azamgarh",
+      "center": [
+        26.0388,
+        83.199
+      ],
+      "lat": 26.0388,
+      "lng": 83.199
+    },
+    {
+      "id": "Mehnagar",
+      "nameEn": "Mehnagar",
+      "nameHi": "Mehnagar",
+      "tehsil": "Mehnagar",
+      "district": "Azamgarh",
+      "center": [
+        26.0688,
+        83.169
+      ],
+      "lat": 26.0688,
+      "lng": 83.169
+    },
+    {
+      "id": "Burhanpur",
+      "nameEn": "Burhanpur",
+      "nameHi": "Burhanpur",
+      "tehsil": "Burhanpur",
+      "district": "Azamgarh",
+      "center": [
+        26.0988,
+        83.199
+      ],
+      "lat": 26.0988,
+      "lng": 83.199
+    },
+    {
+      "id": "Nizamabad",
+      "nameEn": "Nizamabad",
+      "nameHi": "Nizamabad",
+      "tehsil": "Nizamabad",
+      "district": "Azamgarh",
+      "center": [
+        26.1288,
+        83.169
+      ],
+      "lat": 26.1288,
+      "lng": 83.169
+    },
+    {
+      "id": "Martinganj",
+      "nameEn": "Martinganj",
+      "nameHi": "Martinganj",
+      "tehsil": "Martinganj",
+      "district": "Azamgarh",
+      "center": [
+        26.1588,
+        83.199
+      ],
+      "lat": 26.1588,
+      "lng": 83.199
+    }
+  ],
+  "Ballia": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Ballia",
+      "center": [
+        25.67,
+        84.135
+      ],
+      "lat": 25.67,
+      "lng": 84.135
+    },
+    {
+      "id": "Bansdih",
+      "nameEn": "Bansdih",
+      "nameHi": "Bansdih",
+      "tehsil": "Bansdih",
+      "district": "Ballia",
+      "center": [
+        25.7,
+        84.165
+      ],
+      "lat": 25.7,
+      "lng": 84.165
+    },
+    {
+      "id": "Rasra",
+      "nameEn": "Rasra",
+      "nameHi": "Rasra",
+      "tehsil": "Rasra",
+      "district": "Ballia",
+      "center": [
+        25.73,
+        84.135
+      ],
+      "lat": 25.73,
+      "lng": 84.135
+    },
+    {
+      "id": "Bairia",
+      "nameEn": "Bairia",
+      "nameHi": "Bairia",
+      "tehsil": "Bairia",
+      "district": "Ballia",
+      "center": [
+        25.76,
+        84.165
+      ],
+      "lat": 25.76,
+      "lng": 84.165
+    },
+    {
+      "id": "Sikanderpur",
+      "nameEn": "Sikanderpur",
+      "nameHi": "Sikanderpur",
+      "tehsil": "Sikanderpur",
+      "district": "Ballia",
+      "center": [
+        25.79,
+        84.135
+      ],
+      "lat": 25.79,
+      "lng": 84.135
+    },
+    {
+      "id": "Belthara Road",
+      "nameEn": "Belthara Road",
+      "nameHi": "Belthara Road",
+      "tehsil": "Belthara Road",
+      "district": "Ballia",
+      "center": [
+        25.82,
+        84.165
+      ],
+      "lat": 25.82,
+      "lng": 84.165
+    }
+  ],
+  "Mau": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Mau",
+      "center": [
+        25.8817,
+        83.5461
+      ],
+      "lat": 25.8817,
+      "lng": 83.5461
+    },
+    {
+      "id": "Muhammadabad Gohna",
+      "nameEn": "Muhammadabad Gohna",
+      "nameHi": "Muhammadabad Gohna",
+      "tehsil": "Muhammadabad Gohna",
+      "district": "Mau",
+      "center": [
+        25.9117,
+        83.5761
+      ],
+      "lat": 25.9117,
+      "lng": 83.5761
+    },
+    {
+      "id": "Ghosi",
+      "nameEn": "Ghosi",
+      "nameHi": "Ghosi",
+      "tehsil": "Ghosi",
+      "district": "Mau",
+      "center": [
+        25.9417,
+        83.5461
+      ],
+      "lat": 25.9417,
+      "lng": 83.5461
+    },
+    {
+      "id": "Madhuban",
+      "nameEn": "Madhuban",
+      "nameHi": "Madhuban",
+      "tehsil": "Madhuban",
+      "district": "Mau",
+      "center": [
+        25.9717,
+        83.5761
+      ],
+      "lat": 25.9717,
+      "lng": 83.5761
+    }
+  ],
+  "Badaun": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Badaun",
+      "center": [
+        27.9586,
+        79.1128
+      ],
+      "lat": 27.9586,
+      "lng": 79.1128
+    },
+    {
+      "id": "Bisauli",
+      "nameEn": "Bisauli",
+      "nameHi": "Bisauli",
+      "tehsil": "Bisauli",
+      "district": "Badaun",
+      "center": [
+        27.9886,
+        79.1428
+      ],
+      "lat": 27.9886,
+      "lng": 79.1428
+    },
+    {
+      "id": "Bilsi",
+      "nameEn": "Bilsi",
+      "nameHi": "Bilsi",
+      "tehsil": "Bilsi",
+      "district": "Badaun",
+      "center": [
+        28.0186,
+        79.1128
+      ],
+      "lat": 28.0186,
+      "lng": 79.1128
+    },
+    {
+      "id": "Dataganj",
+      "nameEn": "Dataganj",
+      "nameHi": "Dataganj",
+      "tehsil": "Dataganj",
+      "district": "Badaun",
+      "center": [
+        28.0486,
+        79.1428
+      ],
+      "lat": 28.0486,
+      "lng": 79.1428
+    },
+    {
+      "id": "Sahaswan",
+      "nameEn": "Sahaswan",
+      "nameHi": "Sahaswan",
+      "tehsil": "Sahaswan",
+      "district": "Badaun",
+      "center": [
+        28.0786,
+        79.1128
+      ],
+      "lat": 28.0786,
+      "lng": 79.1128
+    }
+  ],
+  "Pilibhit": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Pilibhit",
+      "center": [
+        28.5568,
+        79.7887
+      ],
+      "lat": 28.5568,
+      "lng": 79.7887
+    },
+    {
+      "id": "Puranpur",
+      "nameEn": "Puranpur",
+      "nameHi": "Puranpur",
+      "tehsil": "Puranpur",
+      "district": "Pilibhit",
+      "center": [
+        28.5868,
+        79.8187
+      ],
+      "lat": 28.5868,
+      "lng": 79.8187
+    },
+    {
+      "id": "Bisalpur",
+      "nameEn": "Bisalpur",
+      "nameHi": "Bisalpur",
+      "tehsil": "Bisalpur",
+      "district": "Pilibhit",
+      "center": [
+        28.6168,
+        79.7887
+      ],
+      "lat": 28.6168,
+      "lng": 79.7887
+    },
+    {
+      "id": "Amariya",
+      "nameEn": "Amariya",
+      "nameHi": "Amariya",
+      "tehsil": "Amariya",
+      "district": "Pilibhit",
+      "center": [
+        28.6468,
+        79.8187
+      ],
+      "lat": 28.6468,
+      "lng": 79.8187
+    },
+    {
+      "id": "Barkhera",
+      "nameEn": "Barkhera",
+      "nameHi": "Barkhera",
+      "tehsil": "Barkhera",
+      "district": "Pilibhit",
+      "center": [
+        28.6768,
+        79.7887
+      ],
+      "lat": 28.6768,
+      "lng": 79.7887
+    }
+  ],
+  "Shahjahanpur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Shahjahanpur",
+      "center": [
+        27.7914,
+        79.8953
+      ],
+      "lat": 27.7914,
+      "lng": 79.8953
+    },
+    {
+      "id": "Tilhar",
+      "nameEn": "Tilhar",
+      "nameHi": "Tilhar",
+      "tehsil": "Tilhar",
+      "district": "Shahjahanpur",
+      "center": [
+        27.8214,
+        79.9253
+      ],
+      "lat": 27.8214,
+      "lng": 79.9253
+    },
+    {
+      "id": "Jalalabad",
+      "nameEn": "Jalalabad",
+      "nameHi": "Jalalabad",
+      "tehsil": "Jalalabad",
+      "district": "Shahjahanpur",
+      "center": [
+        27.8514,
+        79.8953
+      ],
+      "lat": 27.8514,
+      "lng": 79.8953
+    },
+    {
+      "id": "Powayan",
+      "nameEn": "Powayan",
+      "nameHi": "Powayan",
+      "tehsil": "Powayan",
+      "district": "Shahjahanpur",
+      "center": [
+        27.8814,
+        79.9253
+      ],
+      "lat": 27.8814,
+      "lng": 79.9253
+    },
+    {
+      "id": "Puwayan",
+      "nameEn": "Puwayan",
+      "nameHi": "Puwayan",
+      "tehsil": "Puwayan",
+      "district": "Shahjahanpur",
+      "center": [
+        27.9114,
+        79.8953
+      ],
+      "lat": 27.9114,
+      "lng": 79.8953
+    },
+    {
+      "id": "Kalan",
+      "nameEn": "Kalan",
+      "nameHi": "Kalan",
+      "tehsil": "Kalan",
+      "district": "Shahjahanpur",
+      "center": [
+        27.9414,
+        79.9253
+      ],
+      "lat": 27.9414,
+      "lng": 79.9253
+    }
+  ],
+  "Basti": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Basti",
+      "center": [
+        26.7397,
+        82.7333
+      ],
+      "lat": 26.7397,
+      "lng": 82.7333
+    },
+    {
+      "id": "Harraiya",
+      "nameEn": "Harraiya",
+      "nameHi": "Harraiya",
+      "tehsil": "Harraiya",
+      "district": "Basti",
+      "center": [
+        26.7697,
+        82.7633
+      ],
+      "lat": 26.7697,
+      "lng": 82.7633
+    },
+    {
+      "id": "Bhanpur",
+      "nameEn": "Bhanpur",
+      "nameHi": "Bhanpur",
+      "tehsil": "Bhanpur",
+      "district": "Basti",
+      "center": [
+        26.7997,
+        82.7333
+      ],
+      "lat": 26.7997,
+      "lng": 82.7333
+    },
+    {
+      "id": "Rudauli",
+      "nameEn": "Rudauli",
+      "nameHi": "Rudauli",
+      "tehsil": "Rudauli",
+      "district": "Basti",
+      "center": [
+        26.8297,
+        82.7633
+      ],
+      "lat": 26.8297,
+      "lng": 82.7633
+    }
+  ],
+  "Sant Kabir Nagar": [
+    {
+      "id": "Khalilabad",
+      "nameEn": "Khalilabad",
+      "nameHi": "Khalilabad",
+      "tehsil": "Khalilabad",
+      "district": "Sant Kabir Nagar",
+      "center": [
+        26.737,
+        83.057
+      ],
+      "lat": 26.737,
+      "lng": 83.057
+    },
+    {
+      "id": "Mehdawal",
+      "nameEn": "Mehdawal",
+      "nameHi": "Mehdawal",
+      "tehsil": "Mehdawal",
+      "district": "Sant Kabir Nagar",
+      "center": [
+        26.767,
+        83.087
+      ],
+      "lat": 26.767,
+      "lng": 83.087
+    },
+    {
+      "id": "Dhanghata",
+      "nameEn": "Dhanghata",
+      "nameHi": "Dhanghata",
+      "tehsil": "Dhanghata",
+      "district": "Sant Kabir Nagar",
+      "center": [
+        26.797,
+        83.057
+      ],
+      "lat": 26.797,
+      "lng": 83.057
+    }
+  ],
+  "Siddharthnagar": [
+    {
+      "id": "Naugarh",
+      "nameEn": "Naugarh",
+      "nameHi": "Naugarh",
+      "tehsil": "Naugarh",
+      "district": "Siddharthnagar",
+      "center": [
+        27.2197,
+        83.0707
+      ],
+      "lat": 27.2197,
+      "lng": 83.0707
+    },
+    {
+      "id": "Bansi",
+      "nameEn": "Bansi",
+      "nameHi": "Bansi",
+      "tehsil": "Bansi",
+      "district": "Siddharthnagar",
+      "center": [
+        27.2497,
+        83.1007
+      ],
+      "lat": 27.2497,
+      "lng": 83.1007
+    },
+    {
+      "id": "Itwa",
+      "nameEn": "Itwa",
+      "nameHi": "Itwa",
+      "tehsil": "Itwa",
+      "district": "Siddharthnagar",
+      "center": [
+        27.2797,
+        83.0707
+      ],
+      "lat": 27.2797,
+      "lng": 83.0707
+    },
+    {
+      "id": "Domariyaganj",
+      "nameEn": "Domariyaganj",
+      "nameHi": "Domariyaganj",
+      "tehsil": "Domariyaganj",
+      "district": "Siddharthnagar",
+      "center": [
+        27.3097,
+        83.1007
+      ],
+      "lat": 27.3097,
+      "lng": 83.1007
+    },
+    {
+      "id": "Shohratgarh",
+      "nameEn": "Shohratgarh",
+      "nameHi": "Shohratgarh",
+      "tehsil": "Shohratgarh",
+      "district": "Siddharthnagar",
+      "center": [
+        27.3397,
+        83.0707
+      ],
+      "lat": 27.3397,
+      "lng": 83.0707
+    }
+  ],
+  "Hamirpur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Hamirpur",
+      "center": [
+        25.8954,
+        80.1355
+      ],
+      "lat": 25.8954,
+      "lng": 80.1355
+    },
+    {
+      "id": "Maudaha",
+      "nameEn": "Maudaha",
+      "nameHi": "Maudaha",
+      "tehsil": "Maudaha",
+      "district": "Hamirpur",
+      "center": [
+        25.9254,
+        80.1655
+      ],
+      "lat": 25.9254,
+      "lng": 80.1655
+    },
+    {
+      "id": "Rath",
+      "nameEn": "Rath",
+      "nameHi": "Rath",
+      "tehsil": "Rath",
+      "district": "Hamirpur",
+      "center": [
+        25.9554,
+        80.1355
+      ],
+      "lat": 25.9554,
+      "lng": 80.1355
+    },
+    {
+      "id": "Sarisila",
+      "nameEn": "Sarisila",
+      "nameHi": "Sarisila",
+      "tehsil": "Sarisila",
+      "district": "Hamirpur",
+      "center": [
+        25.9854,
+        80.1655
+      ],
+      "lat": 25.9854,
+      "lng": 80.1655
+    }
+  ],
+  "Mahoba": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Mahoba",
+      "center": [
+        25.2467,
+        79.8572
+      ],
+      "lat": 25.2467,
+      "lng": 79.8572
+    },
+    {
+      "id": "Charkhari",
+      "nameEn": "Charkhari",
+      "nameHi": "Charkhari",
+      "tehsil": "Charkhari",
+      "district": "Mahoba",
+      "center": [
+        25.2767,
+        79.8872
+      ],
+      "lat": 25.2767,
+      "lng": 79.8872
+    },
+    {
+      "id": "Kulpahar",
+      "nameEn": "Kulpahar",
+      "nameHi": "Kulpahar",
+      "tehsil": "Kulpahar",
+      "district": "Mahoba",
+      "center": [
+        25.3067,
+        79.8572
+      ],
+      "lat": 25.3067,
+      "lng": 79.8572
+    }
+  ],
+  "Bahraich": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Bahraich",
+      "center": [
+        27.485,
+        81.58
+      ],
+      "lat": 27.485,
+      "lng": 81.58
+    },
+    {
+      "id": "Nanpara",
+      "nameEn": "Nanpara",
+      "nameHi": "Nanpara",
+      "tehsil": "Nanpara",
+      "district": "Bahraich",
+      "center": [
+        27.515,
+        81.61
+      ],
+      "lat": 27.515,
+      "lng": 81.61
+    },
+    {
+      "id": "Kaiserganj",
+      "nameEn": "Kaiserganj",
+      "nameHi": "Kaiserganj",
+      "tehsil": "Kaiserganj",
+      "district": "Bahraich",
+      "center": [
+        27.545,
+        81.58
+      ],
+      "lat": 27.545,
+      "lng": 81.58
+    },
+    {
+      "id": "Mahasi",
+      "nameEn": "Mahasi",
+      "nameHi": "Mahasi",
+      "tehsil": "Mahasi",
+      "district": "Bahraich",
+      "center": [
+        27.575,
+        81.61
+      ],
+      "lat": 27.575,
+      "lng": 81.61
+    },
+    {
+      "id": "Payagpur",
+      "nameEn": "Payagpur",
+      "nameHi": "Payagpur",
+      "tehsil": "Payagpur",
+      "district": "Bahraich",
+      "center": [
+        27.605,
+        81.58
+      ],
+      "lat": 27.605,
+      "lng": 81.58
+    },
+    {
+      "id": "Mihinpurwa",
+      "nameEn": "Mihinpurwa",
+      "nameHi": "Mihinpurwa",
+      "tehsil": "Mihinpurwa",
+      "district": "Bahraich",
+      "center": [
+        27.635,
+        81.61
+      ],
+      "lat": 27.635,
+      "lng": 81.61
+    }
+  ],
+  "Balrampur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Balrampur",
+      "center": [
+        27.387,
+        82.166
+      ],
+      "lat": 27.387,
+      "lng": 82.166
+    },
+    {
+      "id": "Tulsipur",
+      "nameEn": "Tulsipur",
+      "nameHi": "Tulsipur",
+      "tehsil": "Tulsipur",
+      "district": "Balrampur",
+      "center": [
+        27.417,
+        82.196
+      ],
+      "lat": 27.417,
+      "lng": 82.196
+    },
+    {
+      "id": "Utraula",
+      "nameEn": "Utraula",
+      "nameHi": "Utraula",
+      "tehsil": "Utraula",
+      "district": "Balrampur",
+      "center": [
+        27.447,
+        82.166
+      ],
+      "lat": 27.447,
+      "lng": 82.166
+    }
+  ],
+  "Gonda": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Gonda",
+      "center": [
+        27.0732,
+        81.9469
+      ],
+      "lat": 27.0732,
+      "lng": 81.9469
+    },
+    {
+      "id": "Colonelganj",
+      "nameEn": "Colonelganj",
+      "nameHi": "Colonelganj",
+      "tehsil": "Colonelganj",
+      "district": "Gonda",
+      "center": [
+        27.1032,
+        81.9769
+      ],
+      "lat": 27.1032,
+      "lng": 81.9769
+    },
+    {
+      "id": "Tarabganj",
+      "nameEn": "Tarabganj",
+      "nameHi": "Tarabganj",
+      "tehsil": "Tarabganj",
+      "district": "Gonda",
+      "center": [
+        27.1332,
+        81.9469
+      ],
+      "lat": 27.1332,
+      "lng": 81.9469
+    },
+    {
+      "id": "Mankapur",
+      "nameEn": "Mankapur",
+      "nameHi": "Mankapur",
+      "tehsil": "Mankapur",
+      "district": "Gonda",
+      "center": [
+        27.1632,
+        81.9769
+      ],
+      "lat": 27.1632,
+      "lng": 81.9769
+    }
+  ],
+  "Shravasti": [
+    {
+      "id": "Bhinga",
+      "nameEn": "Bhinga",
+      "nameHi": "Bhinga",
+      "tehsil": "Bhinga",
+      "district": "Shravasti",
+      "center": [
+        27.657,
+        81.89
+      ],
+      "lat": 27.657,
+      "lng": 81.89
+    },
+    {
+      "id": "Ikauna",
+      "nameEn": "Ikauna",
+      "nameHi": "Ikauna",
+      "tehsil": "Ikauna",
+      "district": "Shravasti",
+      "center": [
+        27.687,
+        81.92
+      ],
+      "lat": 27.687,
+      "lng": 81.92
+    },
+    {
+      "id": "Jamunaha",
+      "nameEn": "Jamunaha",
+      "nameHi": "Jamunaha",
+      "tehsil": "Jamunaha",
+      "district": "Shravasti",
+      "center": [
+        27.717,
+        81.89
+      ],
+      "lat": 27.717,
+      "lng": 81.89
+    }
+  ],
+  "Ambedkar Nagar": [
+    {
+      "id": "Akbarpur",
+      "nameEn": "Akbarpur",
+      "nameHi": "Akbarpur",
+      "tehsil": "Akbarpur",
+      "district": "Ambedkar Nagar",
+      "center": [
+        26.3597,
+        82.5267
+      ],
+      "lat": 26.3597,
+      "lng": 82.5267
+    },
+    {
+      "id": "Tanda",
+      "nameEn": "Tanda",
+      "nameHi": "Tanda",
+      "tehsil": "Tanda",
+      "district": "Ambedkar Nagar",
+      "center": [
+        26.3897,
+        82.5567
+      ],
+      "lat": 26.3897,
+      "lng": 82.5567
+    },
+    {
+      "id": "Jalalpur",
+      "nameEn": "Jalalpur",
+      "nameHi": "Jalalpur",
+      "tehsil": "Jalalpur",
+      "district": "Ambedkar Nagar",
+      "center": [
+        26.4197,
+        82.5267
+      ],
+      "lat": 26.4197,
+      "lng": 82.5267
+    },
+    {
+      "id": "Alapur",
+      "nameEn": "Alapur",
+      "nameHi": "Alapur",
+      "tehsil": "Alapur",
+      "district": "Ambedkar Nagar",
+      "center": [
+        26.4497,
+        82.5567
+      ],
+      "lat": 26.4497,
+      "lng": 82.5567
+    },
+    {
+      "id": "Bhiti",
+      "nameEn": "Bhiti",
+      "nameHi": "Bhiti",
+      "tehsil": "Bhiti",
+      "district": "Ambedkar Nagar",
+      "center": [
+        26.4797,
+        82.5267
+      ],
+      "lat": 26.4797,
+      "lng": 82.5267
+    }
+  ],
+  "Amethi": [
+    {
+      "id": "Gauriganj",
+      "nameEn": "Gauriganj",
+      "nameHi": "Gauriganj",
+      "tehsil": "Gauriganj",
+      "district": "Amethi",
+      "center": [
+        26.0954,
+        81.8004
+      ],
+      "lat": 26.0954,
+      "lng": 81.8004
+    },
+    {
+      "id": "Amethi",
+      "nameEn": "Amethi",
+      "nameHi": "Amethi",
+      "tehsil": "Amethi",
+      "district": "Amethi",
+      "center": [
+        26.1254,
+        81.8304
+      ],
+      "lat": 26.1254,
+      "lng": 81.8304
+    },
+    {
+      "id": "Musafirkhana",
+      "nameEn": "Musafirkhana",
+      "nameHi": "Musafirkhana",
+      "tehsil": "Musafirkhana",
+      "district": "Amethi",
+      "center": [
+        26.1554,
+        81.8004
+      ],
+      "lat": 26.1554,
+      "lng": 81.8004
+    },
+    {
+      "id": "Tiloi",
+      "nameEn": "Tiloi",
+      "nameHi": "Tiloi",
+      "tehsil": "Tiloi",
+      "district": "Amethi",
+      "center": [
+        26.1854,
+        81.8304
+      ],
+      "lat": 26.1854,
+      "lng": 81.8304
+    }
+  ],
+  "Barabanki": [
+    {
+      "id": "Nawabganj",
+      "nameEn": "Nawabganj",
+      "nameHi": "Nawabganj",
+      "tehsil": "Nawabganj",
+      "district": "Barabanki",
+      "center": [
+        26.8368,
+        81.1684
+      ],
+      "lat": 26.8368,
+      "lng": 81.1684
+    },
+    {
+      "id": "Fatehpur",
+      "nameEn": "Fatehpur",
+      "nameHi": "Fatehpur",
+      "tehsil": "Fatehpur",
+      "district": "Barabanki",
+      "center": [
+        26.8668,
+        81.1984
+      ],
+      "lat": 26.8668,
+      "lng": 81.1984
+    },
+    {
+      "id": "Ramsanehighat",
+      "nameEn": "Ramsanehighat",
+      "nameHi": "Ramsanehighat",
+      "tehsil": "Ramsanehighat",
+      "district": "Barabanki",
+      "center": [
+        26.8968,
+        81.1684
+      ],
+      "lat": 26.8968,
+      "lng": 81.1684
+    },
+    {
+      "id": "Haidergarh",
+      "nameEn": "Haidergarh",
+      "nameHi": "Haidergarh",
+      "tehsil": "Haidergarh",
+      "district": "Barabanki",
+      "center": [
+        26.9268,
+        81.1984
+      ],
+      "lat": 26.9268,
+      "lng": 81.1984
+    },
+    {
+      "id": "Sirauli Ghauspur",
+      "nameEn": "Sirauli Ghauspur",
+      "nameHi": "Sirauli Ghauspur",
+      "tehsil": "Sirauli Ghauspur",
+      "district": "Barabanki",
+      "center": [
+        26.9568,
+        81.1684
+      ],
+      "lat": 26.9568,
+      "lng": 81.1684
+    },
+    {
+      "id": "Ramnagar",
+      "nameEn": "Ramnagar",
+      "nameHi": "Ramnagar",
+      "tehsil": "Ramnagar",
+      "district": "Barabanki",
+      "center": [
+        26.9868,
+        81.1984
+      ],
+      "lat": 26.9868,
+      "lng": 81.1984
+    }
+  ],
+  "Sultanpur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Sultanpur",
+      "center": [
+        26.1898,
+        82.0577
+      ],
+      "lat": 26.1898,
+      "lng": 82.0577
+    },
+    {
+      "id": "Kadipur",
+      "nameEn": "Kadipur",
+      "nameHi": "Kadipur",
+      "tehsil": "Kadipur",
+      "district": "Sultanpur",
+      "center": [
+        26.2198,
+        82.0877
+      ],
+      "lat": 26.2198,
+      "lng": 82.0877
+    },
+    {
+      "id": "Jaisinghpur",
+      "nameEn": "Jaisinghpur",
+      "nameHi": "Jaisinghpur",
+      "tehsil": "Jaisinghpur",
+      "district": "Sultanpur",
+      "center": [
+        26.2498,
+        82.0577
+      ],
+      "lat": 26.2498,
+      "lng": 82.0577
+    },
+    {
+      "id": "Lambhua",
+      "nameEn": "Lambhua",
+      "nameHi": "Lambhua",
+      "tehsil": "Lambhua",
+      "district": "Sultanpur",
+      "center": [
+        26.2798,
+        82.0877
+      ],
+      "lat": 26.2798,
+      "lng": 82.0877
+    },
+    {
+      "id": "Baldirai",
+      "nameEn": "Baldirai",
+      "nameHi": "Baldirai",
+      "tehsil": "Baldirai",
+      "district": "Sultanpur",
+      "center": [
+        26.3098,
+        82.0577
+      ],
+      "lat": 26.3098,
+      "lng": 82.0577
+    }
+  ],
+  "Deoria": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Deoria",
+      "center": [
+        26.4274,
+        83.7641
+      ],
+      "lat": 26.4274,
+      "lng": 83.7641
+    },
+    {
+      "id": "Salempur",
+      "nameEn": "Salempur",
+      "nameHi": "Salempur",
+      "tehsil": "Salempur",
+      "district": "Deoria",
+      "center": [
+        26.4574,
+        83.7941
+      ],
+      "lat": 26.4574,
+      "lng": 83.7941
+    },
+    {
+      "id": "Rudrapur",
+      "nameEn": "Rudrapur",
+      "nameHi": "Rudrapur",
+      "tehsil": "Rudrapur",
+      "district": "Deoria",
+      "center": [
+        26.4874,
+        83.7641
+      ],
+      "lat": 26.4874,
+      "lng": 83.7641
+    },
+    {
+      "id": "Barhaj",
+      "nameEn": "Barhaj",
+      "nameHi": "Barhaj",
+      "tehsil": "Barhaj",
+      "district": "Deoria",
+      "center": [
+        26.5174,
+        83.7941
+      ],
+      "lat": 26.5174,
+      "lng": 83.7941
+    },
+    {
+      "id": "Bhatpar Rani",
+      "nameEn": "Bhatpar Rani",
+      "nameHi": "Bhatpar Rani",
+      "tehsil": "Bhatpar Rani",
+      "district": "Deoria",
+      "center": [
+        26.5474,
+        83.7641
+      ],
+      "lat": 26.5474,
+      "lng": 83.7641
+    }
+  ],
+  "Kushinagar": [
+    {
+      "id": "Padrauna",
+      "nameEn": "Padrauna",
+      "nameHi": "Padrauna",
+      "tehsil": "Padrauna",
+      "district": "Kushinagar",
+      "center": [
+        26.8138,
+        83.969
+      ],
+      "lat": 26.8138,
+      "lng": 83.969
+    },
+    {
+      "id": "Hata",
+      "nameEn": "Hata",
+      "nameHi": "Hata",
+      "tehsil": "Hata",
+      "district": "Kushinagar",
+      "center": [
+        26.8438,
+        83.999
+      ],
+      "lat": 26.8438,
+      "lng": 83.999
+    },
+    {
+      "id": "Kasya",
+      "nameEn": "Kasya",
+      "nameHi": "Kasya",
+      "tehsil": "Kasya",
+      "district": "Kushinagar",
+      "center": [
+        26.8738,
+        83.969
+      ],
+      "lat": 26.8738,
+      "lng": 83.969
+    },
+    {
+      "id": "Tamkuhi Raj",
+      "nameEn": "Tamkuhi Raj",
+      "nameHi": "Tamkuhi Raj",
+      "tehsil": "Tamkuhi Raj",
+      "district": "Kushinagar",
+      "center": [
+        26.9038,
+        83.999
+      ],
+      "lat": 26.9038,
+      "lng": 83.999
+    },
+    {
+      "id": "Khadda",
+      "nameEn": "Khadda",
+      "nameHi": "Khadda",
+      "tehsil": "Khadda",
+      "district": "Kushinagar",
+      "center": [
+        26.9338,
+        83.969
+      ],
+      "lat": 26.9338,
+      "lng": 83.969
+    },
+    {
+      "id": "Captain Ganj",
+      "nameEn": "Captain Ganj",
+      "nameHi": "Captain Ganj",
+      "tehsil": "Captain Ganj",
+      "district": "Kushinagar",
+      "center": [
+        26.9638,
+        83.999
+      ],
+      "lat": 26.9638,
+      "lng": 83.999
+    }
+  ],
+  "Maharajganj": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Maharajganj",
+      "center": [
+        27.085,
+        83.55
+      ],
+      "lat": 27.085,
+      "lng": 83.55
+    },
+    {
+      "id": "Nautanwa",
+      "nameEn": "Nautanwa",
+      "nameHi": "Nautanwa",
+      "tehsil": "Nautanwa",
+      "district": "Maharajganj",
+      "center": [
+        27.115,
+        83.58
+      ],
+      "lat": 27.115,
+      "lng": 83.58
+    },
+    {
+      "id": "Nichlaul",
+      "nameEn": "Nichlaul",
+      "nameHi": "Nichlaul",
+      "tehsil": "Nichlaul",
+      "district": "Maharajganj",
+      "center": [
+        27.145,
+        83.55
+      ],
+      "lat": 27.145,
+      "lng": 83.55
+    },
+    {
+      "id": "Pharenda",
+      "nameEn": "Pharenda",
+      "nameHi": "Pharenda",
+      "tehsil": "Pharenda",
+      "district": "Maharajganj",
+      "center": [
+        27.175,
+        83.58
+      ],
+      "lat": 27.175,
+      "lng": 83.58
+    }
+  ],
+  "Jalaun": [
+    {
+      "id": "Orai",
+      "nameEn": "Orai",
+      "nameHi": "Orai",
+      "tehsil": "Orai",
+      "district": "Jalaun",
+      "center": [
+        25.9162,
+        79.438
+      ],
+      "lat": 25.9162,
+      "lng": 79.438
+    },
+    {
+      "id": "Jalaun",
+      "nameEn": "Jalaun",
+      "nameHi": "Jalaun",
+      "tehsil": "Jalaun",
+      "district": "Jalaun",
+      "center": [
+        25.9462,
+        79.468
+      ],
+      "lat": 25.9462,
+      "lng": 79.468
+    },
+    {
+      "id": "Konch",
+      "nameEn": "Konch",
+      "nameHi": "Konch",
+      "tehsil": "Konch",
+      "district": "Jalaun",
+      "center": [
+        25.9762,
+        79.438
+      ],
+      "lat": 25.9762,
+      "lng": 79.438
+    },
+    {
+      "id": "Kalpi",
+      "nameEn": "Kalpi",
+      "nameHi": "Kalpi",
+      "tehsil": "Kalpi",
+      "district": "Jalaun",
+      "center": [
+        26.0062,
+        79.468
+      ],
+      "lat": 26.0062,
+      "lng": 79.468
+    },
+    {
+      "id": "Madhogarh",
+      "nameEn": "Madhogarh",
+      "nameHi": "Madhogarh",
+      "tehsil": "Madhogarh",
+      "district": "Jalaun",
+      "center": [
+        26.0362,
+        79.438
+      ],
+      "lat": 26.0362,
+      "lng": 79.438
+    }
+  ],
+  "Lalitpur": [
+    {
+      "id": "Lalitpur",
+      "nameEn": "Lalitpur",
+      "nameHi": "Lalitpur",
+      "tehsil": "Lalitpur",
+      "district": "Lalitpur",
+      "center": [
+        24.611,
+        78.399
+      ],
+      "lat": 24.611,
+      "lng": 78.399
+    },
+    {
+      "id": "Mahroni",
+      "nameEn": "Mahroni",
+      "nameHi": "Mahroni",
+      "tehsil": "Mahroni",
+      "district": "Lalitpur",
+      "center": [
+        24.641,
+        78.429
+      ],
+      "lat": 24.641,
+      "lng": 78.429
+    },
+    {
+      "id": "Talbehat",
+      "nameEn": "Talbehat",
+      "nameHi": "Talbehat",
+      "tehsil": "Talbehat",
+      "district": "Lalitpur",
+      "center": [
+        24.671,
+        78.399
+      ],
+      "lat": 24.671,
+      "lng": 78.399
+    },
+    {
+      "id": "Madawara",
+      "nameEn": "Madawara",
+      "nameHi": "Madawara",
+      "tehsil": "Madawara",
+      "district": "Lalitpur",
+      "center": [
+        24.701,
+        78.429
+      ],
+      "lat": 24.701,
+      "lng": 78.429
+    },
+    {
+      "id": "Pali",
+      "nameEn": "Pali",
+      "nameHi": "Pali",
+      "tehsil": "Pali",
+      "district": "Lalitpur",
+      "center": [
+        24.731,
+        78.399
+      ],
+      "lat": 24.731,
+      "lng": 78.399
+    }
+  ],
+  "Kanpur Dehat": [
+    {
+      "id": "Akbarpur",
+      "nameEn": "Akbarpur",
+      "nameHi": "Akbarpur",
+      "tehsil": "Akbarpur",
+      "district": "Kanpur Dehat",
+      "center": [
+        26.308,
+        79.939
+      ],
+      "lat": 26.308,
+      "lng": 79.939
+    },
+    {
+      "id": "Bhognipur",
+      "nameEn": "Bhognipur",
+      "nameHi": "Bhognipur",
+      "tehsil": "Bhognipur",
+      "district": "Kanpur Dehat",
+      "center": [
+        26.338,
+        79.969
+      ],
+      "lat": 26.338,
+      "lng": 79.969
+    },
+    {
+      "id": "Derapur",
+      "nameEn": "Derapur",
+      "nameHi": "Derapur",
+      "tehsil": "Derapur",
+      "district": "Kanpur Dehat",
+      "center": [
+        26.368,
+        79.939
+      ],
+      "lat": 26.368,
+      "lng": 79.939
+    },
+    {
+      "id": "Rasoolabad",
+      "nameEn": "Rasoolabad",
+      "nameHi": "Rasoolabad",
+      "tehsil": "Rasoolabad",
+      "district": "Kanpur Dehat",
+      "center": [
+        26.398,
+        79.969
+      ],
+      "lat": 26.398,
+      "lng": 79.969
+    },
+    {
+      "id": "Sikandra",
+      "nameEn": "Sikandra",
+      "nameHi": "Sikandra",
+      "tehsil": "Sikandra",
+      "district": "Kanpur Dehat",
+      "center": [
+        26.428,
+        79.939
+      ],
+      "lat": 26.428,
+      "lng": 79.939
+    },
+    {
+      "id": "Maitha",
+      "nameEn": "Maitha",
+      "nameHi": "Maitha",
+      "tehsil": "Maitha",
+      "district": "Kanpur Dehat",
+      "center": [
+        26.458,
+        79.969
+      ],
+      "lat": 26.458,
+      "lng": 79.969
+    }
+  ],
+  "Auraiya": [
+    {
+      "id": "Auraiya",
+      "nameEn": "Auraiya",
+      "nameHi": "Auraiya",
+      "tehsil": "Auraiya",
+      "district": "Auraiya",
+      "center": [
+        26.42,
+        79.5
+      ],
+      "lat": 26.42,
+      "lng": 79.5
+    },
+    {
+      "id": "Bidhuna",
+      "nameEn": "Bidhuna",
+      "nameHi": "Bidhuna",
+      "tehsil": "Bidhuna",
+      "district": "Auraiya",
+      "center": [
+        26.45,
+        79.53
+      ],
+      "lat": 26.45,
+      "lng": 79.53
+    },
+    {
+      "id": "Ajitmal",
+      "nameEn": "Ajitmal",
+      "nameHi": "Ajitmal",
+      "tehsil": "Ajitmal",
+      "district": "Auraiya",
+      "center": [
+        26.48,
+        79.5
+      ],
+      "lat": 26.48,
+      "lng": 79.5
+    }
+  ],
+  "Etawah": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Etawah",
+      "center": [
+        26.7105,
+        79
+      ],
+      "lat": 26.7105,
+      "lng": 79
+    },
+    {
+      "id": "Bharthana",
+      "nameEn": "Bharthana",
+      "nameHi": "Bharthana",
+      "tehsil": "Bharthana",
+      "district": "Etawah",
+      "center": [
+        26.7405,
+        79.03
+      ],
+      "lat": 26.7405,
+      "lng": 79.03
+    },
+    {
+      "id": "Chakarnagar",
+      "nameEn": "Chakarnagar",
+      "nameHi": "Chakarnagar",
+      "tehsil": "Chakarnagar",
+      "district": "Etawah",
+      "center": [
+        26.7705,
+        79
+      ],
+      "lat": 26.7705,
+      "lng": 79
+    },
+    {
+      "id": "Jaswantnagar",
+      "nameEn": "Jaswantnagar",
+      "nameHi": "Jaswantnagar",
+      "tehsil": "Jaswantnagar",
+      "district": "Etawah",
+      "center": [
+        26.8005,
+        79.03
+      ],
+      "lat": 26.8005,
+      "lng": 79.03
+    },
+    {
+      "id": "Saifai",
+      "nameEn": "Saifai",
+      "nameHi": "Saifai",
+      "tehsil": "Saifai",
+      "district": "Etawah",
+      "center": [
+        26.8305,
+        79
+      ],
+      "lat": 26.8305,
+      "lng": 79
+    }
+  ],
+  "Farrukhabad": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Farrukhabad",
+      "center": [
+        27.337,
+        79.569
+      ],
+      "lat": 27.337,
+      "lng": 79.569
+    },
+    {
+      "id": "Kaimganj",
+      "nameEn": "Kaimganj",
+      "nameHi": "Kaimganj",
+      "tehsil": "Kaimganj",
+      "district": "Farrukhabad",
+      "center": [
+        27.367,
+        79.599
+      ],
+      "lat": 27.367,
+      "lng": 79.599
+    },
+    {
+      "id": "Amritpur",
+      "nameEn": "Amritpur",
+      "nameHi": "Amritpur",
+      "tehsil": "Amritpur",
+      "district": "Farrukhabad",
+      "center": [
+        27.397,
+        79.569
+      ],
+      "lat": 27.397,
+      "lng": 79.569
+    }
+  ],
+  "Kannauj": [
+    {
+      "id": "Kannauj",
+      "nameEn": "Kannauj",
+      "nameHi": "Kannauj",
+      "tehsil": "Kannauj",
+      "district": "Kannauj",
+      "center": [
+        27.009,
+        79.9
+      ],
+      "lat": 27.009,
+      "lng": 79.9
+    },
+    {
+      "id": "Chhibramau",
+      "nameEn": "Chhibramau",
+      "nameHi": "Chhibramau",
+      "tehsil": "Chhibramau",
+      "district": "Kannauj",
+      "center": [
+        27.039,
+        79.93
+      ],
+      "lat": 27.039,
+      "lng": 79.93
+    },
+    {
+      "id": "Tirwa",
+      "nameEn": "Tirwa",
+      "nameHi": "Tirwa",
+      "tehsil": "Tirwa",
+      "district": "Kannauj",
+      "center": [
+        27.069,
+        79.9
+      ],
+      "lat": 27.069,
+      "lng": 79.9
+    }
+  ],
+  "Hardoi": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Hardoi",
+      "center": [
+        27.324,
+        80.116
+      ],
+      "lat": 27.324,
+      "lng": 80.116
+    },
+    {
+      "id": "Shahabad",
+      "nameEn": "Shahabad",
+      "nameHi": "Shahabad",
+      "tehsil": "Shahabad",
+      "district": "Hardoi",
+      "center": [
+        27.354,
+        80.146
+      ],
+      "lat": 27.354,
+      "lng": 80.146
+    },
+    {
+      "id": "Bilgram",
+      "nameEn": "Bilgram",
+      "nameHi": "Bilgram",
+      "tehsil": "Bilgram",
+      "district": "Hardoi",
+      "center": [
+        27.384,
+        80.116
+      ],
+      "lat": 27.384,
+      "lng": 80.116
+    },
+    {
+      "id": "Sandila",
+      "nameEn": "Sandila",
+      "nameHi": "Sandila",
+      "tehsil": "Sandila",
+      "district": "Hardoi",
+      "center": [
+        27.414,
+        80.146
+      ],
+      "lat": 27.414,
+      "lng": 80.146
+    },
+    {
+      "id": "Sawayajpur",
+      "nameEn": "Sawayajpur",
+      "nameHi": "Sawayajpur",
+      "tehsil": "Sawayajpur",
+      "district": "Hardoi",
+      "center": [
+        27.444,
+        80.116
+      ],
+      "lat": 27.444,
+      "lng": 80.116
+    }
+  ],
+  "Lakhimpur Kheri": [
+    {
+      "id": "Lakhimpur",
+      "nameEn": "Lakhimpur",
+      "nameHi": "Lakhimpur",
+      "tehsil": "Lakhimpur",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        27.846,
+        80.763
+      ],
+      "lat": 27.846,
+      "lng": 80.763
+    },
+    {
+      "id": "Gola Gokaran Nath",
+      "nameEn": "Gola Gokaran Nath",
+      "nameHi": "Gola Gokaran Nath",
+      "tehsil": "Gola Gokaran Nath",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        27.876,
+        80.793
+      ],
+      "lat": 27.876,
+      "lng": 80.793
+    },
+    {
+      "id": "Mohammadi",
+      "nameEn": "Mohammadi",
+      "nameHi": "Mohammadi",
+      "tehsil": "Mohammadi",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        27.906,
+        80.763
+      ],
+      "lat": 27.906,
+      "lng": 80.763
+    },
+    {
+      "id": "Nighasan",
+      "nameEn": "Nighasan",
+      "nameHi": "Nighasan",
+      "tehsil": "Nighasan",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        27.936,
+        80.793
+      ],
+      "lat": 27.936,
+      "lng": 80.793
+    },
+    {
+      "id": "Dhaurahra",
+      "nameEn": "Dhaurahra",
+      "nameHi": "Dhaurahra",
+      "tehsil": "Dhaurahra",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        27.966,
+        80.763
+      ],
+      "lat": 27.966,
+      "lng": 80.763
+    },
+    {
+      "id": "Palia",
+      "nameEn": "Palia",
+      "nameHi": "Palia",
+      "tehsil": "Palia",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        27.996,
+        80.793
+      ],
+      "lat": 27.996,
+      "lng": 80.793
+    },
+    {
+      "id": "Mitauli",
+      "nameEn": "Mitauli",
+      "nameHi": "Mitauli",
+      "tehsil": "Mitauli",
+      "district": "Lakhimpur Kheri",
+      "center": [
+        28.026,
+        80.763
+      ],
+      "lat": 28.026,
+      "lng": 80.763
+    }
+  ],
+  "Raebareli": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Raebareli",
+      "center": [
+        26.139,
+        81.225
+      ],
+      "lat": 26.139,
+      "lng": 81.225
+    },
+    {
+      "id": "Lalganj",
+      "nameEn": "Lalganj",
+      "nameHi": "Lalganj",
+      "tehsil": "Lalganj",
+      "district": "Raebareli",
+      "center": [
+        26.169,
+        81.255
+      ],
+      "lat": 26.169,
+      "lng": 81.255
+    },
+    {
+      "id": "Salon",
+      "nameEn": "Salon",
+      "nameHi": "Salon",
+      "tehsil": "Salon",
+      "district": "Raebareli",
+      "center": [
+        26.199,
+        81.225
+      ],
+      "lat": 26.199,
+      "lng": 81.225
+    },
+    {
+      "id": "Maharajganj",
+      "nameEn": "Maharajganj",
+      "nameHi": "Maharajganj",
+      "tehsil": "Maharajganj",
+      "district": "Raebareli",
+      "center": [
+        26.229,
+        81.255
+      ],
+      "lat": 26.229,
+      "lng": 81.255
+    },
+    {
+      "id": "Unchahar",
+      "nameEn": "Unchahar",
+      "nameHi": "Unchahar",
+      "tehsil": "Unchahar",
+      "district": "Raebareli",
+      "center": [
+        26.259,
+        81.225
+      ],
+      "lat": 26.259,
+      "lng": 81.225
+    },
+    {
+      "id": "Tiloi",
+      "nameEn": "Tiloi",
+      "nameHi": "Tiloi",
+      "tehsil": "Tiloi",
+      "district": "Raebareli",
+      "center": [
+        26.289,
+        81.255
+      ],
+      "lat": 26.289,
+      "lng": 81.255
+    }
+  ],
+  "Sitapur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Sitapur",
+      "center": [
+        27.478,
+        80.668
+      ],
+      "lat": 27.478,
+      "lng": 80.668
+    },
+    {
+      "id": "Biswan",
+      "nameEn": "Biswan",
+      "nameHi": "Biswan",
+      "tehsil": "Biswan",
+      "district": "Sitapur",
+      "center": [
+        27.508,
+        80.698
+      ],
+      "lat": 27.508,
+      "lng": 80.698
+    },
+    {
+      "id": "Mahmoodabad",
+      "nameEn": "Mahmoodabad",
+      "nameHi": "Mahmoodabad",
+      "tehsil": "Mahmoodabad",
+      "district": "Sitapur",
+      "center": [
+        27.538,
+        80.668
+      ],
+      "lat": 27.538,
+      "lng": 80.668
+    },
+    {
+      "id": "Sidhauli",
+      "nameEn": "Sidhauli",
+      "nameHi": "Sidhauli",
+      "tehsil": "Sidhauli",
+      "district": "Sitapur",
+      "center": [
+        27.568,
+        80.698
+      ],
+      "lat": 27.568,
+      "lng": 80.698
+    },
+    {
+      "id": "Laharpur",
+      "nameEn": "Laharpur",
+      "nameHi": "Laharpur",
+      "tehsil": "Laharpur",
+      "district": "Sitapur",
+      "center": [
+        27.598,
+        80.668
+      ],
+      "lat": 27.598,
+      "lng": 80.668
+    },
+    {
+      "id": "Misrikh",
+      "nameEn": "Misrikh",
+      "nameHi": "Misrikh",
+      "tehsil": "Misrikh",
+      "district": "Sitapur",
+      "center": [
+        27.628,
+        80.698
+      ],
+      "lat": 27.628,
+      "lng": 80.698
+    }
+  ],
+  "Unnao": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Unnao",
+      "center": [
+        26.457,
+        80.473
+      ],
+      "lat": 26.457,
+      "lng": 80.473
+    },
+    {
+      "id": "Safipur",
+      "nameEn": "Safipur",
+      "nameHi": "Safipur",
+      "tehsil": "Safipur",
+      "district": "Unnao",
+      "center": [
+        26.487,
+        80.503
+      ],
+      "lat": 26.487,
+      "lng": 80.503
+    },
+    {
+      "id": "Purwa",
+      "nameEn": "Purwa",
+      "nameHi": "Purwa",
+      "tehsil": "Purwa",
+      "district": "Unnao",
+      "center": [
+        26.517,
+        80.473
+      ],
+      "lat": 26.517,
+      "lng": 80.473
+    },
+    {
+      "id": "Hasanganj",
+      "nameEn": "Hasanganj",
+      "nameHi": "Hasanganj",
+      "tehsil": "Hasanganj",
+      "district": "Unnao",
+      "center": [
+        26.547,
+        80.503
+      ],
+      "lat": 26.547,
+      "lng": 80.503
+    },
+    {
+      "id": "Bighapur",
+      "nameEn": "Bighapur",
+      "nameHi": "Bighapur",
+      "tehsil": "Bighapur",
+      "district": "Unnao",
+      "center": [
+        26.577,
+        80.473
+      ],
+      "lat": 26.577,
+      "lng": 80.473
+    },
+    {
+      "id": "Bangarmau",
+      "nameEn": "Bangarmau",
+      "nameHi": "Bangarmau",
+      "tehsil": "Bangarmau",
+      "district": "Unnao",
+      "center": [
+        26.607,
+        80.503
+      ],
+      "lat": 26.607,
+      "lng": 80.503
+    }
+  ],
+  "Baghpat": [
+    {
+      "id": "Baghpat",
+      "nameEn": "Baghpat",
+      "nameHi": "Baghpat",
+      "tehsil": "Baghpat",
+      "district": "Baghpat",
+      "center": [
+        28.9,
+        77.21
+      ],
+      "lat": 28.9,
+      "lng": 77.21
+    },
+    {
+      "id": "Baraut",
+      "nameEn": "Baraut",
+      "nameHi": "Baraut",
+      "tehsil": "Baraut",
+      "district": "Baghpat",
+      "center": [
+        28.93,
+        77.24
+      ],
+      "lat": 28.93,
+      "lng": 77.24
+    },
+    {
+      "id": "Khekra",
+      "nameEn": "Khekra",
+      "nameHi": "Khekra",
+      "tehsil": "Khekra",
+      "district": "Baghpat",
+      "center": [
+        28.96,
+        77.21
+      ],
+      "lat": 28.96,
+      "lng": 77.21
+    }
+  ],
+  "Bulandshahr": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Bulandshahr",
+      "center": [
+        28.302,
+        77.834
+      ],
+      "lat": 28.302,
+      "lng": 77.834
+    },
+    {
+      "id": "Khurja",
+      "nameEn": "Khurja",
+      "nameHi": "Khurja",
+      "tehsil": "Khurja",
+      "district": "Bulandshahr",
+      "center": [
+        28.332,
+        77.864
+      ],
+      "lat": 28.332,
+      "lng": 77.864
+    },
+    {
+      "id": "Sikandrabad",
+      "nameEn": "Sikandrabad",
+      "nameHi": "Sikandrabad",
+      "tehsil": "Sikandrabad",
+      "district": "Bulandshahr",
+      "center": [
+        28.362,
+        77.834
+      ],
+      "lat": 28.362,
+      "lng": 77.834
+    },
+    {
+      "id": "Siana",
+      "nameEn": "Siana",
+      "nameHi": "Siana",
+      "tehsil": "Siana",
+      "district": "Bulandshahr",
+      "center": [
+        28.392,
+        77.864
+      ],
+      "lat": 28.392,
+      "lng": 77.864
+    },
+    {
+      "id": "Anupshahr",
+      "nameEn": "Anupshahr",
+      "nameHi": "Anupshahr",
+      "tehsil": "Anupshahr",
+      "district": "Bulandshahr",
+      "center": [
+        28.422,
+        77.834
+      ],
+      "lat": 28.422,
+      "lng": 77.834
+    },
+    {
+      "id": "Debai",
+      "nameEn": "Debai",
+      "nameHi": "Debai",
+      "tehsil": "Debai",
+      "district": "Bulandshahr",
+      "center": [
+        28.452,
+        77.864
+      ],
+      "lat": 28.452,
+      "lng": 77.864
+    },
+    {
+      "id": "Shikarpur",
+      "nameEn": "Shikarpur",
+      "nameHi": "Shikarpur",
+      "tehsil": "Shikarpur",
+      "district": "Bulandshahr",
+      "center": [
+        28.482,
+        77.834
+      ],
+      "lat": 28.482,
+      "lng": 77.834
+    }
+  ],
+  "Hapur": [
+    {
+      "id": "Hapur",
+      "nameEn": "Hapur",
+      "nameHi": "Hapur",
+      "tehsil": "Hapur",
+      "district": "Hapur",
+      "center": [
+        28.685,
+        77.765
+      ],
+      "lat": 28.685,
+      "lng": 77.765
+    },
+    {
+      "id": "Garhmukteshwar",
+      "nameEn": "Garhmukteshwar",
+      "nameHi": "Garhmukteshwar",
+      "tehsil": "Garhmukteshwar",
+      "district": "Hapur",
+      "center": [
+        28.715,
+        77.795
+      ],
+      "lat": 28.715,
+      "lng": 77.795
+    },
+    {
+      "id": "Dhaulana",
+      "nameEn": "Dhaulana",
+      "nameHi": "Dhaulana",
+      "tehsil": "Dhaulana",
+      "district": "Hapur",
+      "center": [
+        28.745,
+        77.765
+      ],
+      "lat": 28.745,
+      "lng": 77.765
+    }
+  ],
+  "Mirzapur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Mirzapur",
+      "center": [
+        25.086,
+        82.554
+      ],
+      "lat": 25.086,
+      "lng": 82.554
+    },
+    {
+      "id": "Chunar",
+      "nameEn": "Chunar",
+      "nameHi": "Chunar",
+      "tehsil": "Chunar",
+      "district": "Mirzapur",
+      "center": [
+        25.116,
+        82.584
+      ],
+      "lat": 25.116,
+      "lng": 82.584
+    },
+    {
+      "id": "Lalganj",
+      "nameEn": "Lalganj",
+      "nameHi": "Lalganj",
+      "tehsil": "Lalganj",
+      "district": "Mirzapur",
+      "center": [
+        25.146,
+        82.554
+      ],
+      "lat": 25.146,
+      "lng": 82.554
+    },
+    {
+      "id": "Marihan",
+      "nameEn": "Marihan",
+      "nameHi": "Marihan",
+      "tehsil": "Marihan",
+      "district": "Mirzapur",
+      "center": [
+        25.176,
+        82.584
+      ],
+      "lat": 25.176,
+      "lng": 82.584
+    }
+  ],
+  "Bhadohi": [
+    {
+      "id": "Bhadohi",
+      "nameEn": "Bhadohi",
+      "nameHi": "Bhadohi",
+      "tehsil": "Bhadohi",
+      "district": "Bhadohi",
+      "center": [
+        25.35,
+        82.555
+      ],
+      "lat": 25.35,
+      "lng": 82.555
+    },
+    {
+      "id": "Gyanpur",
+      "nameEn": "Gyanpur",
+      "nameHi": "Gyanpur",
+      "tehsil": "Gyanpur",
+      "district": "Bhadohi",
+      "center": [
+        25.38,
+        82.585
+      ],
+      "lat": 25.38,
+      "lng": 82.585
+    },
+    {
+      "id": "Aurai",
+      "nameEn": "Aurai",
+      "nameHi": "Aurai",
+      "tehsil": "Aurai",
+      "district": "Bhadohi",
+      "center": [
+        25.41,
+        82.555
+      ],
+      "lat": 25.41,
+      "lng": 82.555
+    }
+  ],
+  "Sonbhadra": [
+    {
+      "id": "Robertsganj",
+      "nameEn": "Robertsganj",
+      "nameHi": "Robertsganj",
+      "tehsil": "Robertsganj",
+      "district": "Sonbhadra",
+      "center": [
+        24.625,
+        83.05
+      ],
+      "lat": 24.625,
+      "lng": 83.05
+    },
+    {
+      "id": "Ghorawal",
+      "nameEn": "Ghorawal",
+      "nameHi": "Ghorawal",
+      "tehsil": "Ghorawal",
+      "district": "Sonbhadra",
+      "center": [
+        24.655,
+        83.08
+      ],
+      "lat": 24.655,
+      "lng": 83.08
+    },
+    {
+      "id": "Duddhi",
+      "nameEn": "Duddhi",
+      "nameHi": "Duddhi",
+      "tehsil": "Duddhi",
+      "district": "Sonbhadra",
+      "center": [
+        24.685,
+        83.05
+      ],
+      "lat": 24.685,
+      "lng": 83.05
+    },
+    {
+      "id": "Obra",
+      "nameEn": "Obra",
+      "nameHi": "Obra",
+      "tehsil": "Obra",
+      "district": "Sonbhadra",
+      "center": [
+        24.715,
+        83.08
+      ],
+      "lat": 24.715,
+      "lng": 83.08
+    }
+  ],
+  "Bijnor": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Bijnor",
+      "center": [
+        29.297,
+        78.121
+      ],
+      "lat": 29.297,
+      "lng": 78.121
+    },
+    {
+      "id": "Najibabad",
+      "nameEn": "Najibabad",
+      "nameHi": "Najibabad",
+      "tehsil": "Najibabad",
+      "district": "Bijnor",
+      "center": [
+        29.327,
+        78.151
+      ],
+      "lat": 29.327,
+      "lng": 78.151
+    },
+    {
+      "id": "Nagina",
+      "nameEn": "Nagina",
+      "nameHi": "Nagina",
+      "tehsil": "Nagina",
+      "district": "Bijnor",
+      "center": [
+        29.357,
+        78.121
+      ],
+      "lat": 29.357,
+      "lng": 78.121
+    },
+    {
+      "id": "Dhampur",
+      "nameEn": "Dhampur",
+      "nameHi": "Dhampur",
+      "tehsil": "Dhampur",
+      "district": "Bijnor",
+      "center": [
+        29.387,
+        78.151
+      ],
+      "lat": 29.387,
+      "lng": 78.151
+    },
+    {
+      "id": "Chandpur",
+      "nameEn": "Chandpur",
+      "nameHi": "Chandpur",
+      "tehsil": "Chandpur",
+      "district": "Bijnor",
+      "center": [
+        29.417,
+        78.121
+      ],
+      "lat": 29.417,
+      "lng": 78.121
+    }
+  ],
+  "Amroha": [
+    {
+      "id": "Amroha",
+      "nameEn": "Amroha",
+      "nameHi": "Amroha",
+      "tehsil": "Amroha",
+      "district": "Amroha",
+      "center": [
+        28.844,
+        78.454
+      ],
+      "lat": 28.844,
+      "lng": 78.454
+    },
+    {
+      "id": "Hasanpur",
+      "nameEn": "Hasanpur",
+      "nameHi": "Hasanpur",
+      "tehsil": "Hasanpur",
+      "district": "Amroha",
+      "center": [
+        28.874,
+        78.484
+      ],
+      "lat": 28.874,
+      "lng": 78.484
+    },
+    {
+      "id": "Dhanaura",
+      "nameEn": "Dhanaura",
+      "nameHi": "Dhanaura",
+      "tehsil": "Dhanaura",
+      "district": "Amroha",
+      "center": [
+        28.904,
+        78.454
+      ],
+      "lat": 28.904,
+      "lng": 78.454
+    },
+    {
+      "id": "Naugawan Sadat",
+      "nameEn": "Naugawan Sadat",
+      "nameHi": "Naugawan Sadat",
+      "tehsil": "Naugawan Sadat",
+      "district": "Amroha",
+      "center": [
+        28.934,
+        78.484
+      ],
+      "lat": 28.934,
+      "lng": 78.484
+    }
+  ],
+  "Rampur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Rampur",
+      "center": [
+        28.74,
+        79.01
+      ],
+      "lat": 28.74,
+      "lng": 79.01
+    },
+    {
+      "id": "Bilaspur",
+      "nameEn": "Bilaspur",
+      "nameHi": "Bilaspur",
+      "tehsil": "Bilaspur",
+      "district": "Rampur",
+      "center": [
+        28.77,
+        79.04
+      ],
+      "lat": 28.77,
+      "lng": 79.04
+    },
+    {
+      "id": "Milak",
+      "nameEn": "Milak",
+      "nameHi": "Milak",
+      "tehsil": "Milak",
+      "district": "Rampur",
+      "center": [
+        28.8,
+        79.01
+      ],
+      "lat": 28.8,
+      "lng": 79.01
+    },
+    {
+      "id": "Shahabad",
+      "nameEn": "Shahabad",
+      "nameHi": "Shahabad",
+      "tehsil": "Shahabad",
+      "district": "Rampur",
+      "center": [
+        28.83,
+        79.04
+      ],
+      "lat": 28.83,
+      "lng": 79.04
+    },
+    {
+      "id": "Swar",
+      "nameEn": "Swar",
+      "nameHi": "Swar",
+      "tehsil": "Swar",
+      "district": "Rampur",
+      "center": [
+        28.86,
+        79.01
+      ],
+      "lat": 28.86,
+      "lng": 79.01
+    }
+  ],
+  "Sambhal": [
+    {
+      "id": "Sambhal",
+      "nameEn": "Sambhal",
+      "nameHi": "Sambhal",
+      "tehsil": "Sambhal",
+      "district": "Sambhal",
+      "center": [
+        28.54,
+        78.553
+      ],
+      "lat": 28.54,
+      "lng": 78.553
+    },
+    {
+      "id": "Chandausi",
+      "nameEn": "Chandausi",
+      "nameHi": "Chandausi",
+      "tehsil": "Chandausi",
+      "district": "Sambhal",
+      "center": [
+        28.57,
+        78.583
+      ],
+      "lat": 28.57,
+      "lng": 78.583
+    },
+    {
+      "id": "Gunnaur",
+      "nameEn": "Gunnaur",
+      "nameHi": "Gunnaur",
+      "tehsil": "Gunnaur",
+      "district": "Sambhal",
+      "center": [
+        28.6,
+        78.553
+      ],
+      "lat": 28.6,
+      "lng": 78.553
+    }
+  ],
+  "Muzaffarnagar": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Muzaffarnagar",
+      "center": [
+        29.412,
+        77.693
+      ],
+      "lat": 29.412,
+      "lng": 77.693
+    },
+    {
+      "id": "Khatauli",
+      "nameEn": "Khatauli",
+      "nameHi": "Khatauli",
+      "tehsil": "Khatauli",
+      "district": "Muzaffarnagar",
+      "center": [
+        29.442,
+        77.723
+      ],
+      "lat": 29.442,
+      "lng": 77.723
+    },
+    {
+      "id": "Budhana",
+      "nameEn": "Budhana",
+      "nameHi": "Budhana",
+      "tehsil": "Budhana",
+      "district": "Muzaffarnagar",
+      "center": [
+        29.472,
+        77.693
+      ],
+      "lat": 29.472,
+      "lng": 77.693
+    },
+    {
+      "id": "Jansath",
+      "nameEn": "Jansath",
+      "nameHi": "Jansath",
+      "tehsil": "Jansath",
+      "district": "Muzaffarnagar",
+      "center": [
+        29.502,
+        77.723
+      ],
+      "lat": 29.502,
+      "lng": 77.723
+    }
+  ],
+  "Shamli": [
+    {
+      "id": "Shamli",
+      "nameEn": "Shamli",
+      "nameHi": "Shamli",
+      "tehsil": "Shamli",
+      "district": "Shamli",
+      "center": [
+        29.404,
+        77.295
+      ],
+      "lat": 29.404,
+      "lng": 77.295
+    },
+    {
+      "id": "Kairana",
+      "nameEn": "Kairana",
+      "nameHi": "Kairana",
+      "tehsil": "Kairana",
+      "district": "Shamli",
+      "center": [
+        29.434,
+        77.325
+      ],
+      "lat": 29.434,
+      "lng": 77.325
+    },
+    {
+      "id": "Unn",
+      "nameEn": "Unn",
+      "nameHi": "Unn",
+      "tehsil": "Unn",
+      "district": "Shamli",
+      "center": [
+        29.464,
+        77.295
+      ],
+      "lat": 29.464,
+      "lng": 77.295
+    }
+  ],
+  "Chandauli": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Chandauli",
+      "center": [
+        25.186,
+        83.252
+      ],
+      "lat": 25.186,
+      "lng": 83.252
+    },
+    {
+      "id": "Mughalsarai (Pt. Deen Dayal)",
+      "nameEn": "Mughalsarai (Pt. Deen Dayal)",
+      "nameHi": "Mughalsarai (Pt. Deen Dayal)",
+      "tehsil": "Mughalsarai (Pt. Deen Dayal)",
+      "district": "Chandauli",
+      "center": [
+        25.216,
+        83.282
+      ],
+      "lat": 25.216,
+      "lng": 83.282
+    },
+    {
+      "id": "Chakia",
+      "nameEn": "Chakia",
+      "nameHi": "Chakia",
+      "tehsil": "Chakia",
+      "district": "Chandauli",
+      "center": [
+        25.246,
+        83.252
+      ],
+      "lat": 25.246,
+      "lng": 83.252
+    },
+    {
+      "id": "Sakaldiha",
+      "nameEn": "Sakaldiha",
+      "nameHi": "Sakaldiha",
+      "tehsil": "Sakaldiha",
+      "district": "Chandauli",
+      "center": [
+        25.276,
+        83.282
+      ],
+      "lat": 25.276,
+      "lng": 83.282
+    },
+    {
+      "id": "Naugarh",
+      "nameEn": "Naugarh",
+      "nameHi": "Naugarh",
+      "tehsil": "Naugarh",
+      "district": "Chandauli",
+      "center": [
+        25.306,
+        83.252
+      ],
+      "lat": 25.306,
+      "lng": 83.252
+    }
+  ],
+  "Ghazipur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Ghazipur",
+      "center": [
+        25.479,
+        83.562
+      ],
+      "lat": 25.479,
+      "lng": 83.562
+    },
+    {
+      "id": "Mohammadabad",
+      "nameEn": "Mohammadabad",
+      "nameHi": "Mohammadabad",
+      "tehsil": "Mohammadabad",
+      "district": "Ghazipur",
+      "center": [
+        25.509,
+        83.592
+      ],
+      "lat": 25.509,
+      "lng": 83.592
+    },
+    {
+      "id": "Zamania",
+      "nameEn": "Zamania",
+      "nameHi": "Zamania",
+      "tehsil": "Zamania",
+      "district": "Ghazipur",
+      "center": [
+        25.539,
+        83.562
+      ],
+      "lat": 25.539,
+      "lng": 83.562
+    },
+    {
+      "id": "Saidpur",
+      "nameEn": "Saidpur",
+      "nameHi": "Saidpur",
+      "tehsil": "Saidpur",
+      "district": "Ghazipur",
+      "center": [
+        25.569,
+        83.592
+      ],
+      "lat": 25.569,
+      "lng": 83.592
+    },
+    {
+      "id": "Jakhania",
+      "nameEn": "Jakhania",
+      "nameHi": "Jakhania",
+      "tehsil": "Jakhania",
+      "district": "Ghazipur",
+      "center": [
+        25.599,
+        83.562
+      ],
+      "lat": 25.599,
+      "lng": 83.562
+    },
+    {
+      "id": "Kasimabad",
+      "nameEn": "Kasimabad",
+      "nameHi": "Kasimabad",
+      "tehsil": "Kasimabad",
+      "district": "Ghazipur",
+      "center": [
+        25.629,
+        83.592
+      ],
+      "lat": 25.629,
+      "lng": 83.592
+    },
+    {
+      "id": "Sewrai",
+      "nameEn": "Sewrai",
+      "nameHi": "Sewrai",
+      "tehsil": "Sewrai",
+      "district": "Ghazipur",
+      "center": [
+        25.659,
+        83.562
+      ],
+      "lat": 25.659,
+      "lng": 83.562
+    }
+  ],
+  "Jaunpur": [
+    {
+      "id": "Sadar",
+      "nameEn": "Sadar",
+      "nameHi": "Sadar",
+      "tehsil": "Sadar",
+      "district": "Jaunpur",
+      "center": [
+        25.656,
+        82.669
+      ],
+      "lat": 25.656,
+      "lng": 82.669
+    },
+    {
+      "id": "Shahganj",
+      "nameEn": "Shahganj",
+      "nameHi": "Shahganj",
+      "tehsil": "Shahganj",
+      "district": "Jaunpur",
+      "center": [
+        25.686,
+        82.699
+      ],
+      "lat": 25.686,
+      "lng": 82.699
+    },
+    {
+      "id": "Machhlishahr",
+      "nameEn": "Machhlishahr",
+      "nameHi": "Machhlishahr",
+      "tehsil": "Machhlishahr",
+      "district": "Jaunpur",
+      "center": [
+        25.716,
+        82.669
+      ],
+      "lat": 25.716,
+      "lng": 82.669
+    },
+    {
+      "id": "Mariahu",
+      "nameEn": "Mariahu",
+      "nameHi": "Mariahu",
+      "tehsil": "Mariahu",
+      "district": "Jaunpur",
+      "center": [
+        25.746,
+        82.699
+      ],
+      "lat": 25.746,
+      "lng": 82.699
+    },
+    {
+      "id": "Kerakat",
+      "nameEn": "Kerakat",
+      "nameHi": "Kerakat",
+      "tehsil": "Kerakat",
+      "district": "Jaunpur",
+      "center": [
+        25.776,
+        82.669
+      ],
+      "lat": 25.776,
+      "lng": 82.669
+    },
+    {
+      "id": "Badlapur",
+      "nameEn": "Badlapur",
+      "nameHi": "Badlapur",
+      "tehsil": "Badlapur",
+      "district": "Jaunpur",
+      "center": [
+        25.806,
+        82.699
+      ],
+      "lat": 25.806,
+      "lng": 82.699
+    }
+  ]
+}

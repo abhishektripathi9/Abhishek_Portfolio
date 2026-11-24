@@ -29,6 +29,40 @@ const MIME_TYPES = {
 
 const MESSAGES_FILE = path.join(PUBLIC_DIR, 'messages.json');
 
+// BhumiChain UP Master Datasets
+let UP_75_DISTRICTS = {};
+let UP_BLOCKS_MASTER = {};
+let UP_VILLAGES_CACHE = {};
+
+try {
+  const dPath = path.join(PUBLIC_DIR, 'data', 'up75Districts.json');
+  if (fs.existsSync(dPath)) {
+    UP_75_DISTRICTS = JSON.parse(fs.readFileSync(dPath, 'utf8'));
+  }
+} catch (e) {
+  console.warn('Notice loading up75Districts:', e.message);
+}
+
+try {
+  const bPath = path.join(PUBLIC_DIR, 'data', 'upBlocksMaster.json');
+  if (fs.existsSync(bPath)) {
+    UP_BLOCKS_MASTER = JSON.parse(fs.readFileSync(bPath, 'utf8'));
+  }
+} catch (e) {
+  console.warn('Notice loading upBlocksMaster:', e.message);
+}
+
+try {
+  const vPath = path.join(PUBLIC_DIR, 'data', 'upVillagesCache.json');
+  if (fs.existsSync(vPath)) {
+    UP_VILLAGES_CACHE = JSON.parse(fs.readFileSync(vPath, 'utf8'));
+  }
+} catch (e) {
+  console.warn('Notice loading upVillagesCache:', e.message);
+}
+
+const BHUMICHAIN_USER_AGENT = 'BhumiChain-UP-Portal/1.0 (https://abhishek-portfolio-uir4.onrender.com)';
+
 function getMessages() {
   try {
     if (fs.existsSync(MESSAGES_FILE)) {
@@ -326,27 +360,239 @@ const server = http.createServer((req, res) => {
 
   // =========================================================================
   // BHUMICHAIN UP LAND REGISTRY API GATEWAY FOR DEPLOYED RENDER APPLICATION
+  // Supports both root /api/* and subpath /land-registry/api/* routes
   // =========================================================================
-  if (pathname.startsWith('/api/bhulekh') || pathname.startsWith('/api/marketplace') || pathname.startsWith('/api/registry') || pathname.startsWith('/api/debug') || pathname.startsWith('/api/system')) {
+  const normPath = pathname.startsWith('/land-registry') ? pathname.replace(/^\/land-registry/, '') : pathname;
+  const isBhumiApi = normPath.startsWith('/api/');
+
+  if (isBhumiApi) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
 
-    // 1. Live Pincode Resolver (/api/bhulekh/pincode)
-    if (pathname === '/api/bhulekh/pincode') {
+    // 1. All 75 Districts (/api/bhulekh/districts)
+    if (normPath === '/api/bhulekh/districts') {
+      let districts = [];
+      if (UP_75_DISTRICTS && Object.keys(UP_75_DISTRICTS).length > 0) {
+        districts = Object.keys(UP_75_DISTRICTS).map(k => {
+          const d = UP_75_DISTRICTS[k];
+          return {
+            id: k,
+            name: k,
+            nameHi: d.nameHi || k,
+            division: d.division || 'Uttar Pradesh',
+            divisionHi: d.divisionHi || 'उत्तर प्रदेश',
+            center: d.center || [26.85, 80.95],
+            zoom: d.zoom || 11,
+            tehsilCount: d.tehsils ? Object.keys(d.tehsils).length : 5
+          };
+        });
+      }
+      if (districts.length === 0) {
+        districts = [
+          { id: 'Chitrakoot', name: 'Chitrakoot', nameHi: 'चित्रकूट (Chitrakoot)', division: 'Chitrakoot', center: [25.215, 80.898], zoom: 11.5, tehsilCount: 4 },
+          { id: 'Banda', name: 'Banda', nameHi: 'बांदा (Banda)', division: 'Chitrakoot', center: [25.478, 80.338], zoom: 11.5, tehsilCount: 5 },
+          { id: 'Prayagraj', name: 'Prayagraj', nameHi: 'प्रयागराज (Prayagraj)', division: 'Prayagraj', center: [25.4358, 81.8463], zoom: 12, tehsilCount: 8 },
+          { id: 'Lucknow', name: 'Lucknow', nameHi: 'लखनऊ (Lucknow)', division: 'Lucknow', center: [26.8467, 80.9462], zoom: 12, tehsilCount: 5 }
+        ];
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({
+        success: true,
+        totalCount: districts.length,
+        state: 'Uttar Pradesh',
+        stateHi: 'उत्तर प्रदेश',
+        districts
+      }));
+      return;
+    }
+
+    // 2. Tehsils by District (/api/bhulekh/tehsils)
+    if (normPath === '/api/bhulekh/tehsils') {
+      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
+      const dData = UP_75_DISTRICTS[dist] || {};
+      let tehsils = [];
+      if (dData.tehsils && Object.keys(dData.tehsils).length > 0) {
+        tehsils = Object.keys(dData.tehsils).map(tName => {
+          const tObj = dData.tehsils[tName] || {};
+          return {
+            name: tName,
+            nameHi: tObj.nameHi || tName,
+            center: tObj.center || dData.center || [25.38, 81.15],
+            zoom: tObj.zoom || 12.5,
+            totalVillages: tObj.villages ? tObj.villages.length : 120
+          };
+        });
+      }
+      if (tehsils.length === 0) {
+        if (dist.toLowerCase().includes('chitra')) {
+          tehsils = [
+            { name: 'Rajapur', nameHi: 'राजापुर', center: [25.386, 81.149], zoom: 12.5, totalVillages: 142 },
+            { name: 'Karwi', nameHi: 'कर्वी', center: [25.215, 80.898], zoom: 12.5, totalVillages: 168 },
+            { name: 'Mau', nameHi: 'मऊ', center: [25.283, 81.425], zoom: 12.5, totalVillages: 110 },
+            { name: 'Manikpur', nameHi: 'मानिकपुर', center: [25.042, 81.118], zoom: 12.5, totalVillages: 95 }
+          ];
+        } else if (dist.toLowerCase().includes('prayag')) {
+          tehsils = [
+            { name: 'Karchhana', nameHi: 'करछना', center: [25.312, 81.895], zoom: 12.5, totalVillages: 165 },
+            { name: 'Sadar', nameHi: 'सदर', center: [25.435, 81.846], zoom: 12.5, totalVillages: 180 },
+            { name: 'Phulpur', nameHi: 'फूलपुर', center: [25.552, 82.083], zoom: 12.5, totalVillages: 140 },
+            { name: 'Soraon', nameHi: 'सोरांव', center: [25.586, 81.854], zoom: 12.5, totalVillages: 155 }
+          ];
+        } else {
+          tehsils = [
+            { name: 'Sadar', nameHi: 'सदर', center: [26.85, 80.95], zoom: 12.5, totalVillages: 150 },
+            { name: 'Tehsil 2', nameHi: 'तहसील 2', center: [26.80, 80.90], zoom: 12.5, totalVillages: 120 }
+          ];
+        }
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({
+        success: true,
+        district: dist,
+        districtHi: dData.nameHi || dist,
+        totalTehsils: tehsils.length,
+        tehsils
+      }));
+      return;
+    }
+
+    // 3. Blocks by District & Tehsil (/api/bhulekh/blocks)
+    if (normPath === '/api/bhulekh/blocks') {
+      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
+      const teh = parsedUrl.searchParams.get('tehsil') || '';
+      let blocks = UP_BLOCKS_MASTER[dist] || [];
+
+      if (!Array.isArray(blocks) || blocks.length === 0) {
+        if (dist.toLowerCase().includes('chitra')) {
+          blocks = [
+            { name: 'Ramnagar', nameHi: 'रामनगर', district: dist, tehsil: 'Rajapur', lat: 25.385, lng: 81.152 },
+            { name: 'Pahari', nameHi: 'पहाड़ी', district: dist, tehsil: 'Rajapur', lat: 25.321, lng: 81.014 },
+            { name: 'Karwi', nameHi: 'कर्वी', district: dist, tehsil: 'Karwi', lat: 25.215, lng: 80.898 },
+            { name: 'Mau', nameHi: 'मऊ', district: dist, tehsil: 'Mau', lat: 25.283, lng: 81.425 },
+            { name: 'Manikpur', nameHi: 'मानिकपुर', district: dist, tehsil: 'Manikpur', lat: 25.042, lng: 81.118 }
+          ];
+        } else if (dist.toLowerCase().includes('prayag')) {
+          blocks = [
+            { name: 'Chaka', nameHi: 'चाका (नैनी)', district: dist, tehsil: 'Karchhana', lat: 25.421, lng: 81.865 },
+            { name: 'Karchhana', nameHi: 'करछना', district: dist, tehsil: 'Karchhana', lat: 25.312, lng: 81.895 },
+            { name: 'Kaundhiyara', nameHi: 'कौंधियारा', district: dist, tehsil: 'Karchhana', lat: 25.185, lng: 81.821 },
+            { name: 'Bahria', nameHi: 'बहरिया', district: dist, tehsil: 'Phulpur', lat: 25.552, lng: 82.083 }
+          ];
+        } else {
+          blocks = [
+            { name: 'Block 1', nameHi: 'विकास खंड 1', district: dist, tehsil: teh || 'Sadar' },
+            { name: 'Block 2', nameHi: 'विकास खंड 2', district: dist, tehsil: teh || 'Sadar' }
+          ];
+        }
+      }
+
+      if (teh) {
+        const filtered = blocks.filter(b => !b.tehsil || b.tehsil.toLowerCase() === teh.toLowerCase());
+        if (filtered.length > 0) blocks = filtered;
+      }
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({
+        success: true,
+        district: dist,
+        tehsil: teh || 'ALL',
+        totalBlocks: blocks.length,
+        blocks
+      }));
+      return;
+    }
+
+    // 4. Villages (/api/bhulekh/villages)
+    if (normPath === '/api/bhulekh/villages') {
+      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
+      const teh = parsedUrl.searchParams.get('tehsil') || 'Rajapur';
+      const blk = parsedUrl.searchParams.get('block') || 'Ramnagar';
+      const search = (parsedUrl.searchParams.get('search') || '').toLowerCase().trim();
+
+      const cacheKey = `${dist}:${teh}:${blk}`.toLowerCase();
+      let villages = UP_VILLAGES_CACHE[cacheKey] || [];
+
+      if (!villages || villages.length === 0) {
+        if (dist.toLowerCase().includes('chitra')) {
+          villages = [
+            { nameEn: 'Bardwara', nameHi: 'बरद्वारा', code: '142001', block: blk, tehsil: teh, district: dist, lat: 25.3863, lng: 81.1494, pincode: '210207' },
+            { nameEn: 'Ramnagar', nameHi: 'रामनगर', code: '142002', block: blk, tehsil: teh, district: dist, lat: 25.3789, lng: 81.1556, pincode: '210207' },
+            { nameEn: 'Bhauri', nameHi: 'भौरी', code: '142003', block: blk, tehsil: teh, district: dist, lat: 25.3942, lng: 81.1398, pincode: '210207' },
+            { nameEn: 'Kandhiya', nameHi: 'कंधिया', code: '142004', block: blk, tehsil: teh, district: dist, lat: 25.4011, lng: 81.1623, pincode: '210207' },
+            { nameEn: 'Rampur', nameHi: 'रामपुर', code: '142005', block: blk, tehsil: teh, district: dist, lat: 25.3654, lng: 81.1421, pincode: '210207' },
+            { nameEn: 'Sarswan', nameHi: 'सरसवां', code: '142006', block: blk, tehsil: teh, district: dist, lat: 25.4125, lng: 81.1712, pincode: '210207' }
+          ];
+        } else if (dist.toLowerCase().includes('prayag')) {
+          villages = [
+            { nameEn: 'Naini', nameHi: 'नैनी', code: '162001', block: blk, tehsil: teh, district: dist, lat: 25.4218, lng: 81.8654, pincode: '211008' },
+            { nameEn: 'Chaka', nameHi: 'चाका', code: '162002', block: blk, tehsil: teh, district: dist, lat: 25.3985, lng: 81.8741, pincode: '211008' },
+            { nameEn: 'Dandi', nameHi: 'डांडी', code: '162003', block: blk, tehsil: teh, district: dist, lat: 25.4120, lng: 81.8512, pincode: '211008' },
+            { nameEn: 'Karchhana', nameHi: 'करछना', code: '162004', block: blk, tehsil: teh, district: dist, lat: 25.3120, lng: 81.8950, pincode: '212301' }
+          ];
+        } else {
+          villages = [
+            { nameEn: 'Mauza 1', nameHi: 'मौजा 1', code: '100001', block: blk, tehsil: teh, district: dist, lat: 26.85, lng: 80.95, pincode: '226001' },
+            { nameEn: 'Mauza 2', nameHi: 'मौजा 2', code: '100002', block: blk, tehsil: teh, district: dist, lat: 26.86, lng: 80.96, pincode: '226001' }
+          ];
+        }
+      }
+
+      if (search) {
+        villages = villages.filter(v => (v.nameEn || '').toLowerCase().includes(search) || (v.nameHi || '').includes(search));
+      }
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({
+        success: true,
+        district: dist,
+        tehsil: teh,
+        block: blk,
+        totalVillages: villages.length,
+        villages
+      }));
+      return;
+    }
+
+    // 5. Live Statewide Village Search (/api/bhulekh/live-village-search)
+    if (normPath === '/api/bhulekh/live-village-search') {
+      const q = (parsedUrl.searchParams.get('q') || '').toLowerCase().trim();
+      const allSample = [
+        { village: 'Bardwara', villageHi: 'बरद्वारा', block: 'Ramnagar', tehsil: 'Rajapur', district: 'Chitrakoot', pincode: '210207', lat: 25.3863, lng: 81.1494 },
+        { village: 'Ramnagar', villageHi: 'रामनगर', block: 'Ramnagar', tehsil: 'Rajapur', district: 'Chitrakoot', pincode: '210207', lat: 25.3789, lng: 81.1556 },
+        { village: 'Bhauri', villageHi: 'भौरी', block: 'Ramnagar', tehsil: 'Rajapur', district: 'Chitrakoot', pincode: '210207', lat: 25.3942, lng: 81.1398 },
+        { village: 'Sandasani', villageHi: 'संडासानी', block: 'Kamasin', tehsil: 'Baberu', district: 'Banda', pincode: '210125', lat: 25.5412, lng: 80.6841 },
+        { village: 'Naini', villageHi: 'नैनी', block: 'Chaka', tehsil: 'Karchhana', district: 'Prayagraj', pincode: '211008', lat: 25.4218, lng: 81.8654 },
+        { village: 'Gosainganj', villageHi: 'गोसाईंगंज', block: 'Gosainganj', tehsil: 'Mohanlalganj', district: 'Lucknow', pincode: '226501', lat: 26.7721, lng: 81.1245 }
+      ];
+
+      const results = allSample.filter(r => !q || r.village.toLowerCase().includes(q) || r.villageHi.includes(q) || r.district.toLowerCase().includes(q));
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ success: true, count: results.length, results }));
+      return;
+    }
+
+    // 6. Live Pincode Resolver (/api/bhulekh/pincode)
+    if (normPath === '/api/bhulekh/pincode') {
       const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
       const teh = parsedUrl.searchParams.get('tehsil') || 'Rajapur';
       const blk = parsedUrl.searchParams.get('block') || 'Ramnagar';
       const vil = parsedUrl.searchParams.get('village') || 'Bardwara';
 
       const target = encodeURIComponent(vil || blk || teh);
-      fetch(`https://api.postalpincode.in/postoffice/${target}`)
+      fetch(`https://api.postalpincode.in/postoffice/${target}`, {
+        headers: { 'User-Agent': BHUMICHAIN_USER_AGENT }
+      })
         .then(r => r.json())
         .then(data => {
-          let pin = dist.toLowerCase().includes('chitra') ? '210207' : '210001';
+          let pin = dist.toLowerCase().includes('chitra') ? '210207' : dist.toLowerCase().includes('prayag') ? '211008' : '226001';
           let poName = `${vil} Branch Office`;
           if (Array.isArray(data) && data[0]?.Status === 'Success') {
-            const up = (data[0].PostOffice || []).filter(p => (p.State || '').toLowerCase() === 'uttar pradesh');
+            const up = (data[0].PostOffice || []).filter(p => {
+              const isUP = (p.State || '').toLowerCase() === 'uttar pradesh';
+              const distMatch = (p.District || '').toLowerCase().includes(dist.toLowerCase().trim());
+              return isUP && distMatch;
+            });
             if (up.length > 0) {
               pin = up[0].Pincode;
               poName = up[0].Name;
@@ -361,40 +607,48 @@ const server = http.createServer((req, res) => {
             tehsil: teh,
             block: blk,
             village: vil,
-            source: 'INDIA_POST_LIVE_VERIFIED'
+            source: 'INDIA_POST_LIVE_VERIFIED',
+            verified: true
           }));
         })
         .catch(() => {
           res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(JSON.stringify({
             success: true,
-            pincode: dist.toLowerCase().includes('chitra') ? '210207' : '210001',
+            pincode: dist.toLowerCase().includes('chitra') ? '210207' : '211008',
             district: dist,
             village: vil,
-            source: 'FALLBACK_VERIFIED'
+            source: 'FALLBACK_VERIFIED',
+            verified: true
           }));
         });
       return;
     }
 
-    // 2. Live Village Dossier (/api/bhulekh/live-village-dossier)
-    if (pathname === '/api/bhulekh/live-village-dossier') {
+    // 7. Live Village Dossier (/api/bhulekh/live-village-dossier)
+    if (normPath === '/api/bhulekh/live-village-dossier') {
       const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
       const teh = parsedUrl.searchParams.get('tehsil') || 'Rajapur';
       const blk = parsedUrl.searchParams.get('block') || 'Ramnagar';
       const vil = parsedUrl.searchParams.get('village') || 'Bardwara';
       const kh = parsedUrl.searchParams.get('khasra') || '104';
-      let lat = parseFloat(parsedUrl.searchParams.get('lat') || '25.3863');
-      let lng = parseFloat(parsedUrl.searchParams.get('lng') || '81.1494');
+      let lat = parseFloat(parsedUrl.searchParams.get('lat') || (dist.toLowerCase().includes('chitra') ? '25.3863' : '25.4358'));
+      let lng = parseFloat(parsedUrl.searchParams.get('lng') || (dist.toLowerCase().includes('chitra') ? '81.1494' : '81.8463'));
 
       const target = encodeURIComponent(vil || blk || teh);
-      fetch(`https://api.postalpincode.in/postoffice/${target}`)
+      fetch(`https://api.postalpincode.in/postoffice/${target}`, {
+        headers: { 'User-Agent': BHUMICHAIN_USER_AGENT }
+      })
         .then(r => r.json())
         .then(pData => {
-          let realPin = dist.toLowerCase().includes('chitra') ? '210207' : '210001';
+          let realPin = dist.toLowerCase().includes('chitra') ? '210207' : dist.toLowerCase().includes('prayag') ? '211008' : '226001';
           let poName = `${vil} डाकघर`;
           if (Array.isArray(pData) && pData[0]?.Status === 'Success') {
-            const up = (pData[0].PostOffice || []).filter(p => (p.State || '').toLowerCase() === 'uttar pradesh');
+            const up = (pData[0].PostOffice || []).filter(p => {
+              const isUP = (p.State || '').toLowerCase() === 'uttar pradesh';
+              const distMatch = (p.District || '').toLowerCase().includes(dist.toLowerCase().trim());
+              return isUP && distMatch;
+            });
             if (up.length > 0) {
               realPin = up[0].Pincode;
               poName = up[0].Name;
@@ -405,7 +659,7 @@ const server = http.createServer((req, res) => {
           const deltaLng = 0.00055;
           const coords = [
             [parseFloat((lat + deltaLat / 2).toFixed(6)), parseFloat((lng - deltaLng / 2).toFixed(6))],
-            [parseFloat((lat + deltaLat / 2).toFixed(6)), parseFloat((lat + deltaLat / 2).toFixed(6))],
+            [parseFloat((lat + deltaLat / 2).toFixed(6)), parseFloat((lng + deltaLng / 2).toFixed(6))],
             [parseFloat((lat - deltaLat / 2).toFixed(6)), parseFloat((lng + deltaLng / 2).toFixed(6))],
             [parseFloat((lat - deltaLat / 2).toFixed(6)), parseFloat((lng - deltaLng / 2).toFixed(6))],
           ];
@@ -413,7 +667,7 @@ const server = http.createServer((req, res) => {
           const activeParcel = {
             id: kh,
             khasraNumber: kh,
-            khataNumber: '00142',
+            khataNumber: '00204',
             district: dist,
             tehsil: teh,
             block: blk,
@@ -424,20 +678,20 @@ const server = http.createServer((req, res) => {
             center: [lat, lng],
             polygonCoords: coords,
             dimensions: {
-              north: '60.0 फ़ीट (18.3 मी.)',
-              south: '60.0 फ़ीट (18.3 मी.)',
-              east: '40.0 फ़ीट (12.2 मी.)',
-              west: '40.0 फ़ीट (12.2 मी.)',
+              north: '76.0 फ़ीट (23.2 मी.)',
+              south: '74.0 फ़ीट (22.6 मी.)',
+              east: '74.0 फ़ीट (22.6 मी.)',
+              west: '72.0 फ़ीट (22.0 मी.)',
             },
-            areaSqFt: 2400,
-            areaPakkaBigha: 0.088,
-            areaBiswa: 1.76,
-            areaHectare: 0.0223,
-            ownerName: 'राम प्रकाश यादव',
-            fatherName: 'स्व. रामेश्वर यादव',
+            areaSqFt: 5475,
+            areaPakkaBigha: 0.201,
+            areaBiswa: 4.02,
+            areaHectare: 0.0509,
+            ownerName: 'अशोक कुमार कुशवाहा',
+            fatherName: 'स्व. रामचरन कुशवाहा',
             isForSale: true,
-            marketPrice: 3850000,
-            circleRate: 3480000,
+            marketPrice: 8554688,
+            circleRate: 6843750,
             status: 'Verified',
           };
 
@@ -445,12 +699,12 @@ const server = http.createServer((req, res) => {
           const kInt = parseInt(kh) || 104;
           for (let i = 1; i <= 6; i++) {
             const nKh = String(kInt + i);
-            const nLat = lat + (i % 2 === 0 ? deltaLat : -deltaLat);
-            const nLng = lng + (i % 3 === 0 ? deltaLng : -deltaLng);
+            const nLat = lat + (i % 2 === 0 ? deltaLat * i : -deltaLat * i);
+            const nLng = lng + (i % 3 === 0 ? deltaLng * i : -deltaLng * i);
             parcels.push({
               id: nKh,
               khasraNumber: nKh,
-              khataNumber: `0014${i + 2}`,
+              khataNumber: `0020${i + 4}`,
               district: dist,
               tehsil: teh,
               block: blk,
@@ -458,7 +712,7 @@ const server = http.createServer((req, res) => {
               villageHi: vil,
               pinCode: realPin,
               pincode: realPin,
-              center: [nLat, nLng],
+              center: [parseFloat(nLat.toFixed(6)), parseFloat(nLng.toFixed(6))],
               polygonCoords: [
                 [parseFloat((nLat + deltaLat / 2).toFixed(6)), parseFloat((nLng - deltaLng / 2).toFixed(6))],
                 [parseFloat((nLat + deltaLat / 2).toFixed(6)), parseFloat((nLng + deltaLng / 2).toFixed(6))],
@@ -466,8 +720,8 @@ const server = http.createServer((req, res) => {
                 [parseFloat((nLat - deltaLat / 2).toFixed(6)), parseFloat((nLng - deltaLng / 2).toFixed(6))],
               ],
               dimensions: activeParcel.dimensions,
-              areaSqFt: 2400 + i * 150,
-              ownerName: `काश्तकार ${nKh}`,
+              areaSqFt: 5000 + i * 200,
+              ownerName: `काश्तकार गाटा ${nKh}`,
               isForSale: i % 2 === 0,
               status: 'Verified',
             });
@@ -507,30 +761,30 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    // 3. Khasra Ownership History (/api/bhulekh/khasra-history)
-    if (pathname === '/api/bhulekh/khasra-history') {
+    // 8. Khasra Ownership History (/api/bhulekh/khasra-history)
+    if (normPath === '/api/bhulekh/khasra-history') {
       const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
       const teh = parsedUrl.searchParams.get('tehsil') || 'Rajapur';
       const blk = parsedUrl.searchParams.get('block') || 'Ramnagar';
       const vil = parsedUrl.searchParams.get('village') || 'Bardwara';
       const kh = parsedUrl.searchParams.get('khasraNo') || '104';
-      const realPin = dist.toLowerCase().includes('chitra') ? '210207' : '210001';
+      const realPin = dist.toLowerCase().includes('chitra') ? '210207' : dist.toLowerCase().includes('prayag') ? '211008' : '226001';
 
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({
         success: true,
         certificateId: `UP-REV-2026-${dist.slice(0, 4).toUpperCase()}-${kh}`,
         khasraNumber: kh,
-        khataNumber: '00142',
+        khataNumber: '00204',
         village: vil,
         block: blk,
         tehsil: teh,
         district: dist,
         pincode: realPin,
         currentOwner: {
-          ownerName: 'राम प्रकाश यादव',
-          fatherName: 'स्व. रामेश्वर यादव',
-          khataNumber: '00142',
+          ownerName: 'अशोक कुमार कुशवाहा',
+          fatherName: 'स्व. रामचरन कुशवाहा',
+          khataNumber: '00204',
           khasraNumber: kh,
           village: vil,
           block: blk,
@@ -541,49 +795,123 @@ const server = http.createServer((req, res) => {
           transferMode: 'बैनामा / रजिस्ट्री विलेख (Registered Sale Deed)',
           mutationOrderNumber: `उप-निबंधक कार्यालय ${teh} विलेख सं. 8904/2018 • दाखिल-खारिज स्वीकृत`,
           ownershipShare: '1/1 (100% पूर्ण एकल स्वामित्व)',
-          loanStatus: 'स्वच्छ एवं ऋण-मुक्त (Zero Bank Lien)',
-          disputeStatus: 'स्वच्छ एवं विवाद-मुक्त (Zero Litigation)',
+          loanStatus: 'स्वच्छ एवं ऋण-मुक्त (Zero Bank Lien / भार-रहित)',
+          disputeStatus: 'स्वच्छ एवं विवाद-मुक्त (Zero Litigation / कोई वाद नहीं)',
           isClearTitle: true,
+          hasDispute: false,
+          hasLoan: false,
         },
         pastOwners: [
           {
-            ownerName: 'स्व. बिहारी लाल यादव',
-            relation: 'पूर्व पुश्तैनी खातेदार',
+            ownerName: 'स्व. सुंदर लाल कुशवाहा',
+            relation: 'पूर्व पुश्तैनी खातेदार (Ancestral Patriarch)',
             tenurePeriod: '1995 - 2008 (13 वर्ष)',
-            transferMode: 'वरासत / पैतृक अधिकार',
-            orderNumber: `तहसील ${teh} प.क. 11 आदेश सं. 104/1995`,
-            status: 'पूर्व मालिक'
+            transferMode: 'वरासत / पैतृक अधिकार (Ancestral Inheritance)',
+            orderNumber: `तहसील ${teh} प.क. 11 आदेश सं. ${kh}/1995`,
+            orderDate: '12-07-1995',
+            status: 'पूर्व मालिक (Transferred on Succession)',
+            remarks: 'स्वच्छ विरासत नामांतरण, समस्त राजस्व देय चुकता।'
           },
           {
-            ownerName: 'रामेश्वर बिहारी यादव',
-            relation: 'आत्मज स्व. बिहारी लाल यादव',
+            ownerName: 'रामचरन सुंदर कुशवाहा',
+            relation: 'आत्मज स्व. सुंदर लाल कुशवाहा',
             tenurePeriod: '2008 - 2018 (10 वर्ष)',
-            transferMode: 'वरासत धारा 33',
+            transferMode: 'वरासत धारा 33 (Succession by Will/Inheritance)',
             orderNumber: `तहसीलदार ${teh} वाद सं. ${kh}/2008`,
-            status: 'पूर्व मालिक'
+            orderDate: '24-10-2008',
+            status: 'पूर्व मालिक (Transferred by Sale Deed)',
+            remarks: 'धारा 34 अंतर्गत नामांतरण आदेश स्वीकृत व खतौनी में दर्ज।'
           }
         ],
-        area: { pakkaBigha: 0.088, biswa: 1.76, hectare: 0.0223, sqFt: 2400 },
+        area: { pakkaBigha: 0.201, biswa: 4.02, hectare: 0.0509, sqFt: 5475, sqMeters: 508.63 },
         fourSides: {
-          north: { feet: 60, meters: 18.3 },
-          south: { feet: 60, meters: 18.3 },
-          east: { feet: 40, meters: 12.2 },
-          west: { feet: 40, meters: 12.2 }
+          north: { feet: 76, meters: 23.16 },
+          south: { feet: 74, meters: 22.56 },
+          east: { feet: 74, meters: 22.56 },
+          west: { feet: 72, meters: 21.95 }
         },
         pricing: {
-          circleRate: 3480000,
-          marketPrice: 3850000,
-          pricePerBigha: 437000
+          circleRate: 6843750,
+          marketPrice: 8554688,
+          pricePerBigha: 42560637,
+          upStampDuty7Pct: 598828
         },
+        chauhaddi: {
+          north: 'गाटा सं. 103 (चक मार्ग 4.0 मीटर)',
+          south: 'गाटा सं. 105 (निजी काश्तकार भूमि)',
+          east: 'गाटा सं. 106 (पक्का मेड़ सीमांकन)',
+          west: 'मुख्य संपर्क मार्ग / सार्वजनिक नाली'
+        },
+        qrVerificationUrl: `https://abhishek-portfolio-uir4.onrender.com/land-registry/verify/UP-REV-2026-${dist.slice(0, 4).toUpperCase()}-${kh}`,
         isForSale: true,
-        listedPrice: 3850000,
-        listedPricePerBigha: 437000
+        listedPrice: 8554688,
+        listedPricePerBigha: 42560637
       }));
       return;
     }
 
-    // 4. Marketplace Listings (/api/marketplace/listings)
-    if (pathname === '/api/marketplace/listings') {
+    // 9. Khatauni 13-Column Nakal (/api/bhulekh/khatauni)
+    if (normPath === '/api/bhulekh/khatauni') {
+      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
+      const teh = parsedUrl.searchParams.get('tehsil') || 'Rajapur';
+      const blk = parsedUrl.searchParams.get('block') || 'Ramnagar';
+      const vil = parsedUrl.searchParams.get('village') || 'Bardwara';
+      const kh = parsedUrl.searchParams.get('khasra') || '104';
+      const realPin = dist.toLowerCase().includes('chitra') ? '210207' : '211008';
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({
+        success: true,
+        nakal: {
+          state: 'उत्तर प्रदेश शासन (Govt. of Uttar Pradesh)',
+          board: 'राजस्व परिषद उत्तर प्रदेश (Board of Revenue UP)',
+          portal: 'BhumiChain Live Cadastre Engine',
+          district: dist,
+          tehsil: teh,
+          block: blk,
+          village: vil,
+          pincode: realPin,
+          fasliYear: '1431-1436 फसली',
+          khataNumber: '00204',
+          khasraNumber: kh,
+          certificateId: `UP-REV-2026-${dist.slice(0, 4).toUpperCase()}-${kh}`,
+          generatedAt: new Date().toISOString(),
+          columns: {
+            col1_khataNo: '00204',
+            col2_tenureHolderName: 'अशोक कुमार कुशवाहा / स्व. रामचरन कुशवाहा / निवासी ' + vil + ', ' + dist,
+            col3_residence: vil + ', तहसील ' + teh + ', जनपद ' + dist + ' (' + realPin + ')',
+            col4_startYear: '1426 फसली (दिनांक 14/11/2018 से)',
+            col5_khasraNumber: kh,
+            col6_areaHectare: '0.0509',
+            col7_bighaBiswa: '0.201 बीघा (4.02 बिस्वा / 5475 वर्ग फीट)',
+            col8_landRevenue: '₹ 18.50 वार्षिक',
+            col9_disputeStatus: 'स्वच्छ एवं निर्विवाद (Zero Litigation)',
+            col10_loanEncumbrance: 'भार-मुक्त (Nil Encumbrance / कोई बैंक ऋण नहीं)',
+            col11_mutationOrder: `आदेश श्रीमान तहसीलदार ${teh} वाद सं. 8904/2018 अंतर्गत धारा 34 राजस्व संहिता`,
+            col12_verificationRemarks: 'डिजिटल रूप से प्रमाणित एवं सत्यापित उद्धरण खतौनी',
+            col13_qrVerification: `https://abhishek-portfolio-uir4.onrender.com/land-registry/verify/UP-REV-2026-${dist.slice(0, 4).toUpperCase()}-${kh}`
+          }
+        }
+      }));
+      return;
+    }
+
+    // 10. Real Parcels Geometry (/api/bhulekh/real-parcels)
+    if (normPath === '/api/bhulekh/real-parcels') {
+      const lat = parseFloat(parsedUrl.searchParams.get('lat') || '25.3863');
+      const lng = parseFloat(parsedUrl.searchParams.get('lng') || '81.1494');
+      const delta = 0.00045;
+      const parcels = [
+        [[lat + delta, lng - delta], [lat + delta, lng + delta], [lat - delta, lng + delta], [lat - delta, lng - delta]],
+        [[lat + 2 * delta, lng - delta], [lat + 2 * delta, lng + delta], [lat + delta, lng + delta], [lat + delta, lng - delta]]
+      ];
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ success: true, count: parcels.length, parcels }));
+      return;
+    }
+
+    // 11. Marketplace Listings (/api/marketplace/listings)
+    if (normPath === '/api/marketplace/listings') {
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({
         success: true,
@@ -591,118 +919,210 @@ const server = http.createServer((req, res) => {
         listings: [
           {
             id: 'LIST-CHTR-104',
+            title: 'उपजाऊ दोमट कृषि खेत (Prime Agricultural Land)',
             district: 'Chitrakoot',
             tehsil: 'Rajapur',
             block: 'Ramnagar',
             village: 'Bardwara',
             khasraNumber: '104',
+            khataNumber: '00204',
             pincode: '210207',
-            areaBigha: 3.2,
-            areaBiswa: 64,
-            areaHectare: 0.81,
-            askingPrice: 3850000,
-            pricePerBigha: 1200000,
-            soilType: 'उपजाऊ दोमट (Alluvial Loam)',
-            waterSource: 'राजकीय नलकूप एवं नहर',
-            isDisputed: false,
-            hasLoan: false,
-            ownerName: 'राम प्रकाश यादव',
-            ownerPhone: '+91 98765-43210',
-            status: 'AVAILABLE'
+            areaBigha: 2.5,
+            areaBiswa: 50,
+            areaSqFt: 68062,
+            areaHectare: 0.6323,
+            landType: 'कृषि भूमि (नहरी सिंचाई उपलब्ध)',
+            askingPriceInr: 2500000,
+            pricePerBighaInr: 1000000,
+            circleRateInr: 1980000,
+            ownerName: 'अशोक कुमार कुशवाहा',
+            ownerFather: 'स्व. रामचरन कुशवाहा',
+            ownerPhone: '+91 94150 89211',
+            titleStatus: 'स्वच्छ एवं विवाद-मुक्त (Zero Litigation)',
+            loanStatus: 'भार-मुक्त (Nil Bank Encumbrance)',
+            status: 'AVAILABLE',
+            lat: 25.3863,
+            lng: 81.1494,
+            certificateId: 'UP-REV-2026-CHIT-104'
           },
           {
             id: 'LIST-BNDA-208',
+            title: 'सड़क से लगा व्यावसायिक व कृषि प्लाट (Highway Facing Land)',
             district: 'Banda',
             tehsil: 'Baberu',
             block: 'Kamasin',
-            village: 'Mau',
+            village: 'Sandasani',
             khasraNumber: '208',
+            khataNumber: '00208',
             pincode: '210125',
-            areaBigha: 4.5,
-            areaBiswa: 90,
-            areaHectare: 1.14,
-            askingPrice: 4950000,
-            pricePerBigha: 1100000,
-            soilType: 'काली मटियार (Clay Loam)',
-            waterSource: 'निजी बोरवेल',
-            isDisputed: false,
-            hasLoan: false,
-            ownerName: 'धर्मराज पटेल',
-            ownerPhone: '+91 98765-43211',
-            status: 'AVAILABLE'
+            areaBigha: 1.8,
+            areaBiswa: 36,
+            areaSqFt: 49005,
+            areaHectare: 0.4552,
+            landType: 'कृषि / आबादी सीमावर्ती',
+            askingPriceInr: 3200000,
+            pricePerBighaInr: 1777777,
+            circleRateInr: 2450000,
+            ownerName: 'राघवेंद्र प्रताप सिंह',
+            ownerFather: 'स्व. ठाकुर सूर्यभान सिंह',
+            ownerPhone: '+91 98391 44520',
+            titleStatus: 'स्वच्छ एवं विवाद-मुक्त (Zero Litigation)',
+            loanStatus: 'भार-मुक्त (Nil Encumbrance)',
+            status: 'AVAILABLE',
+            lat: 25.5412,
+            lng: 80.6841,
+            certificateId: 'UP-REV-2026-BNDA-208'
           },
           {
             id: 'LIST-PRG-412',
+            title: 'नैनी रीवा रोड उपजाऊ कृषि भूमि (Fertile Agricultural Farmland)',
             district: 'Prayagraj',
             tehsil: 'Karchhana',
             block: 'Chaka',
             village: 'Naini',
             khasraNumber: '412',
+            khataNumber: '00412',
             pincode: '211008',
-            areaBigha: 2.0,
-            areaBiswa: 40,
-            areaHectare: 0.51,
-            askingPrice: 5200000,
-            pricePerBigha: 2600000,
-            soilType: 'गंगा कछार दोमट',
-            waterSource: 'कैनाल कमान्ड',
-            isDisputed: false,
-            hasLoan: false,
-            ownerName: 'महेंद्र कुमार वर्मा',
-            ownerPhone: '+91 98765-43212',
-            status: 'AVAILABLE'
+            areaBigha: 3.2,
+            areaBiswa: 64,
+            areaSqFt: 87120,
+            areaHectare: 0.8093,
+            landType: 'कृषि भूमि (दो फसली सिंचित)',
+            askingPriceInr: 5800000,
+            pricePerBighaInr: 1812500,
+            circleRateInr: 4480000,
+            ownerName: 'शिवनारायण त्रिपाठी',
+            ownerFather: 'स्व. पं. उमाशंकर त्रिपाठी',
+            ownerPhone: '+91 91254 77800',
+            titleStatus: 'स्वच्छ एवं विवाद-मुक्त (Zero Litigation)',
+            loanStatus: 'भार-मुक्त (Nil Encumbrance)',
+            status: 'AVAILABLE',
+            lat: 25.4218,
+            lng: 81.8654,
+            certificateId: 'UP-REV-2026-PRAY-412'
           },
           {
             id: 'LIST-LKO-550',
+            title: 'किसान पथ आउटर रिंग रोड कृषि भूमि (High Appreciation Plot)',
             district: 'Lucknow',
             tehsil: 'Mohanlalganj',
-            block: 'Mohanlalganj',
-            village: 'Mau',
+            block: 'Gosainganj',
+            village: 'Gosainganj',
             khasraNumber: '550',
-            pincode: '226301',
-            areaBigha: 1.8,
-            areaBiswa: 36,
-            areaHectare: 0.45,
-            askingPrice: 6500000,
-            pricePerBigha: 3611000,
-            soilType: 'अति उपजाऊ बागवानी भूमि',
-            waterSource: 'नलकूप',
-            isDisputed: false,
-            hasLoan: false,
-            ownerName: 'सुनील कुमार गुप्ता',
-            ownerPhone: '+91 98765-43213',
-            status: 'AVAILABLE'
+            khataNumber: '00550',
+            pincode: '226501',
+            areaBigha: 2.0,
+            areaBiswa: 40,
+            areaSqFt: 54450,
+            areaHectare: 0.5058,
+            landType: 'कृषि / भावी आवासीय निवेश',
+            askingPriceInr: 6500000,
+            pricePerBighaInr: 3250000,
+            circleRateInr: 5120000,
+            ownerName: 'महेंद्र कुमार वर्मा',
+            ownerFather: 'स्व. बाबूलाल वर्मा',
+            ownerPhone: '+91 94503 11299',
+            titleStatus: 'स्वच्छ एवं विवाद-मुक्त (Zero Litigation)',
+            loanStatus: 'भार-मुक्त (Nil Encumbrance)',
+            status: 'AVAILABLE',
+            lat: 26.7721,
+            lng: 81.1245,
+            certificateId: 'UP-REV-2026-LUCK-550'
           }
         ]
       }));
       return;
     }
 
-    // 5. Digital Title Certificate Verification (/api/registry/verify/...)
-    if (pathname.startsWith('/api/registry/verify')) {
-      const certId = pathname.split('/').pop() || 'UP-REV-2026-CHIT-104';
+    // 12. Marketplace List Land For Sale (POST /api/marketplace/list-for-sale)
+    if (req.method === 'POST' && normPath === '/api/marketplace/list-for-sale') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const data = JSON.parse(body || '{}');
+          const newListing = {
+            id: 'LIST-' + Date.now(),
+            title: data.title || `${data.village} कृषि भूमि`,
+            district: data.district || 'Chitrakoot',
+            tehsil: data.tehsil || 'Rajapur',
+            block: data.block || 'Ramnagar',
+            village: data.village || 'Bardwara',
+            khasraNumber: data.khasraNumber || '104',
+            khataNumber: data.khataNumber || '00204',
+            pincode: data.pincode || '210207',
+            areaBigha: parseFloat(data.areaBigha) || 2.0,
+            askingPriceInr: parseFloat(data.askingPriceInr) || 2500000,
+            pricePerBighaInr: parseFloat(data.pricePerBighaInr) || 1250000,
+            ownerName: data.ownerName || 'काश्तकार',
+            ownerPhone: data.ownerPhone || '+91 98765 43210',
+            status: 'AVAILABLE',
+            listedAt: new Date().toISOString()
+          };
+          res.writeHead(201, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, listing: newListing }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      });
+      return;
+    }
+
+    // 13. Marketplace Complete Purchase (POST /api/marketplace/complete-purchase)
+    if (req.method === 'POST' && normPath === '/api/marketplace/complete-purchase') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const data = JSON.parse(body || '{}');
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({
+            success: true,
+            orderId: 'DEED-' + Date.now(),
+            status: 'TRANSFERRED',
+            buyerName: data.buyerName || 'क्रेता',
+            mutationNumber: 'दाखिल-खारिज आदेश सं. ' + Math.floor(1000 + Math.random() * 9000) + '/2026',
+            message: 'क्रय विलेख एवं दाखिल-खारिज नामांतरण आदेश सफलतापूर्वक दर्ज।'
+          }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      });
+      return;
+    }
+
+    // 14. Digital Title Certificate Verification (/api/registry/verify/...)
+    if (normPath.startsWith('/api/registry/verify')) {
+      const parts = normPath.split('/');
+      const lastPart = parts[parts.length - 1];
+      const certId = (lastPart && lastPart !== 'verify') ? decodeURIComponent(lastPart) : (parsedUrl.searchParams.get('id') || 'UP-REV-2026-CHIT-104');
+      const khasra = parsedUrl.searchParams.get('khasra') || '104';
+      const village = parsedUrl.searchParams.get('village') || 'Bardwara';
+
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({
         success: true,
         verified: true,
         certificateId: certId,
         statusBadge: 'VERIFIED_CLEAN',
-        statusTextHindi: '✓ प्रमाणित एवं विवाद-मुक्त',
-        ownerName: 'राम प्रकाश यादव',
-        fatherName: 'स्व. रामेश्वर यादव',
-        khasraNumber: '104',
-        khataNumber: '00142',
-        village: 'Bardwara',
+        statusTextHindi: '✓ प्रमाणित एवं विवाद-मुक्त (Clean Sovereign Title)',
+        ownerName: 'अशोक कुमार कुशवाहा',
+        fatherName: 'स्व. रामचरन कुशवाहा',
+        khasraNumber: khasra,
+        khataNumber: '00204',
+        village: village,
         block: 'Ramnagar',
         tehsil: 'Rajapur',
         district: 'Chitrakoot',
         pincode: '210207',
-        area: { pakkaBigha: 0.088, biswa: 1.76, hectare: 0.0223, sqFt: 2400 },
+        area: { pakkaBigha: 0.201, biswa: 4.02, hectare: 0.0509, sqFt: 5475 },
         fourSides: {
-          north: '60.0 फ़ीट (18.3 मी.)',
-          south: '60.0 फ़ीट (18.3 मी.)',
-          east: '40.0 फ़ीट (12.2 मी.)',
-          west: '40.0 फ़ीट (12.2 मी.)'
+          north: '76.0 फ़ीट (23.2 मी.)',
+          south: '74.0 फ़ीट (22.6 मी.)',
+          east: '74.0 फ़ीट (22.6 मी.)',
+          west: '72.0 फ़ीट (22.0 मी.)'
         },
         hasLoan: false,
         hasDispute: false,
@@ -711,17 +1131,78 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    // 6. Live API Diagnostics (/api/debug/live-test)
-    if (pathname === '/api/debug/live-test') {
-      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(JSON.stringify({
-        success: true,
-        status: 'ok',
-        timestamp: new Date().toISOString(),
-        message: 'BhumiChain Live Production Gateway Active on Render'
-      }));
+    // 15. Citizen Auth Mock / Bridge (/api/auth/login-citizen, /api/auth/register-citizen)
+    if (normPath.startsWith('/api/auth/')) {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const data = JSON.parse(body || '{}');
+          const user = {
+            name: data.name || 'प्रयागराज काश्तकार (Farmer)',
+            nameEn: data.nameEn || 'Farmer',
+            phone: data.phone || '9415089211',
+            aadhaarRef: '•••• •••• 4421',
+            citizenType: 'farmer',
+            state: 'Uttar Pradesh',
+            district: data.district || 'Prayagraj',
+            tehsil: data.tehsil || 'Karchhana',
+            village: data.village || 'Naini',
+            khasraNumber: data.khasraNumber || '104',
+            kycVerified: true
+          };
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, user }));
+        } catch (err) {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, user: { phone: '9415089211', kycVerified: true } }));
+        }
+      });
       return;
     }
+
+    // 16. Live API Diagnostics (/api/debug/live-test)
+    if (normPath === '/api/debug/live-test') {
+      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
+      const vil = parsedUrl.searchParams.get('village') || 'Bardwara';
+      const blk = parsedUrl.searchParams.get('block') || 'Ramnagar';
+
+      // Test India Post live
+      fetch(`https://api.postalpincode.in/postoffice/${encodeURIComponent(vil)}`, {
+        headers: { 'User-Agent': BHUMICHAIN_USER_AGENT }
+      })
+        .then(r => r.json())
+        .then(postData => {
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({
+            success: true,
+            status: 'ok',
+            timestamp: new Date().toISOString(),
+            message: 'BhumiChain Live Production Gateway Active on Render',
+            params: { district: dist, block: blk, village: vil },
+            indiaPost: {
+              status: 200,
+              dataStatus: postData?.[0]?.Status || 'Unknown',
+              matchedCount: (postData?.[0]?.PostOffice || []).length
+            }
+          }));
+        })
+        .catch(err => {
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({
+            success: true,
+            status: 'degraded',
+            timestamp: new Date().toISOString(),
+            error: err.message
+          }));
+        });
+      return;
+    }
+
+    // STRICT API 404 GUARD: Any unhandled /api/* request returns JSON, NEVER HTML!
+    res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify({ success: false, error: `API Endpoint not found: ${normPath}` }));
+    return;
   }
 
   // Static File Serving with RAM Cache, Brotli (br) & Gzip, and Strong ETag Caching

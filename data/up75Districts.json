@@ -1,0 +1,8668 @@
+{
+  "Prayagraj": {
+    "nameHi": "प्रयागराज (Prayagraj)",
+    "division": "Prayagraj",
+    "center": [
+      25.4358,
+      81.8463
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1650,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "162001",
+            "nameEn": "Civil Lines",
+            "nameHi": "सिविल लाइंस",
+            "center": [
+              25.452,
+              81.835
+            ]
+          },
+          {
+            "code": "162002",
+            "nameEn": "Darbhanga Colony",
+            "nameHi": "दरभंगा कॉलोनी",
+            "center": [
+              25.456,
+              81.842
+            ]
+          },
+          {
+            "code": "162003",
+            "nameEn": "Jhusi",
+            "nameHi": "झूसी",
+            "center": [
+              25.431,
+              81.895
+            ]
+          },
+          {
+            "code": "162004",
+            "nameEn": "Phaphamau",
+            "nameHi": "फाफामऊ",
+            "center": [
+              25.502,
+              81.854
+            ]
+          },
+          {
+            "code": "162005",
+            "nameEn": "Govindpur",
+            "nameHi": "गोविंदपुर",
+            "center": [
+              25.472,
+              81.872
+            ]
+          }
+        ]
+      },
+      "Karchhana": {
+        "nameHi": "करछना",
+        "villages": [
+          {
+            "code": "162101",
+            "nameEn": "Naini",
+            "nameHi": "नैनी",
+            "center": [
+              25.4188,
+              81.8637
+            ]
+          },
+          {
+            "code": "162102",
+            "nameEn": "Dandi",
+            "nameHi": "डांडी",
+            "center": [
+              25.392,
+              81.881
+            ]
+          },
+          {
+            "code": "162103",
+            "nameEn": "Chak Imam Ali",
+            "nameHi": "चक इमाम अली",
+            "center": [
+              25.405,
+              81.875
+            ]
+          },
+          {
+            "code": "162104",
+            "nameEn": "Karchhana",
+            "nameHi": "करछना",
+            "center": [
+              25.285,
+              81.932
+            ]
+          },
+          {
+            "code": "162105",
+            "nameEn": "Bhirpur",
+            "nameHi": "भीरपुर",
+            "center": [
+              25.265,
+              81.982
+            ]
+          },
+          {
+            "code": "162104",
+            "nameEn": "Diha",
+            "nameHi": "डीहा",
+            "center": [
+              25.32,
+              81.9
+            ]
+          }
+        ]
+      },
+      "Phulpur": {
+        "nameHi": "फूलपुर",
+        "villages": [
+          {
+            "code": "162201",
+            "nameEn": "Phulpur",
+            "nameHi": "फूलपुर",
+            "center": [
+              25.552,
+              82.085
+            ]
+          },
+          {
+            "code": "162202",
+            "nameEn": "Sarai Inayat",
+            "nameHi": "सराय इनायत",
+            "center": [
+              25.465,
+              81.965
+            ]
+          },
+          {
+            "code": "162203",
+            "nameEn": "Sahson",
+            "nameHi": "सहसों",
+            "center": [
+              25.502,
+              81.995
+            ]
+          }
+        ]
+      },
+      "Soraon": {
+        "nameHi": "सोरांव",
+        "villages": [
+          {
+            "code": "162301",
+            "nameEn": "Soraon",
+            "nameHi": "सोरांव",
+            "center": [
+              25.582,
+              81.852
+            ]
+          },
+          {
+            "code": "162302",
+            "nameEn": "Holagarh",
+            "nameHi": "होलागढ़",
+            "center": [
+              25.645,
+              81.792
+            ]
+          }
+        ]
+      },
+      "Bara": {
+        "nameHi": "बारा",
+        "villages": [
+          {
+            "code": "162401",
+            "nameEn": "Jasra",
+            "nameHi": "जसरा",
+            "center": [
+              25.285,
+              81.765
+            ]
+          },
+          {
+            "code": "162402",
+            "nameEn": "Shankargarh",
+            "nameHi": "शंकरगढ़",
+            "center": [
+              25.185,
+              81.621
+            ]
+          }
+        ]
+      },
+      "Meja": {
+        "nameHi": "मेजा",
+        "villages": [
+          {
+            "code": "162501",
+            "nameEn": "Meja Khas",
+            "nameHi": "मेजा खास",
+            "center": [
+              25.145,
+              82.115
+            ]
+          },
+          {
+            "code": "162502",
+            "nameEn": "Sirsa",
+            "nameHi": "सिरसा",
+            "center": [
+              25.265,
+              82.085
+            ]
+          }
+        ]
+      },
+      "Handia": {
+        "nameHi": "हंडिया",
+        "villages": [
+          {
+            "code": "162601",
+            "nameEn": "Handia",
+            "nameHi": "हंडिया",
+            "center": [
+              25.365,
+              82.185
+            ]
+          },
+          {
+            "code": "162602",
+            "nameEn": "Saidabad",
+            "nameHi": "सैदाबाद",
+            "center": [
+              25.385,
+              82.085
+            ]
+          }
+        ]
+      },
+      "Koraon": {
+        "nameHi": "कोरांव",
+        "villages": [
+          {
+            "code": "162701",
+            "nameEn": "Koraon",
+            "nameHi": "कोरांव",
+            "center": [
+              24.985,
+              82.065
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Banda": {
+    "nameHi": "बांदा (Banda)",
+    "division": "Chitrakoot",
+    "center": [
+      25.4762,
+      80.3395
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "171001",
+            "nameEn": "Mawai",
+            "nameHi": "मवई",
+            "center": [
+              25.485,
+              80.345
+            ]
+          },
+          {
+            "code": "171002",
+            "nameEn": "Bhurendi",
+            "nameHi": "भूरेन्दी",
+            "center": [
+              25.462,
+              80.321
+            ]
+          },
+          {
+            "code": "171003",
+            "nameEn": "Chilla",
+            "nameHi": "चिल्ला",
+            "center": [
+              25.685,
+              80.415
+            ]
+          }
+        ]
+      },
+      "Naraini": {
+        "nameHi": "नरैनी",
+        "villages": [
+          {
+            "code": "171101",
+            "nameEn": "Naraini",
+            "nameHi": "नरैनी",
+            "center": [
+              25.195,
+              80.485
+            ]
+          },
+          {
+            "code": "171102",
+            "nameEn": "Atarra",
+            "nameHi": "अतर्रा",
+            "center": [
+              25.285,
+              80.565
+            ]
+          }
+        ]
+      },
+      "Baberu": {
+        "nameHi": "बबेरू",
+        "villages": [
+          {
+            "code": "171201",
+            "nameEn": "Baberu",
+            "nameHi": "बबेरू",
+            "center": [
+              25.552,
+              80.715
+            ]
+          }
+        ]
+      },
+      "Pailani": {
+        "nameHi": "पैलानी",
+        "villages": [
+          {
+            "code": "171301",
+            "nameEn": "Pailani",
+            "nameHi": "पैलानी",
+            "center": [
+              25.752,
+              80.452
+            ]
+          }
+        ]
+      },
+      "Atarra": {
+        "nameHi": "अतर्रा",
+        "villages": [
+          {
+            "code": "171401",
+            "nameEn": "Oran",
+            "nameHi": "ओरन",
+            "center": [
+              25.385,
+              80.745
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Chitrakoot": {
+    "nameHi": "चित्रकूट (Chitrakoot)",
+    "division": "Chitrakoot",
+    "center": [
+      25.1762,
+      80.8654
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1050,
+    "tehsils": {
+      "Karwi": {
+        "nameHi": "कर्वी",
+        "villages": [
+          {
+            "code": "172001",
+            "nameEn": "Sitapur",
+            "nameHi": "सीतापुर",
+            "center": [
+              25.185,
+              80.875
+            ]
+          },
+          {
+            "code": "172002",
+            "nameEn": "Kamtanath",
+            "nameHi": "कामतानाथ",
+            "center": [
+              25.192,
+              80.852
+            ]
+          }
+        ]
+      },
+      "Mau": {
+        "nameHi": "मऊ",
+        "villages": [
+          {
+            "code": "172101",
+            "nameEn": "Mau",
+            "nameHi": "मऊ",
+            "center": [
+              25.265,
+              81.385
+            ]
+          }
+        ]
+      },
+      "Manikpur": {
+        "nameHi": "मानिकपुर",
+        "villages": [
+          {
+            "code": "172201",
+            "nameEn": "Sarhat",
+            "nameHi": "सरहट",
+            "center": [
+              25.045,
+              81.115
+            ]
+          }
+        ]
+      },
+      "Rajapur": {
+        "nameHi": "राजापुर",
+        "villages": [
+          {
+            "code": "162201",
+            "nameEn": "Bardwara",
+            "nameHi": "बरद्वारा",
+            "center": [
+              25.247,
+              80.865
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162202",
+            "nameEn": "Rajapur",
+            "nameHi": "राजापुर",
+            "center": [
+              25.386,
+              81.149
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162203",
+            "nameEn": "Ramnagar",
+            "nameHi": "रामनगर",
+            "center": [
+              25.276,
+              81.144
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162204",
+            "nameEn": "Bhadedu",
+            "nameHi": "भदेदू",
+            "center": [
+              25.352,
+              81.121
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162205",
+            "nameEn": "Biharwan",
+            "nameHi": "बिहारवां",
+            "center": [
+              25.361,
+              81.135
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162206",
+            "nameEn": "Chillimal",
+            "nameHi": "चिल्लीमल",
+            "center": [
+              25.378,
+              81.162
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162207",
+            "nameEn": "Kalwalia",
+            "nameHi": "कलवलिया",
+            "center": [
+              25.345,
+              81.112
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162208",
+            "nameEn": "Karaundi Kalan",
+            "nameHi": "करौंदी कलां",
+            "center": [
+              25.332,
+              81.098
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162209",
+            "nameEn": "Khatwara",
+            "nameHi": "खटवारा",
+            "center": [
+              25.367,
+              81.155
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162210",
+            "nameEn": "Mamsi Buzurg",
+            "nameHi": "ममसी बुजुर्ग",
+            "center": [
+              25.358,
+              81.14
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162211",
+            "nameEn": "Nandin Kurmiyan",
+            "nameHi": "नंदिन कुर्मियान",
+            "center": [
+              25.321,
+              81.085
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162212",
+            "nameEn": "Sardhuwa",
+            "nameHi": "सरधुवा",
+            "center": [
+              25.391,
+              81.17
+            ],
+            "pincode": "210207"
+          },
+          {
+            "code": "162213",
+            "nameEn": "Barha Kotra",
+            "nameHi": "बरहा कोटरा",
+            "center": [
+              25.295,
+              81.165
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162214",
+            "nameEn": "Baria",
+            "nameHi": "बरिया",
+            "center": [
+              25.288,
+              81.152
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162215",
+            "nameEn": "Barua",
+            "nameHi": "बरुआ",
+            "center": [
+              25.272,
+              81.138
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162216",
+            "nameEn": "Biyawal",
+            "nameHi": "बियावल",
+            "center": [
+              25.265,
+              81.125
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162217",
+            "nameEn": "Chhibon",
+            "nameHi": "छिबों",
+            "center": [
+              25.312,
+              81.175
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162218",
+            "nameEn": "Hanna Vinaika",
+            "nameHi": "हन्ना विनैका",
+            "center": [
+              25.305,
+              81.182
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162219",
+            "nameEn": "Hatwa",
+            "nameHi": "हटवा",
+            "center": [
+              25.281,
+              81.149
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162220",
+            "nameEn": "Khandeho",
+            "nameHi": "खण्डेहो",
+            "center": [
+              25.258,
+              81.118
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162221",
+            "nameEn": "Khaptiha",
+            "nameHi": "खपतीहा",
+            "center": [
+              25.269,
+              81.132
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162222",
+            "nameEn": "Lauri",
+            "nameHi": "लौरी",
+            "center": [
+              25.298,
+              81.158
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162223",
+            "nameEn": "Mandaur",
+            "nameHi": "मंदौर",
+            "center": [
+              25.251,
+              81.105
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162224",
+            "nameEn": "Mauchhibu",
+            "nameHi": "मऊछीबू",
+            "center": [
+              25.325,
+              81.19
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162225",
+            "nameEn": "Nibi",
+            "nameHi": "नीबी",
+            "center": [
+              25.285,
+              81.141
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162226",
+            "nameEn": "Pardawan",
+            "nameHi": "परदवां",
+            "center": [
+              25.301,
+              81.168
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162227",
+            "nameEn": "Purab Patai",
+            "nameHi": "पूरब पतई",
+            "center": [
+              25.318,
+              81.185
+            ],
+            "pincode": "210209"
+          },
+          {
+            "code": "162228",
+            "nameEn": "Sirwawal",
+            "nameHi": "सिरवावल",
+            "center": [
+              25.26,
+              81.112
+            ],
+            "pincode": "210209"
+          }
+        ],
+        "center": [
+          25.276,
+          81.144
+        ]
+      }
+    }
+  },
+  "Lucknow": {
+    "nameHi": "लखनऊ (Lucknow)",
+    "division": "Lucknow",
+    "center": [
+      26.8467,
+      80.9462
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2800,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "141001",
+            "nameEn": "Hazratganj",
+            "nameHi": "हजरतगंज",
+            "center": [
+              26.852,
+              80.945
+            ]
+          },
+          {
+            "code": "141002",
+            "nameEn": "Gomti Nagar Vistar",
+            "nameHi": "गोमती नगर विस्तार",
+            "center": [
+              26.835,
+              81.015
+            ]
+          }
+        ]
+      },
+      "Mohanlalganj": {
+        "nameHi": "मोहनलालगंज",
+        "villages": [
+          {
+            "code": "141101",
+            "nameEn": "Sisendi",
+            "nameHi": "सिसेंडी",
+            "center": [
+              26.655,
+              80.915
+            ]
+          },
+          {
+            "code": "141102",
+            "nameEn": "Kalli Pashchim",
+            "nameHi": "कल्ली पश्चिम",
+            "center": [
+              26.745,
+              80.925
+            ]
+          }
+        ]
+      },
+      "Bakshi Ka Talab": {
+        "nameHi": "बख्शी का तालाब",
+        "villages": [
+          {
+            "code": "141201",
+            "nameEn": "Bargadi",
+            "nameHi": "बरगदी",
+            "center": [
+              26.985,
+              80.895
+            ]
+          }
+        ]
+      },
+      "Sarojini Nagar": {
+        "nameHi": "सरोजनी नगर",
+        "villages": [
+          {
+            "code": "141301",
+            "nameEn": "Amausi",
+            "nameHi": "अमौसी",
+            "center": [
+              26.765,
+              80.875
+            ]
+          }
+        ]
+      },
+      "Malihabad": {
+        "nameHi": "मलिहाबाद",
+        "villages": [
+          {
+            "code": "141401",
+            "nameEn": "Dashehari",
+            "nameHi": "दशहरी",
+            "center": [
+              26.925,
+              80.715
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Varanasi": {
+    "nameHi": "वाराणसी (Varanasi)",
+    "division": "Varanasi",
+    "center": [
+      25.3176,
+      82.9739
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2400,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "181001",
+            "nameEn": "Sarnath",
+            "nameHi": "सारनाथ",
+            "center": [
+              25.372,
+              83.025
+            ]
+          },
+          {
+            "code": "181002",
+            "nameEn": "Shivpur",
+            "nameHi": "शिवपुर",
+            "center": [
+              25.355,
+              82.965
+            ]
+          }
+        ]
+      },
+      "Pindra": {
+        "nameHi": "पिंडरा",
+        "villages": [
+          {
+            "code": "181101",
+            "nameEn": "Babatpur",
+            "nameHi": "बाबतपुर",
+            "center": [
+              25.445,
+              82.865
+            ]
+          },
+          {
+            "code": "181102",
+            "nameEn": "Phulpur Kashi",
+            "nameHi": "फूलपुर",
+            "center": [
+              25.485,
+              82.815
+            ]
+          }
+        ]
+      },
+      "Raja Talab": {
+        "nameHi": "राजा तालाब",
+        "villages": [
+          {
+            "code": "181201",
+            "nameEn": "Rohania",
+            "nameHi": "रोहनिया",
+            "center": [
+              25.265,
+              82.915
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Gautam Buddha Nagar": {
+    "nameHi": "गौतम बुद्ध नगर (Noida / Gr. Noida)",
+    "division": "Meerut",
+    "center": [
+      28.5355,
+      77.391
+    ],
+    "zoom": 13,
+    "baseCircleRate": 4200,
+    "tehsils": {
+      "Sadar (Noida)": {
+        "nameHi": "सदर (नोएडा)",
+        "villages": [
+          {
+            "code": "111001",
+            "nameEn": "Sector 150",
+            "nameHi": "सेक्टर 150",
+            "center": [
+              28.445,
+              77.475
+            ]
+          },
+          {
+            "code": "111002",
+            "nameEn": "Barola",
+            "nameHi": "बरौला",
+            "center": [
+              28.552,
+              77.375
+            ]
+          }
+        ]
+      },
+      "Dadri": {
+        "nameHi": "दादरी",
+        "villages": [
+          {
+            "code": "111101",
+            "nameEn": "Chhapraula",
+            "nameHi": "छपरौला",
+            "center": [
+              28.585,
+              77.485
+            ]
+          },
+          {
+            "code": "111102",
+            "nameEn": "Bhangel",
+            "nameHi": "भंगेल",
+            "center": [
+              28.535,
+              77.395
+            ]
+          }
+        ]
+      },
+      "Jewar": {
+        "nameHi": "जेवर",
+        "villages": [
+          {
+            "code": "111201",
+            "nameEn": "Rohi (Airport Zone)",
+            "nameHi": "रोही (एयरपोर्ट ज़ोन)",
+            "center": [
+              28.185,
+              77.585
+            ]
+          },
+          {
+            "code": "111202",
+            "nameEn": "Dayanatpur",
+            "nameHi": "दयानतपुर",
+            "center": [
+              28.165,
+              77.555
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Kanpur Nagar": {
+    "nameHi": "कानपुर नगर (Kanpur Nagar)",
+    "division": "Kanpur",
+    "center": [
+      26.4499,
+      80.3319
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2300,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "151001",
+            "nameEn": "Civil Lines",
+            "nameHi": "सिविल लाइंस",
+            "center": [
+              26.475,
+              80.355
+            ]
+          }
+        ]
+      },
+      "Kalyanpur": {
+        "nameHi": "कल्याणपुर",
+        "villages": [
+          {
+            "code": "151101",
+            "nameEn": "Bithoor",
+            "nameHi": "बिठूर",
+            "center": [
+              26.6123,
+              80.2753
+            ]
+          },
+          {
+            "code": "151102",
+            "nameEn": "Mandhana",
+            "nameHi": "मंधना",
+            "center": [
+              26.565,
+              80.215
+            ]
+          }
+        ]
+      },
+      "Ghatampur": {
+        "nameHi": "घाटमपुर",
+        "villages": [
+          {
+            "code": "151201",
+            "nameEn": "Patara",
+            "nameHi": "पतारा",
+            "center": [
+              26.245,
+              80.215
+            ]
+          }
+        ]
+      },
+      "Bilhaur": {
+        "nameHi": "बिल्हौर",
+        "villages": [
+          {
+            "code": "151301",
+            "nameEn": "Araul",
+            "nameHi": "अरौल",
+            "center": [
+              26.885,
+              80.015
+            ]
+          }
+        ]
+      },
+      "Narwal": {
+        "nameHi": "नरवल",
+        "villages": [
+          {
+            "code": "151401",
+            "nameEn": "Sarsaul",
+            "nameHi": "सरसौल",
+            "center": [
+              26.315,
+              80.485
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Gorakhpur": {
+    "nameHi": "गोरखपुर (Gorakhpur)",
+    "division": "Gorakhpur",
+    "center": [
+      26.7606,
+      83.3732
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1900,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "191001",
+            "nameEn": "Taramandal",
+            "nameHi": "तारामंडल",
+            "center": [
+              26.7453,
+              83.3923
+            ]
+          },
+          {
+            "code": "191002",
+            "nameEn": "Fertilizer City",
+            "nameHi": "फर्टिलाइजर",
+            "center": [
+              26.815,
+              83.355
+            ]
+          }
+        ]
+      },
+      "Sahjanwa": {
+        "nameHi": "सहजनवा",
+        "villages": [
+          {
+            "code": "191101",
+            "nameEn": "Bhiti Rawat",
+            "nameHi": "भीटी रावत",
+            "center": [
+              26.7723,
+              83.2453
+            ]
+          }
+        ]
+      },
+      "Chauri Chaura": {
+        "nameHi": "चौरी चौरा",
+        "villages": [
+          {
+            "code": "191201",
+            "nameEn": "Mundera Bazar",
+            "nameHi": "मुंडेरा बाजार",
+            "center": [
+              26.655,
+              83.585
+            ]
+          }
+        ]
+      },
+      "Bansgaon": {
+        "nameHi": "बांसगांव",
+        "villages": [
+          {
+            "code": "191301",
+            "nameEn": "Kauriram",
+            "nameHi": "कौड़ीराम",
+            "center": [
+              26.515,
+              83.415
+            ]
+          }
+        ]
+      },
+      "Campierganj": {
+        "nameHi": "कैम्पियरगंज",
+        "villages": [
+          {
+            "code": "191401",
+            "nameEn": "Peppeganj",
+            "nameHi": "पीपीगंज",
+            "center": [
+              26.945,
+              83.285
+            ]
+          }
+        ]
+      },
+      "Gola": {
+        "nameHi": "गोला",
+        "villages": [
+          {
+            "code": "191501",
+            "nameEn": "Barhalganj",
+            "nameHi": "बड़हलगंज",
+            "center": [
+              26.285,
+              83.515
+            ]
+          }
+        ]
+      },
+      "Khajni": {
+        "nameHi": "खजनी",
+        "villages": [
+          {
+            "code": "191601",
+            "nameEn": "Sikriganj",
+            "nameHi": "सिकरीगंज",
+            "center": [
+              26.585,
+              83.215
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Ayodhya": {
+    "nameHi": "अयोध्या (Ayodhya)",
+    "division": "Ayodhya",
+    "center": [
+      26.7922,
+      82.1998
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2500,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "131001",
+            "nameEn": "Ramkot",
+            "nameHi": "रामकोट",
+            "center": [
+              26.7983,
+              82.2021
+            ]
+          },
+          {
+            "code": "131002",
+            "nameEn": "Manjha Jamthara",
+            "nameHi": "मांझा जमथरा",
+            "center": [
+              26.812,
+              82.245
+            ]
+          }
+        ]
+      },
+      "Rudauli": {
+        "nameHi": "रुदौली",
+        "villages": [
+          {
+            "code": "131101",
+            "nameEn": "Bhelsar",
+            "nameHi": "भेलसर",
+            "center": [
+              26.765,
+              81.745
+            ]
+          }
+        ]
+      },
+      "Bikapur": {
+        "nameHi": "बीकापुर",
+        "villages": [
+          {
+            "code": "131201",
+            "nameEn": "Chaure Bazar",
+            "nameHi": "चौरे बाजार",
+            "center": [
+              26.545,
+              82.115
+            ]
+          }
+        ]
+      },
+      "Sohawal": {
+        "nameHi": "सोहावल",
+        "villages": [
+          {
+            "code": "131301",
+            "nameEn": "Raunahi",
+            "nameHi": "रौनाही",
+            "center": [
+              26.775,
+              82.015
+            ]
+          }
+        ]
+      },
+      "Milkipur": {
+        "nameHi": "मिल्कीपुर",
+        "villages": [
+          {
+            "code": "131401",
+            "nameEn": "Inayat Nagar",
+            "nameHi": "इनायत नगर",
+            "center": [
+              26.6753,
+              82.0253
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Agra": {
+    "nameHi": "आगरा (Agra)",
+    "division": "Agra",
+    "center": [
+      27.1767,
+      78.0081
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "101001",
+            "nameEn": "Tajganj",
+            "nameHi": "ताजगंज",
+            "center": [
+              27.165,
+              78.045
+            ]
+          }
+        ]
+      },
+      "Etmadpur": {
+        "nameHi": "एत्मादपुर",
+        "villages": [
+          {
+            "code": "101101",
+            "nameEn": "Kuberpur",
+            "nameHi": "कुबेरपुर",
+            "center": [
+              27.225,
+              78.115
+            ]
+          }
+        ]
+      },
+      "Fatehabad": {
+        "nameHi": "फतेहाबाद",
+        "villages": [
+          {
+            "code": "101201",
+            "nameEn": "Dhaulpur Road",
+            "nameHi": "धौलपुर रोड",
+            "center": [
+              27.025,
+              78.315
+            ]
+          }
+        ]
+      },
+      "Kheragarh": {
+        "nameHi": "खेरागढ़",
+        "villages": [
+          {
+            "code": "101301",
+            "nameEn": "Saiyan",
+            "nameHi": "सैयां",
+            "center": [
+              26.945,
+              77.945
+            ]
+          }
+        ]
+      },
+      "Bah": {
+        "nameHi": "बाह",
+        "villages": [
+          {
+            "code": "101401",
+            "nameEn": "Pinahat",
+            "nameHi": "पिनाहट",
+            "center": [
+              26.885,
+              78.615
+            ]
+          }
+        ]
+      },
+      "Kiraoli": {
+        "nameHi": "किरावली",
+        "villages": [
+          {
+            "code": "101501",
+            "nameEn": "Fatehpur Sikri",
+            "nameHi": "फतेहपुर सीकरी",
+            "center": [
+              27.095,
+              77.665
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Meerut": {
+    "nameHi": "मेरठ (Meerut)",
+    "division": "Meerut",
+    "center": [
+      28.9845,
+      77.7064
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2600,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "112001",
+            "nameEn": "Partapur",
+            "nameHi": "परतापुर",
+            "center": [
+              28.925,
+              77.665
+            ]
+          }
+        ]
+      },
+      "Mawana": {
+        "nameHi": "मवाना",
+        "villages": [
+          {
+            "code": "112101",
+            "nameEn": "Hastinapur",
+            "nameHi": "हस्तिनापुर",
+            "center": [
+              29.165,
+              78.015
+            ]
+          }
+        ]
+      },
+      "Sardhana": {
+        "nameHi": "सरधना",
+        "villages": [
+          {
+            "code": "112201",
+            "nameEn": "Daurala",
+            "nameHi": "दौराला",
+            "center": [
+              29.115,
+              77.715
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Ghaziabad": {
+    "nameHi": "गाजियाबाद (Ghaziabad)",
+    "division": "Meerut",
+    "center": [
+      28.6692,
+      77.4538
+    ],
+    "zoom": 13,
+    "baseCircleRate": 3600,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "113001",
+            "nameEn": "Indirapuram",
+            "nameHi": "इंदिरापुरम",
+            "center": [
+              28.645,
+              77.365
+            ]
+          },
+          {
+            "code": "113002",
+            "nameEn": "Vaishali",
+            "nameHi": "वैशाली",
+            "center": [
+              28.652,
+              77.345
+            ]
+          }
+        ]
+      },
+      "Modinagar": {
+        "nameHi": "मोदीनगर",
+        "villages": [
+          {
+            "code": "113101",
+            "nameEn": "Muradnagar",
+            "nameHi": "मुरादनगर",
+            "center": [
+              28.775,
+              77.515
+            ]
+          }
+        ]
+      },
+      "Loni": {
+        "nameHi": "लोनी",
+        "villages": [
+          {
+            "code": "113201",
+            "nameEn": "Tronica City",
+            "nameHi": "ट्रोनिका सिटी",
+            "center": [
+              28.765,
+              77.265
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Jhansi": {
+    "nameHi": "झांसी (Jhansi)",
+    "division": "Jhansi",
+    "center": [
+      25.4484,
+      78.5685
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1500,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "173001",
+            "nameEn": "Bijauli",
+            "nameHi": "बिजौली",
+            "center": [
+              25.395,
+              78.585
+            ]
+          }
+        ]
+      },
+      "Moth": {
+        "nameHi": "मोंठ",
+        "villages": [
+          {
+            "code": "173101",
+            "nameEn": "Chirgaon",
+            "nameHi": "चिरगांव",
+            "center": [
+              25.575,
+              78.825
+            ]
+          }
+        ]
+      },
+      "Mauranipur": {
+        "nameHi": "मऊरानीपुर",
+        "villages": [
+          {
+            "code": "173201",
+            "nameEn": "Ranipur",
+            "nameHi": "रानीपुर",
+            "center": [
+              25.245,
+              79.135
+            ]
+          }
+        ]
+      },
+      "Garautha": {
+        "nameHi": "गरौठा",
+        "villages": [
+          {
+            "code": "173301",
+            "nameEn": "Gursarai",
+            "nameHi": "गुरसराय",
+            "center": [
+              25.615,
+              79.185
+            ]
+          }
+        ]
+      },
+      "Tahrauli": {
+        "nameHi": "टहरौली",
+        "villages": [
+          {
+            "code": "173401",
+            "nameEn": "Tahrauli",
+            "nameHi": "टहरौली",
+            "center": [
+              25.415,
+              79.015
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Mathura": {
+    "nameHi": "मथुरा (Mathura)",
+    "division": "Agra",
+    "center": [
+      27.4924,
+      77.6737
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2100,
+    "tehsils": {
+      "Mathura": {
+        "nameHi": "मथुरा",
+        "villages": [
+          {
+            "code": "102001",
+            "nameEn": "Vrindavan",
+            "nameHi": "वृंदावन",
+            "center": [
+              27.585,
+              77.695
+            ]
+          }
+        ]
+      },
+      "Goverdhan": {
+        "nameHi": "गोवर्धन",
+        "villages": [
+          {
+            "code": "102101",
+            "nameEn": "Radhakund",
+            "nameHi": "राधाकुंड",
+            "center": [
+              27.525,
+              77.495
+            ]
+          }
+        ]
+      },
+      "Chhata": {
+        "nameHi": "छाता",
+        "villages": [
+          {
+            "code": "102201",
+            "nameEn": "Barsana",
+            "nameHi": "बरसाना",
+            "center": [
+              27.645,
+              77.375
+            ]
+          }
+        ]
+      },
+      "Mant": {
+        "nameHi": "मांट",
+        "villages": [
+          {
+            "code": "102301",
+            "nameEn": "Bajna",
+            "nameHi": "बाजना",
+            "center": [
+              27.765,
+              77.685
+            ]
+          }
+        ]
+      },
+      "Mahavan": {
+        "nameHi": "महावन",
+        "villages": [
+          {
+            "code": "102401",
+            "nameEn": "Gokul",
+            "nameHi": "गोकुल",
+            "center": [
+              27.445,
+              77.725
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Aligarh": {
+    "nameHi": "अलीगढ़ (Aligarh)",
+    "division": "Aligarh",
+    "center": [
+      27.8974,
+      78.088
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1950,
+    "tehsils": {
+      "Koil (Sadar)": {
+        "nameHi": "कोल (सदर)",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Tala Nagari",
+            "nameHi": "ताला नगरी",
+            "center": [
+              27.915,
+              78.115
+            ]
+          }
+        ]
+      },
+      "Khair": {
+        "nameHi": "खैर",
+        "villages": [
+          {
+            "code": "103101",
+            "nameEn": "Tappal",
+            "nameHi": "टप्पल",
+            "center": [
+              28.025,
+              77.615
+            ]
+          }
+        ]
+      },
+      "Atrauli": {
+        "nameHi": "अतरौली",
+        "villages": [
+          {
+            "code": "103201",
+            "nameEn": "Chharra",
+            "nameHi": "छर्रा",
+            "center": [
+              28.035,
+              78.435
+            ]
+          }
+        ]
+      },
+      "Iglas": {
+        "nameHi": "इगलास",
+        "villages": [
+          {
+            "code": "103301",
+            "nameEn": "Beswan",
+            "nameHi": "बेसवां",
+            "center": [
+              27.725,
+              77.945
+            ]
+          }
+        ]
+      },
+      "Gabhana": {
+        "nameHi": "गभाना",
+        "villages": [
+          {
+            "code": "103401",
+            "nameEn": "Somna",
+            "nameHi": "सोमना",
+            "center": [
+              28.045,
+              77.925
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Bareilly": {
+    "nameHi": "बरेली (Bareilly)",
+    "division": "Bareilly",
+    "center": [
+      28.367,
+      79.4304
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1850,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "121001",
+            "nameEn": "CB Ganj",
+            "nameHi": "सी.बी. गंज",
+            "center": [
+              28.405,
+              79.355
+            ]
+          }
+        ]
+      },
+      "Aonla": {
+        "nameHi": "आंवला",
+        "villages": [
+          {
+            "code": "121101",
+            "nameEn": "Bhamora",
+            "nameHi": "भमोरा",
+            "center": [
+              28.285,
+              79.215
+            ]
+          }
+        ]
+      },
+      "Faridpur": {
+        "nameHi": "फरीदपुर",
+        "villages": [
+          {
+            "code": "121201",
+            "nameEn": "Fatehganj East",
+            "nameHi": "फतेहगंज पूर्वी",
+            "center": [
+              28.215,
+              79.545
+            ]
+          }
+        ]
+      },
+      "Baheri": {
+        "nameHi": "बहेड़ी",
+        "villages": [
+          {
+            "code": "121301",
+            "nameEn": "Deorania",
+            "nameHi": "देवरनिया",
+            "center": [
+              28.785,
+              79.515
+            ]
+          }
+        ]
+      },
+      "Nawabganj": {
+        "nameHi": "नवाबगंज",
+        "villages": [
+          {
+            "code": "121401",
+            "nameEn": "Senthal",
+            "nameHi": "सेंथल",
+            "center": [
+              28.545,
+              79.625
+            ]
+          }
+        ]
+      },
+      "Meerganj": {
+        "nameHi": "मीरगंज",
+        "villages": [
+          {
+            "code": "121501",
+            "nameEn": "Shahi",
+            "nameHi": "शाही",
+            "center": [
+              28.545,
+              79.285
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Moradabad": {
+    "nameHi": "मुरादाबाद (Moradabad)",
+    "division": "Moradabad",
+    "center": [
+      28.8386,
+      78.7733
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1900,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "122001",
+            "nameEn": "Pakbara",
+            "nameHi": "पाकबाड़ा",
+            "center": [
+              28.845,
+              78.705
+            ]
+          }
+        ]
+      },
+      "Kanth": {
+        "nameHi": "कांठ",
+        "villages": [
+          {
+            "code": "122101",
+            "nameEn": "Umri Kalan",
+            "nameHi": "उमरी कलां",
+            "center": [
+              29.065,
+              78.615
+            ]
+          }
+        ]
+      },
+      "Bilari": {
+        "nameHi": "बिलारी",
+        "villages": [
+          {
+            "code": "122201",
+            "nameEn": "Kundarki",
+            "nameHi": "कुंदरकी",
+            "center": [
+              28.625,
+              78.785
+            ]
+          }
+        ]
+      },
+      "Thakurdwara": {
+        "nameHi": "ठाकुरद्वारा",
+        "villages": [
+          {
+            "code": "122301",
+            "nameEn": "Dilari",
+            "nameHi": "डिलारी",
+            "center": [
+              29.185,
+              78.865
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Saharanpur": {
+    "nameHi": "सहारनपुर (Saharanpur)",
+    "division": "Saharanpur",
+    "center": [
+      29.9679,
+      77.5451
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1850,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "सदर",
+        "villages": [
+          {
+            "code": "114001",
+            "nameEn": "Chilkana",
+            "nameHi": "चिलकाना",
+            "center": [
+              30.075,
+              77.485
+            ]
+          }
+        ]
+      },
+      "Deoband": {
+        "nameHi": "देवबंद",
+        "villages": [
+          {
+            "code": "114101",
+            "nameEn": "Rohana",
+            "nameHi": "रोहाना",
+            "center": [
+              29.695,
+              77.685
+            ]
+          }
+        ]
+      },
+      "Nakur": {
+        "nameHi": "नकुड़",
+        "villages": [
+          {
+            "code": "114201",
+            "nameEn": "Sarsawa",
+            "nameHi": "सरसावा",
+            "center": [
+              29.895,
+              77.315
+            ]
+          }
+        ]
+      },
+      "Behat": {
+        "nameHi": "बेहट",
+        "villages": [
+          {
+            "code": "114301",
+            "nameEn": "Shakumbhari Devi",
+            "nameHi": "शाकुम्भरी देवी",
+            "center": [
+              30.225,
+              77.595
+            ]
+          }
+        ]
+      },
+      "Rampur Maniharan": {
+        "nameHi": "रामपुर मनिहारान",
+        "villages": [
+          {
+            "code": "114401",
+            "nameEn": "Nanauta",
+            "nameHi": "नानौता",
+            "center": [
+              29.815,
+              77.425
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Firozabad": {
+    "nameHi": "फिरोजाबाद (Firozabad)",
+    "division": "Agra",
+    "center": [
+      27.1597,
+      78.3957
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1400,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.169700000000002,
+              78.40570000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.1497,
+              78.3857
+            ]
+          }
+        ]
+      },
+      "Shikohabad": {
+        "nameHi": "Shikohabad",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Shikohabad",
+            "nameHi": "Shikohabad",
+            "center": [
+              27.1797,
+              78.4157
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Shikohabad Dehat",
+            "nameHi": "Shikohabad देहात",
+            "center": [
+              27.1397,
+              78.37570000000001
+            ]
+          }
+        ]
+      },
+      "Jasrana": {
+        "nameHi": "Jasrana",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Jasrana",
+            "nameHi": "Jasrana",
+            "center": [
+              27.189700000000002,
+              78.4257
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Jasrana Dehat",
+            "nameHi": "Jasrana देहात",
+            "center": [
+              27.1297,
+              78.3657
+            ]
+          }
+        ]
+      },
+      "Tundla": {
+        "nameHi": "Tundla",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Tundla",
+            "nameHi": "Tundla",
+            "center": [
+              27.1997,
+              78.43570000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Tundla Dehat",
+            "nameHi": "Tundla देहात",
+            "center": [
+              27.1197,
+              78.3557
+            ]
+          }
+        ]
+      },
+      "Sirsaganj": {
+        "nameHi": "Sirsaganj",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Sirsaganj",
+            "nameHi": "Sirsaganj",
+            "center": [
+              27.2097,
+              78.4457
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Sirsaganj Dehat",
+            "nameHi": "Sirsaganj देहात",
+            "center": [
+              27.1097,
+              78.34570000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Mainpuri": {
+    "nameHi": "मैनपुरी (Mainpuri)",
+    "division": "Agra",
+    "center": [
+      27.2343,
+      79.028
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.244300000000003,
+              79.03800000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.2243,
+              79.018
+            ]
+          }
+        ]
+      },
+      "Bhongaon": {
+        "nameHi": "Bhongaon",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bhongaon",
+            "nameHi": "Bhongaon",
+            "center": [
+              27.2543,
+              79.048
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bhongaon Dehat",
+            "nameHi": "Bhongaon देहात",
+            "center": [
+              27.2143,
+              79.00800000000001
+            ]
+          }
+        ]
+      },
+      "Karhal": {
+        "nameHi": "Karhal",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Karhal",
+            "nameHi": "Karhal",
+            "center": [
+              27.264300000000002,
+              79.058
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Karhal Dehat",
+            "nameHi": "Karhal देहात",
+            "center": [
+              27.2043,
+              78.998
+            ]
+          }
+        ]
+      },
+      "Kishni": {
+        "nameHi": "Kishni",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Kishni",
+            "nameHi": "Kishni",
+            "center": [
+              27.2743,
+              79.06800000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Kishni Dehat",
+            "nameHi": "Kishni देहात",
+            "center": [
+              27.194300000000002,
+              78.988
+            ]
+          }
+        ]
+      },
+      "Kuraoli": {
+        "nameHi": "Kuraoli",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Kuraoli",
+            "nameHi": "Kuraoli",
+            "center": [
+              27.2843,
+              79.078
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Kuraoli Dehat",
+            "nameHi": "Kuraoli देहात",
+            "center": [
+              27.1843,
+              78.97800000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Etah": {
+    "nameHi": "एटा (Etah)",
+    "division": "Aligarh",
+    "center": [
+      27.5583,
+      78.665
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.5683,
+              78.67500000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.548299999999998,
+              78.655
+            ]
+          }
+        ]
+      },
+      "Aliganj": {
+        "nameHi": "Aliganj",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Aliganj",
+            "nameHi": "Aliganj",
+            "center": [
+              27.5783,
+              78.685
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Aliganj Dehat",
+            "nameHi": "Aliganj देहात",
+            "center": [
+              27.5383,
+              78.64500000000001
+            ]
+          }
+        ]
+      },
+      "Jalesar": {
+        "nameHi": "Jalesar",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Jalesar",
+            "nameHi": "Jalesar",
+            "center": [
+              27.5883,
+              78.69500000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Jalesar Dehat",
+            "nameHi": "Jalesar देहात",
+            "center": [
+              27.528299999999998,
+              78.635
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Hathras": {
+    "nameHi": "हाथरस (Hathras)",
+    "division": "Aligarh",
+    "center": [
+      27.5983,
+      78.0519
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1350,
+    "tehsils": {
+      "Hathras": {
+        "nameHi": "Hathras",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Hathras",
+            "nameHi": "Hathras",
+            "center": [
+              27.6083,
+              78.06190000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Hathras Dehat",
+            "nameHi": "Hathras देहात",
+            "center": [
+              27.588299999999997,
+              78.0419
+            ]
+          }
+        ]
+      },
+      "Sadabad": {
+        "nameHi": "Sadabad",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Sadabad",
+            "nameHi": "Sadabad",
+            "center": [
+              27.618299999999998,
+              78.0719
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Sadabad Dehat",
+            "nameHi": "Sadabad देहात",
+            "center": [
+              27.5783,
+              78.03190000000001
+            ]
+          }
+        ]
+      },
+      "Sasni": {
+        "nameHi": "Sasni",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Sasni",
+            "nameHi": "Sasni",
+            "center": [
+              27.6283,
+              78.0819
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Sasni Dehat",
+            "nameHi": "Sasni देहात",
+            "center": [
+              27.568299999999997,
+              78.0219
+            ]
+          }
+        ]
+      },
+      "Sikandra Rao": {
+        "nameHi": "Sikandra Rao",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Sikandra Rao",
+            "nameHi": "Sikandra Rao",
+            "center": [
+              27.638299999999997,
+              78.09190000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Sikandra Rao Dehat",
+            "nameHi": "Sikandra Rao देहात",
+            "center": [
+              27.5583,
+              78.0119
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Kasganj": {
+    "nameHi": "कासगंज (Kasganj)",
+    "division": "Aligarh",
+    "center": [
+      27.808,
+      78.6483
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Kasganj": {
+        "nameHi": "Kasganj",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Kasganj",
+            "nameHi": "Kasganj",
+            "center": [
+              27.818,
+              78.65830000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Kasganj Dehat",
+            "nameHi": "Kasganj देहात",
+            "center": [
+              27.798,
+              78.6383
+            ]
+          }
+        ]
+      },
+      "Patiyali": {
+        "nameHi": "Patiyali",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Patiyali",
+            "nameHi": "Patiyali",
+            "center": [
+              27.828,
+              78.6683
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Patiyali Dehat",
+            "nameHi": "Patiyali देहात",
+            "center": [
+              27.788,
+              78.62830000000001
+            ]
+          }
+        ]
+      },
+      "Sahawar": {
+        "nameHi": "Sahawar",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Sahawar",
+            "nameHi": "Sahawar",
+            "center": [
+              27.838,
+              78.67830000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Sahawar Dehat",
+            "nameHi": "Sahawar देहात",
+            "center": [
+              27.778,
+              78.6183
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Fatehpur": {
+    "nameHi": "फतेहपुर (Fatehpur)",
+    "division": "Prayagraj",
+    "center": [
+      25.9286,
+      80.813
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.9386,
+              80.82300000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.918599999999998,
+              80.803
+            ]
+          }
+        ]
+      },
+      "Bindki": {
+        "nameHi": "Bindki",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bindki",
+            "nameHi": "Bindki",
+            "center": [
+              25.9486,
+              80.833
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bindki Dehat",
+            "nameHi": "Bindki देहात",
+            "center": [
+              25.9086,
+              80.793
+            ]
+          }
+        ]
+      },
+      "Khaga": {
+        "nameHi": "Khaga",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Khaga",
+            "nameHi": "Khaga",
+            "center": [
+              25.9586,
+              80.843
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Khaga Dehat",
+            "nameHi": "Khaga देहात",
+            "center": [
+              25.8986,
+              80.783
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Kaushambi": {
+    "nameHi": "कौशाम्बी (Kaushambi)",
+    "division": "Prayagraj",
+    "center": [
+      25.5342,
+      81.4019
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Manjhanpur": {
+        "nameHi": "Manjhanpur",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Manjhanpur",
+            "nameHi": "Manjhanpur",
+            "center": [
+              25.5442,
+              81.4119
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Manjhanpur Dehat",
+            "nameHi": "Manjhanpur देहात",
+            "center": [
+              25.524199999999997,
+              81.39189999999999
+            ]
+          }
+        ]
+      },
+      "Chail": {
+        "nameHi": "Chail",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Chail",
+            "nameHi": "Chail",
+            "center": [
+              25.554199999999998,
+              81.4219
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Chail Dehat",
+            "nameHi": "Chail देहात",
+            "center": [
+              25.5142,
+              81.3819
+            ]
+          }
+        ]
+      },
+      "Sirathu": {
+        "nameHi": "Sirathu",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Sirathu",
+            "nameHi": "Sirathu",
+            "center": [
+              25.5642,
+              81.4319
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Sirathu Dehat",
+            "nameHi": "Sirathu देहात",
+            "center": [
+              25.504199999999997,
+              81.3719
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Pratapgarh": {
+    "nameHi": "प्रतापगढ़ (Pratapgarh)",
+    "division": "Prayagraj",
+    "center": [
+      25.8974,
+      81.9474
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.907400000000003,
+              81.9574
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.8874,
+              81.9374
+            ]
+          }
+        ]
+      },
+      "Kunda": {
+        "nameHi": "Kunda",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Kunda",
+            "nameHi": "Kunda",
+            "center": [
+              25.9174,
+              81.9674
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Kunda Dehat",
+            "nameHi": "Kunda देहात",
+            "center": [
+              25.8774,
+              81.9274
+            ]
+          }
+        ]
+      },
+      "Patti": {
+        "nameHi": "Patti",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Patti",
+            "nameHi": "Patti",
+            "center": [
+              25.927400000000002,
+              81.9774
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Patti Dehat",
+            "nameHi": "Patti देहात",
+            "center": [
+              25.8674,
+              81.9174
+            ]
+          }
+        ]
+      },
+      "Lalganj": {
+        "nameHi": "Lalganj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Lalganj",
+            "nameHi": "Lalganj",
+            "center": [
+              25.9374,
+              81.98740000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Lalganj Dehat",
+            "nameHi": "Lalganj देहात",
+            "center": [
+              25.857400000000002,
+              81.9074
+            ]
+          }
+        ]
+      },
+      "Raniganj": {
+        "nameHi": "Raniganj",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Raniganj",
+            "nameHi": "Raniganj",
+            "center": [
+              25.947400000000002,
+              81.9974
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Raniganj Dehat",
+            "nameHi": "Raniganj देहात",
+            "center": [
+              25.8474,
+              81.8974
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Azamgarh": {
+    "nameHi": "आजमगढ़ (Azamgarh)",
+    "division": "Azamgarh",
+    "center": [
+      26.0688,
+      83.184
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1300,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.0788,
+              83.194
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.058799999999998,
+              83.17399999999999
+            ]
+          }
+        ]
+      },
+      "Sagri": {
+        "nameHi": "Sagri",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Sagri",
+            "nameHi": "Sagri",
+            "center": [
+              26.0888,
+              83.204
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Sagri Dehat",
+            "nameHi": "Sagri देहात",
+            "center": [
+              26.0488,
+              83.164
+            ]
+          }
+        ]
+      },
+      "Phulpur": {
+        "nameHi": "Phulpur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Phulpur",
+            "nameHi": "Phulpur",
+            "center": [
+              26.0988,
+              83.214
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Phulpur Dehat",
+            "nameHi": "Phulpur देहात",
+            "center": [
+              26.0388,
+              83.154
+            ]
+          }
+        ]
+      },
+      "Lalganj": {
+        "nameHi": "Lalganj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Lalganj",
+            "nameHi": "Lalganj",
+            "center": [
+              26.1088,
+              83.224
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Lalganj Dehat",
+            "nameHi": "Lalganj देहात",
+            "center": [
+              26.0288,
+              83.14399999999999
+            ]
+          }
+        ]
+      },
+      "Mehnagar": {
+        "nameHi": "Mehnagar",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Mehnagar",
+            "nameHi": "Mehnagar",
+            "center": [
+              26.1188,
+              83.234
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Mehnagar Dehat",
+            "nameHi": "Mehnagar देहात",
+            "center": [
+              26.0188,
+              83.134
+            ]
+          }
+        ]
+      },
+      "Burhanpur": {
+        "nameHi": "Burhanpur",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Burhanpur",
+            "nameHi": "Burhanpur",
+            "center": [
+              26.1288,
+              83.244
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Burhanpur Dehat",
+            "nameHi": "Burhanpur देहात",
+            "center": [
+              26.0088,
+              83.124
+            ]
+          }
+        ]
+      },
+      "Nizamabad": {
+        "nameHi": "Nizamabad",
+        "villages": [
+          {
+            "code": "109001",
+            "nameEn": "Nizamabad",
+            "nameHi": "Nizamabad",
+            "center": [
+              26.1388,
+              83.25399999999999
+            ]
+          },
+          {
+            "code": "109002",
+            "nameEn": "Nizamabad Dehat",
+            "nameHi": "Nizamabad देहात",
+            "center": [
+              25.9988,
+              83.114
+            ]
+          }
+        ]
+      },
+      "Martinganj": {
+        "nameHi": "Martinganj",
+        "villages": [
+          {
+            "code": "110001",
+            "nameEn": "Martinganj",
+            "nameHi": "Martinganj",
+            "center": [
+              26.148799999999998,
+              83.264
+            ]
+          },
+          {
+            "code": "110002",
+            "nameEn": "Martinganj Dehat",
+            "nameHi": "Martinganj देहात",
+            "center": [
+              25.9888,
+              83.104
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Ballia": {
+    "nameHi": "बलिया (Ballia)",
+    "division": "Azamgarh",
+    "center": [
+      25.76,
+      84.15
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.770000000000003,
+              84.16000000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.75,
+              84.14
+            ]
+          }
+        ]
+      },
+      "Bansdih": {
+        "nameHi": "Bansdih",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bansdih",
+            "nameHi": "Bansdih",
+            "center": [
+              25.78,
+              84.17
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bansdih Dehat",
+            "nameHi": "Bansdih देहात",
+            "center": [
+              25.740000000000002,
+              84.13000000000001
+            ]
+          }
+        ]
+      },
+      "Rasra": {
+        "nameHi": "Rasra",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Rasra",
+            "nameHi": "Rasra",
+            "center": [
+              25.790000000000003,
+              84.18
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Rasra Dehat",
+            "nameHi": "Rasra देहात",
+            "center": [
+              25.73,
+              84.12
+            ]
+          }
+        ]
+      },
+      "Bairia": {
+        "nameHi": "Bairia",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Bairia",
+            "nameHi": "Bairia",
+            "center": [
+              25.8,
+              84.19000000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Bairia Dehat",
+            "nameHi": "Bairia देहात",
+            "center": [
+              25.720000000000002,
+              84.11
+            ]
+          }
+        ]
+      },
+      "Sikanderpur": {
+        "nameHi": "Sikanderpur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Sikanderpur",
+            "nameHi": "Sikanderpur",
+            "center": [
+              25.810000000000002,
+              84.2
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Sikanderpur Dehat",
+            "nameHi": "Sikanderpur देहात",
+            "center": [
+              25.71,
+              84.10000000000001
+            ]
+          }
+        ]
+      },
+      "Belthara Road": {
+        "nameHi": "Belthara Road",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Belthara Road",
+            "nameHi": "Belthara Road",
+            "center": [
+              25.82,
+              84.21000000000001
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Belthara Road Dehat",
+            "nameHi": "Belthara Road देहात",
+            "center": [
+              25.700000000000003,
+              84.09
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Mau": {
+    "nameHi": "मऊ (Mau)",
+    "division": "Azamgarh",
+    "center": [
+      25.9417,
+      83.5611
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.951700000000002,
+              83.5711
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.9317,
+              83.55109999999999
+            ]
+          }
+        ]
+      },
+      "Muhammadabad Gohna": {
+        "nameHi": "Muhammadabad Gohna",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Muhammadabad Gohna",
+            "nameHi": "Muhammadabad Gohna",
+            "center": [
+              25.9617,
+              83.58109999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Muhammadabad Gohna Dehat",
+            "nameHi": "Muhammadabad Gohna देहात",
+            "center": [
+              25.9217,
+              83.5411
+            ]
+          }
+        ]
+      },
+      "Ghosi": {
+        "nameHi": "Ghosi",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Ghosi",
+            "nameHi": "Ghosi",
+            "center": [
+              25.971700000000002,
+              83.5911
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Ghosi Dehat",
+            "nameHi": "Ghosi देहात",
+            "center": [
+              25.9117,
+              83.5311
+            ]
+          }
+        ]
+      },
+      "Madhuban": {
+        "nameHi": "Madhuban",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Madhuban",
+            "nameHi": "Madhuban",
+            "center": [
+              25.9817,
+              83.6011
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Madhuban Dehat",
+            "nameHi": "Madhuban देहात",
+            "center": [
+              25.9017,
+              83.52109999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Badaun": {
+    "nameHi": "बदायूं (Badaun)",
+    "division": "Bareilly",
+    "center": [
+      28.0336,
+      79.1278
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              28.0436,
+              79.1378
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              28.0236,
+              79.11779999999999
+            ]
+          }
+        ]
+      },
+      "Bisauli": {
+        "nameHi": "Bisauli",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bisauli",
+            "nameHi": "Bisauli",
+            "center": [
+              28.0536,
+              79.14779999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bisauli Dehat",
+            "nameHi": "Bisauli देहात",
+            "center": [
+              28.0136,
+              79.1078
+            ]
+          }
+        ]
+      },
+      "Bilsi": {
+        "nameHi": "Bilsi",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Bilsi",
+            "nameHi": "Bilsi",
+            "center": [
+              28.0636,
+              79.1578
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Bilsi Dehat",
+            "nameHi": "Bilsi देहात",
+            "center": [
+              28.0036,
+              79.09779999999999
+            ]
+          }
+        ]
+      },
+      "Dataganj": {
+        "nameHi": "Dataganj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Dataganj",
+            "nameHi": "Dataganj",
+            "center": [
+              28.0736,
+              79.1678
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Dataganj Dehat",
+            "nameHi": "Dataganj देहात",
+            "center": [
+              27.9936,
+              79.08779999999999
+            ]
+          }
+        ]
+      },
+      "Sahaswan": {
+        "nameHi": "Sahaswan",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Sahaswan",
+            "nameHi": "Sahaswan",
+            "center": [
+              28.0836,
+              79.17779999999999
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Sahaswan Dehat",
+            "nameHi": "Sahaswan देहात",
+            "center": [
+              27.9836,
+              79.0778
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Pilibhit": {
+    "nameHi": "पीलीभीत (Pilibhit)",
+    "division": "Bareilly",
+    "center": [
+      28.6318,
+      79.8037
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              28.6418,
+              79.81370000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              28.621799999999997,
+              79.7937
+            ]
+          }
+        ]
+      },
+      "Puranpur": {
+        "nameHi": "Puranpur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Puranpur",
+            "nameHi": "Puranpur",
+            "center": [
+              28.651799999999998,
+              79.8237
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Puranpur Dehat",
+            "nameHi": "Puranpur देहात",
+            "center": [
+              28.6118,
+              79.78370000000001
+            ]
+          }
+        ]
+      },
+      "Bisalpur": {
+        "nameHi": "Bisalpur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Bisalpur",
+            "nameHi": "Bisalpur",
+            "center": [
+              28.6618,
+              79.83370000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Bisalpur Dehat",
+            "nameHi": "Bisalpur देहात",
+            "center": [
+              28.601799999999997,
+              79.7737
+            ]
+          }
+        ]
+      },
+      "Amariya": {
+        "nameHi": "Amariya",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Amariya",
+            "nameHi": "Amariya",
+            "center": [
+              28.671799999999998,
+              79.84370000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Amariya Dehat",
+            "nameHi": "Amariya देहात",
+            "center": [
+              28.5918,
+              79.7637
+            ]
+          }
+        ]
+      },
+      "Barkhera": {
+        "nameHi": "Barkhera",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Barkhera",
+            "nameHi": "Barkhera",
+            "center": [
+              28.6818,
+              79.8537
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Barkhera Dehat",
+            "nameHi": "Barkhera देहात",
+            "center": [
+              28.581799999999998,
+              79.75370000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Shahjahanpur": {
+    "nameHi": "शाहजहांपुर (Shahjahanpur)",
+    "division": "Bareilly",
+    "center": [
+      27.8814,
+      79.9103
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.8914,
+              79.92030000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.871399999999998,
+              79.9003
+            ]
+          }
+        ]
+      },
+      "Tilhar": {
+        "nameHi": "Tilhar",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Tilhar",
+            "nameHi": "Tilhar",
+            "center": [
+              27.9014,
+              79.9303
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Tilhar Dehat",
+            "nameHi": "Tilhar देहात",
+            "center": [
+              27.8614,
+              79.89030000000001
+            ]
+          }
+        ]
+      },
+      "Jalalabad": {
+        "nameHi": "Jalalabad",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Jalalabad",
+            "nameHi": "Jalalabad",
+            "center": [
+              27.9114,
+              79.94030000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Jalalabad Dehat",
+            "nameHi": "Jalalabad देहात",
+            "center": [
+              27.851399999999998,
+              79.8803
+            ]
+          }
+        ]
+      },
+      "Powayan": {
+        "nameHi": "Powayan",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Powayan",
+            "nameHi": "Powayan",
+            "center": [
+              27.9214,
+              79.95030000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Powayan Dehat",
+            "nameHi": "Powayan देहात",
+            "center": [
+              27.8414,
+              79.8703
+            ]
+          }
+        ]
+      },
+      "Puwayan": {
+        "nameHi": "Puwayan",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Puwayan",
+            "nameHi": "Puwayan",
+            "center": [
+              27.9314,
+              79.9603
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Puwayan Dehat",
+            "nameHi": "Puwayan देहात",
+            "center": [
+              27.8314,
+              79.86030000000001
+            ]
+          }
+        ]
+      },
+      "Kalan": {
+        "nameHi": "Kalan",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Kalan",
+            "nameHi": "Kalan",
+            "center": [
+              27.941399999999998,
+              79.97030000000001
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Kalan Dehat",
+            "nameHi": "Kalan देहात",
+            "center": [
+              27.8214,
+              79.8503
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Basti": {
+    "nameHi": "बस्ती (Basti)",
+    "division": "Basti",
+    "center": [
+      26.7997,
+      82.7483
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.809700000000003,
+              82.7583
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.7897,
+              82.7383
+            ]
+          }
+        ]
+      },
+      "Harraiya": {
+        "nameHi": "Harraiya",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Harraiya",
+            "nameHi": "Harraiya",
+            "center": [
+              26.8197,
+              82.7683
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Harraiya Dehat",
+            "nameHi": "Harraiya देहात",
+            "center": [
+              26.779700000000002,
+              82.7283
+            ]
+          }
+        ]
+      },
+      "Bhanpur": {
+        "nameHi": "Bhanpur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Bhanpur",
+            "nameHi": "Bhanpur",
+            "center": [
+              26.829700000000003,
+              82.7783
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Bhanpur Dehat",
+            "nameHi": "Bhanpur देहात",
+            "center": [
+              26.7697,
+              82.7183
+            ]
+          }
+        ]
+      },
+      "Rudauli": {
+        "nameHi": "Rudauli",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Rudauli",
+            "nameHi": "Rudauli",
+            "center": [
+              26.8397,
+              82.7883
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Rudauli Dehat",
+            "nameHi": "Rudauli देहात",
+            "center": [
+              26.759700000000002,
+              82.7083
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Sant Kabir Nagar": {
+    "nameHi": "संत कबीर नगर (Khalilabad) (Sant Kabir Nagar)",
+    "division": "Basti",
+    "center": [
+      26.782,
+      83.072
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1100,
+    "tehsils": {
+      "Khalilabad": {
+        "nameHi": "Khalilabad",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Khalilabad",
+            "nameHi": "Khalilabad",
+            "center": [
+              26.792,
+              83.08200000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Khalilabad Dehat",
+            "nameHi": "Khalilabad देहात",
+            "center": [
+              26.772,
+              83.062
+            ]
+          }
+        ]
+      },
+      "Mehdawal": {
+        "nameHi": "Mehdawal",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Mehdawal",
+            "nameHi": "Mehdawal",
+            "center": [
+              26.802,
+              83.092
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Mehdawal Dehat",
+            "nameHi": "Mehdawal देहात",
+            "center": [
+              26.762,
+              83.052
+            ]
+          }
+        ]
+      },
+      "Dhanghata": {
+        "nameHi": "Dhanghata",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Dhanghata",
+            "nameHi": "Dhanghata",
+            "center": [
+              26.812,
+              83.102
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Dhanghata Dehat",
+            "nameHi": "Dhanghata देहात",
+            "center": [
+              26.752,
+              83.042
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Siddharthnagar": {
+    "nameHi": "सिद्धार्थनगर (Naugarh) (Siddharthnagar)",
+    "division": "Basti",
+    "center": [
+      27.2947,
+      83.0857
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1050,
+    "tehsils": {
+      "Naugarh": {
+        "nameHi": "Naugarh",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Naugarh",
+            "nameHi": "Naugarh",
+            "center": [
+              27.3047,
+              83.09570000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Naugarh Dehat",
+            "nameHi": "Naugarh देहात",
+            "center": [
+              27.284699999999997,
+              83.0757
+            ]
+          }
+        ]
+      },
+      "Bansi": {
+        "nameHi": "Bansi",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bansi",
+            "nameHi": "Bansi",
+            "center": [
+              27.3147,
+              83.1057
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bansi Dehat",
+            "nameHi": "Bansi देहात",
+            "center": [
+              27.2747,
+              83.0657
+            ]
+          }
+        ]
+      },
+      "Itwa": {
+        "nameHi": "Itwa",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Itwa",
+            "nameHi": "Itwa",
+            "center": [
+              27.3247,
+              83.1157
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Itwa Dehat",
+            "nameHi": "Itwa देहात",
+            "center": [
+              27.264699999999998,
+              83.0557
+            ]
+          }
+        ]
+      },
+      "Domariyaganj": {
+        "nameHi": "Domariyaganj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Domariyaganj",
+            "nameHi": "Domariyaganj",
+            "center": [
+              27.334699999999998,
+              83.12570000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Domariyaganj Dehat",
+            "nameHi": "Domariyaganj देहात",
+            "center": [
+              27.2547,
+              83.0457
+            ]
+          }
+        ]
+      },
+      "Shohratgarh": {
+        "nameHi": "Shohratgarh",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Shohratgarh",
+            "nameHi": "Shohratgarh",
+            "center": [
+              27.3447,
+              83.1357
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Shohratgarh Dehat",
+            "nameHi": "Shohratgarh देहात",
+            "center": [
+              27.244699999999998,
+              83.0357
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Hamirpur": {
+    "nameHi": "हमीरपुर (Hamirpur)",
+    "division": "Chitrakoot",
+    "center": [
+      25.9554,
+      80.1505
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1050,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.965400000000002,
+              80.1605
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.9454,
+              80.14049999999999
+            ]
+          }
+        ]
+      },
+      "Maudaha": {
+        "nameHi": "Maudaha",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Maudaha",
+            "nameHi": "Maudaha",
+            "center": [
+              25.9754,
+              80.17049999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Maudaha Dehat",
+            "nameHi": "Maudaha देहात",
+            "center": [
+              25.9354,
+              80.1305
+            ]
+          }
+        ]
+      },
+      "Rath": {
+        "nameHi": "Rath",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Rath",
+            "nameHi": "Rath",
+            "center": [
+              25.985400000000002,
+              80.1805
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Rath Dehat",
+            "nameHi": "Rath देहात",
+            "center": [
+              25.9254,
+              80.12049999999999
+            ]
+          }
+        ]
+      },
+      "Sarisila": {
+        "nameHi": "Sarisila",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Sarisila",
+            "nameHi": "Sarisila",
+            "center": [
+              25.9954,
+              80.1905
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Sarisila Dehat",
+            "nameHi": "Sarisila देहात",
+            "center": [
+              25.9154,
+              80.11049999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Mahoba": {
+    "nameHi": "महोबा (Mahoba)",
+    "division": "Chitrakoot",
+    "center": [
+      25.2917,
+      79.8722
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1100,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.3017,
+              79.88220000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.281699999999997,
+              79.8622
+            ]
+          }
+        ]
+      },
+      "Charkhari": {
+        "nameHi": "Charkhari",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Charkhari",
+            "nameHi": "Charkhari",
+            "center": [
+              25.3117,
+              79.8922
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Charkhari Dehat",
+            "nameHi": "Charkhari देहात",
+            "center": [
+              25.2717,
+              79.85220000000001
+            ]
+          }
+        ]
+      },
+      "Kulpahar": {
+        "nameHi": "Kulpahar",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Kulpahar",
+            "nameHi": "Kulpahar",
+            "center": [
+              25.3217,
+              79.90220000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Kulpahar Dehat",
+            "nameHi": "Kulpahar देहात",
+            "center": [
+              25.261699999999998,
+              79.8422
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Bahraich": {
+    "nameHi": "बहराइच (Bahraich)",
+    "division": "Devipatan",
+    "center": [
+      27.575,
+      81.595
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1100,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.585,
+              81.605
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.564999999999998,
+              81.585
+            ]
+          }
+        ]
+      },
+      "Nanpara": {
+        "nameHi": "Nanpara",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Nanpara",
+            "nameHi": "Nanpara",
+            "center": [
+              27.595,
+              81.615
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Nanpara Dehat",
+            "nameHi": "Nanpara देहात",
+            "center": [
+              27.555,
+              81.575
+            ]
+          }
+        ]
+      },
+      "Kaiserganj": {
+        "nameHi": "Kaiserganj",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Kaiserganj",
+            "nameHi": "Kaiserganj",
+            "center": [
+              27.605,
+              81.625
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Kaiserganj Dehat",
+            "nameHi": "Kaiserganj देहात",
+            "center": [
+              27.544999999999998,
+              81.565
+            ]
+          }
+        ]
+      },
+      "Mahasi": {
+        "nameHi": "Mahasi",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Mahasi",
+            "nameHi": "Mahasi",
+            "center": [
+              27.615,
+              81.635
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Mahasi Dehat",
+            "nameHi": "Mahasi देहात",
+            "center": [
+              27.535,
+              81.55499999999999
+            ]
+          }
+        ]
+      },
+      "Payagpur": {
+        "nameHi": "Payagpur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Payagpur",
+            "nameHi": "Payagpur",
+            "center": [
+              27.625,
+              81.645
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Payagpur Dehat",
+            "nameHi": "Payagpur देहात",
+            "center": [
+              27.525,
+              81.545
+            ]
+          }
+        ]
+      },
+      "Mihinpurwa": {
+        "nameHi": "Mihinpurwa",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Mihinpurwa",
+            "nameHi": "Mihinpurwa",
+            "center": [
+              27.634999999999998,
+              81.655
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Mihinpurwa Dehat",
+            "nameHi": "Mihinpurwa देहात",
+            "center": [
+              27.515,
+              81.535
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Balrampur": {
+    "nameHi": "बलरामपुर (Balrampur)",
+    "division": "Devipatan",
+    "center": [
+      27.432,
+      82.181
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1050,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.442,
+              82.191
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.421999999999997,
+              82.17099999999999
+            ]
+          }
+        ]
+      },
+      "Tulsipur": {
+        "nameHi": "Tulsipur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Tulsipur",
+            "nameHi": "Tulsipur",
+            "center": [
+              27.451999999999998,
+              82.201
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Tulsipur Dehat",
+            "nameHi": "Tulsipur देहात",
+            "center": [
+              27.412,
+              82.161
+            ]
+          }
+        ]
+      },
+      "Utraula": {
+        "nameHi": "Utraula",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Utraula",
+            "nameHi": "Utraula",
+            "center": [
+              27.462,
+              82.211
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Utraula Dehat",
+            "nameHi": "Utraula देहात",
+            "center": [
+              27.401999999999997,
+              82.151
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Gonda": {
+    "nameHi": "गोंडा (Gonda)",
+    "division": "Devipatan",
+    "center": [
+      27.1332,
+      81.9619
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.1432,
+              81.9719
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.123199999999997,
+              81.9519
+            ]
+          }
+        ]
+      },
+      "Colonelganj": {
+        "nameHi": "Colonelganj",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Colonelganj",
+            "nameHi": "Colonelganj",
+            "center": [
+              27.1532,
+              81.9819
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Colonelganj Dehat",
+            "nameHi": "Colonelganj देहात",
+            "center": [
+              27.1132,
+              81.9419
+            ]
+          }
+        ]
+      },
+      "Tarabganj": {
+        "nameHi": "Tarabganj",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Tarabganj",
+            "nameHi": "Tarabganj",
+            "center": [
+              27.1632,
+              81.9919
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Tarabganj Dehat",
+            "nameHi": "Tarabganj देहात",
+            "center": [
+              27.103199999999998,
+              81.9319
+            ]
+          }
+        ]
+      },
+      "Mankapur": {
+        "nameHi": "Mankapur",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Mankapur",
+            "nameHi": "Mankapur",
+            "center": [
+              27.173199999999998,
+              82.0019
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Mankapur Dehat",
+            "nameHi": "Mankapur देहात",
+            "center": [
+              27.0932,
+              81.9219
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Shravasti": {
+    "nameHi": "श्रावस्ती (Bhinga) (Shravasti)",
+    "division": "Devipatan",
+    "center": [
+      27.702,
+      81.905
+    ],
+    "zoom": 13,
+    "baseCircleRate": 950,
+    "tehsils": {
+      "Bhinga": {
+        "nameHi": "Bhinga",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Bhinga",
+            "nameHi": "Bhinga",
+            "center": [
+              27.712000000000003,
+              81.915
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Bhinga Dehat",
+            "nameHi": "Bhinga देहात",
+            "center": [
+              27.692,
+              81.895
+            ]
+          }
+        ]
+      },
+      "Ikauna": {
+        "nameHi": "Ikauna",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Ikauna",
+            "nameHi": "Ikauna",
+            "center": [
+              27.722,
+              81.925
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Ikauna Dehat",
+            "nameHi": "Ikauna देहात",
+            "center": [
+              27.682000000000002,
+              81.885
+            ]
+          }
+        ]
+      },
+      "Jamunaha": {
+        "nameHi": "Jamunaha",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Jamunaha",
+            "nameHi": "Jamunaha",
+            "center": [
+              27.732000000000003,
+              81.935
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Jamunaha Dehat",
+            "nameHi": "Jamunaha देहात",
+            "center": [
+              27.672,
+              81.875
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Ambedkar Nagar": {
+    "nameHi": "अम्बेडकर नगर (Akbarpur) (Ambedkar Nagar)",
+    "division": "Ayodhya",
+    "center": [
+      26.4347,
+      82.5417
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Akbarpur": {
+        "nameHi": "Akbarpur",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Akbarpur",
+            "nameHi": "Akbarpur",
+            "center": [
+              26.4447,
+              82.55170000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Akbarpur Dehat",
+            "nameHi": "Akbarpur देहात",
+            "center": [
+              26.424699999999998,
+              82.5317
+            ]
+          }
+        ]
+      },
+      "Tanda": {
+        "nameHi": "Tanda",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Tanda",
+            "nameHi": "Tanda",
+            "center": [
+              26.4547,
+              82.5617
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Tanda Dehat",
+            "nameHi": "Tanda देहात",
+            "center": [
+              26.4147,
+              82.52170000000001
+            ]
+          }
+        ]
+      },
+      "Jalalpur": {
+        "nameHi": "Jalalpur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Jalalpur",
+            "nameHi": "Jalalpur",
+            "center": [
+              26.4647,
+              82.5717
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Jalalpur Dehat",
+            "nameHi": "Jalalpur देहात",
+            "center": [
+              26.4047,
+              82.5117
+            ]
+          }
+        ]
+      },
+      "Alapur": {
+        "nameHi": "Alapur",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Alapur",
+            "nameHi": "Alapur",
+            "center": [
+              26.4747,
+              82.58170000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Alapur Dehat",
+            "nameHi": "Alapur देहात",
+            "center": [
+              26.3947,
+              82.5017
+            ]
+          }
+        ]
+      },
+      "Bhiti": {
+        "nameHi": "Bhiti",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Bhiti",
+            "nameHi": "Bhiti",
+            "center": [
+              26.4847,
+              82.5917
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Bhiti Dehat",
+            "nameHi": "Bhiti देहात",
+            "center": [
+              26.3847,
+              82.49170000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Amethi": {
+    "nameHi": "अमेठी (Gauriganj) (Amethi)",
+    "division": "Ayodhya",
+    "center": [
+      26.1554,
+      81.8154
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Gauriganj": {
+        "nameHi": "Gauriganj",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Gauriganj",
+            "nameHi": "Gauriganj",
+            "center": [
+              26.1654,
+              81.8254
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Gauriganj Dehat",
+            "nameHi": "Gauriganj देहात",
+            "center": [
+              26.1454,
+              81.80539999999999
+            ]
+          }
+        ]
+      },
+      "Amethi": {
+        "nameHi": "Amethi",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Amethi",
+            "nameHi": "Amethi",
+            "center": [
+              26.1754,
+              81.83539999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Amethi Dehat",
+            "nameHi": "Amethi देहात",
+            "center": [
+              26.1354,
+              81.7954
+            ]
+          }
+        ]
+      },
+      "Musafirkhana": {
+        "nameHi": "Musafirkhana",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Musafirkhana",
+            "nameHi": "Musafirkhana",
+            "center": [
+              26.1854,
+              81.8454
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Musafirkhana Dehat",
+            "nameHi": "Musafirkhana देहात",
+            "center": [
+              26.1254,
+              81.7854
+            ]
+          }
+        ]
+      },
+      "Tiloi": {
+        "nameHi": "Tiloi",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Tiloi",
+            "nameHi": "Tiloi",
+            "center": [
+              26.1954,
+              81.8554
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Tiloi Dehat",
+            "nameHi": "Tiloi देहात",
+            "center": [
+              26.1154,
+              81.77539999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Barabanki": {
+    "nameHi": "बाराबंकी (Barabanki)",
+    "division": "Ayodhya",
+    "center": [
+      26.9268,
+      81.1834
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1450,
+    "tehsils": {
+      "Nawabganj": {
+        "nameHi": "Nawabganj",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Nawabganj",
+            "nameHi": "Nawabganj",
+            "center": [
+              26.9368,
+              81.19340000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Nawabganj Dehat",
+            "nameHi": "Nawabganj देहात",
+            "center": [
+              26.9168,
+              81.1734
+            ]
+          }
+        ]
+      },
+      "Fatehpur": {
+        "nameHi": "Fatehpur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Fatehpur",
+            "nameHi": "Fatehpur",
+            "center": [
+              26.9468,
+              81.2034
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Fatehpur Dehat",
+            "nameHi": "Fatehpur देहात",
+            "center": [
+              26.9068,
+              81.16340000000001
+            ]
+          }
+        ]
+      },
+      "Ramsanehighat": {
+        "nameHi": "Ramsanehighat",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Ramsanehighat",
+            "nameHi": "Ramsanehighat",
+            "center": [
+              26.9568,
+              81.21340000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Ramsanehighat Dehat",
+            "nameHi": "Ramsanehighat देहात",
+            "center": [
+              26.8968,
+              81.1534
+            ]
+          }
+        ]
+      },
+      "Haidergarh": {
+        "nameHi": "Haidergarh",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Haidergarh",
+            "nameHi": "Haidergarh",
+            "center": [
+              26.9668,
+              81.22340000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Haidergarh Dehat",
+            "nameHi": "Haidergarh देहात",
+            "center": [
+              26.8868,
+              81.1434
+            ]
+          }
+        ]
+      },
+      "Sirauli Ghauspur": {
+        "nameHi": "Sirauli Ghauspur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Sirauli Ghauspur",
+            "nameHi": "Sirauli Ghauspur",
+            "center": [
+              26.9768,
+              81.2334
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Sirauli Ghauspur Dehat",
+            "nameHi": "Sirauli Ghauspur देहात",
+            "center": [
+              26.8768,
+              81.13340000000001
+            ]
+          }
+        ]
+      },
+      "Ramnagar": {
+        "nameHi": "Ramnagar",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Ramnagar",
+            "nameHi": "Ramnagar",
+            "center": [
+              26.9868,
+              81.24340000000001
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Ramnagar Dehat",
+            "nameHi": "Ramnagar देहात",
+            "center": [
+              26.8668,
+              81.1234
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Sultanpur": {
+    "nameHi": "सुल्तानपुर (Sultanpur)",
+    "division": "Ayodhya",
+    "center": [
+      26.2648,
+      82.0727
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.274800000000003,
+              82.0827
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.2548,
+              82.06269999999999
+            ]
+          }
+        ]
+      },
+      "Kadipur": {
+        "nameHi": "Kadipur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Kadipur",
+            "nameHi": "Kadipur",
+            "center": [
+              26.2848,
+              82.0927
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Kadipur Dehat",
+            "nameHi": "Kadipur देहात",
+            "center": [
+              26.2448,
+              82.0527
+            ]
+          }
+        ]
+      },
+      "Jaisinghpur": {
+        "nameHi": "Jaisinghpur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Jaisinghpur",
+            "nameHi": "Jaisinghpur",
+            "center": [
+              26.294800000000002,
+              82.1027
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Jaisinghpur Dehat",
+            "nameHi": "Jaisinghpur देहात",
+            "center": [
+              26.2348,
+              82.0427
+            ]
+          }
+        ]
+      },
+      "Lambhua": {
+        "nameHi": "Lambhua",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Lambhua",
+            "nameHi": "Lambhua",
+            "center": [
+              26.3048,
+              82.1127
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Lambhua Dehat",
+            "nameHi": "Lambhua देहात",
+            "center": [
+              26.224800000000002,
+              82.03269999999999
+            ]
+          }
+        ]
+      },
+      "Baldirai": {
+        "nameHi": "Baldirai",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Baldirai",
+            "nameHi": "Baldirai",
+            "center": [
+              26.3148,
+              82.1227
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Baldirai Dehat",
+            "nameHi": "Baldirai देहात",
+            "center": [
+              26.2148,
+              82.0227
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Deoria": {
+    "nameHi": "देवरिया (Deoria)",
+    "division": "Gorakhpur",
+    "center": [
+      26.5024,
+      83.7791
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.512400000000003,
+              83.7891
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.4924,
+              83.7691
+            ]
+          }
+        ]
+      },
+      "Salempur": {
+        "nameHi": "Salempur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Salempur",
+            "nameHi": "Salempur",
+            "center": [
+              26.5224,
+              83.7991
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Salempur Dehat",
+            "nameHi": "Salempur देहात",
+            "center": [
+              26.482400000000002,
+              83.7591
+            ]
+          }
+        ]
+      },
+      "Rudrapur": {
+        "nameHi": "Rudrapur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Rudrapur",
+            "nameHi": "Rudrapur",
+            "center": [
+              26.532400000000003,
+              83.8091
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Rudrapur Dehat",
+            "nameHi": "Rudrapur देहात",
+            "center": [
+              26.4724,
+              83.7491
+            ]
+          }
+        ]
+      },
+      "Barhaj": {
+        "nameHi": "Barhaj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Barhaj",
+            "nameHi": "Barhaj",
+            "center": [
+              26.5424,
+              83.8191
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Barhaj Dehat",
+            "nameHi": "Barhaj देहात",
+            "center": [
+              26.462400000000002,
+              83.7391
+            ]
+          }
+        ]
+      },
+      "Bhatpar Rani": {
+        "nameHi": "Bhatpar Rani",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Bhatpar Rani",
+            "nameHi": "Bhatpar Rani",
+            "center": [
+              26.552400000000002,
+              83.8291
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Bhatpar Rani Dehat",
+            "nameHi": "Bhatpar Rani देहात",
+            "center": [
+              26.4524,
+              83.7291
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Kushinagar": {
+    "nameHi": "कुशीनगर (Padrauna) (Kushinagar)",
+    "division": "Gorakhpur",
+    "center": [
+      26.9038,
+      83.984
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Padrauna": {
+        "nameHi": "Padrauna",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Padrauna",
+            "nameHi": "Padrauna",
+            "center": [
+              26.913800000000002,
+              83.994
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Padrauna Dehat",
+            "nameHi": "Padrauna देहात",
+            "center": [
+              26.8938,
+              83.97399999999999
+            ]
+          }
+        ]
+      },
+      "Hata": {
+        "nameHi": "Hata",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Hata",
+            "nameHi": "Hata",
+            "center": [
+              26.9238,
+              84.00399999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Hata Dehat",
+            "nameHi": "Hata देहात",
+            "center": [
+              26.8838,
+              83.964
+            ]
+          }
+        ]
+      },
+      "Kasya": {
+        "nameHi": "Kasya",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Kasya",
+            "nameHi": "Kasya",
+            "center": [
+              26.9338,
+              84.014
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Kasya Dehat",
+            "nameHi": "Kasya देहात",
+            "center": [
+              26.8738,
+              83.954
+            ]
+          }
+        ]
+      },
+      "Tamkuhi Raj": {
+        "nameHi": "Tamkuhi Raj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Tamkuhi Raj",
+            "nameHi": "Tamkuhi Raj",
+            "center": [
+              26.9438,
+              84.024
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Tamkuhi Raj Dehat",
+            "nameHi": "Tamkuhi Raj देहात",
+            "center": [
+              26.8638,
+              83.94399999999999
+            ]
+          }
+        ]
+      },
+      "Khadda": {
+        "nameHi": "Khadda",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Khadda",
+            "nameHi": "Khadda",
+            "center": [
+              26.9538,
+              84.03399999999999
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Khadda Dehat",
+            "nameHi": "Khadda देहात",
+            "center": [
+              26.8538,
+              83.934
+            ]
+          }
+        ]
+      },
+      "Captain Ganj": {
+        "nameHi": "Captain Ganj",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Captain Ganj",
+            "nameHi": "Captain Ganj",
+            "center": [
+              26.9638,
+              84.044
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Captain Ganj Dehat",
+            "nameHi": "Captain Ganj देहात",
+            "center": [
+              26.8438,
+              83.92399999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Maharajganj": {
+    "nameHi": "महराजगंज (Maharajganj)",
+    "division": "Gorakhpur",
+    "center": [
+      27.145,
+      83.565
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1100,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.155,
+              83.575
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.134999999999998,
+              83.55499999999999
+            ]
+          }
+        ]
+      },
+      "Nautanwa": {
+        "nameHi": "Nautanwa",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Nautanwa",
+            "nameHi": "Nautanwa",
+            "center": [
+              27.165,
+              83.585
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Nautanwa Dehat",
+            "nameHi": "Nautanwa देहात",
+            "center": [
+              27.125,
+              83.545
+            ]
+          }
+        ]
+      },
+      "Nichlaul": {
+        "nameHi": "Nichlaul",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Nichlaul",
+            "nameHi": "Nichlaul",
+            "center": [
+              27.175,
+              83.595
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Nichlaul Dehat",
+            "nameHi": "Nichlaul देहात",
+            "center": [
+              27.115,
+              83.535
+            ]
+          }
+        ]
+      },
+      "Pharenda": {
+        "nameHi": "Pharenda",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Pharenda",
+            "nameHi": "Pharenda",
+            "center": [
+              27.185,
+              83.605
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Pharenda Dehat",
+            "nameHi": "Pharenda देहात",
+            "center": [
+              27.105,
+              83.52499999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Jalaun": {
+    "nameHi": "जालौन (Orai) (Jalaun)",
+    "division": "Jhansi",
+    "center": [
+      25.9912,
+      79.453
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Orai": {
+        "nameHi": "Orai",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Orai",
+            "nameHi": "Orai",
+            "center": [
+              26.0012,
+              79.46300000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Orai Dehat",
+            "nameHi": "Orai देहात",
+            "center": [
+              25.981199999999998,
+              79.443
+            ]
+          }
+        ]
+      },
+      "Jalaun": {
+        "nameHi": "Jalaun",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Jalaun",
+            "nameHi": "Jalaun",
+            "center": [
+              26.0112,
+              79.473
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Jalaun Dehat",
+            "nameHi": "Jalaun देहात",
+            "center": [
+              25.9712,
+              79.433
+            ]
+          }
+        ]
+      },
+      "Konch": {
+        "nameHi": "Konch",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Konch",
+            "nameHi": "Konch",
+            "center": [
+              26.0212,
+              79.483
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Konch Dehat",
+            "nameHi": "Konch देहात",
+            "center": [
+              25.961199999999998,
+              79.423
+            ]
+          }
+        ]
+      },
+      "Kalpi": {
+        "nameHi": "Kalpi",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Kalpi",
+            "nameHi": "Kalpi",
+            "center": [
+              26.0312,
+              79.49300000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Kalpi Dehat",
+            "nameHi": "Kalpi देहात",
+            "center": [
+              25.9512,
+              79.413
+            ]
+          }
+        ]
+      },
+      "Madhogarh": {
+        "nameHi": "Madhogarh",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Madhogarh",
+            "nameHi": "Madhogarh",
+            "center": [
+              26.0412,
+              79.503
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Madhogarh Dehat",
+            "nameHi": "Madhogarh देहात",
+            "center": [
+              25.9412,
+              79.403
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Lalitpur": {
+    "nameHi": "ललितपुर (Lalitpur)",
+    "division": "Jhansi",
+    "center": [
+      24.686,
+      78.414
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1100,
+    "tehsils": {
+      "Lalitpur": {
+        "nameHi": "Lalitpur",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Lalitpur",
+            "nameHi": "Lalitpur",
+            "center": [
+              24.696,
+              78.424
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Lalitpur Dehat",
+            "nameHi": "Lalitpur देहात",
+            "center": [
+              24.676,
+              78.404
+            ]
+          }
+        ]
+      },
+      "Mahroni": {
+        "nameHi": "Mahroni",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Mahroni",
+            "nameHi": "Mahroni",
+            "center": [
+              24.706,
+              78.434
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Mahroni Dehat",
+            "nameHi": "Mahroni देहात",
+            "center": [
+              24.666,
+              78.394
+            ]
+          }
+        ]
+      },
+      "Talbehat": {
+        "nameHi": "Talbehat",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Talbehat",
+            "nameHi": "Talbehat",
+            "center": [
+              24.716,
+              78.444
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Talbehat Dehat",
+            "nameHi": "Talbehat देहात",
+            "center": [
+              24.656,
+              78.384
+            ]
+          }
+        ]
+      },
+      "Madawara": {
+        "nameHi": "Madawara",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Madawara",
+            "nameHi": "Madawara",
+            "center": [
+              24.726,
+              78.45400000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Madawara Dehat",
+            "nameHi": "Madawara देहात",
+            "center": [
+              24.646,
+              78.374
+            ]
+          }
+        ]
+      },
+      "Pali": {
+        "nameHi": "Pali",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Pali",
+            "nameHi": "Pali",
+            "center": [
+              24.736,
+              78.464
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Pali Dehat",
+            "nameHi": "Pali देहात",
+            "center": [
+              24.636,
+              78.364
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Kanpur Dehat": {
+    "nameHi": "कानपुर देहात (Akbarpur) (Kanpur Dehat)",
+    "division": "Kanpur",
+    "center": [
+      26.398,
+      79.954
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1350,
+    "tehsils": {
+      "Akbarpur": {
+        "nameHi": "Akbarpur",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Akbarpur",
+            "nameHi": "Akbarpur",
+            "center": [
+              26.408,
+              79.964
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Akbarpur Dehat",
+            "nameHi": "Akbarpur देहात",
+            "center": [
+              26.387999999999998,
+              79.94399999999999
+            ]
+          }
+        ]
+      },
+      "Bhognipur": {
+        "nameHi": "Bhognipur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bhognipur",
+            "nameHi": "Bhognipur",
+            "center": [
+              26.418,
+              79.97399999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bhognipur Dehat",
+            "nameHi": "Bhognipur देहात",
+            "center": [
+              26.378,
+              79.934
+            ]
+          }
+        ]
+      },
+      "Derapur": {
+        "nameHi": "Derapur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Derapur",
+            "nameHi": "Derapur",
+            "center": [
+              26.428,
+              79.984
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Derapur Dehat",
+            "nameHi": "Derapur देहात",
+            "center": [
+              26.368,
+              79.92399999999999
+            ]
+          }
+        ]
+      },
+      "Rasoolabad": {
+        "nameHi": "Rasoolabad",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Rasoolabad",
+            "nameHi": "Rasoolabad",
+            "center": [
+              26.438,
+              79.994
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Rasoolabad Dehat",
+            "nameHi": "Rasoolabad देहात",
+            "center": [
+              26.358,
+              79.91399999999999
+            ]
+          }
+        ]
+      },
+      "Sikandra": {
+        "nameHi": "Sikandra",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Sikandra",
+            "nameHi": "Sikandra",
+            "center": [
+              26.448,
+              80.00399999999999
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Sikandra Dehat",
+            "nameHi": "Sikandra देहात",
+            "center": [
+              26.348,
+              79.904
+            ]
+          }
+        ]
+      },
+      "Maitha": {
+        "nameHi": "Maitha",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Maitha",
+            "nameHi": "Maitha",
+            "center": [
+              26.458,
+              80.014
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Maitha Dehat",
+            "nameHi": "Maitha देहात",
+            "center": [
+              26.338,
+              79.89399999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Auraiya": {
+    "nameHi": "औरैया (Auraiya)",
+    "division": "Kanpur",
+    "center": [
+      26.465,
+      79.515
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Auraiya": {
+        "nameHi": "Auraiya",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Auraiya",
+            "nameHi": "Auraiya",
+            "center": [
+              26.475,
+              79.525
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Auraiya Dehat",
+            "nameHi": "Auraiya देहात",
+            "center": [
+              26.455,
+              79.505
+            ]
+          }
+        ]
+      },
+      "Bidhuna": {
+        "nameHi": "Bidhuna",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bidhuna",
+            "nameHi": "Bidhuna",
+            "center": [
+              26.485,
+              79.535
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bidhuna Dehat",
+            "nameHi": "Bidhuna देहात",
+            "center": [
+              26.445,
+              79.495
+            ]
+          }
+        ]
+      },
+      "Ajitmal": {
+        "nameHi": "Ajitmal",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Ajitmal",
+            "nameHi": "Ajitmal",
+            "center": [
+              26.495,
+              79.545
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Ajitmal Dehat",
+            "nameHi": "Ajitmal देहात",
+            "center": [
+              26.435,
+              79.485
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Etawah": {
+    "nameHi": "इटावा (Etawah)",
+    "division": "Kanpur",
+    "center": [
+      26.7855,
+      79.015
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1300,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.7955,
+              79.025
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.775499999999997,
+              79.005
+            ]
+          }
+        ]
+      },
+      "Bharthana": {
+        "nameHi": "Bharthana",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bharthana",
+            "nameHi": "Bharthana",
+            "center": [
+              26.8055,
+              79.035
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bharthana Dehat",
+            "nameHi": "Bharthana देहात",
+            "center": [
+              26.7655,
+              78.995
+            ]
+          }
+        ]
+      },
+      "Chakarnagar": {
+        "nameHi": "Chakarnagar",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Chakarnagar",
+            "nameHi": "Chakarnagar",
+            "center": [
+              26.8155,
+              79.045
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Chakarnagar Dehat",
+            "nameHi": "Chakarnagar देहात",
+            "center": [
+              26.755499999999998,
+              78.985
+            ]
+          }
+        ]
+      },
+      "Jaswantnagar": {
+        "nameHi": "Jaswantnagar",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Jaswantnagar",
+            "nameHi": "Jaswantnagar",
+            "center": [
+              26.825499999999998,
+              79.055
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Jaswantnagar Dehat",
+            "nameHi": "Jaswantnagar देहात",
+            "center": [
+              26.7455,
+              78.975
+            ]
+          }
+        ]
+      },
+      "Saifai": {
+        "nameHi": "Saifai",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Saifai",
+            "nameHi": "Saifai",
+            "center": [
+              26.8355,
+              79.065
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Saifai Dehat",
+            "nameHi": "Saifai देहात",
+            "center": [
+              26.7355,
+              78.965
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Farrukhabad": {
+    "nameHi": "फर्रुखाबाद (Fatehgarh) (Farrukhabad)",
+    "division": "Kanpur",
+    "center": [
+      27.382,
+      79.584
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.392000000000003,
+              79.59400000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.372,
+              79.574
+            ]
+          }
+        ]
+      },
+      "Kaimganj": {
+        "nameHi": "Kaimganj",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Kaimganj",
+            "nameHi": "Kaimganj",
+            "center": [
+              27.402,
+              79.604
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Kaimganj Dehat",
+            "nameHi": "Kaimganj देहात",
+            "center": [
+              27.362000000000002,
+              79.56400000000001
+            ]
+          }
+        ]
+      },
+      "Amritpur": {
+        "nameHi": "Amritpur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Amritpur",
+            "nameHi": "Amritpur",
+            "center": [
+              27.412000000000003,
+              79.614
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Amritpur Dehat",
+            "nameHi": "Amritpur देहात",
+            "center": [
+              27.352,
+              79.554
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Kannauj": {
+    "nameHi": "कन्नौज (Kannauj)",
+    "division": "Kanpur",
+    "center": [
+      27.054,
+      79.915
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1350,
+    "tehsils": {
+      "Kannauj": {
+        "nameHi": "Kannauj",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Kannauj",
+            "nameHi": "Kannauj",
+            "center": [
+              27.064,
+              79.92500000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Kannauj Dehat",
+            "nameHi": "Kannauj देहात",
+            "center": [
+              27.043999999999997,
+              79.905
+            ]
+          }
+        ]
+      },
+      "Chhibramau": {
+        "nameHi": "Chhibramau",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Chhibramau",
+            "nameHi": "Chhibramau",
+            "center": [
+              27.073999999999998,
+              79.935
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Chhibramau Dehat",
+            "nameHi": "Chhibramau देहात",
+            "center": [
+              27.034,
+              79.89500000000001
+            ]
+          }
+        ]
+      },
+      "Tirwa": {
+        "nameHi": "Tirwa",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Tirwa",
+            "nameHi": "Tirwa",
+            "center": [
+              27.084,
+              79.94500000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Tirwa Dehat",
+            "nameHi": "Tirwa देहात",
+            "center": [
+              27.023999999999997,
+              79.885
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Hardoi": {
+    "nameHi": "हरदोई (Hardoi)",
+    "division": "Lucknow",
+    "center": [
+      27.399,
+      80.131
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.409000000000002,
+              80.141
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.389,
+              80.121
+            ]
+          }
+        ]
+      },
+      "Shahabad": {
+        "nameHi": "Shahabad",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Shahabad",
+            "nameHi": "Shahabad",
+            "center": [
+              27.419,
+              80.151
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Shahabad Dehat",
+            "nameHi": "Shahabad देहात",
+            "center": [
+              27.379,
+              80.111
+            ]
+          }
+        ]
+      },
+      "Bilgram": {
+        "nameHi": "Bilgram",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Bilgram",
+            "nameHi": "Bilgram",
+            "center": [
+              27.429000000000002,
+              80.161
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Bilgram Dehat",
+            "nameHi": "Bilgram देहात",
+            "center": [
+              27.369,
+              80.101
+            ]
+          }
+        ]
+      },
+      "Sandila": {
+        "nameHi": "Sandila",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Sandila",
+            "nameHi": "Sandila",
+            "center": [
+              27.439,
+              80.171
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Sandila Dehat",
+            "nameHi": "Sandila देहात",
+            "center": [
+              27.359,
+              80.091
+            ]
+          }
+        ]
+      },
+      "Sawayajpur": {
+        "nameHi": "Sawayajpur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Sawayajpur",
+            "nameHi": "Sawayajpur",
+            "center": [
+              27.449,
+              80.181
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Sawayajpur Dehat",
+            "nameHi": "Sawayajpur देहात",
+            "center": [
+              27.349,
+              80.081
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Lakhimpur Kheri": {
+    "nameHi": "लखीमपुर खीरी (Lakhimpur Kheri)",
+    "division": "Lucknow",
+    "center": [
+      27.951,
+      80.778
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Lakhimpur": {
+        "nameHi": "Lakhimpur",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Lakhimpur",
+            "nameHi": "Lakhimpur",
+            "center": [
+              27.961000000000002,
+              80.78800000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Lakhimpur Dehat",
+            "nameHi": "Lakhimpur देहात",
+            "center": [
+              27.941,
+              80.768
+            ]
+          }
+        ]
+      },
+      "Gola Gokaran Nath": {
+        "nameHi": "Gola Gokaran Nath",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Gola Gokaran Nath",
+            "nameHi": "Gola Gokaran Nath",
+            "center": [
+              27.971,
+              80.798
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Gola Gokaran Nath Dehat",
+            "nameHi": "Gola Gokaran Nath देहात",
+            "center": [
+              27.931,
+              80.75800000000001
+            ]
+          }
+        ]
+      },
+      "Mohammadi": {
+        "nameHi": "Mohammadi",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Mohammadi",
+            "nameHi": "Mohammadi",
+            "center": [
+              27.981,
+              80.808
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Mohammadi Dehat",
+            "nameHi": "Mohammadi देहात",
+            "center": [
+              27.921,
+              80.748
+            ]
+          }
+        ]
+      },
+      "Nighasan": {
+        "nameHi": "Nighasan",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Nighasan",
+            "nameHi": "Nighasan",
+            "center": [
+              27.991,
+              80.81800000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Nighasan Dehat",
+            "nameHi": "Nighasan देहात",
+            "center": [
+              27.911,
+              80.738
+            ]
+          }
+        ]
+      },
+      "Dhaurahra": {
+        "nameHi": "Dhaurahra",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Dhaurahra",
+            "nameHi": "Dhaurahra",
+            "center": [
+              28.001,
+              80.828
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Dhaurahra Dehat",
+            "nameHi": "Dhaurahra देहात",
+            "center": [
+              27.901,
+              80.72800000000001
+            ]
+          }
+        ]
+      },
+      "Palia": {
+        "nameHi": "Palia",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Palia",
+            "nameHi": "Palia",
+            "center": [
+              28.011,
+              80.83800000000001
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Palia Dehat",
+            "nameHi": "Palia देहात",
+            "center": [
+              27.891000000000002,
+              80.718
+            ]
+          }
+        ]
+      },
+      "Mitauli": {
+        "nameHi": "Mitauli",
+        "villages": [
+          {
+            "code": "109001",
+            "nameEn": "Mitauli",
+            "nameHi": "Mitauli",
+            "center": [
+              28.021,
+              80.848
+            ]
+          },
+          {
+            "code": "109002",
+            "nameEn": "Mitauli Dehat",
+            "nameHi": "Mitauli देहात",
+            "center": [
+              27.881,
+              80.70800000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Raebareli": {
+    "nameHi": "रायबरेली (Raebareli)",
+    "division": "Lucknow",
+    "center": [
+      26.229,
+      81.24
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1350,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.239,
+              81.25
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.218999999999998,
+              81.22999999999999
+            ]
+          }
+        ]
+      },
+      "Lalganj": {
+        "nameHi": "Lalganj",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Lalganj",
+            "nameHi": "Lalganj",
+            "center": [
+              26.249,
+              81.25999999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Lalganj Dehat",
+            "nameHi": "Lalganj देहात",
+            "center": [
+              26.209,
+              81.22
+            ]
+          }
+        ]
+      },
+      "Salon": {
+        "nameHi": "Salon",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Salon",
+            "nameHi": "Salon",
+            "center": [
+              26.259,
+              81.27
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Salon Dehat",
+            "nameHi": "Salon देहात",
+            "center": [
+              26.198999999999998,
+              81.21
+            ]
+          }
+        ]
+      },
+      "Maharajganj": {
+        "nameHi": "Maharajganj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Maharajganj",
+            "nameHi": "Maharajganj",
+            "center": [
+              26.269,
+              81.28
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Maharajganj Dehat",
+            "nameHi": "Maharajganj देहात",
+            "center": [
+              26.189,
+              81.19999999999999
+            ]
+          }
+        ]
+      },
+      "Unchahar": {
+        "nameHi": "Unchahar",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Unchahar",
+            "nameHi": "Unchahar",
+            "center": [
+              26.279,
+              81.28999999999999
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Unchahar Dehat",
+            "nameHi": "Unchahar देहात",
+            "center": [
+              26.179,
+              81.19
+            ]
+          }
+        ]
+      },
+      "Tiloi": {
+        "nameHi": "Tiloi",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Tiloi",
+            "nameHi": "Tiloi",
+            "center": [
+              26.288999999999998,
+              81.3
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Tiloi Dehat",
+            "nameHi": "Tiloi देहात",
+            "center": [
+              26.169,
+              81.17999999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Sitapur": {
+    "nameHi": "सीतापुर (Sitapur)",
+    "division": "Lucknow",
+    "center": [
+      27.568,
+      80.683
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              27.578000000000003,
+              80.69300000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              27.558,
+              80.673
+            ]
+          }
+        ]
+      },
+      "Biswan": {
+        "nameHi": "Biswan",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Biswan",
+            "nameHi": "Biswan",
+            "center": [
+              27.588,
+              80.703
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Biswan Dehat",
+            "nameHi": "Biswan देहात",
+            "center": [
+              27.548000000000002,
+              80.66300000000001
+            ]
+          }
+        ]
+      },
+      "Mahmoodabad": {
+        "nameHi": "Mahmoodabad",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Mahmoodabad",
+            "nameHi": "Mahmoodabad",
+            "center": [
+              27.598000000000003,
+              80.71300000000001
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Mahmoodabad Dehat",
+            "nameHi": "Mahmoodabad देहात",
+            "center": [
+              27.538,
+              80.653
+            ]
+          }
+        ]
+      },
+      "Sidhauli": {
+        "nameHi": "Sidhauli",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Sidhauli",
+            "nameHi": "Sidhauli",
+            "center": [
+              27.608,
+              80.72300000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Sidhauli Dehat",
+            "nameHi": "Sidhauli देहात",
+            "center": [
+              27.528000000000002,
+              80.643
+            ]
+          }
+        ]
+      },
+      "Laharpur": {
+        "nameHi": "Laharpur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Laharpur",
+            "nameHi": "Laharpur",
+            "center": [
+              27.618000000000002,
+              80.733
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Laharpur Dehat",
+            "nameHi": "Laharpur देहात",
+            "center": [
+              27.518,
+              80.63300000000001
+            ]
+          }
+        ]
+      },
+      "Misrikh": {
+        "nameHi": "Misrikh",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Misrikh",
+            "nameHi": "Misrikh",
+            "center": [
+              27.628,
+              80.74300000000001
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Misrikh Dehat",
+            "nameHi": "Misrikh देहात",
+            "center": [
+              27.508000000000003,
+              80.623
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Unnao": {
+    "nameHi": "उन्नाव (Unnao)",
+    "division": "Lucknow",
+    "center": [
+      26.547,
+      80.488
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1400,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              26.557000000000002,
+              80.498
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              26.537,
+              80.478
+            ]
+          }
+        ]
+      },
+      "Safipur": {
+        "nameHi": "Safipur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Safipur",
+            "nameHi": "Safipur",
+            "center": [
+              26.567,
+              80.508
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Safipur Dehat",
+            "nameHi": "Safipur देहात",
+            "center": [
+              26.527,
+              80.468
+            ]
+          }
+        ]
+      },
+      "Purwa": {
+        "nameHi": "Purwa",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Purwa",
+            "nameHi": "Purwa",
+            "center": [
+              26.577,
+              80.518
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Purwa Dehat",
+            "nameHi": "Purwa देहात",
+            "center": [
+              26.517,
+              80.458
+            ]
+          }
+        ]
+      },
+      "Hasanganj": {
+        "nameHi": "Hasanganj",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Hasanganj",
+            "nameHi": "Hasanganj",
+            "center": [
+              26.587,
+              80.528
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Hasanganj Dehat",
+            "nameHi": "Hasanganj देहात",
+            "center": [
+              26.507,
+              80.448
+            ]
+          }
+        ]
+      },
+      "Bighapur": {
+        "nameHi": "Bighapur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Bighapur",
+            "nameHi": "Bighapur",
+            "center": [
+              26.597,
+              80.538
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Bighapur Dehat",
+            "nameHi": "Bighapur देहात",
+            "center": [
+              26.497,
+              80.438
+            ]
+          }
+        ]
+      },
+      "Bangarmau": {
+        "nameHi": "Bangarmau",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Bangarmau",
+            "nameHi": "Bangarmau",
+            "center": [
+              26.607,
+              80.548
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Bangarmau Dehat",
+            "nameHi": "Bangarmau देहात",
+            "center": [
+              26.487000000000002,
+              80.428
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Baghpat": {
+    "nameHi": "बागपत (Baghpat)",
+    "division": "Meerut",
+    "center": [
+      28.945,
+      77.225
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1800,
+    "tehsils": {
+      "Baghpat": {
+        "nameHi": "Baghpat",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Baghpat",
+            "nameHi": "Baghpat",
+            "center": [
+              28.955000000000002,
+              77.235
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Baghpat Dehat",
+            "nameHi": "Baghpat देहात",
+            "center": [
+              28.935,
+              77.21499999999999
+            ]
+          }
+        ]
+      },
+      "Baraut": {
+        "nameHi": "Baraut",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Baraut",
+            "nameHi": "Baraut",
+            "center": [
+              28.965,
+              77.24499999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Baraut Dehat",
+            "nameHi": "Baraut देहात",
+            "center": [
+              28.925,
+              77.205
+            ]
+          }
+        ]
+      },
+      "Khekra": {
+        "nameHi": "Khekra",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Khekra",
+            "nameHi": "Khekra",
+            "center": [
+              28.975,
+              77.255
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Khekra Dehat",
+            "nameHi": "Khekra देहात",
+            "center": [
+              28.915,
+              77.195
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Bulandshahr": {
+    "nameHi": "बुलंदशहर (Bulandshahr)",
+    "division": "Meerut",
+    "center": [
+      28.407,
+      77.849
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1650,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              28.417,
+              77.85900000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              28.397,
+              77.839
+            ]
+          }
+        ]
+      },
+      "Khurja": {
+        "nameHi": "Khurja",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Khurja",
+            "nameHi": "Khurja",
+            "center": [
+              28.427,
+              77.869
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Khurja Dehat",
+            "nameHi": "Khurja देहात",
+            "center": [
+              28.387,
+              77.82900000000001
+            ]
+          }
+        ]
+      },
+      "Sikandrabad": {
+        "nameHi": "Sikandrabad",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Sikandrabad",
+            "nameHi": "Sikandrabad",
+            "center": [
+              28.437,
+              77.879
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Sikandrabad Dehat",
+            "nameHi": "Sikandrabad देहात",
+            "center": [
+              28.377,
+              77.819
+            ]
+          }
+        ]
+      },
+      "Siana": {
+        "nameHi": "Siana",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Siana",
+            "nameHi": "Siana",
+            "center": [
+              28.447,
+              77.88900000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Siana Dehat",
+            "nameHi": "Siana देहात",
+            "center": [
+              28.367,
+              77.809
+            ]
+          }
+        ]
+      },
+      "Anupshahr": {
+        "nameHi": "Anupshahr",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Anupshahr",
+            "nameHi": "Anupshahr",
+            "center": [
+              28.457,
+              77.899
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Anupshahr Dehat",
+            "nameHi": "Anupshahr देहात",
+            "center": [
+              28.357,
+              77.799
+            ]
+          }
+        ]
+      },
+      "Debai": {
+        "nameHi": "Debai",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Debai",
+            "nameHi": "Debai",
+            "center": [
+              28.467,
+              77.909
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Debai Dehat",
+            "nameHi": "Debai देहात",
+            "center": [
+              28.347,
+              77.789
+            ]
+          }
+        ]
+      },
+      "Shikarpur": {
+        "nameHi": "Shikarpur",
+        "villages": [
+          {
+            "code": "109001",
+            "nameEn": "Shikarpur",
+            "nameHi": "Shikarpur",
+            "center": [
+              28.477,
+              77.919
+            ]
+          },
+          {
+            "code": "109002",
+            "nameEn": "Shikarpur Dehat",
+            "nameHi": "Shikarpur देहात",
+            "center": [
+              28.337,
+              77.77900000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Hapur": {
+    "nameHi": "हापुड़ (Panchsheel Nagar) (Hapur)",
+    "division": "Meerut",
+    "center": [
+      28.73,
+      77.78
+    ],
+    "zoom": 13,
+    "baseCircleRate": 2100,
+    "tehsils": {
+      "Hapur": {
+        "nameHi": "Hapur",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Hapur",
+            "nameHi": "Hapur",
+            "center": [
+              28.740000000000002,
+              77.79
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Hapur Dehat",
+            "nameHi": "Hapur देहात",
+            "center": [
+              28.72,
+              77.77
+            ]
+          }
+        ]
+      },
+      "Garhmukteshwar": {
+        "nameHi": "Garhmukteshwar",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Garhmukteshwar",
+            "nameHi": "Garhmukteshwar",
+            "center": [
+              28.75,
+              77.8
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Garhmukteshwar Dehat",
+            "nameHi": "Garhmukteshwar देहात",
+            "center": [
+              28.71,
+              77.76
+            ]
+          }
+        ]
+      },
+      "Dhaulana": {
+        "nameHi": "Dhaulana",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Dhaulana",
+            "nameHi": "Dhaulana",
+            "center": [
+              28.76,
+              77.81
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Dhaulana Dehat",
+            "nameHi": "Dhaulana देहात",
+            "center": [
+              28.7,
+              77.75
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Mirzapur": {
+    "nameHi": "मिर्जापुर (Mirzapur)",
+    "division": "Mirzapur",
+    "center": [
+      25.146,
+      82.569
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1300,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.156000000000002,
+              82.57900000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.136,
+              82.559
+            ]
+          }
+        ]
+      },
+      "Chunar": {
+        "nameHi": "Chunar",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Chunar",
+            "nameHi": "Chunar",
+            "center": [
+              25.166,
+              82.589
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Chunar Dehat",
+            "nameHi": "Chunar देहात",
+            "center": [
+              25.126,
+              82.549
+            ]
+          }
+        ]
+      },
+      "Lalganj": {
+        "nameHi": "Lalganj",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Lalganj",
+            "nameHi": "Lalganj",
+            "center": [
+              25.176000000000002,
+              82.599
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Lalganj Dehat",
+            "nameHi": "Lalganj देहात",
+            "center": [
+              25.116,
+              82.539
+            ]
+          }
+        ]
+      },
+      "Marihan": {
+        "nameHi": "Marihan",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Marihan",
+            "nameHi": "Marihan",
+            "center": [
+              25.186,
+              82.60900000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Marihan Dehat",
+            "nameHi": "Marihan देहात",
+            "center": [
+              25.106,
+              82.529
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Bhadohi": {
+    "nameHi": "भदोही (Sant Ravidas Nagar) (Bhadohi)",
+    "division": "Mirzapur",
+    "center": [
+      25.395,
+      82.57
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1400,
+    "tehsils": {
+      "Bhadohi": {
+        "nameHi": "Bhadohi",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Bhadohi",
+            "nameHi": "Bhadohi",
+            "center": [
+              25.405,
+              82.58
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Bhadohi Dehat",
+            "nameHi": "Bhadohi देहात",
+            "center": [
+              25.384999999999998,
+              82.55999999999999
+            ]
+          }
+        ]
+      },
+      "Gyanpur": {
+        "nameHi": "Gyanpur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Gyanpur",
+            "nameHi": "Gyanpur",
+            "center": [
+              25.415,
+              82.58999999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Gyanpur Dehat",
+            "nameHi": "Gyanpur देहात",
+            "center": [
+              25.375,
+              82.55
+            ]
+          }
+        ]
+      },
+      "Aurai": {
+        "nameHi": "Aurai",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Aurai",
+            "nameHi": "Aurai",
+            "center": [
+              25.425,
+              82.6
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Aurai Dehat",
+            "nameHi": "Aurai देहात",
+            "center": [
+              25.365,
+              82.53999999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Sonbhadra": {
+    "nameHi": "सोनभद्र (Robertsganj) (Sonbhadra)",
+    "division": "Mirzapur",
+    "center": [
+      24.685,
+      83.065
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1150,
+    "tehsils": {
+      "Robertsganj": {
+        "nameHi": "Robertsganj",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Robertsganj",
+            "nameHi": "Robertsganj",
+            "center": [
+              24.695,
+              83.075
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Robertsganj Dehat",
+            "nameHi": "Robertsganj देहात",
+            "center": [
+              24.674999999999997,
+              83.05499999999999
+            ]
+          }
+        ]
+      },
+      "Ghorawal": {
+        "nameHi": "Ghorawal",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Ghorawal",
+            "nameHi": "Ghorawal",
+            "center": [
+              24.705,
+              83.085
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Ghorawal Dehat",
+            "nameHi": "Ghorawal देहात",
+            "center": [
+              24.665,
+              83.045
+            ]
+          }
+        ]
+      },
+      "Duddhi": {
+        "nameHi": "Duddhi",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Duddhi",
+            "nameHi": "Duddhi",
+            "center": [
+              24.715,
+              83.095
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Duddhi Dehat",
+            "nameHi": "Duddhi देहात",
+            "center": [
+              24.654999999999998,
+              83.035
+            ]
+          }
+        ]
+      },
+      "Obra": {
+        "nameHi": "Obra",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Obra",
+            "nameHi": "Obra",
+            "center": [
+              24.724999999999998,
+              83.105
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Obra Dehat",
+            "nameHi": "Obra देहात",
+            "center": [
+              24.645,
+              83.02499999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Bijnor": {
+    "nameHi": "बिजनौर (Bijnor)",
+    "division": "Moradabad",
+    "center": [
+      29.372,
+      78.136
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1450,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              29.382,
+              78.146
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              29.362,
+              78.12599999999999
+            ]
+          }
+        ]
+      },
+      "Najibabad": {
+        "nameHi": "Najibabad",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Najibabad",
+            "nameHi": "Najibabad",
+            "center": [
+              29.392,
+              78.15599999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Najibabad Dehat",
+            "nameHi": "Najibabad देहात",
+            "center": [
+              29.352,
+              78.116
+            ]
+          }
+        ]
+      },
+      "Nagina": {
+        "nameHi": "Nagina",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Nagina",
+            "nameHi": "Nagina",
+            "center": [
+              29.402,
+              78.166
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Nagina Dehat",
+            "nameHi": "Nagina देहात",
+            "center": [
+              29.342,
+              78.106
+            ]
+          }
+        ]
+      },
+      "Dhampur": {
+        "nameHi": "Dhampur",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Dhampur",
+            "nameHi": "Dhampur",
+            "center": [
+              29.412,
+              78.176
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Dhampur Dehat",
+            "nameHi": "Dhampur देहात",
+            "center": [
+              29.332,
+              78.09599999999999
+            ]
+          }
+        ]
+      },
+      "Chandpur": {
+        "nameHi": "Chandpur",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Chandpur",
+            "nameHi": "Chandpur",
+            "center": [
+              29.422,
+              78.18599999999999
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Chandpur Dehat",
+            "nameHi": "Chandpur देहात",
+            "center": [
+              29.322,
+              78.086
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Amroha": {
+    "nameHi": "अमरोहा (J.P. Nagar) (Amroha)",
+    "division": "Moradabad",
+    "center": [
+      28.904,
+      78.469
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1500,
+    "tehsils": {
+      "Amroha": {
+        "nameHi": "Amroha",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Amroha",
+            "nameHi": "Amroha",
+            "center": [
+              28.914,
+              78.479
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Amroha Dehat",
+            "nameHi": "Amroha देहात",
+            "center": [
+              28.894,
+              78.45899999999999
+            ]
+          }
+        ]
+      },
+      "Hasanpur": {
+        "nameHi": "Hasanpur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Hasanpur",
+            "nameHi": "Hasanpur",
+            "center": [
+              28.924,
+              78.48899999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Hasanpur Dehat",
+            "nameHi": "Hasanpur देहात",
+            "center": [
+              28.884,
+              78.449
+            ]
+          }
+        ]
+      },
+      "Dhanaura": {
+        "nameHi": "Dhanaura",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Dhanaura",
+            "nameHi": "Dhanaura",
+            "center": [
+              28.934,
+              78.499
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Dhanaura Dehat",
+            "nameHi": "Dhanaura देहात",
+            "center": [
+              28.874,
+              78.439
+            ]
+          }
+        ]
+      },
+      "Naugawan Sadat": {
+        "nameHi": "Naugawan Sadat",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Naugawan Sadat",
+            "nameHi": "Naugawan Sadat",
+            "center": [
+              28.944,
+              78.509
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Naugawan Sadat Dehat",
+            "nameHi": "Naugawan Sadat देहात",
+            "center": [
+              28.864,
+              78.42899999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Rampur": {
+    "nameHi": "रामपुर (Rampur)",
+    "division": "Moradabad",
+    "center": [
+      28.815,
+      79.025
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1400,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              28.825000000000003,
+              79.03500000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              28.805,
+              79.015
+            ]
+          }
+        ]
+      },
+      "Bilaspur": {
+        "nameHi": "Bilaspur",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Bilaspur",
+            "nameHi": "Bilaspur",
+            "center": [
+              28.835,
+              79.045
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Bilaspur Dehat",
+            "nameHi": "Bilaspur देहात",
+            "center": [
+              28.795,
+              79.00500000000001
+            ]
+          }
+        ]
+      },
+      "Milak": {
+        "nameHi": "Milak",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Milak",
+            "nameHi": "Milak",
+            "center": [
+              28.845000000000002,
+              79.055
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Milak Dehat",
+            "nameHi": "Milak देहात",
+            "center": [
+              28.785,
+              78.995
+            ]
+          }
+        ]
+      },
+      "Shahabad": {
+        "nameHi": "Shahabad",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Shahabad",
+            "nameHi": "Shahabad",
+            "center": [
+              28.855,
+              79.06500000000001
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Shahabad Dehat",
+            "nameHi": "Shahabad देहात",
+            "center": [
+              28.775000000000002,
+              78.985
+            ]
+          }
+        ]
+      },
+      "Swar": {
+        "nameHi": "Swar",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Swar",
+            "nameHi": "Swar",
+            "center": [
+              28.865000000000002,
+              79.075
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Swar Dehat",
+            "nameHi": "Swar देहात",
+            "center": [
+              28.765,
+              78.97500000000001
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Sambhal": {
+    "nameHi": "संभल (Bhim Nagar) (Sambhal)",
+    "division": "Moradabad",
+    "center": [
+      28.585,
+      78.568
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1300,
+    "tehsils": {
+      "Sambhal": {
+        "nameHi": "Sambhal",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sambhal",
+            "nameHi": "Sambhal",
+            "center": [
+              28.595000000000002,
+              78.578
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sambhal Dehat",
+            "nameHi": "Sambhal देहात",
+            "center": [
+              28.575,
+              78.55799999999999
+            ]
+          }
+        ]
+      },
+      "Chandausi": {
+        "nameHi": "Chandausi",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Chandausi",
+            "nameHi": "Chandausi",
+            "center": [
+              28.605,
+              78.588
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Chandausi Dehat",
+            "nameHi": "Chandausi देहात",
+            "center": [
+              28.565,
+              78.548
+            ]
+          }
+        ]
+      },
+      "Gunnaur": {
+        "nameHi": "Gunnaur",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Gunnaur",
+            "nameHi": "Gunnaur",
+            "center": [
+              28.615000000000002,
+              78.598
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Gunnaur Dehat",
+            "nameHi": "Gunnaur देहात",
+            "center": [
+              28.555,
+              78.538
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Muzaffarnagar": {
+    "nameHi": "मुजफ्फरनगर (Muzaffarnagar)",
+    "division": "Saharanpur",
+    "center": [
+      29.472,
+      77.708
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1800,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              29.482000000000003,
+              77.718
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              29.462,
+              77.698
+            ]
+          }
+        ]
+      },
+      "Khatauli": {
+        "nameHi": "Khatauli",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Khatauli",
+            "nameHi": "Khatauli",
+            "center": [
+              29.492,
+              77.728
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Khatauli Dehat",
+            "nameHi": "Khatauli देहात",
+            "center": [
+              29.452,
+              77.688
+            ]
+          }
+        ]
+      },
+      "Budhana": {
+        "nameHi": "Budhana",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Budhana",
+            "nameHi": "Budhana",
+            "center": [
+              29.502000000000002,
+              77.738
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Budhana Dehat",
+            "nameHi": "Budhana देहात",
+            "center": [
+              29.442,
+              77.678
+            ]
+          }
+        ]
+      },
+      "Jansath": {
+        "nameHi": "Jansath",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Jansath",
+            "nameHi": "Jansath",
+            "center": [
+              29.512,
+              77.748
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Jansath Dehat",
+            "nameHi": "Jansath देहात",
+            "center": [
+              29.432000000000002,
+              77.66799999999999
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Shamli": {
+    "nameHi": "शामली (Prabuddh Nagar) (Shamli)",
+    "division": "Saharanpur",
+    "center": [
+      29.449,
+      77.31
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1750,
+    "tehsils": {
+      "Shamli": {
+        "nameHi": "Shamli",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Shamli",
+            "nameHi": "Shamli",
+            "center": [
+              29.459000000000003,
+              77.32000000000001
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Shamli Dehat",
+            "nameHi": "Shamli देहात",
+            "center": [
+              29.439,
+              77.3
+            ]
+          }
+        ]
+      },
+      "Kairana": {
+        "nameHi": "Kairana",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Kairana",
+            "nameHi": "Kairana",
+            "center": [
+              29.469,
+              77.33
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Kairana Dehat",
+            "nameHi": "Kairana देहात",
+            "center": [
+              29.429000000000002,
+              77.29
+            ]
+          }
+        ]
+      },
+      "Unn": {
+        "nameHi": "Unn",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Unn",
+            "nameHi": "Unn",
+            "center": [
+              29.479000000000003,
+              77.34
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Unn Dehat",
+            "nameHi": "Unn देहात",
+            "center": [
+              29.419,
+              77.28
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Chandauli": {
+    "nameHi": "चंदौली (Chandauli)",
+    "division": "Varanasi",
+    "center": [
+      25.261,
+      83.267
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1200,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.271,
+              83.277
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.250999999999998,
+              83.25699999999999
+            ]
+          }
+        ]
+      },
+      "Mughalsarai (Pt. Deen Dayal)": {
+        "nameHi": "Mughalsarai (Pt. Deen Dayal)",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Mughalsarai (Pt. Deen Dayal)",
+            "nameHi": "Mughalsarai (Pt. Deen Dayal)",
+            "center": [
+              25.281,
+              83.28699999999999
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Mughalsarai (Pt. Deen Dayal) Dehat",
+            "nameHi": "Mughalsarai (Pt. Deen Dayal) देहात",
+            "center": [
+              25.241,
+              83.247
+            ]
+          }
+        ]
+      },
+      "Chakia": {
+        "nameHi": "Chakia",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Chakia",
+            "nameHi": "Chakia",
+            "center": [
+              25.291,
+              83.297
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Chakia Dehat",
+            "nameHi": "Chakia देहात",
+            "center": [
+              25.230999999999998,
+              83.237
+            ]
+          }
+        ]
+      },
+      "Sakaldiha": {
+        "nameHi": "Sakaldiha",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Sakaldiha",
+            "nameHi": "Sakaldiha",
+            "center": [
+              25.301,
+              83.307
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Sakaldiha Dehat",
+            "nameHi": "Sakaldiha देहात",
+            "center": [
+              25.221,
+              83.22699999999999
+            ]
+          }
+        ]
+      },
+      "Naugarh": {
+        "nameHi": "Naugarh",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Naugarh",
+            "nameHi": "Naugarh",
+            "center": [
+              25.311,
+              83.317
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Naugarh Dehat",
+            "nameHi": "Naugarh देहात",
+            "center": [
+              25.211,
+              83.217
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Ghazipur": {
+    "nameHi": "गाजीपुर (Ghazipur)",
+    "division": "Varanasi",
+    "center": [
+      25.584,
+      83.577
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1250,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.594,
+              83.587
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.573999999999998,
+              83.567
+            ]
+          }
+        ]
+      },
+      "Mohammadabad": {
+        "nameHi": "Mohammadabad",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Mohammadabad",
+            "nameHi": "Mohammadabad",
+            "center": [
+              25.604,
+              83.597
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Mohammadabad Dehat",
+            "nameHi": "Mohammadabad देहात",
+            "center": [
+              25.564,
+              83.557
+            ]
+          }
+        ]
+      },
+      "Zamania": {
+        "nameHi": "Zamania",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Zamania",
+            "nameHi": "Zamania",
+            "center": [
+              25.614,
+              83.607
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Zamania Dehat",
+            "nameHi": "Zamania देहात",
+            "center": [
+              25.554,
+              83.547
+            ]
+          }
+        ]
+      },
+      "Saidpur": {
+        "nameHi": "Saidpur",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Saidpur",
+            "nameHi": "Saidpur",
+            "center": [
+              25.624,
+              83.617
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Saidpur Dehat",
+            "nameHi": "Saidpur देहात",
+            "center": [
+              25.544,
+              83.53699999999999
+            ]
+          }
+        ]
+      },
+      "Jakhania": {
+        "nameHi": "Jakhania",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Jakhania",
+            "nameHi": "Jakhania",
+            "center": [
+              25.634,
+              83.627
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Jakhania Dehat",
+            "nameHi": "Jakhania देहात",
+            "center": [
+              25.534,
+              83.527
+            ]
+          }
+        ]
+      },
+      "Kasimabad": {
+        "nameHi": "Kasimabad",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Kasimabad",
+            "nameHi": "Kasimabad",
+            "center": [
+              25.644,
+              83.637
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Kasimabad Dehat",
+            "nameHi": "Kasimabad देहात",
+            "center": [
+              25.524,
+              83.517
+            ]
+          }
+        ]
+      },
+      "Sewrai": {
+        "nameHi": "Sewrai",
+        "villages": [
+          {
+            "code": "109001",
+            "nameEn": "Sewrai",
+            "nameHi": "Sewrai",
+            "center": [
+              25.654,
+              83.64699999999999
+            ]
+          },
+          {
+            "code": "109002",
+            "nameEn": "Sewrai Dehat",
+            "nameHi": "Sewrai देहात",
+            "center": [
+              25.514,
+              83.507
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Jaunpur": {
+    "nameHi": "जौनपुर (Jaunpur)",
+    "division": "Varanasi",
+    "center": [
+      25.746,
+      82.684
+    ],
+    "zoom": 13,
+    "baseCircleRate": 1300,
+    "tehsils": {
+      "Sadar": {
+        "nameHi": "Sadar",
+        "villages": [
+          {
+            "code": "103001",
+            "nameEn": "Sadar",
+            "nameHi": "Sadar",
+            "center": [
+              25.756,
+              82.694
+            ]
+          },
+          {
+            "code": "103002",
+            "nameEn": "Sadar Dehat",
+            "nameHi": "Sadar देहात",
+            "center": [
+              25.735999999999997,
+              82.67399999999999
+            ]
+          }
+        ]
+      },
+      "Shahganj": {
+        "nameHi": "Shahganj",
+        "villages": [
+          {
+            "code": "104001",
+            "nameEn": "Shahganj",
+            "nameHi": "Shahganj",
+            "center": [
+              25.766,
+              82.704
+            ]
+          },
+          {
+            "code": "104002",
+            "nameEn": "Shahganj Dehat",
+            "nameHi": "Shahganj देहात",
+            "center": [
+              25.726,
+              82.664
+            ]
+          }
+        ]
+      },
+      "Machhlishahr": {
+        "nameHi": "Machhlishahr",
+        "villages": [
+          {
+            "code": "105001",
+            "nameEn": "Machhlishahr",
+            "nameHi": "Machhlishahr",
+            "center": [
+              25.776,
+              82.714
+            ]
+          },
+          {
+            "code": "105002",
+            "nameEn": "Machhlishahr Dehat",
+            "nameHi": "Machhlishahr देहात",
+            "center": [
+              25.715999999999998,
+              82.654
+            ]
+          }
+        ]
+      },
+      "Mariahu": {
+        "nameHi": "Mariahu",
+        "villages": [
+          {
+            "code": "106001",
+            "nameEn": "Mariahu",
+            "nameHi": "Mariahu",
+            "center": [
+              25.785999999999998,
+              82.724
+            ]
+          },
+          {
+            "code": "106002",
+            "nameEn": "Mariahu Dehat",
+            "nameHi": "Mariahu देहात",
+            "center": [
+              25.706,
+              82.64399999999999
+            ]
+          }
+        ]
+      },
+      "Kerakat": {
+        "nameHi": "Kerakat",
+        "villages": [
+          {
+            "code": "107001",
+            "nameEn": "Kerakat",
+            "nameHi": "Kerakat",
+            "center": [
+              25.796,
+              82.734
+            ]
+          },
+          {
+            "code": "107002",
+            "nameEn": "Kerakat Dehat",
+            "nameHi": "Kerakat देहात",
+            "center": [
+              25.695999999999998,
+              82.634
+            ]
+          }
+        ]
+      },
+      "Badlapur": {
+        "nameHi": "Badlapur",
+        "villages": [
+          {
+            "code": "108001",
+            "nameEn": "Badlapur",
+            "nameHi": "Badlapur",
+            "center": [
+              25.805999999999997,
+              82.744
+            ]
+          },
+          {
+            "code": "108002",
+            "nameEn": "Badlapur Dehat",
+            "nameHi": "Badlapur देहात",
+            "center": [
+              25.686,
+              82.624
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

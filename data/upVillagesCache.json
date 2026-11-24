@@ -1,0 +1,2038 @@
+{
+  "Prayagraj:Karchhana": [
+    {
+      "code": "162009",
+      "nameEn": "Bhagwanpur",
+      "nameHi": "भगवानपुर",
+      "center": [
+        25.4566,
+        81.831
+      ],
+      "lat": 25.4566,
+      "lng": 81.831,
+      "lgdCode": "162009",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162019",
+      "nameEn": "Bhavanipur",
+      "nameHi": "भवानीपुर",
+      "center": [
+        25.4006,
+        81.872
+      ],
+      "lat": 25.4006,
+      "lng": 81.872,
+      "lgdCode": "162019",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162105",
+      "nameEn": "Bhirpur",
+      "nameHi": "भीरपुर",
+      "center": [
+        25.265,
+        81.982
+      ],
+      "lat": 25.265,
+      "lng": 81.982,
+      "lgdCode": "162105",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "162103",
+      "nameEn": "Chak Imam Ali",
+      "nameHi": "इमाम अली",
+      "center": [
+        25.405,
+        81.875
+      ],
+      "lat": 25.405,
+      "lng": 81.875,
+      "lgdCode": "162103",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "162012",
+      "nameEn": "Chandrapur",
+      "nameHi": "चंद्रपुर",
+      "center": [
+        25.4188,
+        81.8137
+      ],
+      "lat": 25.4188,
+      "lng": 81.8137,
+      "lgdCode": "162012",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162102",
+      "nameEn": "Dandi",
+      "nameHi": "डांडी",
+      "center": [
+        25.392,
+        81.881
+      ],
+      "lat": 25.392,
+      "lng": 81.881,
+      "lgdCode": "162102",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "162007",
+      "nameEn": "Fatehpur",
+      "nameHi": "फतेहपुर",
+      "center": [
+        25.4386,
+        81.8609
+      ],
+      "lat": 25.4386,
+      "lng": 81.8609,
+      "lgdCode": "162007",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162010",
+      "nameEn": "Gopalpur",
+      "nameHi": "गोपालपुर",
+      "center": [
+        25.4296,
+        81.8469
+      ],
+      "lat": 25.4296,
+      "lng": 81.8469,
+      "lgdCode": "162010",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162004",
+      "nameEn": "Govindpur",
+      "nameHi": "गोविंदपुर",
+      "center": [
+        25.4339,
+        81.8768
+      ],
+      "lat": 25.4339,
+      "lng": 81.8768,
+      "lgdCode": "162004",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162013",
+      "nameEn": "Harishchandrapur",
+      "nameHi": "हरिश्चंद्रपुर",
+      "center": [
+        25.4132,
+        81.8445
+      ],
+      "lat": 25.4132,
+      "lng": 81.8445,
+      "lgdCode": "162013",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162017",
+      "nameEn": "Jagdishpur",
+      "nameHi": "जगदीशपुर",
+      "center": [
+        25.3842,
+        81.8587
+      ],
+      "lat": 25.3842,
+      "lng": 81.8587,
+      "lgdCode": "162017",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162003",
+      "nameEn": "Kalyanpur",
+      "nameHi": "कल्याणपुर",
+      "center": [
+        25.4458,
+        81.9058
+      ],
+      "lat": 25.4458,
+      "lng": 81.9058,
+      "lgdCode": "162003",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162104",
+      "nameEn": "Karchhana",
+      "nameHi": "करछना",
+      "center": [
+        25.285,
+        81.932
+      ],
+      "lat": 25.285,
+      "lng": 81.932,
+      "lgdCode": "162104",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "162002",
+      "nameEn": "Karchhana Dehat",
+      "nameHi": "Karchhana देहात",
+      "center": [
+        25.4287,
+        81.8973
+      ],
+      "lat": 25.4287,
+      "lng": 81.8973,
+      "lgdCode": "162002",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162014",
+      "nameEn": "Lakshmipur",
+      "nameHi": "लक्ष्मीपुर",
+      "center": [
+        25.3999,
+        81.8343
+      ],
+      "lat": 25.3999,
+      "lng": 81.8343,
+      "lgdCode": "162014",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162021",
+      "nameEn": "Madhopur",
+      "nameHi": "माधोपुर",
+      "center": [
+        25.3918,
+        81.9058
+      ],
+      "lat": 25.3918,
+      "lng": 81.9058,
+      "lgdCode": "162021",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162018",
+      "nameEn": "Maharajpur",
+      "nameHi": "महाराजपुर",
+      "center": [
+        25.3693,
+        81.8708
+      ],
+      "lat": 25.3693,
+      "lng": 81.8708,
+      "lgdCode": "162018",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162006",
+      "nameEn": "Mohanpur",
+      "nameHi": "मोहनपुर",
+      "center": [
+        25.4683,
+        81.8708
+      ],
+      "lat": 25.4683,
+      "lng": 81.8708,
+      "lgdCode": "162006",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162101",
+      "nameEn": "Naini",
+      "nameHi": "नैनी",
+      "center": [
+        25.4188,
+        81.8637
+      ],
+      "lat": 25.4188,
+      "lng": 81.8637,
+      "lgdCode": "162101",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "162011",
+      "nameEn": "Narayanpur",
+      "nameHi": "नारायणपुर",
+      "center": [
+        25.4287,
+        81.8301
+      ],
+      "lat": 25.4287,
+      "lng": 81.8301,
+      "lgdCode": "162011",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162022",
+      "nameEn": "Pratappur",
+      "nameHi": "प्रतापपुर",
+      "center": [
+        25.4132,
+        81.8829
+      ],
+      "lat": 25.4132,
+      "lng": 81.8829,
+      "lgdCode": "162022",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162015",
+      "nameEn": "Radhakund",
+      "nameHi": "राधाकुंड",
+      "center": [
+        25.381,
+        81.831
+      ],
+      "lat": 25.381,
+      "lng": 81.831,
+      "lgdCode": "162015",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162005",
+      "nameEn": "Rampur",
+      "nameHi": "रामपुर",
+      "center": [
+        25.4506,
+        81.8782
+      ],
+      "lat": 25.4506,
+      "lng": 81.8782,
+      "lgdCode": "162005",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162008",
+      "nameEn": "Shivpur",
+      "nameHi": "शिवपुर",
+      "center": [
+        25.4506,
+        81.8492
+      ],
+      "lat": 25.4506,
+      "lng": 81.8492,
+      "lgdCode": "162008",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162016",
+      "nameEn": "Sitarampur",
+      "nameHi": "सीतारामपुर",
+      "center": [
+        25.4006,
+        81.8554
+      ],
+      "lat": 25.4006,
+      "lng": 81.8554,
+      "lgdCode": "162016",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162020",
+      "nameEn": "Sultanpur",
+      "nameHi": "सुल्तानपुर",
+      "center": [
+        25.3923,
+        81.8866
+      ],
+      "lat": 25.3923,
+      "lng": 81.8866,
+      "lgdCode": "162020",
+      "source": "UP_Revenue_Standard_Directory"
+    }
+  ],
+  "Banda:Baberu": [
+    {
+      "code": "171201",
+      "nameEn": "Mau",
+      "nameHi": "मऊ",
+      "center": [
+        25.6121,
+        80.8728
+      ],
+      "lat": 25.6121,
+      "lng": 80.8728,
+      "lgdCode": "171201",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171202",
+      "nameEn": "Baberu",
+      "nameHi": "बबेरू",
+      "center": [
+        25.5469,
+        80.7013
+      ],
+      "lat": 25.5469,
+      "lng": 80.7013,
+      "lgdCode": "171202",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171203",
+      "nameEn": "Marka",
+      "nameHi": "मरका",
+      "center": [
+        25.625,
+        80.852
+      ],
+      "lat": 25.625,
+      "lng": 80.852,
+      "lgdCode": "171203",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171204",
+      "nameEn": "Augasi",
+      "nameHi": "औगासी",
+      "center": [
+        25.589,
+        80.795
+      ],
+      "lat": 25.589,
+      "lng": 80.795,
+      "lgdCode": "171204",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171205",
+      "nameEn": "Kamasin",
+      "nameHi": "कमासिन",
+      "center": [
+        25.515,
+        80.9068
+      ],
+      "lat": 25.515,
+      "lng": 80.9068,
+      "lgdCode": "171205",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171206",
+      "nameEn": "Simoni",
+      "nameHi": "सिमोनी",
+      "center": [
+        25.578,
+        80.742
+      ],
+      "lat": 25.578,
+      "lng": 80.742,
+      "lgdCode": "171206",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171207",
+      "nameEn": "Harduli",
+      "nameHi": "हरदौली",
+      "center": [
+        25.534,
+        80.768
+      ],
+      "lat": 25.534,
+      "lng": 80.768,
+      "lgdCode": "171207",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171208",
+      "nameEn": "Pawai",
+      "nameHi": "पवई",
+      "center": [
+        25.592,
+        80.689
+      ],
+      "lat": 25.592,
+      "lng": 80.689,
+      "lgdCode": "171208",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171209",
+      "nameEn": "Jaspura",
+      "nameHi": "जसपुरा",
+      "center": [
+        25.765,
+        80.412
+      ],
+      "lat": 25.765,
+      "lng": 80.412,
+      "lgdCode": "171209",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171210",
+      "nameEn": "Badausa",
+      "nameHi": "बदौसा",
+      "center": [
+        25.321,
+        80.654
+      ],
+      "lat": 25.321,
+      "lng": 80.654,
+      "lgdCode": "171210",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171211",
+      "nameEn": "Beera",
+      "nameHi": "बीरा",
+      "center": [
+        25.5828,
+        80.9685
+      ],
+      "lat": 25.5828,
+      "lng": 80.9685,
+      "lgdCode": "171211",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171212",
+      "nameEn": "Sikari",
+      "nameHi": "सिकरी",
+      "center": [
+        25.5599,
+        80.9499
+      ],
+      "lat": 25.5599,
+      "lng": 80.9499,
+      "lgdCode": "171212",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171213",
+      "nameEn": "Museevan",
+      "nameHi": "मुसीवां",
+      "center": [
+        25.5708,
+        80.9519
+      ],
+      "lat": 25.5708,
+      "lng": 80.9519,
+      "lgdCode": "171213",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171214",
+      "nameEn": "Pachhauhan",
+      "nameHi": "पछौहां",
+      "center": [
+        25.5421,
+        80.9288
+      ],
+      "lat": 25.5421,
+      "lng": 80.9288,
+      "lgdCode": "171214",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171215",
+      "nameEn": "Bisandi",
+      "nameHi": "बिसंडी",
+      "center": [
+        25.4049,
+        80.6189
+      ],
+      "lat": 25.4049,
+      "lng": 80.6189,
+      "lgdCode": "171215",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171216",
+      "nameEn": "Dhundhui",
+      "nameHi": "धुंधुई",
+      "center": [
+        25.421,
+        80.642
+      ],
+      "lat": 25.421,
+      "lng": 80.642,
+      "lgdCode": "171216",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171217",
+      "nameEn": "Paprenda",
+      "nameHi": "पपरेन्दा",
+      "center": [
+        25.582,
+        80.452
+      ],
+      "lat": 25.582,
+      "lng": 80.452,
+      "lgdCode": "171217",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171218",
+      "nameEn": "Khurhand",
+      "nameHi": "खुरहंड",
+      "center": [
+        25.441,
+        80.528
+      ],
+      "lat": 25.441,
+      "lng": 80.528,
+      "lgdCode": "171218",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171219",
+      "nameEn": "Pahari",
+      "nameHi": "पहाड़ी",
+      "center": [
+        25.312,
+        80.884
+      ],
+      "lat": 25.312,
+      "lng": 80.884,
+      "lgdCode": "171219",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171220",
+      "nameEn": "Chilla",
+      "nameHi": "चिल्ला",
+      "center": [
+        25.728,
+        80.551
+      ],
+      "lat": 25.728,
+      "lng": 80.551,
+      "lgdCode": "171220",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171221",
+      "nameEn": "Kishanpur",
+      "nameHi": "किशनपुर",
+      "center": [
+        25.795,
+        80.792
+      ],
+      "lat": 25.795,
+      "lng": 80.792,
+      "lgdCode": "171221",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171222",
+      "nameEn": "Lalauli",
+      "nameHi": "ललौली",
+      "center": [
+        25.821,
+        80.748
+      ],
+      "lat": 25.821,
+      "lng": 80.748,
+      "lgdCode": "171222",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171223",
+      "nameEn": "Ghazipur",
+      "nameHi": "गाजीपुर",
+      "center": [
+        25.801,
+        80.7507
+      ],
+      "lat": 25.801,
+      "lng": 80.7507,
+      "lgdCode": "171223",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171224",
+      "nameEn": "Kayal",
+      "nameHi": "कयाल",
+      "center": [
+        25.541,
+        80.682
+      ],
+      "lat": 25.541,
+      "lng": 80.682,
+      "lgdCode": "171224",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171225",
+      "nameEn": "Bhilkawa",
+      "nameHi": "भिलकावा",
+      "center": [
+        25.528,
+        80.718
+      ],
+      "lat": 25.528,
+      "lng": 80.718,
+      "lgdCode": "171225",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171226",
+      "nameEn": "Nibhaur",
+      "nameHi": "निभौर",
+      "center": [
+        25.562,
+        80.781
+      ],
+      "lat": 25.562,
+      "lng": 80.781,
+      "lgdCode": "171226",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171227",
+      "nameEn": "Samgara",
+      "nameHi": "समगरा",
+      "center": [
+        25.584,
+        80.712
+      ],
+      "lat": 25.584,
+      "lng": 80.712,
+      "lgdCode": "171227",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171228",
+      "nameEn": "Murwal",
+      "nameHi": "मुरवल",
+      "center": [
+        25.518,
+        80.672
+      ],
+      "lat": 25.518,
+      "lng": 80.672,
+      "lgdCode": "171228",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171229",
+      "nameEn": "Deoratha",
+      "nameHi": "देवराथा",
+      "center": [
+        25.549,
+        80.825
+      ],
+      "lat": 25.549,
+      "lng": 80.825,
+      "lgdCode": "171229",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    },
+    {
+      "code": "171230",
+      "nameEn": "Andhi",
+      "nameHi": "आंधी",
+      "center": [
+        25.539,
+        80.841
+      ],
+      "lat": 25.539,
+      "lng": 80.841,
+      "lgdCode": "171230",
+      "source": "UP_REVENUE_REAL_GEOGRAPHY"
+    }
+  ],
+  "Lucknow:Mohanlalganj": [
+    {
+      "code": "245028",
+      "nameEn": "Ahmamau",
+      "nameHi": "अहमामऊ",
+      "center": [
+        26.8010161,
+        81.004746
+      ],
+      "lat": 26.8010161,
+      "lng": 81.004746,
+      "lgdCode": "245028",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "465762",
+      "nameEn": "Ajgain",
+      "nameHi": "अजगैन",
+      "center": [
+        26.6115066,
+        80.6289268
+      ],
+      "lat": 26.6115066,
+      "lng": 80.6289268,
+      "lgdCode": "465762",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "603907",
+      "nameEn": "Alambagh",
+      "nameHi": "आलमबाग",
+      "center": [
+        26.8139516,
+        80.9077973
+      ],
+      "lat": 26.8139516,
+      "lng": 80.9077973,
+      "lgdCode": "603907",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "522584",
+      "nameEn": "Aliganj",
+      "nameHi": "अलीगंज",
+      "center": [
+        26.90515,
+        80.9479913
+      ],
+      "lat": 26.90515,
+      "lng": 80.9479913,
+      "lgdCode": "522584",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "181465",
+      "nameEn": "Ameer Nagar",
+      "nameHi": "अमीर नगर",
+      "center": [
+        26.8339511,
+        80.9109708
+      ],
+      "lat": 26.8339511,
+      "lng": 80.9109708,
+      "lgdCode": "181465",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "689774",
+      "nameEn": "Amethi",
+      "nameHi": "अमेठी",
+      "center": [
+        26.7560594,
+        81.1576748
+      ],
+      "lat": 26.7560594,
+      "lng": 81.1576748,
+      "lgdCode": "689774",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "753849",
+      "nameEn": "Aminabad",
+      "nameHi": "अमीनाबाद",
+      "center": [
+        26.8487,
+        80.927
+      ],
+      "lat": 26.8487,
+      "lng": 80.927,
+      "lgdCode": "753849",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "382872",
+      "nameEn": "Arya Nagar",
+      "nameHi": "आर्या नगर",
+      "center": [
+        26.8370192,
+        80.9179222
+      ],
+      "lat": 26.8370192,
+      "lng": 80.9179222,
+      "lgdCode": "382872",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "572673",
+      "nameEn": "Atif Vihar",
+      "nameHi": "आतिफ विहार",
+      "center": [
+        26.8919506,
+        81.0593893
+      ],
+      "lat": 26.8919506,
+      "lng": 81.0593893,
+      "lgdCode": "572673",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "4952",
+      "nameEn": "Aurangabad",
+      "nameHi": "औरंगाबाद",
+      "center": [
+        26.7704608,
+        80.9140762
+      ],
+      "lat": 26.7704608,
+      "lng": 80.9140762,
+      "lgdCode": "4952",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "359494",
+      "nameEn": "Bachhrawan",
+      "nameHi": "बछरावां",
+      "center": [
+        26.4709168,
+        81.1152047
+      ],
+      "lat": 26.4709168,
+      "lng": 81.1152047,
+      "lgdCode": "359494",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "245030",
+      "nameEn": "Bagiamau",
+      "nameHi": "बगीयमऊ",
+      "center": [
+        26.7933443,
+        81.0046003
+      ],
+      "lat": 26.7933443,
+      "lng": 81.0046003,
+      "lgdCode": "245030",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "403642",
+      "nameEn": "Bawali",
+      "nameHi": "Bawali",
+      "center": [
+        26.8759872,
+        80.8367247
+      ],
+      "lat": 26.8759872,
+      "lng": 80.8367247,
+      "lgdCode": "403642",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269795",
+      "nameEn": "Birhana",
+      "nameHi": "बिरहाना",
+      "center": [
+        26.848957,
+        80.917914
+      ],
+      "lat": 26.848957,
+      "lng": 80.917914,
+      "lgdCode": "269795",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "372074",
+      "nameEn": "Charbagh",
+      "nameHi": "चारबाग़",
+      "center": [
+        26.8334969,
+        80.9264143
+      ],
+      "lat": 26.8334969,
+      "lng": 80.9264143,
+      "lgdCode": "372074",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "421389",
+      "nameEn": "Chinhat",
+      "nameHi": "चिनहट",
+      "center": [
+        26.8751435,
+        81.0355588
+      ],
+      "lat": 26.8751435,
+      "lng": 81.0355588,
+      "lgdCode": "421389",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "754072",
+      "nameEn": "Chowk",
+      "nameHi": "चौक",
+      "center": [
+        26.8677148,
+        80.9042142
+      ],
+      "lat": 26.8677148,
+      "lng": 80.9042142,
+      "lgdCode": "754072",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "753935",
+      "nameEn": "Civil Lines",
+      "nameHi": "सिविल लाइंस",
+      "center": [
+        26.8572773,
+        80.9593451
+      ],
+      "lat": 26.8572773,
+      "lng": 80.9593451,
+      "lgdCode": "753935",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "753702",
+      "nameEn": "Ganesh Ganj",
+      "nameHi": "गनेश गंज",
+      "center": [
+        26.8367,
+        80.9353
+      ],
+      "lat": 26.8367,
+      "lng": 80.9353,
+      "lgdCode": "753702",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269796",
+      "nameEn": "Ganeshganj",
+      "nameHi": "गणेशगंज",
+      "center": [
+        26.8432214,
+        80.9219983
+      ],
+      "lat": 26.8432214,
+      "lng": 80.9219983,
+      "lgdCode": "269796",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "242910",
+      "nameEn": "Gauri Bazar",
+      "nameHi": "Gauri Bazar",
+      "center": [
+        26.7400509,
+        80.858156
+      ],
+      "lat": 26.7400509,
+      "lng": 80.858156,
+      "lgdCode": "242910",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "106695",
+      "nameEn": "Gomti Nagar",
+      "nameHi": "गोमती नगर",
+      "center": [
+        26.8528761,
+        80.9988505
+      ],
+      "lat": 26.8528761,
+      "lng": 80.9988505,
+      "lgdCode": "106695",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "494527",
+      "nameEn": "Gopeshkunj",
+      "nameHi": "Gopeshkunj",
+      "center": [
+        26.7802551,
+        80.9611871
+      ],
+      "lat": 26.7802551,
+      "lng": 80.9611871,
+      "lgdCode": "494527",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "804032",
+      "nameEn": "Gwari",
+      "nameHi": "Gwari",
+      "center": [
+        26.8456112,
+        80.9960687
+      ],
+      "lat": 26.8456112,
+      "lng": 80.9960687,
+      "lgdCode": "804032",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "754128",
+      "nameEn": "Hasan Ganj",
+      "nameHi": "हसनगंज",
+      "center": [
+        26.8707342,
+        80.941413
+      ],
+      "lat": 26.8707342,
+      "lng": 80.941413,
+      "lgdCode": "754128",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269803",
+      "nameEn": "Hazratganj",
+      "nameHi": "हज़रतगंज",
+      "center": [
+        26.854809,
+        80.9447594
+      ],
+      "lat": 26.854809,
+      "lng": 80.9447594,
+      "lgdCode": "269803",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "106696",
+      "nameEn": "Indira Nagar",
+      "nameHi": "Indira Nagar",
+      "center": [
+        26.8823182,
+        80.9900344
+      ],
+      "lat": 26.8823182,
+      "lng": 80.9900344,
+      "lgdCode": "106696",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "500813",
+      "nameEn": "Indraprastha Estate",
+      "nameHi": "Indraprastha Estate",
+      "center": [
+        26.8707003,
+        80.9425798
+      ],
+      "lat": 26.8707003,
+      "lng": 80.9425798,
+      "lgdCode": "500813",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "84480",
+      "nameEn": "Kakori",
+      "nameHi": "Kakori",
+      "center": [
+        26.869005,
+        80.7877429
+      ],
+      "lat": 26.869005,
+      "lng": 80.7877429,
+      "lgdCode": "84480",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "141102",
+      "nameEn": "Kalli Pashchim",
+      "nameHi": "कल्ली पश्चिम",
+      "center": [
+        26.745,
+        80.925
+      ],
+      "lat": 26.745,
+      "lng": 80.925,
+      "lgdCode": "141102",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "692990",
+      "nameEn": "Kalyanpur",
+      "nameHi": "कल्याणपुर",
+      "center": [
+        26.9032068,
+        80.9737457
+      ],
+      "lat": 26.9032068,
+      "lng": 80.9737457,
+      "lgdCode": "692990",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "717205",
+      "nameEn": "Khadra",
+      "nameHi": "Khadra",
+      "center": [
+        26.8802898,
+        80.9166001
+      ],
+      "lat": 26.8802898,
+      "lng": 80.9166001,
+      "lgdCode": "717205",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "242911",
+      "nameEn": "Kudrat Vihar Colony",
+      "nameHi": "Kudrat Vihar Colony",
+      "center": [
+        26.7419915,
+        80.8593883
+      ],
+      "lat": 26.7419915,
+      "lng": 80.8593883,
+      "lgdCode": "242911",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269793",
+      "nameEn": "Loha Bazar",
+      "nameHi": "लोहा बाज़ार",
+      "center": [
+        26.8535333,
+        80.914839
+      ],
+      "lat": 26.8535333,
+      "lng": 80.914839,
+      "lgdCode": "269793",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "754278",
+      "nameEn": "Mahanagar Colony",
+      "nameHi": "Mahanagar Colony",
+      "center": [
+        26.8744534,
+        80.9581781
+      ],
+      "lat": 26.8744534,
+      "lng": 80.9581781,
+      "lgdCode": "754278",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "748015",
+      "nameEn": "Maurawan",
+      "nameHi": "Maurawan",
+      "center": [
+        26.4288,
+        80.8798
+      ],
+      "lat": 26.4288,
+      "lng": 80.8798,
+      "lgdCode": "748015",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "752671",
+      "nameEn": "Mohan",
+      "nameHi": "मोहान",
+      "center": [
+        26.7802746,
+        80.6745721
+      ],
+      "lat": 26.7802746,
+      "lng": 80.6745721,
+      "lgdCode": "752671",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "751183",
+      "nameEn": "Mohanlalganj",
+      "nameHi": "मोहनलालगंज",
+      "center": [
+        26.680635,
+        80.9830834
+      ],
+      "lat": 26.680635,
+      "lng": 80.9830834,
+      "lgdCode": "751183",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "181464",
+      "nameEn": "Moti Nagar",
+      "nameHi": "मोती नगर",
+      "center": [
+        26.8395949,
+        80.913333
+      ],
+      "lat": 26.8395949,
+      "lng": 80.913333,
+      "lgdCode": "181464",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269790",
+      "nameEn": "Munshi Pulia",
+      "nameHi": "मुंशी पुलिया",
+      "center": [
+        26.8849207,
+        80.9955565
+      ],
+      "lat": 26.8849207,
+      "lng": 80.9955565,
+      "lgdCode": "269790",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "180363",
+      "nameEn": "Nagram",
+      "nameHi": "Nagram",
+      "center": [
+        26.6184787,
+        81.1410708
+      ],
+      "lat": 26.6184787,
+      "lng": 81.1410708,
+      "lgdCode": "180363",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "603396",
+      "nameEn": "Naka Hindola",
+      "nameHi": "नाका हिंडोला",
+      "center": [
+        26.8382756,
+        80.923278
+      ],
+      "lat": 26.8382756,
+      "lng": 80.923278,
+      "lgdCode": "603396",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "365035",
+      "nameEn": "Nawab Ganj",
+      "nameHi": "नवाबगंज",
+      "center": [
+        26.6213178,
+        80.6664233
+      ],
+      "lat": 26.6213178,
+      "lng": 80.6664233,
+      "lgdCode": "365035",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269798",
+      "nameEn": "Nazirabad",
+      "nameHi": "नजीराबाद",
+      "center": [
+        26.8479757,
+        80.9300225
+      ],
+      "lat": 26.8479757,
+      "lng": 80.9300225,
+      "lgdCode": "269798",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "750211",
+      "nameEn": "Nigohan",
+      "nameHi": "Nigohan",
+      "center": [
+        26.5620381,
+        81.0304534
+      ],
+      "lat": 26.5620381,
+      "lng": 81.0304534,
+      "lgdCode": "750211",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "709658",
+      "nameEn": "pasi ka purwa",
+      "nameHi": "pasi ka purwa",
+      "center": [
+        26.8672988,
+        81.0289808
+      ],
+      "lat": 26.8672988,
+      "lng": 81.0289808,
+      "lgdCode": "709658",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "748583",
+      "nameEn": "Purwa",
+      "nameHi": "Purwa",
+      "center": [
+        26.4591497,
+        80.7735013
+      ],
+      "lat": 26.4591497,
+      "lng": 80.7735013,
+      "lgdCode": "748583",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269791",
+      "nameEn": "Qaisarbagh",
+      "nameHi": "कैसरबाग",
+      "center": [
+        26.8563927,
+        80.9284775
+      ],
+      "lat": 26.8563927,
+      "lng": 80.9284775,
+      "lgdCode": "269791",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "924207",
+      "nameEn": "Rajaji Puram",
+      "nameHi": "Rajaji Puram",
+      "center": [
+        26.8452401,
+        80.8791931
+      ],
+      "lat": 26.8452401,
+      "lng": 80.8791931,
+      "lgdCode": "924207",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "753909",
+      "nameEn": "Sadat Ganj",
+      "nameHi": "Sadat Ganj",
+      "center": [
+        26.8536,
+        80.8899
+      ],
+      "lat": 26.8536,
+      "lng": 80.8899,
+      "lgdCode": "753909",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "169513",
+      "nameEn": "Samesi",
+      "nameHi": "Samesi",
+      "center": [
+        26.6143586,
+        81.1017209
+      ],
+      "lat": 26.6143586,
+      "lng": 81.1017209,
+      "lgdCode": "169513",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "706133",
+      "nameEn": "Sarojni Nagar",
+      "nameHi": "Sarojni Nagar",
+      "center": [
+        26.7423277,
+        80.8612463
+      ],
+      "lat": 26.7423277,
+      "lng": 80.8612463,
+      "lgdCode": "706133",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "509070",
+      "nameEn": "Sector D, LDA Colony",
+      "nameHi": "Sector D, LDA Colony",
+      "center": [
+        26.7845433,
+        80.8905154
+      ],
+      "lat": 26.7845433,
+      "lng": 80.8905154,
+      "lgdCode": "509070",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "141101",
+      "nameEn": "Sisendi",
+      "nameHi": "सिसेंडी",
+      "center": [
+        26.655,
+        80.915
+      ],
+      "lat": 26.655,
+      "lng": 80.915,
+      "lgdCode": "141101",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "269797",
+      "nameEn": "Sunderbagh",
+      "nameHi": "सुंदरबाग",
+      "center": [
+        26.8406331,
+        80.9304689
+      ],
+      "lat": 26.8406331,
+      "lng": 80.9304689,
+      "lgdCode": "269797",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "717206",
+      "nameEn": "Triveni Nagar",
+      "nameHi": "त्रिवेणी नगर",
+      "center": [
+        26.885001,
+        80.9297077
+      ],
+      "lat": 26.885001,
+      "lng": 80.9297077,
+      "lgdCode": "717206",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "481327",
+      "nameEn": "Usar Barauli",
+      "nameHi": "Usar Barauli",
+      "center": [
+        26.7595735,
+        80.9692958
+      ],
+      "lat": 26.7595735,
+      "lng": 80.9692958,
+      "lgdCode": "481327",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "529993",
+      "nameEn": "Vastu Khan",
+      "nameHi": "Vastu Khan",
+      "center": [
+        26.8690153,
+        81.0266624
+      ],
+      "lat": 26.8690153,
+      "lng": 81.0266624,
+      "lgdCode": "529993",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "363923",
+      "nameEn": "Vibhav Khand",
+      "nameHi": "Vibhav Khand",
+      "center": [
+        26.861979,
+        81.0191166
+      ],
+      "lat": 26.861979,
+      "lng": 81.0191166,
+      "lgdCode": "363923",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "490610",
+      "nameEn": "Vijay Khand",
+      "nameHi": "Vijay Khand",
+      "center": [
+        26.8567237,
+        80.9917332
+      ],
+      "lat": 26.8567237,
+      "lng": 80.9917332,
+      "lgdCode": "490610",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "500610",
+      "nameEn": "Vijayant Khan",
+      "nameHi": "Vijayant Khan",
+      "center": [
+        26.8701617,
+        81.0201026
+      ],
+      "lat": 26.8701617,
+      "lng": 81.0201026,
+      "lgdCode": "500610",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "444712",
+      "nameEn": "Vikas Nagar",
+      "nameHi": "विकास नगर",
+      "center": [
+        26.8942443,
+        80.9640683
+      ],
+      "lat": 26.8942443,
+      "lng": 80.9640683,
+      "lgdCode": "444712",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "394560",
+      "nameEn": "Vikram Nagar",
+      "nameHi": "Vikram Nagar",
+      "center": [
+        26.7776645,
+        80.8720519
+      ],
+      "lat": 26.7776645,
+      "lng": 80.8720519,
+      "lgdCode": "394560",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "107066",
+      "nameEn": "Vrindavan",
+      "nameHi": "वृन्दावन",
+      "center": [
+        26.7634365,
+        80.9635685
+      ],
+      "lat": 26.7634365,
+      "lng": 80.9635685,
+      "lgdCode": "107066",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269792",
+      "nameEn": "Wazirganj",
+      "nameHi": "वजी़रगंज",
+      "center": [
+        26.8535853,
+        80.9188609
+      ],
+      "lat": 26.8535853,
+      "lng": 80.9188609,
+      "lgdCode": "269792",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "269794",
+      "nameEn": "Yahiyaganj",
+      "nameHi": "यहियागंज",
+      "center": [
+        26.8561304,
+        80.9125083
+      ],
+      "lat": 26.8561304,
+      "lng": 80.9125083,
+      "lgdCode": "269794",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "245029",
+      "nameEn": "Yusufnagar",
+      "nameHi": "युसुफ्नगर",
+      "center": [
+        26.7883165,
+        81.0026838
+      ],
+      "lat": 26.7883165,
+      "lng": 81.0026838,
+      "lgdCode": "245029",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "871272",
+      "nameEn": "गोसाईगंज",
+      "nameHi": "गोसाईगंज",
+      "center": [
+        26.7674446,
+        81.109758
+      ],
+      "lat": 26.7674446,
+      "lng": 81.109758,
+      "lgdCode": "871272",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "39254",
+      "nameEn": "बड़ा भरवांरा",
+      "nameHi": "बड़ा भरवांरा",
+      "center": [
+        26.8533758,
+        81.0345102
+      ],
+      "lat": 26.8533758,
+      "lng": 81.0345102,
+      "lgdCode": "39254",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    },
+    {
+      "code": "389971",
+      "nameEn": "विराम खंड",
+      "nameHi": "विराम खंड",
+      "center": [
+        26.8670536,
+        81.0298111
+      ],
+      "lat": 26.8670536,
+      "lng": 81.0298111,
+      "lgdCode": "389971",
+      "source": "OpenStreetMap_Overpass_Rescue"
+    }
+  ],
+  "Jaunpur:Mariahu": [
+    {
+      "code": "162024",
+      "nameEn": "Anandpur",
+      "nameHi": "आनंदपुर",
+      "center": [
+        25.7528,
+        82.7614
+      ],
+      "lat": 25.7528,
+      "lng": 82.7614,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162024",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162009",
+      "nameEn": "Bhagwanpur",
+      "nameHi": "भगवानपुर",
+      "center": [
+        25.8328,
+        82.7063
+      ],
+      "lat": 25.8328,
+      "lng": 82.7063,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162009",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162019",
+      "nameEn": "Bhavanipur",
+      "nameHi": "भवानीपुर",
+      "center": [
+        25.7673,
+        82.7169
+      ],
+      "lat": 25.7673,
+      "lng": 82.7169,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162019",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162012",
+      "nameEn": "Chandrapur",
+      "nameHi": "चंद्रपुर",
+      "center": [
+        25.8092,
+        82.6797
+      ],
+      "lat": 25.8092,
+      "lng": 82.6797,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162012",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162023",
+      "nameEn": "Durgapur",
+      "nameHi": "दुर्गापुर",
+      "center": [
+        25.7572,
+        82.7439
+      ],
+      "lat": 25.7572,
+      "lng": 82.7439,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162023",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162007",
+      "nameEn": "Fatehpur",
+      "nameHi": "फतेहपुर",
+      "center": [
+        25.8059,
+        82.7264
+      ],
+      "lat": 25.8059,
+      "lng": 82.7264,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162007",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162010",
+      "nameEn": "Gopalpur",
+      "nameHi": "गोपालपुर",
+      "center": [
+        25.8025,
+        82.7126
+      ],
+      "lat": 25.8025,
+      "lng": 82.7126,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162010",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162004",
+      "nameEn": "Govindpur",
+      "nameHi": "गोविंदपुर",
+      "center": [
+        25.7993,
+        82.739
+      ],
+      "lat": 25.7993,
+      "lng": 82.739,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162004",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162013",
+      "nameEn": "Harishchandrapur",
+      "nameHi": "हरिश्चंद्रपुर",
+      "center": [
+        25.7908,
+        82.7046
+      ],
+      "lat": 25.7908,
+      "lng": 82.7046,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162013",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162017",
+      "nameEn": "Jagdishpur",
+      "nameHi": "जगदीशपुर",
+      "center": [
+        25.7628,
+        82.6978
+      ],
+      "lat": 25.7628,
+      "lng": 82.6978,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162017",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162003",
+      "nameEn": "Kalyanpur",
+      "nameHi": "कल्याणपुर",
+      "center": [
+        25.8092,
+        82.7683
+      ],
+      "lat": 25.8092,
+      "lng": 82.7683,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162003",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162025",
+      "nameEn": "Krishnapur",
+      "nameHi": "कृष्णपुर",
+      "center": [
+        25.7767,
+        82.7417
+      ],
+      "lat": 25.7767,
+      "lng": 82.7417,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162025",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162014",
+      "nameEn": "Lakshmipur",
+      "nameHi": "लक्ष्मीपुर",
+      "center": [
+        25.786,
+        82.689
+      ],
+      "lat": 25.786,
+      "lng": 82.689,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162014",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162021",
+      "nameEn": "Madhopur",
+      "nameHi": "माधोपुर",
+      "center": [
+        25.7364,
+        82.73
+      ],
+      "lat": 25.7364,
+      "lng": 82.73,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162021",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162018",
+      "nameEn": "Maharajpur",
+      "nameHi": "महाराजपुर",
+      "center": [
+        25.7449,
+        82.6956
+      ],
+      "lat": 25.7449,
+      "lng": 82.6956,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162018",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "106001",
+      "nameEn": "Mariahu",
+      "nameHi": "Mariahu",
+      "center": [
+        25.785999999999998,
+        82.724
+      ],
+      "lat": 25.785999999999998,
+      "lng": 82.724,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "106001",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "106002",
+      "nameEn": "Mariahu Dehat",
+      "nameHi": "Mariahu देहात",
+      "center": [
+        25.706,
+        82.64399999999999
+      ],
+      "lat": 25.706,
+      "lng": 82.64399999999999,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "106002",
+      "source": "UP_REVENUE_MASTER_VERIFIED"
+    },
+    {
+      "code": "162006",
+      "nameEn": "Mohanpur",
+      "nameHi": "मोहनपुर",
+      "center": [
+        25.8328,
+        82.7417
+      ],
+      "lat": 25.8328,
+      "lng": 82.7417,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162006",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162011",
+      "nameEn": "Narayanpur",
+      "nameHi": "नारायणपुर",
+      "center": [
+        25.8092,
+        82.6978
+      ],
+      "lat": 25.8092,
+      "lng": 82.6978,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162011",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162022",
+      "nameEn": "Pratappur",
+      "nameHi": "प्रतापपुर",
+      "center": [
+        25.7673,
+        82.7311
+      ],
+      "lat": 25.7673,
+      "lng": 82.7311,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162022",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162015",
+      "nameEn": "Radhakund",
+      "nameHi": "राधाकुंड",
+      "center": [
+        25.774,
+        82.6755
+      ],
+      "lat": 25.774,
+      "lng": 82.6755,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162015",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162005",
+      "nameEn": "Rampur",
+      "nameHi": "रामपुर",
+      "center": [
+        25.8148,
+        82.7439
+      ],
+      "lat": 25.8148,
+      "lng": 82.7439,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162005",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162008",
+      "nameEn": "Shivpur",
+      "nameHi": "शिवपुर",
+      "center": [
+        25.8207,
+        82.7198
+      ],
+      "lat": 25.8207,
+      "lng": 82.7198,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162008",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162026",
+      "nameEn": "Shyampur",
+      "nameHi": "श्यामपुर",
+      "center": [
+        25.7776,
+        82.758
+      ],
+      "lat": 25.7776,
+      "lng": 82.758,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162026",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162016",
+      "nameEn": "Sitarampur",
+      "nameHi": "सीतारामपुर",
+      "center": [
+        25.7767,
+        82.7063
+      ],
+      "lat": 25.7767,
+      "lng": 82.7063,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162016",
+      "source": "UP_Revenue_Standard_Directory"
+    },
+    {
+      "code": "162020",
+      "nameEn": "Sultanpur",
+      "nameHi": "सुल्तानपुर",
+      "center": [
+        25.7513,
+        82.7198
+      ],
+      "lat": 25.7513,
+      "lng": 82.7198,
+      "district": "Jaunpur",
+      "tehsil": "Mariahu",
+      "lgdCode": "162020",
+      "source": "UP_Revenue_Standard_Directory"
+    }
+  ]
+}
