@@ -172,7 +172,7 @@
             <span>Live Market Feed</span>
           </div>
 
-          <button onclick="alert('Demo Super Admin: admin@salaryai.in / Admin@123\nClick Admin Control tab to inspect model registry and live prediction stream.')" class="flex items-center gap-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-1.5 rounded-lg transition shadow-xs">
+          <button onclick="triggerToast('Super Admin: admin@salaryai.in • Model Registry &amp; Live Inference Active')" class="flex items-center gap-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-1.5 rounded-lg transition shadow-xs">
             <span>Sign In</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -702,7 +702,7 @@
               <td class="py-3 px-4 tabular-nums">₹1,52,400</td>
               <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">Standby</span></td>
               <td class="py-3 px-4 text-right">
-                <button onclick="alert('Switched active model to Gradient Boosting v4.1')" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[10px] font-semibold">Activate</button>
+                <button onclick="triggerToast('Switched active model to Gradient Boosting v4.1 (R² 0.938)')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[10px] font-semibold transition">Activate</button>
               </td>
             </tr>
             <tr>
@@ -711,7 +711,7 @@
               <td class="py-3 px-4 tabular-nums">₹1,36,500</td>
               <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">Standby</span></td>
               <td class="py-3 px-4 text-right">
-                <button onclick="alert('Switched active model to Ridge Regression v3.8')" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[10px] font-semibold">Activate</button>
+                <button onclick="triggerToast('Switched active model to Ridge Regression v3.8 (R² 0.955)')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[10px] font-semibold transition">Activate</button>
               </td>
             </tr>
           </tbody>
@@ -1084,10 +1084,17 @@
       });
 
       document.getElementById('saved-count').textContent = savedProfiles.length;
+      triggerToast(`Saved ${role} profile to your evaluation archive!`);
+    }
+
+    function triggerToast(msg) {
       const toast = document.getElementById('toast-banner');
-      document.getElementById('toast-text').textContent = `Saved ${role} profile to your evaluation archive!`;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3500);
+      const text = document.getElementById('toast-text');
+      if (toast && text) {
+        text.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3500);
+      }
     }
 
     function renderSavedProfiles() {

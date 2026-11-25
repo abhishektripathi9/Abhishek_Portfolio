@@ -245,7 +245,9 @@ class CheckoutEngine {
     const country = document.getElementById('ship-country')?.value || 'IN';
 
     if (!fullName || !phone || !street || !zipCode) {
-      alert('Please fill in your Full Name, Mobile Number, Street Address, and PIN Code.');
+      if (window.amzCart) {
+        window.amzCart.showToast('⚠️ Please fill in your Full Name, Mobile Number, Street Address, and PIN Code.', 'warning');
+      }
       return false;
     }
 

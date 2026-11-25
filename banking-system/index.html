@@ -712,7 +712,12 @@
       const amount = parseFloat(document.getElementById('transfer-amount').value);
 
       if (srcId === dstId) {
-        alert('Source and destination accounts must be different!');
+        const pipeline = document.getElementById('acid-pipeline');
+        pipeline.innerHTML = `
+          <div style="font-size:0.75rem;color:var(--red);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;font-weight:700;">VALIDATION REJECTED</div>
+          <div class="acid-step rollback" style="color:var(--red);font-weight:700;"><i data-lucide="alert-triangle" style="width:14px;height:14px;"></i> Source and destination accounts cannot be the same!</div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
         return;
       }
 
@@ -723,14 +728,13 @@
         // Demonstrate ACID Rollback!
         const pipeline = document.getElementById('acid-pipeline');
         pipeline.innerHTML = `
-          <div style="font-size:0.75rem;color:var(--red);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;">ACID ROLLBACK TRIGGERED</div>
+          <div style="font-size:0.75rem;color:var(--red);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;font-weight:700;">ACID ROLLBACK TRIGGERED</div>
           <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 1. PreparedStatement executed</div>
           <div class="acid-step done"><i data-lucide="check" style="width:14px;height:14px;"></i> 2. AutoCommit set to false</div>
           <div class="acid-step rollback" style="color:var(--red);font-weight:700;"><i data-lucide="alert-triangle" style="width:14px;height:14px;"></i> 3. Insufficient balance: $${src.balance.toLocaleString()} &lt; $${amount.toLocaleString()}</div>
-          <div class="acid-step rollback" style="color:var(--red);font-weight:700;"><i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i> 4. Connection.rollback() called — Zero funds deducted</div>
+          <div class="acid-step rollback" style="color:var(--red);font-weight:700;"><i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i> 4. Connection.rollback() called &mdash; Zero funds deducted</div>
         `;
         if (typeof lucide !== 'undefined') lucide.createIcons();
-        alert(`ACID Rollback: Source account (${src.name}) has insufficient balance! Transaction safely rolled back.`);
         return;
       }
 

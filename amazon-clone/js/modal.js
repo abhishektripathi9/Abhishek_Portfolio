@@ -449,7 +449,9 @@ class ModalEngine {
         const text = reviewContainer.querySelector('#qv-review-text')?.value.trim();
 
         if (!text) {
-          alert('Please write a short review before submitting.');
+          if (window.amzCart) {
+            window.amzCart.showToast('⚠️ Please write a short review before submitting.', 'warning');
+          }
           return;
         }
 
@@ -1094,14 +1096,13 @@ class ModalEngine {
       `Enter reason number or type custom reason:\n` +
       reasons.map((r, i) => `${i + 1}. ${r}`).join('\n');
 
-    const userReason = prompt(promptText, "1");
-    if (userReason !== null) {
-      const idx = parseInt(userReason, 10);
-      const finalReason = (!isNaN(idx) && reasons[idx - 1]) ? reasons[idx - 1] : (userReason.trim() || reasons[0]);
-      if (window.amzStore) {
-        window.amzStore.cancelOrder(orderId, finalReason);
-      }
-      this.renderOrdersHistory();
+    const finalReason = reasons[0];
+    if (window.amzStore) {
+      window.amzStore.cancelOrder(orderId, finalReason);
+    }
+    this.renderOrdersHistory();
+    if (window.amzCart) {
+      window.amzCart.showToast(`Order #${orderId} cancelled. Instant refund initiated.`, 'info');
     }
   }
 

@@ -468,7 +468,7 @@
                 <td class="py-3 px-3 font-bold tabular-nums">₹18,499.00</td>
                 <td class="py-3 px-3"><span class="bg-sky-50 text-sky-700 px-1.5 py-0.5 rounded text-[10px]">UPI • PhonePe</span></td>
                 <td class="py-3 px-3"><span class="bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold px-2 py-0.5 rounded text-[10px]">Delivered</span></td>
-                <td class="py-3 px-3 text-right"><button onclick="alert('Viewing Tax Invoice for Order #BB-98421')" class="text-neutral-900 hover:underline font-bold">GST Invoice</button></td>
+                <td class="py-3 px-3 text-right"><button onclick="openInvoiceModal('BB-98421', 'Pooja Sharma', 'Studio Wireless Headphones Max', 18499)" class="text-neutral-900 hover:underline font-bold">GST Invoice</button></td>
               </tr>
               <tr>
                 <td class="py-3 px-3 font-mono font-bold text-slate-900">#BB-98420</td>
@@ -477,7 +477,7 @@
                 <td class="py-3 px-3 font-bold tabular-nums">₹12,990.00</td>
                 <td class="py-3 px-3"><span class="bg-sky-50 text-sky-700 px-1.5 py-0.5 rounded text-[10px]">UPI • GPay</span></td>
                 <td class="py-3 px-3"><span class="bg-amber-50 text-amber-700 border border-amber-200 font-bold px-2 py-0.5 rounded text-[10px]">Pending</span></td>
-                <td class="py-3 px-3 text-right"><button onclick="alert('Viewing Tax Invoice for Order #BB-98420')" class="text-neutral-900 hover:underline font-bold">GST Invoice</button></td>
+                <td class="py-3 px-3 text-right"><button onclick="openInvoiceModal('BB-98420', 'Rohit Kulkarni', 'Minimalist Chronograph Automatic', 12990)" class="text-neutral-900 hover:underline font-bold">GST Invoice</button></td>
               </tr>
               <tr>
                 <td class="py-3 px-3 font-mono font-bold text-slate-900">#BB-98419</td>
@@ -486,7 +486,7 @@
                 <td class="py-3 px-3 font-bold tabular-nums">₹7,499.00</td>
                 <td class="py-3 px-3"><span class="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px]">Card • Visa</span></td>
                 <td class="py-3 px-3"><span class="bg-blue-50 text-blue-700 border border-blue-200 font-bold px-2 py-0.5 rounded text-[10px]">Shipped</span></td>
-                <td class="py-3 px-3 text-right"><button onclick="alert('Viewing Tax Invoice for Order #BB-98419')" class="text-neutral-900 hover:underline font-bold">GST Invoice</button></td>
+                <td class="py-3 px-3 text-right"><button onclick="openInvoiceModal('BB-98419', 'Ananya Menon', 'Mechanical Keyboard ANSI 75%', 7499)" class="text-neutral-900 hover:underline font-bold">GST Invoice</button></td>
               </tr>
             </tbody>
           </table>
@@ -733,16 +733,206 @@
       lucide.createIcons();
     }
 
+    function showBbToast(msg) {
+      const toast = document.getElementById('bb-toast');
+      const text = document.getElementById('bb-toast-text');
+      if (!toast || !text) return;
+      text.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3500);
+    }
+
     let cartCount = 2;
     function addToCartDemo(title) {
       cartCount++;
-      document.getElementById('demo-cart-badge').innerText = cartCount;
-      alert(`Added "${title}" to cart! Click Cart to view.`);
+      const b = document.getElementById('demo-cart-badge');
+      if (b) b.innerText = cartCount;
+      const cb = document.getElementById('cart-drawer-count');
+      if (cb) cb.innerText = `${cartCount} items`;
+      showBbToast(`Added "${title}" to your shopping cart!`);
     }
 
     function toggleCart() {
-      alert(`Shopping Cart (${cartCount} items):\n• Studio Wireless Headphones Max\n• Minimalist Chronograph Automatic\n\nSubtotal: ₹31,489.00\nPromo WELCOME20: -₹5,000.00\nFree Pan-India Delivery: ₹0.00\nTotal Payable: ₹26,489.00`);
+      const drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      if (drawer.classList.contains('translate-x-full')) {
+        drawer.classList.remove('translate-x-full');
+      } else {
+        drawer.classList.add('translate-x-full');
+      }
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function openInvoiceModal(orderId, buyer, item, total) {
+      document.getElementById('inv-order-id').innerText = '#' + orderId;
+      document.getElementById('inv-buyer').innerText = buyer;
+      document.getElementById('inv-item').innerText = item;
+      
+      const base = total / 1.18;
+      const gst = (total - base) / 2;
+      document.getElementById('inv-base').innerText = '₹' + base.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('inv-cgst').innerText = '₹' + gst.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('inv-sgst').innerText = '₹' + gst.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('inv-total').innerText = '₹' + total.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+      const modal = document.getElementById('gst-invoice-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function closeInvoiceModal() {
+      const modal = document.getElementById('gst-invoice-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
   </script>
+
+  <!-- GST Tax Invoice Modal -->
+  <div id="gst-invoice-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200">
+      <div class="flex items-center justify-between pb-3 border-b border-neutral-200 mb-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-neutral-950 text-white flex items-center justify-center font-bold text-xs">BB</div>
+          <div>
+            <h3 class="font-bold text-sm text-neutral-950">Tax Invoice / Cash Receipt</h3>
+            <p id="inv-order-id" class="text-[11px] text-neutral-400 font-mono font-bold">#BB-98421</p>
+          </div>
+        </div>
+        <button onclick="closeInvoiceModal()" class="text-neutral-400 hover:text-neutral-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs mb-5">
+        <div class="grid grid-cols-2 gap-2 p-3 bg-neutral-50 rounded-xl">
+          <div>
+            <span class="text-[10px] text-neutral-400 block font-bold">Billed To</span>
+            <span id="inv-buyer" class="font-bold text-neutral-900">Pooja Sharma</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-neutral-400 block font-bold">GSTIN / Status</span>
+            <span class="font-mono font-bold text-emerald-600 text-[10px]">09AABCB1234F1Z8 (Verified)</span>
+          </div>
+        </div>
+
+        <div class="border border-neutral-200 rounded-xl overflow-hidden">
+          <div class="p-2.5 bg-neutral-100 flex justify-between font-bold text-[11px] text-neutral-600">
+            <span>Item Description</span>
+            <span>Amount</span>
+          </div>
+          <div class="p-3 flex justify-between border-b border-neutral-100">
+            <div>
+              <p id="inv-item" class="font-bold text-neutral-900">Studio Wireless Headphones Max</p>
+              <span class="text-[10px] text-neutral-400">HSN: 8518 &bull; Qty: 1</span>
+            </div>
+            <span id="inv-base" class="font-bold font-mono">₹15,677.12</span>
+          </div>
+          <div class="p-2.5 bg-neutral-50 space-y-1 text-[11px]">
+            <div class="flex justify-between text-neutral-500">
+              <span>CGST (9.0%)</span>
+              <span id="inv-cgst" class="font-mono">₹1,410.94</span>
+            </div>
+            <div class="flex justify-between text-neutral-500">
+              <span>SGST (9.0%)</span>
+              <span id="inv-sgst" class="font-mono">₹1,410.94</span>
+            </div>
+            <div class="flex justify-between text-neutral-950 font-black pt-1 border-t border-neutral-200 text-xs">
+              <span>Total Gross (INR)</span>
+              <span id="inv-total" class="font-mono text-sm">₹18,499.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl border border-neutral-300 font-bold text-neutral-700 text-xs hover:bg-neutral-50 flex items-center justify-center gap-1.5">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>Print Tax Invoice</span>
+        </button>
+        <button onclick="closeInvoiceModal()" class="flex-1 py-2.5 rounded-xl bg-neutral-950 text-white font-bold text-xs hover:bg-black">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide-Over Shopping Cart Drawer -->
+  <div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl border-l border-neutral-200 transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+    <div class="p-6 overflow-y-auto flex-1">
+      <div class="flex items-center justify-between pb-4 border-b border-neutral-200 mb-5">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-neutral-950"></i>
+          <h3 class="font-black text-base text-neutral-950">Shopping Cart</h3>
+          <span id="cart-drawer-count" class="text-xs bg-neutral-100 text-neutral-700 font-bold px-2 py-0.5 rounded-full">2 items</span>
+        </div>
+        <button onclick="toggleCart()" class="p-1.5 text-neutral-400 hover:text-neutral-800 rounded-lg hover:bg-neutral-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3.5 text-xs mb-6">
+        <div class="p-3.5 rounded-2xl border border-neutral-200 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-600 font-bold text-[10px]">HEADSET</div>
+            <div>
+              <p class="font-bold text-neutral-950">Studio Wireless Headphones Max</p>
+              <p class="text-[11px] text-neutral-400">Qty: 1 &bull; Midnight Black</p>
+            </div>
+          </div>
+          <span class="font-bold font-mono text-neutral-950">₹18,499.00</span>
+        </div>
+
+        <div class="p-3.5 rounded-2xl border border-neutral-200 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-600 font-bold text-[10px]">WATCH</div>
+            <div>
+              <p class="font-bold text-neutral-950">Minimalist Chronograph Automatic</p>
+              <p class="text-[11px] text-neutral-400">Qty: 1 &bull; Leather Strap</p>
+            </div>
+          </div>
+          <span class="font-bold font-mono text-neutral-950">₹12,990.00</span>
+        </div>
+      </div>
+
+      <!-- Cost Breakdown -->
+      <div class="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-2 text-xs">
+        <div class="flex justify-between text-neutral-500">
+          <span>Subtotal</span>
+          <span class="font-mono font-bold text-neutral-900">₹31,489.00</span>
+        </div>
+        <div class="flex justify-between text-emerald-600 font-bold">
+          <span>Promo (WELCOME20)</span>
+          <span class="font-mono">-₹5,000.00</span>
+        </div>
+        <div class="flex justify-between text-neutral-500">
+          <span>Pan-India Delivery</span>
+          <span class="font-mono font-bold text-emerald-600">FREE</span>
+        </div>
+        <div class="pt-2 border-t border-neutral-200 flex justify-between font-black text-sm text-neutral-950">
+          <span>Total Payable</span>
+          <span class="font-mono">₹26,489.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 bg-white border-t border-neutral-200">
+      <button onclick="toggleCart(); showBbToast('Proceeding to Razorpay / UPI Instant Checkout simulator!');" class="w-full py-3 rounded-xl bg-neutral-950 hover:bg-black text-white font-bold text-xs shadow-md flex items-center justify-center gap-2">
+        <span>Proceed to UPI / Card Checkout (₹26,489)</span>
+        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="bb-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-neutral-950 text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-neutral-800">
+      <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+      <span id="bb-toast-text">Action completed successfully!</span>
+    </div>
+  </div>
+
 </body>
 </html>

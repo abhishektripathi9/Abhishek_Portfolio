@@ -656,6 +656,22 @@ const projectData = {
     github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio',
     liveDemo: './fitpulse/index.html'
   },
+  kisan: {
+    title: 'Kisan Smart Assistant (किसान स्मार्ट सहायक) — All India Mandi Intelligence',
+    year: '2026',
+    category: 'Agritech & Freight Realization Architecture',
+    image: 'assets/project-kisan.jpg',
+    desc: 'Production-grade agricultural intelligence and APMC mandi rates platform built for Indian farmers across all 36 States and Union Territories. Features live Agmarknet rate tracking, Haversine empirical road freight distance calculator, true net realization profit engine, and bilingual English/Hindi localization.',
+    highlights: [
+      'Cascading All-India Administrative Hierarchy: Dynamic selection across 36 States/UTs, 700+ districts, tehsils, and verified village mandis.',
+      'Nearby Mandi Distance Engine: Calculates actual traveling distance using Haversine formula adjusted by empirical 1.25x Indian rural road factor.',
+      'Net Realization Profit Engine: Automatically calculates freight, loading/unloading, and 1.5% APMC mandi cess to display true net profit per quintal.',
+      'Bilingual Localization (हिंदी / English): Full English and Hindi UI with one-tap toggle and persistent offline caching.'
+    ],
+    tech: ['Spring Boot 3', 'React Native / Web', 'MySQL 8.0', 'Chart.js', 'Tailwind CSS', 'TypeScript'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './kisan/index.html'
+  },
   mobileshop: {
     title: 'MobileShop — Omnichannel Smartphone & Accessories E-Commerce',
     year: '2026',
@@ -2078,20 +2094,16 @@ window.submitReply = async function(msgId) {
 window.deleteMessage = async function(msgId) {
   let pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
   if (!pin || (pin !== '1808' && pin !== '180887')) {
-    const enteredPin = prompt('Enter Abhishek Owner PIN to delete this message (PIN: 1808):');
-    if (!enteredPin) return;
-    if (enteredPin.trim() !== '1808' && enteredPin.trim() !== '180887') {
-      showToast('❌ Invalid PIN. Only Abhishek can delete messages.');
-      return;
+    const modal = document.getElementById('dev-auth-modal');
+    if (modal) {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      const pinInput = document.getElementById('dev-pin-input');
+      if (pinInput) { pinInput.value = ''; setTimeout(() => pinInput.focus(), 150); }
     }
-    pin = enteredPin.trim();
-    sessionStorage.setItem('abhishek_owner_pin', pin);
-    if (typeof window.updateAuthBtnState === 'function') {
-      window.updateAuthBtnState();
-    }
+    showToast('🔒 Please enter Abhishek Developer PIN (1808) to manage messages.');
+    return;
   }
-
-  if (!confirm('Are you sure you want to permanently delete this message?')) return;
 
   try {
     const res = await fetch('/api/messages/delete', {
@@ -2122,20 +2134,16 @@ window.deleteMessage = async function(msgId) {
 window.clearAllMessages = async function() {
   let pin = sessionStorage.getItem('abhishek_owner_pin') || localStorage.getItem('abhishek_owner_pin');
   if (!pin || (pin !== '1808' && pin !== '180887')) {
-    const enteredPin = prompt('Enter Abhishek Owner PIN to clear all messages (PIN: 1808):');
-    if (!enteredPin) return;
-    if (enteredPin.trim() !== '1808' && enteredPin.trim() !== '180887') {
-      showToast('❌ Invalid PIN. Only Abhishek can clear messages.');
-      return;
+    const modal = document.getElementById('dev-auth-modal');
+    if (modal) {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      const pinInput = document.getElementById('dev-pin-input');
+      if (pinInput) { pinInput.value = ''; setTimeout(() => pinInput.focus(), 150); }
     }
-    pin = enteredPin.trim();
-    sessionStorage.setItem('abhishek_owner_pin', pin);
-    if (typeof window.updateAuthBtnState === 'function') {
-      window.updateAuthBtnState();
-    }
+    showToast('🔒 Please enter Abhishek Developer PIN (1808) to manage messages.');
+    return;
   }
-
-  if (!confirm('⚠️ Are you sure you want to DELETE ALL messages permanently? This cannot be undone.')) return;
 
   try {
     const res = await fetch('/api/messages/clear-all', {

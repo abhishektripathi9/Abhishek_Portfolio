@@ -747,7 +747,9 @@ class SellerCentralEngine {
       const isRuralKarigar = document.getElementById('seller-prod-karigar')?.checked ?? true;
 
       if (!title || isNaN(price) || price <= 0) {
-        alert('Please enter a valid product title and selling price.');
+        if (window.amzCart) {
+          window.amzCart.showToast('⚠️ Please enter a valid product title and selling price.', 'warning');
+        }
         return;
       }
 
