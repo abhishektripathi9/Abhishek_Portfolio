@@ -624,6 +624,54 @@ const projectData = {
     github: 'https://github.com/abhishektripathi9',
     liveDemo: './weather/index.html'
   },
+  vastu3d: {
+    title: 'Vastu3D Studio — AI & Parametric 3D House Floor Plan & Walkthrough Generator',
+    year: '2026',
+    category: '3D CAD & Architecture',
+    image: 'assets/project-vastu3d.jpg',
+    desc: 'Interactive architectural 3D CAD engine generating real-time parametric floor plans, exterior elevations, first-person video walkthroughs, and automated Vastu Shastra compass compliance calculations.',
+    highlights: [
+      'Parametric 3D Wall Extrusion & Room Zoning: Adjust room dimensions in real time with dynamic wall, door, and window geometry generation.',
+      'Interactive First-Person Walkthrough: Smooth 60 FPS Three.js WebGL camera navigation with realistic room lighting and material shaders.',
+      'Vastu Shastra Compass Intelligence: Computes directional compliance scores for Pooja room, master bedroom, kitchen, and water elements based on traditional Vedic architectural rules.',
+      'Executive Elevation & Floor Plan Export: Generates high-resolution architectural 2D blueprints and 3D perspectives.'
+    ],
+    tech: ['React 18', 'Three.js', 'WebGL', 'Node.js', 'Tailwind CSS', 'Vite'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './vastu3d/index.html'
+  },
+  fitpulse: {
+    title: 'FitPulse Studio — Boutique Strength & Conditioning Platform',
+    year: '2026',
+    category: 'Health & Lead Generation',
+    image: 'assets/project-fitpulse.jpg',
+    desc: 'High-conversion boutique fitness studio web application designed for Civil Lines, Prayagraj. Engineered with zero runtime dependencies for sub-50ms load times, bespoke Syne/Inter typography, and direct WhatsApp booking passes.',
+    highlights: [
+      'Zero-Dependency Lightweight Architecture: 1,425 lines of bespoke, meticulously crafted CSS with zero framework bloat and instant load times.',
+      'Dynamic Membership Pricing Calculator: Interactive tier-based pricing (Monthly, Quarterly, Annual) with savings badges and instant WhatsApp enrollment links.',
+      'Interactive Class Schedule & Timetable: Filter workouts by Strength, Conditioning, Functional Training, and Personal Coaching slots.',
+      'Direct WhatsApp Lead Capture: Seamlessly links prospects to direct WhatsApp passes (+91 95953 47836) for 1-click booking.'
+    ],
+    tech: ['HTML5', 'Bespoke CSS3', 'JavaScript ES6+', 'HTML5 Canvas', 'SVG'],
+    github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio',
+    liveDemo: './fitpulse/index.html'
+  },
+  mobileshop: {
+    title: 'MobileShop — Omnichannel Smartphone & Accessories E-Commerce',
+    year: '2026',
+    category: 'Retail & Omnichannel E-Commerce',
+    image: 'assets/project-mobileshop.jpg',
+    desc: 'Production-ready omnichannel smartphone retail platform engineered with a multi-platform architecture: customer web storefront, admin control room, native Android Kotlin barcode scanner, and Prisma ORM backend.',
+    highlights: [
+      'Multi-Platform Synchronization: Customer web storefront, cashier barcode scanner app, and admin analytics running on a single unified REST API.',
+      'IMEI & Serial Number Warranty Tracking: Track individual device warranty periods, battery health, and refurbishment grading.',
+      'Indian GST Invoice Generator: Automatic CGST/SGST tax calculation, HSN code tagging, and downloadable PDF invoices.',
+      'Brand & Specification Filters: Fast client-side filtering across 5G bands, RAM/Storage configurations, processors, and budget tiers.'
+    ],
+    tech: ['React 18', 'Vite', 'Tailwind CSS', 'Prisma ORM', 'Node.js', 'Express', 'SQLite/PostgreSQL'],
+    github: 'https://github.com/abhishektripathi9',
+    liveDemo: './mobileshop/index.html'
+  },
   salary: {
     title: 'SalaryAI — Tech Compensation & Leveling Engine',
     year: '2026',
