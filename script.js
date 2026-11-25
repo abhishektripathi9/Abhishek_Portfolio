@@ -162,12 +162,12 @@ function initTypewriter() {
   if (!textElement) return;
 
   const roles = [
-    'MERN Stack Developer',
-    'Data Analytics Enthusiast',
-    'Full Stack Engineer',
-    'Java & Python Specialist',
-    'Machine Learning Builder',
-    'Creative 3D Web Engineer'
+    'Full-Stack Product Engineer',
+    'MVP Builder (2-4 Weeks)',
+    'Enterprise POS & SaaS Specialist',
+    'AI & Data Intelligence Architect',
+    'MERN & React Cloud Developer',
+    'Available for Client Contracts'
   ];
 
   const chars = '!<>-_\\/[]{}—=+*^?#________';
