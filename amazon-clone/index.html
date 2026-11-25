@@ -20,11 +20,11 @@
   <meta name="theme-color" content="#f59e0b">
 
   <!-- Application Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=6.0">
-  <link rel="stylesheet" href="css/main.css?v=6.0">
-  <link rel="stylesheet" href="css/components.css?v=6.0">
-  <link rel="stylesheet" href="css/modals.css?v=6.0">
-  <link rel="stylesheet" href="css/stitch-ui.css?v=6.0">
+  <link rel="stylesheet" href="css/variables.css?v=7.0">
+  <link rel="stylesheet" href="css/main.css?v=7.0">
+  <link rel="stylesheet" href="css/components.css?v=7.0">
+  <link rel="stylesheet" href="css/modals.css?v=7.0">
+  <link rel="stylesheet" href="css/stitch-ui.css?v=7.0">
 
   <!-- CRITICAL MODAL & STOREFRONT STYLES (Enforces strict display:none to prevent layout leak) -->
   <style>
@@ -42,7 +42,9 @@
     #gst-invoice-modal,
     #seller-modal,
     #buyer-auth-modal,
-    #seller-auth-modal {
+    #seller-auth-modal,
+    #return-exchange-modal,
+    #transit-corridor-modal {
       display: none !important;
       position: fixed !important;
       inset: 0 !important;
@@ -73,7 +75,9 @@
     #gst-invoice-modal.is-open, #gst-invoice-modal.active,
     #seller-modal.is-open, #seller-modal.active,
     #buyer-auth-modal.is-open, #buyer-auth-modal.active,
-    #seller-auth-modal.is-open, #seller-auth-modal.active {
+    #seller-auth-modal.is-open, #seller-auth-modal.active,
+    #return-exchange-modal.is-open, #return-exchange-modal.active,
+    #transit-corridor-modal.is-open, #transit-corridor-modal.active {
       display: flex !important;
       opacity: 1 !important;
       visibility: visible !important;
@@ -408,6 +412,48 @@
     <button id="hero-next-btn" style="display: none;"></button>
   </div>
   <div class="quad-grid-container" style="display: none !important;"></div>
+
+  <!-- ========================================================================
+       PROMOTIONAL COUPONS & TRUST STRIP (WELCOME10 & FLAT200 Instant Discounts)
+       ======================================================================== -->
+  <div class="promo-coupons-strip" id="promo-coupons-strip" style="background: linear-gradient(90deg, #fef3c7, #fffbeb, #ecfdf5); border-bottom: 1px solid #fde68a; padding: 10px 16px;">
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.15rem;">🏷️</span>
+        <span style="font-size: 0.85rem; font-weight: 800; color: #78350f;">INSTANT DISCOUNTS &amp; OFFERS:</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <!-- Coupon Pill 1: WELCOME10 -->
+        <div class="promo-coupon-pill" style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px dashed #d97706; padding: 4px 10px; border-radius: 9999px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05);" onclick="window.amzStore ? window.amzStore.applyCoupon('WELCOME10', 1000) : null;" title="1-Tap Apply WELCOME10">
+          <span style="background: #fef3c7; color: #92400e; font-size: 0.75rem; font-weight: 800; padding: 2px 6px; border-radius: 9999px;">10% OFF</span>
+          <strong style="font-family: monospace; font-size: 0.84rem; color: #78350f; letter-spacing: 0.5px;">WELCOME10</strong>
+          <span style="font-size: 0.75rem; color: #64748b;">(Orders ₹500+)</span>
+          <button type="button" style="background: #f59e0b; color: #ffffff; border: none; padding: 2px 8px; border-radius: 9999px; font-size: 0.72rem; font-weight: 800; cursor: pointer;">Apply ⚡</button>
+        </div>
+
+        <!-- Coupon Pill 2: FLAT200 -->
+        <div class="promo-coupon-pill" style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px dashed #059669; padding: 4px 10px; border-radius: 9999px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05);" onclick="window.amzStore ? window.amzStore.applyCoupon('FLAT200', 1200) : null;" title="1-Tap Apply FLAT200">
+          <span style="background: #d1fae5; color: #065f46; font-size: 0.75rem; font-weight: 800; padding: 2px 6px; border-radius: 9999px;">FLAT ₹200</span>
+          <strong style="font-family: monospace; font-size: 0.84rem; color: #065f46; letter-spacing: 0.5px;">FLAT200</strong>
+          <span style="font-size: 0.75rem; color: #64748b;">(Orders ₹999+)</span>
+          <button type="button" style="background: #10b981; color: #ffffff; border: none; padding: 2px 8px; border-radius: 9999px; font-size: 0.72rem; font-weight: 800; cursor: pointer;">Apply ⚡</button>
+        </div>
+
+        <!-- Coupon Pill 3: KARIGAR50 -->
+        <div class="promo-coupon-pill" style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px dashed #2563eb; padding: 4px 10px; border-radius: 9999px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05);" onclick="window.amzStore ? window.amzStore.applyCoupon('KARIGAR50', 500) : null;" title="1-Tap Apply KARIGAR50">
+          <span style="background: #dbeafe; color: #1e40af; font-size: 0.75rem; font-weight: 800; padding: 2px 6px; border-radius: 9999px;">₹50 OFF</span>
+          <strong style="font-family: monospace; font-size: 0.84rem; color: #1e40af; letter-spacing: 0.5px;">KARIGAR50</strong>
+          <span style="font-size: 0.75rem; color: #64748b;">(Craft Items)</span>
+          <button type="button" style="background: #3b82f6; color: #ffffff; border: none; padding: 2px 8px; border-radius: 9999px; font-size: 0.72rem; font-weight: 800; cursor: pointer;">Apply ⚡</button>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #047857;">
+        <span>🛡️ Open-Box Handover &amp; COD Active Across 19,000+ Pincodes</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================
        4. GRAND HERO BANNER: TREASURES OF INDIAN HERITAGE (EXACT STITCH UI)
@@ -2859,6 +2905,42 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       MODAL: RETURN & EXCHANGE (RMA) LIFECYCLE WIZARD
+       ======================================================================== -->
+  <div class="modal return-exchange-modal" id="return-exchange-modal" role="dialog" aria-modal="true" aria-labelledby="rma-modal-title">
+    <div class="modal-dialog modal-dialog-lg" style="max-width: 680px; border-radius: 16px; overflow: hidden; background: #ffffff; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: #ffffff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #f59e0b; font-weight: 800;">7-Day Easy Doorstep Assurance</div>
+          <h3 class="modal-title" id="rma-modal-title" style="color: #ffffff; margin: 2px 0 0; font-size: 1.2rem;">Return &amp; Exchange Portal (वापसी एवं बदलाव)</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal aria-label="Close modal" style="color: #ffffff; font-size: 1.5rem; background: none; border: none; cursor: pointer;">×</button>
+      </div>
+      <div class="modal-body" id="return-exchange-modal-body" style="padding: 24px; max-height: 80vh; overflow-y: auto;">
+        <!-- Populated dynamically via js/modal.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: LIVE TRANSIT CORRIDOR & OFFICIAL COURIER WAYBILL
+       ======================================================================== -->
+  <div class="modal transit-corridor-modal" id="transit-corridor-modal" role="dialog" aria-modal="true" aria-labelledby="transit-corridor-title">
+    <div class="modal-dialog modal-dialog-lg" style="max-width: 720px; border-radius: 16px; overflow: hidden; background: #ffffff; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+      <div class="modal-header" style="background: linear-gradient(135deg, #064e3b, #047857); color: #ffffff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #a7f3d0; font-weight: 800;">India Post National Logistics Gateway</div>
+          <h3 class="modal-title" id="transit-corridor-title" style="color: #ffffff; margin: 2px 0 0; font-size: 1.2rem;">Live Shipment Transit Corridor &amp; Hub Tracking</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal aria-label="Close modal" style="color: #ffffff; font-size: 1.5rem; background: none; border: none; cursor: pointer;">×</button>
+      </div>
+      <div class="modal-body" id="transit-corridor-modal-body" style="padding: 24px; max-height: 80vh; overflow-y: auto;">
+        <!-- Populated dynamically via js/modal.js -->
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Portfolio Trigger Button -->
   <button class="portfolio-hud-trigger" id="portfolio-hud-trigger" title="Inspect Portfolio Architecture">
     <span class="hud-pulse-dot"></span>
@@ -2951,15 +3033,15 @@
   </aside>
 
   <!-- Application Logic Scripts -->
-  <script src="js/i18n.js?v=6.0"></script>
-  <script src="js/products-data.js?v=6.0"></script>
-  <script src="js/store.js?v=6.0"></script>
-  <script src="js/auth.js?v=6.0"></script>
-  <script src="js/cart.js?v=6.0"></script>
-  <script src="js/search-filter.js?v=6.0"></script>
-  <script src="js/modal.js?v=6.0"></script>
-  <script src="js/checkout.js?v=6.0"></script>
-  <script src="js/seller.js?v=6.0"></script>
-  <script src="js/app.js?v=6.0"></script>
+  <script src="js/i18n.js?v=7.0"></script>
+  <script src="js/products-data.js?v=7.0"></script>
+  <script src="js/store.js?v=7.0"></script>
+  <script src="js/auth.js?v=7.0"></script>
+  <script src="js/cart.js?v=7.0"></script>
+  <script src="js/search-filter.js?v=7.0"></script>
+  <script src="js/modal.js?v=7.0"></script>
+  <script src="js/checkout.js?v=7.0"></script>
+  <script src="js/seller.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
 </body>
 </html>

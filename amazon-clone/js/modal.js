@@ -155,10 +155,63 @@ class ModalEngine {
       }
     }
 
-    const locCity = window.amzStore ? window.amzStore.getLocation().city : 'Your Doorstep';
+    const locInfo = window.amzStore ? window.amzStore.getLocation() : { city: 'New Delhi', pincode: '110001' };
+    const locCity = locInfo.city || 'Your Doorstep';
+    const locPin = locInfo.pincode || '110001';
     const deliveryEl = modal.querySelector('.qv-delivery-info');
     if (deliveryEl) {
-      deliveryEl.innerHTML = `🚚 <strong>Free Express Delivery by Tomorrow</strong> to <strong>${locCity}</strong> via India Post Speed Post`;
+      deliveryEl.innerHTML = `
+        <div class="qv-pincode-checker-box" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; margin: 8px 0 12px;">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span style="font-size: 1rem;">📍</span>
+            <input type="text" id="qv-pincode-check-input" maxlength="6" value="${locPin}" placeholder="6-digit PIN" style="width: 110px; padding: 5px 8px; font-size: 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: 700;" />
+            <button type="button" id="qv-pincode-check-btn" class="amz-btn amz-btn-secondary" style="padding: 5px 12px; font-size: 0.82rem; width: auto;">Check Delivery</button>
+            <span id="qv-pincode-live-hub" style="font-size: 0.8rem; color: #64748b; margin-left: auto;">India Post Speed Post</span>
+          </div>
+          <div id="qv-pincode-details-box" style="margin-top: 8px; font-size: 0.84rem; display: flex; flex-direction: column; gap: 4px;">
+            <div style="color: #047857; font-weight: 700;">🚚 Guaranteed Delivery by Tomorrow, 2:00 PM to ${locCity} (${locPin})</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px;">
+              <span style="background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">✓ Cash on Delivery (COD) Available</span>
+              <span style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">✓ 100% Free Open-Box Inspection at Doorstep</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Bind dynamic live pincode check
+      const pinInput = deliveryEl.querySelector('#qv-pincode-check-input');
+      const pinBtn = deliveryEl.querySelector('#qv-pincode-check-btn');
+      const pinDetails = deliveryEl.querySelector('#qv-pincode-details-box');
+      const pinHub = deliveryEl.querySelector('#qv-pincode-live-hub');
+
+      const runPinCheck = async () => {
+        const pinVal = pinInput?.value.trim();
+        if (pinVal && pinVal.length === 6 && /^\d{6}$/.test(pinVal) && window.amzStore) {
+          pinBtn.textContent = 'Checking...';
+          const info = await window.amzStore.fetchPincode(pinVal);
+          pinBtn.textContent = 'Check Delivery';
+          if (info && pinDetails) {
+            pinDetails.innerHTML = `
+              <div style="color: #047857; font-weight: 700;">🚚 Delivery: ${info.estimatedDeliveryDate || 'Tomorrow'} to ${info.city}, ${info.state} (${info.pincode})</div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px;">
+                <span style="background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">✓ Cash on Delivery (COD) Available</span>
+                <span style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">✓ 100% Free Open-Box Inspection at Doorstep</span>
+              </div>
+            `;
+            if (pinHub) pinHub.textContent = info.hub || 'India Post Speed Post';
+          }
+        }
+      };
+
+      if (pinBtn) pinBtn.onclick = runPinCheck;
+      if (pinInput) {
+        pinInput.onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            runPinCheck();
+          }
+        };
+      }
     }
 
     const stockEl = modal.querySelector('.qv-stock-status');
@@ -487,7 +540,7 @@ class ModalEngine {
     const summary = window.amzCart.getSummary();
     const welfareCheck = document.getElementById('welfare-fund-check');
     const welfareContribution = (welfareCheck && welfareCheck.checked) ? 100 : 0;
-    const orderTotal = summary.subtotal > 0 ? (summary.subtotal + welfareContribution) : 0;
+    const orderTotal = summary.subtotal > 0 ? (summary.orderTotal + welfareContribution) : 0;
 
     if (countEl) {
       countEl.textContent = `${summary.itemCount} Items`;
@@ -516,6 +569,90 @@ class ModalEngine {
     if (emptyStateEl) emptyStateEl.style.display = 'none';
     if (filledStateEl) filledStateEl.style.display = 'block';
     if (quickAddonCard) quickAddonCard.style.display = 'block';
+
+    // Render interactive coupon widget inside cart drawer
+    let couponWidget = document.getElementById('cart-coupon-interactive-widget');
+    if (!couponWidget) {
+      couponWidget = document.createElement('div');
+      couponWidget.id = 'cart-coupon-interactive-widget';
+      couponWidget.className = 'cart-coupon-interactive-widget';
+      if (filledStateEl) {
+        filledStateEl.insertBefore(couponWidget, filledStateEl.firstChild);
+      }
+    }
+
+    const appliedCoupon = summary.appliedCoupon;
+    if (appliedCoupon && summary.couponDiscount > 0) {
+      couponWidget.innerHTML = `
+        <div style="background: #ecfdf5; border: 1px dashed #10b981; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.2rem;">🏷️</span>
+            <div>
+              <div style="font-weight: 800; font-size: 0.88rem; color: #065f46;">${appliedCoupon.code} Applied</div>
+              <div style="font-size: 0.78rem; color: #047857;">You saved ₹${summary.couponDiscount.toLocaleString('en-IN')}!</div>
+            </div>
+          </div>
+          <button type="button" onclick="window.amzStore.removeCoupon();" style="background: none; border: 1px solid #a7f3d0; color: #dc2626; font-size: 0.78rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; cursor: pointer;">
+            ✕ Remove
+          </button>
+        </div>
+      `;
+    } else {
+      couponWidget.innerHTML = `
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
+          <div style="font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: #334155;">Promotional Discount Coupon:</div>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="cart-drawer-coupon-input" placeholder="e.g. WELCOME10 or FLAT200" style="flex: 1; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase;" />
+            <button type="button" id="cart-drawer-coupon-apply-btn" class="amz-btn amz-btn-secondary" style="padding: 6px 14px; width: auto; font-size: 0.82rem; font-weight: 700;">Apply</button>
+          </div>
+          <div style="display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;">
+            <button type="button" onclick="window.amzStore.applyCoupon('WELCOME10', window.amzCart.getSummary().subtotal);" style="background: #f1f5f9; border: 1px dashed #cbd5e1; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; color: #475569; font-weight: 600;">+ WELCOME10 (10% OFF)</button>
+            <button type="button" onclick="window.amzStore.applyCoupon('FLAT200', window.amzCart.getSummary().subtotal);" style="background: #f1f5f9; border: 1px dashed #cbd5e1; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; color: #475569; font-weight: 600;">+ FLAT200 (₹200 OFF)</button>
+          </div>
+        </div>
+      `;
+
+      const inputEl = couponWidget.querySelector('#cart-drawer-coupon-input');
+      const applyBtn = couponWidget.querySelector('#cart-drawer-coupon-apply-btn');
+      if (applyBtn && inputEl) {
+        applyBtn.onclick = () => {
+          const code = inputEl.value.trim();
+          if (code && window.amzStore) {
+            window.amzStore.applyCoupon(code, summary.subtotal);
+          }
+        };
+        inputEl.onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const code = inputEl.value.trim();
+            if (code && window.amzStore) {
+              window.amzStore.applyCoupon(code, summary.subtotal);
+            }
+          }
+        };
+      }
+    }
+
+    // Render coupon line in breakdown if applied
+    let couponBreakdownRow = document.getElementById('cart-drawer-coupon-breakdown-row');
+    if (summary.couponDiscount > 0 && appliedCoupon) {
+      if (!couponBreakdownRow) {
+        couponBreakdownRow = document.createElement('div');
+        couponBreakdownRow.id = 'cart-drawer-coupon-breakdown-row';
+        couponBreakdownRow.className = 'cd-breakdown-row cd-coupon-row';
+        const subtotalRow = document.getElementById('cart-drawer-subtotal')?.parentNode;
+        if (subtotalRow && subtotalRow.parentNode) {
+          subtotalRow.parentNode.insertBefore(couponBreakdownRow, subtotalRow.nextSibling);
+        }
+      }
+      couponBreakdownRow.innerHTML = `
+        <span class="cd-breakdown-label">Coupon (${appliedCoupon.code}):</span>
+        <span class="cd-breakdown-val cd-val-green">-₹${summary.couponDiscount.toLocaleString('en-IN')}</span>
+      `;
+      couponBreakdownRow.style.display = 'flex';
+    } else if (couponBreakdownRow) {
+      couponBreakdownRow.style.display = 'none';
+    }
 
     listEl.innerHTML = window.amzCart.items.map(item => {
       const formattedPrice = window.amzApp ? window.amzApp.formatPrice(item.price) : `₹${item.price.toLocaleString('en-IN')}`;
@@ -880,10 +1017,31 @@ class ModalEngine {
             </div>
 
             <div class="order-tracking-info">
-              <div class="tracking-code"><strong>Tracking #:</strong> <code>${order.trackingNumber || 'INP-SPEEDPOST'}</code></div>
+              <div class="tracking-code"><strong>Tracking #:</strong> <a href="#" onclick="window.amzModal.openTransitCorridorModal('${order.orderId}'); return false;" style="text-decoration: underline; color: #b45309; font-weight: 700; cursor: pointer;">${order.trackingNumber || 'INP-SPEEDPOST'}</a> <span style="font-size: 0.75rem; background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-weight: 700; cursor: pointer;" onclick="window.amzModal.openTransitCorridorModal('${order.orderId}');">Live Corridor 📍</span></div>
               <div class="tracking-estimate">Destination: <strong>${window.amzStore.escapeHTML(ship.city || 'Your Address')} (${window.amzStore.escapeHTML(ship.pincode || '')})</strong></div>
               <div class="tracking-payment">Payment: <strong>${window.amzStore.escapeHTML(order.paymentMethod || 'UPI')}</strong> ${isCancelled ? '<span style="color: #dc2626; font-weight: 700;">(Refunded)</span>' : ''}</div>
             </div>
+
+            ${order.activeRma ? `
+              <div class="order-rma-card" style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 8px; padding: 12px 14px; margin: 12px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                  <div>
+                    <span style="color: #b45309; font-weight: 800; font-size: 0.88rem;">🛡️ ${order.activeRma.type} PASS ACTIVE (#${order.activeRma.rmaNumber})</span>
+                    <div style="font-size: 0.8rem; color: #475569; margin-top: 3px;">
+                      Stage: <strong>${order.activeRma.statusLabel || order.activeRma.status}</strong> • Slot: ${order.activeRma.pickupSlot}
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 6px; align-items: center;">
+                    <span style="background: #fef3c7; border: 1px dashed #d97706; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; color: #92400e;">
+                      OTP: ${order.activeRma.handoverOtp}
+                    </span>
+                    <button type="button" class="amz-btn amz-btn-secondary" onclick="window.amzModal.openReturnExchangeModal('${order.orderId}')" style="padding: 4px 10px; font-size: 0.78rem;">
+                      View Pass &amp; Demo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ` : ''}
 
             <div class="order-card-actions">
               ${isCancelled ? `
@@ -901,6 +1059,9 @@ class ModalEngine {
                 <span class="delivered-celebration-pill">🎉 Delivered Successfully!</span>
                 <button class="amz-btn amz-btn-primary btn-buy-again" onclick="window.amzModal.handleBuyAgain('${order.orderId}')">
                   🔄 Buy Again (1-Click)
+                </button>
+                <button class="amz-btn amz-btn-secondary btn-return-exchange" onclick="window.amzModal.openReturnExchangeModal('${order.orderId}')" style="border-color: #f59e0b; color: #b45309;">
+                  ↩️ Return / Exchange
                 </button>
                 <button class="amz-btn amz-btn-secondary btn-rate-delivered" onclick="window.amzModal.openReviewForOrder('${order.orderId}')">
                   ⭐ Rate &amp; Review
@@ -1047,6 +1208,353 @@ class ModalEngine {
     }
     document.body.style.overflow = '';
     this.activeModal = null;
+  }
+
+  // ==========================================
+  // 6B. RETURN & EXCHANGE (RMA) LIFECYCLE WIZARD
+  // ==========================================
+  openReturnExchangeModal(orderId) {
+    const order = window.amzStore ? window.amzStore.getOrderById(orderId) : null;
+    if (!order) return;
+
+    const modal = document.getElementById('return-exchange-modal');
+    if (!modal) return;
+
+    const bodyEl = document.getElementById('return-exchange-modal-body');
+    if (!bodyEl) return;
+
+    const firstItem = (order.items && order.items[0]) || { title: 'Ordered Craft Item', price: order.totalAmount };
+    const rma = order.activeRma || (window.amzStore ? window.amzStore.getReturnRequestByOrderId(orderId) : null);
+
+    if (rma) {
+      // Render Twin-Track Active RMA Pass
+      const isExchange = rma.type === 'EXCHANGE';
+      const steps = [
+        { label: 'Registered', done: true },
+        { label: 'Courier Scheduled', done: true },
+        { label: 'QC & Pickup', done: rma.status === 'QC_PASSED' || rma.status === 'REFUND_COMPLETED' || rma.status === 'REPLACEMENT_DISPATCHED' },
+        { label: isExchange ? 'Replacement Sent' : 'Refund Credited', done: rma.status === 'REFUND_COMPLETED' || rma.status === 'REPLACEMENT_DISPATCHED' }
+      ];
+
+      bodyEl.innerHTML = `
+        <div class="rma-pass-wrapper" style="font-family: var(--font-body, inherit);">
+          <!-- Top Pass Banner -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <span style="font-size: 0.75rem; font-weight: 800; color: #d97706; text-transform: uppercase; letter-spacing: 0.05em;">7-Day Easy Doorstep Guarantee</span>
+                <h4 style="margin: 2px 0 0; font-size: 1.15rem; font-weight: 800; color: #0f172a;">${isExchange ? '🔄 Exchange / Replacement' : '↩️ Return for Full Refund'}</h4>
+                <div style="font-size: 0.82rem; color: #64748b; margin-top: 2px;">RMA Pass: <strong>${rma.rmaNumber}</strong> • Linked to Order: <strong>${order.orderId}</strong></div>
+              </div>
+              <div style="text-align: right;">
+                <span class="tracking-badge" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 6px 12px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem;">
+                  ● ${rma.statusLabel || rma.status}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual OTP & Gate PIN Verification Shield -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+            <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px dashed #f59e0b; border-radius: 12px; padding: 14px; text-align: center;">
+              <span style="font-size: 0.75rem; font-weight: 800; color: #92400e; text-transform: uppercase;">Doorstep Handover OTP</span>
+              <div style="font-size: 2.2rem; font-weight: 900; letter-spacing: 6px; color: #78350f; font-family: monospace; margin: 4px 0;">
+                ${rma.handoverOtp}
+              </div>
+              <span style="font-size: 0.75rem; color: #92400e;">Show this 4-digit code to courier beat officer</span>
+            </div>
+
+            <div style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 12px; padding: 14px; text-align: center;">
+              <span style="font-size: 0.75rem; font-weight: 800; color: #475569; text-transform: uppercase;">Gated Society Access PIN</span>
+              <div style="font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; color: #1e293b; font-family: monospace; margin: 6px 0;">
+                ${rma.gatePin}
+              </div>
+              <span style="font-size: 0.75rem; color: #64748b;">Share with apartment security for entry</span>
+            </div>
+          </div>
+
+          <!-- Twin-Track Lifecycle Progress -->
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+            <h5 style="margin: 0 0 12px; font-size: 0.88rem; font-weight: 800; color: #334155;">Twin-Track Corridor Progress:</h5>
+            <div style="display: flex; justify-content: space-between; position: relative;">
+              ${steps.map((st, i) => `
+                <div style="flex: 1; text-align: center; position: relative;">
+                  <div style="width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem; background: ${st.done ? '#10b981' : '#e2e8f0'}; color: ${st.done ? '#ffffff' : '#64748b'};">
+                    ${st.done ? '✓' : (i + 1)}
+                  </div>
+                  <span style="font-size: 0.75rem; font-weight: ${st.done ? '700' : '500'}; color: ${st.done ? '#065f46' : '#64748b'};">${st.label}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Pickup Details & Assigned Logistics Officer -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin-bottom: 20px; font-size: 0.84rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <span style="color: #64748b; font-size: 0.76rem;">SCHEDULED PICKUP SLOT</span>
+                <div style="font-weight: 700; color: #0f172a;">${rma.pickupSlot}</div>
+              </div>
+              <div>
+                <span style="color: #64748b; font-size: 0.76rem;">REVERSE LOGISTICS FLEET</span>
+                <div style="font-weight: 700; color: #0f172a;">${rma.courierName}</div>
+              </div>
+              <div>
+                <span style="color: #64748b; font-size: 0.76rem;">ASSIGNED POSTAL OFFICER</span>
+                <div style="font-weight: 700; color: #0f172a;">${rma.agentName} (${rma.agentPhone})</div>
+              </div>
+              <div>
+                <span style="color: #64748b; font-size: 0.76rem;">REVERSE AWB #</span>
+                <div style="font-weight: 700; color: #0f172a;"><code>${rma.awbNumber}</code></div>
+              </div>
+            </div>
+            ${isExchange ? `
+              <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cbd5e1;">
+                <span style="color: #64748b; font-size: 0.76rem;">REPLACEMENT VARIANT REQUESTED</span>
+                <div style="font-weight: 800; color: #047857;">${rma.replacementVariant}</div>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="display: flex; gap: 10px; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="amz-btn amz-btn-secondary" onclick="window.amzStore.advanceRmaStep('${rma.rmaNumber}'); window.amzModal.openReturnExchangeModal('${order.orderId}');" style="width: auto; padding: 8px 16px; font-size: 0.84rem;">
+              ⚡ Advance RMA Step (Demo Simulation)
+            </button>
+            <button type="button" class="amz-btn amz-btn-primary" onclick="window.amzModal.hideModal(document.getElementById('return-exchange-modal'));" style="width: auto; padding: 8px 20px;">
+              Done
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      // Render Initial Return/Exchange Creation Wizard
+      bodyEl.innerHTML = `
+        <form id="form-create-rma" onsubmit="event.preventDefault(); window.amzModal.submitReturnExchangeForm('${order.orderId}');">
+          <!-- Item Summary Header -->
+          <div style="display: flex; gap: 12px; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-bottom: 16px;">
+            <img src="${firstItem.image || 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80'}" alt="Item" style="width: 52px; height: 52px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;" />
+            <div>
+              <h5 style="margin: 0; font-size: 0.92rem; font-weight: 700; color: #0f172a;">${window.amzStore.escapeHTML(firstItem.title)}</h5>
+              <span style="font-size: 0.8rem; color: #64748b;">Order #${order.orderId} • Delivered • 7-Day Protection</span>
+            </div>
+          </div>
+
+          <!-- Step 1: Choose Action Type -->
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-weight: 700; font-size: 0.86rem; margin-bottom: 8px; color: #1e293b;">Select Resolution Type *</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <label style="display: flex; align-items: center; gap: 10px; border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; background: #ffffff;" id="label-opt-exchange">
+                <input type="radio" name="rma-type-choice" value="EXCHANGE" checked onchange="document.getElementById('exchange-variant-group').style.display = 'block';" />
+                <div>
+                  <div style="font-weight: 800; font-size: 0.9rem;">🔄 Free Exchange</div>
+                  <span style="font-size: 0.76rem; color: #64748b;">Get a different size, fit or piece</span>
+                </div>
+              </label>
+              <label style="display: flex; align-items: center; gap: 10px; border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; background: #ffffff;" id="label-opt-return">
+                <input type="radio" name="rma-type-choice" value="RETURN" onchange="document.getElementById('exchange-variant-group').style.display = 'none';" />
+                <div>
+                  <div style="font-weight: 800; font-size: 0.9rem;">↩️ 100% Refund</div>
+                  <span style="font-size: 0.76rem; color: #64748b;">Return for instant refund to source</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Reason Selector -->
+          <div style="margin-bottom: 14px;">
+            <label for="rma-reason-select" style="display: block; font-weight: 700; font-size: 0.86rem; margin-bottom: 6px; color: #1e293b;">Reason for Return / Exchange *</label>
+            <select id="rma-reason-select" class="form-input" required style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.86rem;">
+              <option value="Size / Fit adjustment needed">Size / Fit adjustment needed (Too tight / too loose)</option>
+              <option value="Quality / Texture not as expected">Quality / Texture not as expected</option>
+              <option value="Damaged during shipping">Item arrived damaged / defective</option>
+              <option value="Received incorrect variant/color">Received wrong color / design</option>
+              <option value="Changed my mind">Changed my mind / Not needed anymore</option>
+            </select>
+          </div>
+
+          <!-- Replacement Variant (For Exchange) -->
+          <div id="exchange-variant-group" style="margin-bottom: 14px;">
+            <label for="rma-variant-input" style="display: block; font-weight: 700; font-size: 0.86rem; margin-bottom: 6px; color: #1e293b;">Desired Replacement Variant (e.g. Size M, Color Gold) *</label>
+            <input type="text" id="rma-variant-input" class="form-input" placeholder="e.g. UK 10 / Larger Fit / Saree with Red Palla" value="Standard Replacement Piece (Craft Checked)" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.86rem;" />
+          </div>
+
+          <!-- Pickup Slot -->
+          <div style="margin-bottom: 16px;">
+            <label for="rma-slot-select" style="display: block; font-weight: 700; font-size: 0.86rem; margin-bottom: 6px; color: #1e293b;">Select Doorstep Reverse Pickup Slot *</label>
+            <select id="rma-slot-select" class="form-input" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.86rem;">
+              <option value="Tomorrow 10:00 AM - 01:00 PM">Tomorrow Morning: 10:00 AM - 01:00 PM</option>
+              <option value="Tomorrow 02:00 PM - 06:00 PM">Tomorrow Afternoon: 02:00 PM - 06:00 PM</option>
+              <option value="Day After Tomorrow 10:00 AM - 01:00 PM">Day After Tomorrow: 10:00 AM - 01:00 PM</option>
+            </select>
+          </div>
+
+          <!-- Handover Guarantee Box -->
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; font-size: 0.8rem; color: #065f46;">
+            🛡️ <strong>Zero-Hassle Doorstep Verification:</strong> You will receive a 4-Digit Handover OTP and a 6-Digit Gate PIN upon submitting this form. India Post Beat Courier will pick up without box repackaging needed.
+          </div>
+
+          <!-- Form Actions -->
+          <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button type="button" class="amz-btn amz-btn-ghost" onclick="window.amzModal.hideModal(document.getElementById('return-exchange-modal'));" style="width: auto; padding: 10px 18px;">
+              Cancel
+            </button>
+            <button type="submit" class="amz-btn amz-btn-primary" style="width: auto; padding: 10px 24px;">
+              Generate Return/Exchange Pass &amp; OTP →
+            </button>
+          </div>
+        </form>
+      `;
+    }
+
+    this.showModal(modal);
+  }
+
+  submitReturnExchangeForm(orderId) {
+    const choiceEl = document.querySelector('input[name="rma-type-choice"]:checked');
+    const type = choiceEl ? choiceEl.value : 'EXCHANGE';
+    const reason = document.getElementById('rma-reason-select')?.value;
+    const variant = document.getElementById('rma-variant-input')?.value;
+    const slot = document.getElementById('rma-slot-select')?.value;
+
+    if (window.amzStore) {
+      window.amzStore.createReturnRequest(orderId, {
+        type: type,
+        reason: reason,
+        replacementVariant: variant,
+        pickupSlot: slot
+      });
+      // Re-render modal to show generated pass
+      this.openReturnExchangeModal(orderId);
+      this.renderOrdersHistory();
+    }
+  }
+
+  // ==========================================
+  // 6C. LIVE TRANSIT CORRIDOR & WAYBILL MODAL
+  // ==========================================
+  openTransitCorridorModal(orderId) {
+    const order = window.amzStore ? window.amzStore.getOrderById(orderId) : null;
+    if (!order) return;
+
+    const modal = document.getElementById('transit-corridor-modal');
+    if (!modal) return;
+
+    const bodyEl = document.getElementById('transit-corridor-modal-body');
+    if (!bodyEl) return;
+
+    const step = order.currentStep || order.trackingStep || 1;
+    const ship = order.deliveryLocation || {};
+    const trackingNo = order.trackingNumber || 'INP-SPEEDPOST-89102';
+    const destCity = ship.city || 'Destination Hub';
+    const destPin = ship.pincode || '110001';
+
+    const hubs = [
+      {
+        num: 1,
+        title: 'Varanasi Master Karigar Cluster Hub',
+        loc: 'Varanasi, UP (PIN: 221001)',
+        time: 'Day 1 • 10:30 AM',
+        desc: 'Handcrafted craft unit verified with Silk Mark / GI-Tag seal and dispatched to postal sorting station.',
+        done: step >= 1,
+        current: step === 1
+      },
+      {
+        num: 2,
+        title: 'National Air Freight Gateway (DEL)',
+        loc: 'Indira Gandhi Cargo Terminal, New Delhi',
+        time: 'Day 1 • 06:45 PM',
+        desc: 'Security screened and loaded onto scheduled logistics air corridor dispatch.',
+        done: step >= 2,
+        current: step === 2
+      },
+      {
+        num: 3,
+        title: `${destCity} Central Postal Distribution Hub`,
+        loc: `${destCity}, India (PIN: ${destPin})`,
+        time: 'Day 2 • 06:15 AM',
+        desc: 'Sorted to local postal beat zone. Handed to certified India Post delivery officer.',
+        done: step >= 3,
+        current: step === 3
+      },
+      {
+        num: 4,
+        title: 'Out for Doorstep Handover',
+        loc: `${ship.address || destCity}`,
+        time: 'Day 2 • 10:00 AM',
+        desc: 'Courier out on electric delivery van. Open-Box Physical Inspection available.',
+        done: step >= 4,
+        current: step === 4
+      }
+    ];
+
+    bodyEl.innerHTML = `
+      <div class="transit-corridor-wrapper" style="font-family: var(--font-body, inherit);">
+        <!-- Waybill Slip Header -->
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <div style="font-size: 0.72rem; color: #64748b; font-weight: 800; text-transform: uppercase;">OFFICIAL SPEED POST WAYBILL</div>
+            <h4 style="margin: 2px 0 0; font-size: 1.15rem; font-weight: 900; color: #0f172a;">${trackingNo}</h4>
+            <div style="font-size: 0.82rem; color: #475569; margin-top: 2px;">Order Ref: <strong>${order.orderId}</strong> • Carrier: India Post Express</div>
+          </div>
+
+          <!-- Barcode Visualization -->
+          <div style="text-align: right;">
+            <div class="waybill-barcode-lines" style="display: flex; gap: 2px; height: 36px; align-items: flex-end; justify-content: flex-end;">
+              ${Array.from({ length: 32 }).map((_, i) => `
+                <div style="width: ${(i % 3 === 0) ? '3px' : '1.5px'}; height: ${(i % 4 === 0) ? '100%' : '80%'}; background: #1e293b;"></div>
+              `).join('')}
+            </div>
+            <span style="font-size: 0.7rem; font-family: monospace; letter-spacing: 2px; color: #334155;">*${trackingNo}*</span>
+          </div>
+        </div>
+
+        <!-- Visual Hub-to-Hub Corridor -->
+        <div style="margin-bottom: 24px;">
+          <h5 style="margin: 0 0 16px; font-size: 0.92rem; font-weight: 800; color: #0f172a;">National Transit Corridor Checkpoints:</h5>
+          <div style="display: flex; flex-direction: column; gap: 14px; position: relative; padding-left: 20px; border-left: 3px solid #e2e8f0; margin-left: 10px;">
+            ${hubs.map((hub, idx) => `
+              <div style="position: relative;">
+                <!-- Dot on line -->
+                <div style="position: absolute; left: -28px; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: ${hub.done ? '#10b981' : '#e2e8f0'}; border: 2px solid #ffffff; box-shadow: 0 0 0 2px ${hub.done ? '#10b981' : '#cbd5e1'};"></div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 6px;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.9rem; color: ${hub.done ? '#0f172a' : '#64748b'};">
+                      ${hub.title} ${hub.current ? '<span style="background: #fef3c7; color: #92400e; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-left: 6px;">● ACTIVE POSITION</span>' : ''}
+                    </div>
+                    <div style="font-size: 0.78rem; color: #64748b; margin-top: 1px;">📍 ${hub.loc}</div>
+                    <p style="font-size: 0.8rem; color: #475569; margin: 4px 0 0;">${hub.desc}</p>
+                  </div>
+                  <span style="font-size: 0.78rem; font-weight: 700; color: #64748b;">${hub.time}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Trust Features Footer -->
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <div style="font-weight: 800; font-size: 0.86rem; color: #166534;">🛡️ Open-Box Handover Guaranteed</div>
+            <span style="font-size: 0.78rem; color: #15803d;">Inspect item purity & condition before sharing delivery OTP.</span>
+          </div>
+          <span style="font-size: 0.8rem; font-weight: 800; background: #ffffff; color: #166534; padding: 4px 10px; border-radius: 6px; border: 1px solid #bbf7d0;">
+            Zero Fragile Breakage Policy
+          </span>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="amz-btn amz-btn-secondary" onclick="window.print();" style="width: auto; padding: 8px 18px; font-size: 0.84rem;">
+            🖨️ Print Waybill Slip
+          </button>
+          <button type="button" class="amz-btn amz-btn-primary" onclick="window.amzModal.hideModal(document.getElementById('transit-corridor-modal'));" style="width: auto; padding: 8px 22px;">
+            Close Corridor View
+          </button>
+        </div>
+      </div>
+    `;
+
+    this.showModal(modal);
   }
 
   closeAllModalsAndDrawers() {

@@ -18,7 +18,9 @@
 #gst-invoice-modal,
 #seller-modal,
 #buyer-auth-modal,
-#seller-auth-modal {
+#seller-auth-modal,
+#return-exchange-modal,
+#transit-corridor-modal {
   position: fixed !important;
   inset: 0 !important;
   width: 100vw !important;
@@ -69,7 +71,11 @@
 #buyer-auth-modal.is-open,
 #buyer-auth-modal.active,
 #seller-auth-modal.is-open,
-#seller-auth-modal.active {
+#seller-auth-modal.active,
+#return-exchange-modal.is-open,
+#return-exchange-modal.active,
+#transit-corridor-modal.is-open,
+#transit-corridor-modal.active {
   display: flex !important;
   opacity: 1 !important;
   visibility: visible !important;

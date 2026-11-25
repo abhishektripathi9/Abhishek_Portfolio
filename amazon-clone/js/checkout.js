@@ -476,6 +476,27 @@ class CheckoutEngine {
 
     if (subtotalEl) subtotalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.subtotal) : `$${summary.subtotal.toFixed(2)}`;
     if (shippingEl) shippingEl.textContent = summary.shipping === 0 ? 'FREE' : (window.amzApp ? window.amzApp.formatPrice(summary.shipping) : `$${summary.shipping.toFixed(2)}`);
+
+    // Render coupon line in review if applied
+    let couponRow = document.getElementById('checkout-summary-coupon-row');
+    if (summary.couponDiscount > 0) {
+      if (!couponRow) {
+        couponRow = document.createElement('div');
+        couponRow.id = 'checkout-summary-coupon-row';
+        couponRow.className = 'summary-row discount-row';
+        couponRow.style.color = '#15803d';
+        couponRow.style.fontWeight = '600';
+        totalEl?.parentNode?.parentNode?.insertBefore(couponRow, totalEl.parentNode);
+      }
+      couponRow.innerHTML = `
+        <span>Coupon Discount (${summary.appliedCoupon?.code || 'APPLIED'}):</span>
+        <span>-${window.amzApp ? window.amzApp.formatPrice(summary.couponDiscount) : '₹' + summary.couponDiscount}</span>
+      `;
+      couponRow.style.display = 'flex';
+    } else if (couponRow) {
+      couponRow.style.display = 'none';
+    }
+
     if (totalEl) totalEl.textContent = window.amzApp ? window.amzApp.formatPrice(summary.orderTotal) : `$${summary.orderTotal.toFixed(2)}`;
   }
 
@@ -504,6 +525,8 @@ class CheckoutEngine {
       const newOrder = window.amzStore.addOrder({
         items: [...(window.amzCart ? window.amzCart.items : [])],
         subtotal: summary.subtotal,
+        discountAmount: summary.couponDiscount || 0,
+        couponCode: summary.appliedCoupon ? summary.appliedCoupon.code : null,
         shippingFee: summary.shipping || 0,
         totalAmount: summary.orderTotal,
         paymentMethod: paymentTitle,

@@ -182,7 +182,26 @@ class CartEngine {
     
     const shipping = qualifiesForFreeShipping || subtotal === 0 ? 0.00 : 5.99;
     const tax = subtotal * this.TAX_RATE;
-    const orderTotal = subtotal + shipping + tax;
+
+    // Dynamic Coupon Calculation
+    let couponDiscount = 0;
+    let appliedCoupon = null;
+    if (window.amzStore && typeof window.amzStore.getAppliedCoupon === 'function') {
+      appliedCoupon = window.amzStore.getAppliedCoupon();
+      if (appliedCoupon && subtotal > 0) {
+        if (appliedCoupon.discountType === 'PERCENTAGE') {
+          couponDiscount = (subtotal * appliedCoupon.discountValue) / 100;
+          if (appliedCoupon.maxDiscount && couponDiscount > appliedCoupon.maxDiscount) {
+            couponDiscount = appliedCoupon.maxDiscount;
+          }
+        } else {
+          couponDiscount = appliedCoupon.discountValue;
+        }
+        couponDiscount = Math.min(couponDiscount, subtotal);
+      }
+    }
+
+    const orderTotal = Math.max(0, subtotal - couponDiscount + shipping + tax);
 
     return {
       itemCount,
@@ -190,6 +209,8 @@ class CartEngine {
       savings,
       tax,
       shipping,
+      couponDiscount: Math.round(couponDiscount),
+      appliedCoupon,
       orderTotal,
       qualifiesForFreeShipping,
       amountNeededForFreeShipping,

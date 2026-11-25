@@ -1152,11 +1152,11 @@ class SellerCentralEngine {
   }
 
   renderAnalytics() {
-    const curFormatter = (val) => window.amzApp ? window.amzApp.formatPrice(val) : `$${val.toFixed(2)}`;
+    const curFormatter = (val) => window.amzApp ? window.amzApp.formatPrice(val) : `₹${Math.round(val).toLocaleString('en-IN')}`;
     const orders = window.amzStore ? window.amzStore.getOrders() : [];
     const prods = window.amzStore ? window.amzStore.getAllProducts() : [];
 
-    const grossSales = orders.reduce((sum, o) => sum + (o.totalAmount || o.total || 0), 14850.00);
+    const grossSales = orders.reduce((sum, o) => sum + (o.totalAmount || o.total || 0), 148500.00);
 
     const revEl = document.getElementById('seller-stat-revenue');
     if (revEl) revEl.textContent = curFormatter(grossSales);
@@ -1172,6 +1172,79 @@ class SellerCentralEngine {
 
     // Render Dynamic Weekly Earnings & Payout Chart
     this.renderEarningsChart(grossSales, orders.length);
+
+    // Render Low Stock Alert Watchlist (stock <= 5 units)
+    let lowStockContainer = document.getElementById('seller-low-stock-watchlist');
+    if (!lowStockContainer) {
+      const parent = document.getElementById('seller-chart-container')?.parentNode;
+      if (parent) {
+        lowStockContainer = document.createElement('div');
+        lowStockContainer.id = 'seller-low-stock-watchlist';
+        lowStockContainer.className = 'seller-low-stock-watchlist-box';
+        parent.parentNode.insertBefore(lowStockContainer, parent.nextSibling);
+      }
+    }
+
+    if (lowStockContainer) {
+      const lowStockItems = prods.filter(p => (typeof p.stock === 'number' ? p.stock : 10) <= 5);
+      lowStockContainer.innerHTML = `
+        <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 18px; margin-top: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+            <div>
+              <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #9a3412; display: flex; align-items: center; gap: 6px;">
+                <span>⚠️ Low Stock Alert Watchlist</span>
+                <span style="font-size: 0.75rem; background: #ffedd5; color: #c2410c; padding: 2px 8px; border-radius: 9999px; font-weight: 800;">${lowStockItems.length} Products &le; 5 units</span>
+              </h4>
+              <p style="margin: 3px 0 0; font-size: 0.8rem; color: #64748b;">Artisan products requiring immediate restocking to prevent live storefront stockouts.</p>
+            </div>
+            <span style="font-size: 0.78rem; font-weight: 700; color: #ea580c;">Real-Time Inventory Link</span>
+          </div>
+
+          ${lowStockItems.length === 0 ? `
+            <div style="padding: 12px; background: #ecfdf5; border-radius: 8px; color: #047857; font-size: 0.84rem; font-weight: 700;">
+              ✓ All products have healthy stock (&gt; 5 units). No shortages reported.
+            </div>
+          ` : `
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+                <thead>
+                  <tr style="border-bottom: 2px solid #fed7aa; text-align: left; color: #7c2d12;">
+                    <th style="padding: 8px 6px;">Product Title</th>
+                    <th style="padding: 8px 6px;">Category</th>
+                    <th style="padding: 8px 6px;">Selling Rate</th>
+                    <th style="padding: 8px 6px;">Stock Remaining</th>
+                    <th style="padding: 8px 6px; text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${lowStockItems.map(item => `
+                    <tr style="border-bottom: 1px solid #ffedd5;">
+                      <td style="padding: 10px 6px; font-weight: 700; color: #1e293b;">
+                        ${window.amzStore.escapeHTML(item.shortTitle || item.title)}
+                      </td>
+                      <td style="padding: 10px 6px; color: #64748b;">${item.categoryName || 'Craft'}</td>
+                      <td style="padding: 10px 6px; font-weight: 700; color: #047857;">
+                        ${window.amzApp ? window.amzApp.formatPrice(item.price) : '₹' + item.price}
+                      </td>
+                      <td style="padding: 10px 6px;">
+                        <span style="background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-size: 0.8rem;">
+                          ${item.stock} left
+                        </span>
+                      </td>
+                      <td style="padding: 10px 6px; text-align: right;">
+                        <button type="button" class="amz-btn amz-btn-primary" onclick="window.amzSeller.adjustStock('${item.id}', 10); window.amzSeller.renderAnalytics();" style="width: auto; padding: 4px 10px; font-size: 0.78rem;">
+                          + Restock 10 Units
+                        </button>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          `}
+        </div>
+      `;
+    }
   }
 
   renderEarningsChart(grossSales, additionalOrders) {

@@ -19,8 +19,43 @@ class UdaanStore {
       LOCATION: 'udaan_location',
       SELLER_PROFILE: 'udaan_seller_profile',
       STOCK_OVERRIDES: 'udaan_stock_overrides',
-      PRICE_OVERRIDES: 'udaan_price_overrides'
+      PRICE_OVERRIDES: 'udaan_price_overrides',
+      COUPONS: 'udaan_coupons',
+      APPLIED_COUPON: 'udaan_applied_coupon',
+      RETURN_REQUESTS: 'udaan_return_requests'
     };
+
+    // Pre-configured Verified Indian E-Commerce Coupons
+    this.DEFAULT_COUPONS = [
+      {
+        code: 'WELCOME10',
+        title: 'New Customer Welcome',
+        description: '10% instant discount on orders of ₹500 or more (Max discount ₹1,000)',
+        discountType: 'PERCENTAGE',
+        discountValue: 10,
+        minOrderAmount: 500,
+        maxDiscount: 1000,
+        isActive: true
+      },
+      {
+        code: 'FLAT200',
+        title: 'Bharat Special Savings',
+        description: 'Flat ₹200 instant discount on orders of ₹999 or more',
+        discountType: 'FIXED',
+        discountValue: 200,
+        minOrderAmount: 999,
+        isActive: true
+      },
+      {
+        code: 'KARIGAR50',
+        title: 'Rural Artisan Guild Support',
+        description: 'Flat ₹50 instant support discount on any authentic Karigar craft (min ₹300)',
+        discountType: 'FIXED',
+        discountValue: 50,
+        minOrderAmount: 300,
+        isActive: true
+      }
+    ];
 
     // Built-in Indian Postal Pincode Offline Fallback Map (Major Cities & Rural Artisan Clusters)
     this.PINCODE_OFFLINE_MAP = {
@@ -52,6 +87,9 @@ class UdaanStore {
     this.customProducts = [];
     this.orders = [];
     this.reviews = {};
+    this.returnRequests = [];
+    this.coupons = [...this.DEFAULT_COUPONS];
+    this.appliedCoupon = null;
     this.location = this.loadLocation();
 
     this.init();
@@ -61,6 +99,8 @@ class UdaanStore {
     this.loadCustomProducts();
     this.loadOrders();
     this.loadReviews();
+    this.loadCoupons();
+    this.loadReturnRequests();
   }
 
   // ==========================================
@@ -126,7 +166,12 @@ class UdaanStore {
         district: data.district,
         state: data.state,
         hub: data.hub,
-        isExpressAvailable: true
+        isExpressAvailable: true,
+        isCodAvailable: true,
+        isOpenBoxEligible: true,
+        estimatedDeliveryDays: 1,
+        estimatedDeliveryDate: 'Tomorrow by 2:00 PM',
+        courierPartner: 'India Post Speed Post Express'
       };
     }
 
@@ -143,7 +188,12 @@ class UdaanStore {
             district: po.District,
             state: po.State,
             hub: `${po.Name} Branch Post Office`,
-            isExpressAvailable: true
+            isExpressAvailable: true,
+            isCodAvailable: true,
+            isOpenBoxEligible: true,
+            estimatedDeliveryDays: 2,
+            estimatedDeliveryDate: 'Within 24-48 Hours',
+            courierPartner: 'India Post Speed Post Express'
           };
         }
       }
@@ -158,7 +208,12 @@ class UdaanStore {
       district: 'District Hub',
       state: 'India',
       hub: 'India Post Speed Post Hub',
-      isExpressAvailable: true
+      isExpressAvailable: true,
+      isCodAvailable: true,
+      isOpenBoxEligible: true,
+      estimatedDeliveryDays: 2,
+      estimatedDeliveryDate: 'Within 48 Hours',
+      courierPartner: 'India Post Speed Post'
     };
   }
 
@@ -643,6 +698,304 @@ class UdaanStore {
       window.amzSearchFilter.applyFilters();
     }
     window.dispatchEvent(new CustomEvent('udaan:stock-updated', { detail: { productId, quantity: qty } }));
+  }
+
+  // ==========================================
+  // 3B. RETURN & EXCHANGE (RMA) LIFECYCLE ENGINE
+  // ==========================================
+  loadReturnRequests() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEYS.RETURN_REQUESTS);
+      if (saved) {
+        this.returnRequests = JSON.parse(saved);
+      } else {
+        // Pre-seed 1 historical RMA for demonstration
+        this.returnRequests = [
+          {
+            rmaNumber: 'RET-2026-1042',
+            orderId: 'ORD-2026-97451',
+            type: 'EXCHANGE',
+            reason: 'Size / Fit replacement needed (Need UK 10 instead of UK 9)',
+            replacementVariant: 'UK 10 (Black/Crimson)',
+            pickupSlot: 'Tomorrow 10:00 AM - 01:00 PM',
+            pickupAddress: 'Flat 402, Connaught Place, Block C, New Delhi - 110001',
+            handoverOtp: '7429',
+            gatePin: '894120',
+            status: 'PICKUP_SCHEDULED',
+            statusLabel: 'Doorstep Pickup Scheduled',
+            courierName: 'India Post Reverse Logistics Fleet',
+            awbNumber: 'INP-REV-849102',
+            agentName: 'Rajesh Sharma (Postal Beat Officer)',
+            agentPhone: '+91 98765 01234',
+            createdAt: new Date(Date.now() - 18 * 3600 * 1000).toISOString(),
+            timeline: [
+              { stage: 'Requested', time: 'Yesterday, 04:30 PM', note: 'Customer initiated Exchange for replacement variant.' },
+              { stage: 'Pickup Scheduled', time: 'Today, 08:00 AM', note: 'Courier beat allocated. Verification OTP generated.' }
+            ]
+          }
+        ];
+        localStorage.setItem(this.STORAGE_KEYS.RETURN_REQUESTS, JSON.stringify(this.returnRequests));
+      }
+    } catch (e) {
+      this.returnRequests = [];
+    }
+  }
+
+  getReturnRequests() {
+    return this.returnRequests;
+  }
+
+  getReturnRequestById(rmaNumber) {
+    return this.returnRequests.find(r => r.rmaNumber === rmaNumber);
+  }
+
+  getReturnRequestByOrderId(orderId) {
+    return this.returnRequests.find(r => r.orderId === orderId);
+  }
+
+  createReturnRequest(orderId, reqData = {}) {
+    const order = this.getOrderById(orderId);
+    if (!order) {
+      if (window.amzCart) window.amzCart.showToast(`Order ${orderId} not found.`, 'error');
+      return null;
+    }
+
+    const randomRmaNum = Math.floor(1000 + Math.random() * 9000);
+    const rmaNumber = `RET-2026-${randomRmaNum}`;
+    const otp = String(Math.floor(1000 + Math.random() * 9000));
+    const gatePin = String(Math.floor(100000 + Math.random() * 900000));
+    const awb = `INP-REV-${Math.floor(100000 + Math.random() * 900000)}`;
+    const nowIso = new Date().toISOString();
+    const formattedDate = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    const formattedTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+    const ship = order.deliveryLocation || {};
+    const defaultAddress = `${ship.address || ''}, ${ship.city || 'New Delhi'} - ${ship.pincode || '110001'}`;
+
+    const newRma = {
+      rmaNumber: rmaNumber,
+      orderId: orderId,
+      type: (reqData.type || 'RETURN').toUpperCase(), // 'RETURN' or 'EXCHANGE'
+      reason: reqData.reason || 'Size or Fit adjustment',
+      details: reqData.details || 'Customer requested assistance at doorstep',
+      replacementVariant: reqData.replacementVariant || (reqData.type === 'EXCHANGE' ? 'Standard Replacement Piece' : 'N/A (Refund)'),
+      pickupSlot: reqData.pickupSlot || 'Tomorrow 10:00 AM - 01:00 PM',
+      pickupAddress: reqData.pickupAddress || defaultAddress,
+      handoverOtp: otp,
+      gatePin: gatePin,
+      status: 'PICKUP_SCHEDULED',
+      statusLabel: 'Reverse Pickup Scheduled',
+      courierName: 'India Post Reverse Logistics Fleet',
+      awbNumber: awb,
+      agentName: 'Vikas Kumar (Postal Courier Officer)',
+      agentPhone: '+91 98765 43210',
+      createdAt: nowIso,
+      timeline: [
+        {
+          stage: 'Request Registered',
+          time: `${formattedDate}, ${formattedTime}`,
+          note: `${reqData.type === 'EXCHANGE' ? 'Exchange replacement' : 'Return refund'} request approved instantly under 7-Day Rural Assurance.`
+        },
+        {
+          stage: 'Courier Beat Assigned',
+          time: `${formattedDate}, ${formattedTime}`,
+          note: `India Post beat officer allocated. Show OTP ${otp} to courier officer during handover.`
+        }
+      ]
+    };
+
+    this.returnRequests.unshift(newRma);
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.RETURN_REQUESTS, JSON.stringify(this.returnRequests));
+    } catch (e) {}
+
+    // Link RMA to Order
+    order.activeRma = newRma;
+    order.status = (newRma.type === 'EXCHANGE' ? 'Exchange in Progress' : 'Return in Progress');
+    if (!order.trackingHistory) order.trackingHistory = [];
+    order.trackingHistory.push({
+      step: order.currentStep || 4,
+      title: `${newRma.type === 'EXCHANGE' ? 'Exchange' : 'Return'} Initiated (${rmaNumber})`,
+      time: `${formattedDate}, ${formattedTime}`,
+      note: `RMA Created. Doorstep Handover OTP: ${otp} • Courier: India Post Reverse`
+    });
+
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.ORDERS, JSON.stringify(this.orders));
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('udaan:rma-created', { detail: newRma }));
+    window.dispatchEvent(new CustomEvent('udaan:order-updated', { detail: order }));
+
+    if (window.amzCart) {
+      window.amzCart.showToast(`🛡️ ${newRma.type === 'EXCHANGE' ? 'Exchange' : 'Return'} pass ${rmaNumber} created! Handover OTP: ${otp}`, 'success');
+    }
+
+    return newRma;
+  }
+
+  advanceRmaStep(rmaNumber) {
+    const rma = this.getReturnRequestById(rmaNumber);
+    if (!rma) return null;
+
+    const formattedDate = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    const formattedTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+    if (rma.status === 'PICKUP_SCHEDULED') {
+      rma.status = 'QC_PASSED';
+      rma.statusLabel = 'Doorstep QC Verified & Picked Up';
+      rma.timeline.push({
+        stage: 'QC Passed',
+        time: `${formattedDate}, ${formattedTime}`,
+        note: `Postal beat officer verified item condition & OTP. Package accepted.`
+      });
+      if (window.amzCart) window.amzCart.showToast(`✓ RMA ${rmaNumber}: Package picked up and QC verified!`, 'success');
+    } else if (rma.status === 'QC_PASSED') {
+      if (rma.type === 'EXCHANGE') {
+        rma.status = 'REPLACEMENT_DISPATCHED';
+        rma.statusLabel = 'Fresh Replacement Dispatched';
+        rma.timeline.push({
+          stage: 'Replacement Dispatched',
+          time: `${formattedDate}, ${formattedTime}`,
+          note: `New artisan unit dispatched via India Post Speed Post (${rma.replacementVariant}).`
+        });
+        if (window.amzCart) window.amzCart.showToast(`🚚 RMA ${rmaNumber}: Fresh replacement piece dispatched to customer!`, 'success');
+      } else {
+        rma.status = 'REFUND_COMPLETED';
+        rma.statusLabel = '100% Refund Credited';
+        rma.timeline.push({
+          stage: 'Refund Completed',
+          time: `${formattedDate}, ${formattedTime}`,
+          note: `100% full refund credited to original payment source (UPI/Bank).`
+        });
+        if (window.amzCart) window.amzCart.showToast(`💰 RMA ${rmaNumber}: 100% Refund credited to bank account!`, 'success');
+      }
+    }
+
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.RETURN_REQUESTS, JSON.stringify(this.returnRequests));
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('udaan:rma-updated', { detail: rma }));
+    return rma;
+  }
+
+  // ==========================================
+  // 3C. COUPONS & PROMOTIONAL DISCOUNT ENGINE
+  // ==========================================
+  loadCoupons() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEYS.COUPONS);
+      this.coupons = saved ? JSON.parse(saved) : [...this.DEFAULT_COUPONS];
+    } catch (e) {
+      this.coupons = [...this.DEFAULT_COUPONS];
+    }
+
+    try {
+      const applied = sessionStorage.getItem(this.STORAGE_KEYS.APPLIED_COUPON);
+      this.appliedCoupon = applied ? JSON.parse(applied) : null;
+    } catch (e) {
+      this.appliedCoupon = null;
+    }
+  }
+
+  getAvailableCoupons() {
+    return this.coupons.filter(c => c.isActive !== false);
+  }
+
+  getAppliedCoupon() {
+    return this.appliedCoupon;
+  }
+
+  validateCoupon(code, subtotal = 0) {
+    if (!code) {
+      return { valid: false, message: 'Please enter a coupon code.' };
+    }
+
+    const cleanCode = String(code).trim().toUpperCase();
+    const coupon = this.coupons.find(c => c.code.toUpperCase() === cleanCode);
+
+    if (!coupon || !coupon.isActive) {
+      return { valid: false, message: `Coupon code "${cleanCode}" is invalid or expired.` };
+    }
+
+    const minAmount = coupon.minOrderAmount || 0;
+    if (subtotal < minAmount) {
+      return {
+        valid: false,
+        coupon,
+        message: `Coupon "${coupon.code}" requires a minimum order value of ₹${minAmount.toLocaleString('en-IN')}. (Current: ₹${Math.round(subtotal).toLocaleString('en-IN')})`
+      };
+    }
+
+    let calculatedDiscount = 0;
+    if (coupon.discountType === 'PERCENTAGE') {
+      calculatedDiscount = (subtotal * coupon.discountValue) / 100;
+      if (coupon.maxDiscount && calculatedDiscount > coupon.maxDiscount) {
+        calculatedDiscount = coupon.maxDiscount;
+      }
+    } else {
+      calculatedDiscount = coupon.discountValue;
+    }
+
+    // Discount cannot exceed subtotal
+    calculatedDiscount = Math.min(calculatedDiscount, subtotal);
+
+    return {
+      valid: true,
+      code: coupon.code,
+      title: coupon.title,
+      description: coupon.description,
+      discountType: coupon.discountType,
+      discountValue: coupon.discountValue,
+      calculatedDiscount: Math.round(calculatedDiscount),
+      minOrderAmount: coupon.minOrderAmount,
+      message: `Coupon "${coupon.code}" applied successfully! You saved ₹${Math.round(calculatedDiscount).toLocaleString('en-IN')}.`
+    };
+  }
+
+  applyCoupon(code, subtotal = 0) {
+    const result = this.validateCoupon(code, subtotal);
+    if (!result.valid) {
+      if (window.amzCart) window.amzCart.showToast(result.message, 'error');
+      return result;
+    }
+
+    this.appliedCoupon = {
+      code: result.code,
+      title: result.title,
+      discountType: result.discountType,
+      discountValue: result.discountValue,
+      calculatedDiscount: result.calculatedDiscount
+    };
+
+    try {
+      sessionStorage.setItem(this.STORAGE_KEYS.APPLIED_COUPON, JSON.stringify(this.appliedCoupon));
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('udaan:coupon-applied', { detail: this.appliedCoupon }));
+
+    if (window.amzCart) {
+      window.amzCart.showToast(`🎉 Coupon ${this.appliedCoupon.code} applied! Saved ₹${this.appliedCoupon.calculatedDiscount.toLocaleString('en-IN')}`, 'success');
+      window.amzCart.broadcastCartUpdate();
+    }
+
+    return result;
+  }
+
+  removeCoupon() {
+    const removedCode = this.appliedCoupon ? this.appliedCoupon.code : '';
+    this.appliedCoupon = null;
+    try {
+      sessionStorage.removeItem(this.STORAGE_KEYS.APPLIED_COUPON);
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('udaan:coupon-removed', { detail: { code: removedCode } }));
+
+    if (window.amzCart) {
+      window.amzCart.showToast(`Coupon ${removedCode} removed.`, 'info');
+      window.amzCart.broadcastCartUpdate();
+    }
   }
 
   // ==========================================
