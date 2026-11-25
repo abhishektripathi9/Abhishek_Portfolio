@@ -45,11 +45,12 @@
 
 ---
 
-## 🚀 11 Production-Grade Projects (With Live Demos & Analytics Suite)
+## 🚀 Production-Grade Projects (With Live Demos & Analytics Suite)
 
 | # | Project | Stack | Overview | Live Links |
 | :-: | :--- | :--- | :--- | :---: |
-| 1 | 📦 **BharatBazaar – Retail &amp; Control Room** | React 19 &bull; Node.js &bull; Express &bull; MySQL 8.0 &bull; RBAC &bull; GST | High-contrast monochrome direct retail storefront coupled with an executive role-based Admin Control Room, real-time MySQL inventory tracking, live GST invoicing, and fulfillment pipeline. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/ecommerce-admin/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/E-commerce-Admin-Panel) |
+| 1 | ✂️ **NOIR ATELIER – Salon &amp; Grooming Studio** | React 18 &bull; Node.js &bull; Express &bull; MySQL / SQLite &bull; JWT &bull; Tailwind | Luxury Indian salon booking platform &amp; B2B Reception POS with real-time 30-min anti-double-booking slot locking, promo offers, WhatsApp Digital Pass, and analytics CSV export. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/noir-atelier/index.html)<br>🔒 Private Repo |
+| 2 | 📦 **BharatBazaar – Retail &amp; Control Room** | React 19 &bull; Node.js &bull; Express &bull; MySQL 8.0 &bull; RBAC &bull; GST | High-contrast monochrome direct retail storefront coupled with an executive role-based Admin Control Room, real-time MySQL inventory tracking, live GST invoicing, and fulfillment pipeline. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/ecommerce-admin/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/E-commerce-Admin-Panel) |
 | 2 | 🧾 **smartBiz – POS &amp; Inventory System** | React.js &bull; Spring Boot 3 &bull; Java 17 &bull; MySQL &bull; GST | High-speed POS billing with barcode scanner, automated CGST/SGST/IGST tax engine, 80mm thermal &amp; A4 invoices, and Khata ledger. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/smart-billing/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9/Smart-Billing-Inventory-Management-System) |
 | 2 | 🛍️ **UdaanMart – Global E-Commerce Platform** | JavaScript ES6+ &bull; Cream Luxury UI &bull; i18n Localization &bull; 155k+ Villages &bull; Express Buy | Ultra-modern global marketplace with cream luxury UI, auto-country language localization (7 languages), 155k+ Indian village & worldwide delivery, and 1-click Express Buy. | [🚀 Live Demo](https://abhishektripathi9.github.io/Amazon-clone-/)<br>[💻 GitHub](https://github.com/abhishektripathi9/Amazon-clone-) |
 | 3 | 🎓 **LearnSphere – Student Quiz Portal** | React.js &bull; Node.js &bull; Express &bull; MySQL &bull; REST APIs | E-learning platform with student auth, dynamic courses, automated quiz evaluation, and sub-100ms state updates. | [🚀 Live Demo](https://abhishek-portfolio-uir4.onrender.com/quiz-portal/index.html)<br>[💻 GitHub](https://github.com/abhishektripathi9) |
@@ -77,6 +78,7 @@ Abhishek_Portfolio/
 │
 ├── powerbi-analytics/           # Standalone Interactive Web Analytics Suite (Chart.js)
 ├── powerbi-projects/            # Production Microsoft Power BI (.pbix) Models & Assets
+├── noir-atelier/                # NOIR ATELIER Salon Booking & Reception POS Showcase
 ├── ecommerce-admin/             # BharatBazaar Direct Retail & Admin Control Room (React/Node)
 ├── smart-billing/               # smartBiz POS & GST Billing System (React app)
 ├── amazon-clone/                # UdaanMart Global E-Commerce Marketplace
