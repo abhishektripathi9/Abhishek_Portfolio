@@ -723,10 +723,126 @@
   <!-- =========================================================================
        5. FOOTER
        ========================================================================= -->
-  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span>SalaryAI — Tech Compensation &amp; Leveling Engine • v4.2.0 Production Showcase</span>
-      <span class="text-slate-400">Trained on 2,540 verified tech offers • Scikit-Learn Regression</span>
+  <!-- ====================================================
+       SALARYAI ENTERPRISE LEVELING & ML FOOTER
+       ==================================================== -->
+  <footer class="bg-slate-900 text-slate-400 text-xs mt-20 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Pre-Footer Model Benchmark Banner -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 mb-12 border-b border-slate-800 text-center sm:text-left">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div>
+            <h5 class="text-white font-bold text-xs uppercase tracking-wider">0.942 R² Accuracy</h5>
+            <p class="text-slate-500 text-[11px]">Strict polynomial validation</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <div>
+            <h5 class="text-white font-bold text-xs uppercase tracking-wider">2,540+ Verified Offers</h5>
+            <p class="text-slate-500 text-[11px]">BLR, HYD, NCR &amp; Pune data</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <h5 class="text-white font-bold text-xs uppercase tracking-wider">90% Confidence Bands</h5>
+            <p class="text-slate-500 text-[11px]">P10, P50, P90 percentile curves</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <div>
+            <h5 class="text-white font-bold text-xs uppercase tracking-wider">Zero Bias Auditing</h5>
+            <p class="text-slate-500 text-[11px]">Fair pay parity certified</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-Column Directory Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Brand & Description -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-md shadow-cyan-500/20">
+              AI
+            </div>
+            <span class="text-lg font-black text-white tracking-tight">SalaryAI<span class="text-cyan-400">.</span></span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Enterprise compensation &amp; tech leveling platform. Leverages multi-variable machine learning regressions to calculate objective engineering base pay, stock grants, and bonus benchmarks.
+          </p>
+          <div class="inline-flex items-center gap-2 bg-slate-800/80 text-cyan-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700/60 font-medium">
+            <span>●</span> Live Production Engine v4.2
+          </div>
+        </div>
+
+        <!-- ML Models & Theory -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">ML Architectures</h4>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">Polynomial Regression (Degree 3)</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Ridge L2 Penalty Regularization</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Random Forest Ensemble Estimator</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">5-Fold Cross-Validation Metrics</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Scikit-Learn Standard Pipeline</a></li>
+          </ul>
+        </div>
+
+        <!-- Leveling Frameworks -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Leveling Bands</h4>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">L3 — Associate / Junior SDE (0–2 YOE)</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">L4 — Mid-Level Software Engineer (2–5 YOE)</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">L5 — Senior Software Engineer (5–8 YOE)</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">L6 — Staff / Principal Architect (8+ YOE)</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Engineering Management (EM1 / EM2)</a></li>
+          </ul>
+        </div>
+
+        <!-- Creator & Codebase -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Creator &amp; Stacks</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Designed &amp; built by <strong class="text-white">Abhishek Tripathi</strong> with Python 3, Flask, Scikit-Learn, Tailwind CSS, and Recharts.
+          </p>
+          <div class="pt-2 space-y-2">
+            <a href="../index.html" class="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-bold transition">
+              <span>← Back to Abhishek's Portfolio</span>
+            </a>
+            <br>
+            <a href="https://github.com/abhishektripathi9/Salary-Prediction-System" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition">
+              <span>GitHub Repository &bull; Source Code</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-xs gap-3">
+        <p>© 2026 SalaryAI Compensation Engine. Developed by Abhishek Tripathi.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-slate-400 transition">Model Methodology</a>
+          <span>&bull;</span>
+          <a href="#" class="hover:text-slate-400 transition">Data Privacy</a>
+          <span>&bull;</span>
+          <a href="https://wa.me/919595347836" target="_blank" class="text-cyan-400 font-bold hover:underline">Consultation: +91 95953 47836</a>
+        </div>
+      </div>
+
     </div>
   </footer>
 

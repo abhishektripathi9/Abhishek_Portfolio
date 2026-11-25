@@ -297,12 +297,109 @@
   </section>
 
   <!-- Clean Bottom Bar -->
-  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>© 2026 RentEase PRO. Designed by Abhishek Tripathi.</p>
-      <div class="flex items-center gap-4">
-        <a href="../index.html" class="hover:text-slate-900 font-bold text-slate-700">Abhishek Portfolio</a>
-        <a href="https://github.com/abhishektripathi9/RentEase-PG-Room-Finder" target="_blank" class="hover:text-slate-900 font-bold text-slate-700">GitHub Repository</a>
+  <!-- =====================================================
+       RENTEASE ENTERPRISE REAL-ESTATE FOOTER (Airbnb/Zillow Style)
+       ===================================================== -->
+  <footer class="border-t border-slate-200 bg-slate-900 text-slate-400 mt-20 pt-16 pb-12">
+    <!-- Pre-Footer Host & Tenant Banner -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
+      <div class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-8 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 text-white">
+        <div class="space-y-2 text-center md:text-left">
+          <div class="inline-flex items-center gap-2 bg-emerald-500/30 text-emerald-100 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-emerald-400/30">
+            <span>●</span> Verified Host Partner Network
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Are you a PG or Flat Owner?</h3>
+          <p class="text-emerald-100 text-sm max-w-xl">
+            List your verified rooms in under 2 minutes. Gain access to 15,000+ students and working professionals looking for clean, brokerage-free stays.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="window.openAddPgModal()" class="bg-white text-emerald-800 hover:bg-slate-100 font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>+ List Your PG Free</span>
+          </button>
+          <a href="https://wa.me/919595347836?text=Hi%20Abhishek%2C%20I%20want%20to%20partner%20my%20PG%20with%20RentEase" target="_blank" rel="noopener" class="bg-emerald-800/80 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-3.5 rounded-xl border border-emerald-400/40 transition flex items-center gap-2">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.32a8.19 8.19 0 0 1-1.26-4.43c0-4.54 3.7-8.24 8.24-8.24m4.53 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3Z"/></svg>
+            <span>Host Desk WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Column Directory Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+      
+      <!-- Brand & Mission -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          </div>
+          <span class="text-xl font-black text-white tracking-tight">RentEase<span class="text-emerald-400">.</span></span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          India's leading verified student co-living &amp; PG accommodation search platform. Dedicated to 100% zero brokerage, transparent tenant safety, and digital move-in passes.
+        </p>
+        <div class="flex items-center gap-2 text-xs text-slate-300 font-semibold bg-slate-800/80 px-3 py-2 rounded-lg border border-slate-700/60 w-fit">
+          <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>100% Verified Properties</span>
+        </div>
+      </div>
+
+      <!-- Top Locations -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Popular PG Clusters</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#" class="hover:text-emerald-400 transition">Prayagraj — Civil Lines &amp; Katra</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Prayagraj — Georgetown &amp; Teliyarganj</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Bengaluru — Koramangala &amp; HSR Layout</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Bengaluru — Indiranagar &amp; Electronic City</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Pune — Hinjawadi Phase 1 &amp; Viman Nagar</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Noida — Sector 62 &amp; Knowledge Park</a></li>
+        </ul>
+      </div>
+
+      <!-- Tenant Assurances -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Tenant Protections</h4>
+        <ul class="space-y-2 text-xs">
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Free In-Person Visit Scheduling</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 100% Zero Hidden Brokerage</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Instant Token Advance Pass</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> WiFi, AC &amp; Food Hygiene Checks</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 24/7 Warden &amp; Host WhatsApp Connect</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Full Security Deposit Guarantee</li>
+        </ul>
+      </div>
+
+      <!-- Engineering & Portfolio Info -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Engineering &amp; Creator</h4>
+        <p class="text-xs text-slate-400">
+          Engineered by <strong class="text-white">Abhishek Tripathi</strong> with Java 17, Spring Boot 3, REST APIs, and modern responsive Tailwind UI.
+        </p>
+        <div class="pt-2 space-y-2">
+          <a href="../index.html" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition">
+            <span>← Back to Abhishek's Portfolio</span>
+          </a>
+          <br>
+          <a href="https://github.com/abhishektripathi9/RentEase-PG-Room-Finder" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub Repository &bull; View Code</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Compliance -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>© 2026 RentEase Technologies India. Designed &amp; Maintained by Abhishek Tripathi.</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
+        <a href="#" class="hover:text-slate-400 transition">Host Terms</a>
+        <a href="#" class="hover:text-slate-400 transition">Security SLA</a>
+        <a href="https://wa.me/919595347836" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-bold">Helpline: +91 95953 47836</a>
       </div>
     </div>
   </footer>
