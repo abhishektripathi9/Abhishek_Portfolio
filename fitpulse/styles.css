@@ -8,18 +8,18 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Color Palette */
-  --color-canvas: #0B0D10;         /* Deep matte charcoal canvas */
-  --color-surface: #14181F;        /* Elevated card surface */
-  --color-surface-hover: #1C222C;  /* Interactive surface hover */
-  --color-surface-sunken: #080A0D; /* Recessed input / subtle background */
+  --color-canvas: #FFFFFF;         /* Deep matte charcoal canvas */
+  --color-surface: #F8FAFC;        /* Elevated card surface */
+  --color-surface-hover: #F1F5F9;  /* Interactive surface hover */
+  --color-surface-sunken: #F1F5F9; /* Recessed input / subtle background */
   
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.18);
+  --color-border: #E2E8F0;
+  --color-border-hover: #CBD5E1;
   --color-border-active: rgba(234, 179, 8, 0.5);
 
-  --color-text-primary: #F3F4F6;   /* Crisp off-white */
-  --color-text-muted: #9CA3AF;     /* Muted secondary gray */
-  --color-text-subtle: #6B7280;    /* Deeper subtle text */
+  --color-text-primary: #0F172A;   /* Crisp off-white */
+  --color-text-muted: #64748B;     /* Muted secondary gray */
+  --color-text-subtle: #94A3B8;    /* Deeper subtle text */
 
   --color-gold: #EAB308;           /* Warm athletic gold */
   --color-gold-hover: #CA8A04;
@@ -43,8 +43,8 @@
   --radius-pill: 9999px;
 
   /* Elevation & Shadows */
-  --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-  --shadow-elevated: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
+  --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 10px 30px rgba(0, 0, 0, 0.06);
   --shadow-gold: 0 12px 30px -4px var(--color-gold-glow);
   --shadow-wa: 0 8px 24px -2px var(--color-wa-glow);
 
@@ -120,7 +120,7 @@ button, input, select, textarea {
 }
 
 .section-alt {
-  background-color: #0E1116;
+  background-color: #F8FAFC;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -162,7 +162,7 @@ button, input, select, textarea {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(11, 13, 16, 0.85);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--color-border);
@@ -591,7 +591,7 @@ button, input, select, textarea {
 .visual-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(11, 13, 16, 0.1) 0%, rgba(11, 13, 16, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%);
   pointer-events: none;
 }
 
@@ -599,7 +599,7 @@ button, input, select, textarea {
   position: absolute;
   top: 1.25rem;
   left: 1.25rem;
-  background-color: rgba(20, 24, 31, 0.9);
+  background-color: rgba(255, 255, 255, 0.95); color: #0F172A;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
@@ -638,7 +638,7 @@ button, input, select, textarea {
   bottom: 1.25rem;
   left: 1.25rem;
   right: 1.25rem;
-  background-color: rgba(20, 24, 31, 0.85);
+  background-color: rgba(255, 255, 255, 0.95); color: #0F172A;
   backdrop-filter: blur(8px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -862,7 +862,7 @@ button, input, select, textarea {
 
 /* Featured Card (Quarterly) */
 .pricing-card.featured {
-  background-color: #171C25;
+  background-color: #FFFFFF;
   border: 2px solid var(--color-gold);
   box-shadow: 0 16px 40px -10px var(--color-gold-glow);
 }

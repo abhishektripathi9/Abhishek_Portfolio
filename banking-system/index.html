@@ -11,16 +11,16 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <style>
     :root {
-      --bg: #03080e;
-      --card-bg: rgba(8, 18, 30, 0.85);
-      --card-border: rgba(0, 255, 136, 0.22);
-      --emerald: #00ff88;
-      --emerald-glow: rgba(0, 255, 136, 0.45);
-      --cyan: #00f5ff;
-      --amber: #fbbf24;
-      --red: #ff3366;
-      --text: #f1f7fa;
-      --text-muted: #8397a7;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --card-border: #E2E8F0;
+      --emerald: #059669;
+      --emerald-glow: rgba(16, 185, 129, 0.2);
+      --cyan: #0284c7;
+      --amber: #d97706;
+      --red: #e11d48;
+      --text: #0F172A;
+      --text-muted: #64748B;
       --font-body: 'Outfit', sans-serif;
       --font-heading: 'Space Grotesk', sans-serif;
       --font-code: 'JetBrains Mono', monospace;
@@ -33,16 +33,16 @@
       min-height: 100vh;
       overflow-x: hidden;
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(0, 255, 136, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(0, 245, 255, 0.07) 0%, transparent 45%),
-        linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
+        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.04) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(2, 132, 199, 0.04) 0%, transparent 45%),
+        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
 
-    /* Top Nav */
+    /* Top Nav (Pure White Theme) */
     .top-nav {
-      background: rgba(4, 12, 22, 0.92);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--card-border);
       position: sticky;
@@ -52,41 +52,44 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
     }
     .brand-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: #fff;
+      color: #0F172A;
     }
     .brand-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, var(--emerald), var(--cyan));
+      background: linear-gradient(135deg, #10B981, #0284C7);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #03080e;
-      box-shadow: 0 0 20px var(--emerald-glow);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
     }
     .brand-title {
       font-family: var(--font-heading);
       font-size: 1.35rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.5px;
+      color: #0F172A;
     }
     .brand-badge {
       font-size: 0.72rem;
-      background: rgba(0, 255, 136, 0.12);
-      border: 1px solid var(--emerald);
-      color: var(--emerald);
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #059669;
       padding: 3px 8px;
       border-radius: 12px;
       margin-left: 8px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-weight: 700;
     }
     .nav-actions {
       display: flex;
@@ -97,9 +100,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #0F172A;
       padding: 8px 16px;
       border-radius: 8px;
       text-decoration: none;
@@ -108,30 +111,30 @@
       transition: all 0.25s ease;
     }
     .back-btn:hover {
-      background: rgba(0, 255, 136, 0.15);
-      border-color: var(--emerald);
-      color: var(--emerald);
-      box-shadow: 0 0 15px var(--emerald-glow);
+      background: #0F172A;
+      border-color: #0F172A;
+      color: #FFFFFF;
       transform: translateY(-2px);
     }
     .system-status {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(8, 24, 34, 0.8);
-      border: 1px solid rgba(0, 255, 136, 0.3);
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
-      color: var(--emerald);
+      color: #15803D;
       font-family: var(--font-code);
+      font-weight: 600;
     }
     .status-ping {
       width: 8px;
       height: 8px;
-      background: var(--emerald);
+      background: #10B981;
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--emerald);
+      box-shadow: 0 0 10px #10B981;
       animation: pulsePing 1.8s infinite;
     }
     @keyframes pulsePing {
@@ -146,7 +149,7 @@
       padding: 0 24px;
     }
     .hero-banner {
-      background: linear-gradient(135deg, rgba(8, 22, 38, 0.9), rgba(5, 15, 26, 0.9));
+      background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
       border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 28px 36px;
@@ -154,15 +157,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     }
     .hero-text h1 {
       font-family: var(--font-heading);
       font-size: 2rem;
       margin-bottom: 8px;
-      background: linear-gradient(120deg, #fff, var(--emerald));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #0F172A;
+      font-weight: 800;
     }
     .hero-text p {
       color: var(--text-muted);
@@ -175,19 +177,20 @@
       gap: 16px;
     }
     .stat-box {
-      background: rgba(3, 8, 16, 0.65);
-      border: 1px solid rgba(0, 255, 136, 0.2);
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 12px 18px;
       text-align: center;
       min-width: 110px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     }
     .stat-num {
       font-family: var(--font-code);
       font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--emerald);
-      text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+      font-weight: 800;
+      color: #059669;
+      text-shadow: none;
     }
     .stat-label {
       font-size: 0.72rem;
@@ -195,6 +198,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-top: 4px;
+      font-weight: 600;
     }
 
     /* Grid Layout */
@@ -216,7 +220,7 @@
       border-radius: 16px;
       padding: 24px;
       backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
       margin-bottom: 24px;
     }
     .panel-header {
@@ -224,7 +228,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid #F1F5F9;
       padding-bottom: 14px;
     }
     .panel-title {
@@ -233,9 +237,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #fff;
+      color: #0F172A;
+      font-weight: 700;
     }
-    .panel-title i { color: var(--emerald); }
+    .panel-title i { color: #059669; }
 
     /* Accounts Table */
     .accounts-table {
@@ -247,41 +252,46 @@
       text-align: left;
       padding: 10px 14px;
       color: var(--text-muted);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid #E2E8F0;
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-weight: 700;
     }
     .accounts-table td {
       padding: 12px 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid #F1F5F9;
+      color: #0F172A;
     }
     .accounts-table tr:hover {
-      background: rgba(0, 255, 136, 0.04);
+      background: #F8FAFC;
     }
     .acc-id {
       font-family: var(--font-code);
-      color: var(--cyan);
+      color: #0284C7;
       font-size: 0.85rem;
+      font-weight: 600;
     }
     .acc-name {
       font-weight: 600;
+      color: #0F172A;
     }
     .acc-bal {
       font-family: var(--font-code);
       font-weight: 700;
-      color: var(--emerald);
+      color: #059669;
     }
     .status-pill {
       font-size: 0.72rem;
       padding: 3px 8px;
       border-radius: 10px;
       font-family: var(--font-code);
+      font-weight: 600;
     }
     .status-active {
-      background: rgba(0, 255, 136, 0.15);
-      border: 1px solid var(--emerald);
-      color: var(--emerald);
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #059669;
     }
 
     /* Transaction Simulator */
@@ -291,33 +301,35 @@
     .form-group label {
       display: block;
       font-size: 0.85rem;
-      color: var(--text-muted);
+      color: #334155;
       margin-bottom: 6px;
+      font-weight: 600;
     }
     .form-control {
       width: 100%;
-      background: rgba(5, 12, 22, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
       border-radius: 8px;
       padding: 10px 14px;
-      color: #fff;
+      color: #0F172A;
       font-family: var(--font-body);
       font-size: 0.92rem;
       outline: none;
       transition: all 0.2s ease;
     }
     .form-control:focus {
-      border-color: var(--emerald);
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+      background: #FFFFFF;
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
     }
     select.form-control option {
-      background: #08121e;
-      color: #fff;
+      background: #FFFFFF;
+      color: #0F172A;
     }
     .btn-transfer {
       width: 100%;
-      background: linear-gradient(135deg, var(--emerald), #00bfff);
-      color: #03080e;
+      background: linear-gradient(135deg, #059669, #0284C7);
+      color: #FFFFFF;
       border: none;
       padding: 14px;
       border-radius: 10px;
@@ -328,19 +340,19 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      box-shadow: 0 0 20px var(--emerald-glow);
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
       transition: all 0.25s ease;
       margin-top: 10px;
     }
     .btn-transfer:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.45);
     }
 
     /* ACID Execution Pipeline Visualizer */
     .acid-pipeline {
-      background: rgba(3, 8, 16, 0.7);
-      border: 1px solid rgba(0, 255, 136, 0.18);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 10px;
       padding: 14px;
       margin-top: 18px;
@@ -355,10 +367,10 @@
       color: var(--text-muted);
     }
     .acid-step.done {
-      color: var(--emerald);
+      color: #059669;
     }
     .acid-step.rollback {
-      color: var(--red);
+      color: #E11D48;
     }
 
     /* Live Transaction Logs */
@@ -370,8 +382,8 @@
       gap: 8px;
     }
     .txn-log-item {
-      background: rgba(5, 12, 22, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 8px;
       padding: 10px 14px;
       font-size: 0.84rem;
@@ -386,8 +398,9 @@
     }
     .txn-id {
       font-family: var(--font-code);
-      color: var(--cyan);
+      color: #0284C7;
       font-size: 0.78rem;
+      font-weight: 600;
     }
     .txn-meta {
       color: var(--text-muted);
@@ -396,7 +409,7 @@
     .txn-amount {
       font-family: var(--font-code);
       font-weight: 700;
-      color: var(--emerald);
+      color: #059669;
     }
 
     /* Architecture Highlights */
@@ -407,10 +420,10 @@
       font-size: 0.88rem;
       line-height: 1.5;
       margin-bottom: 12px;
-      color: var(--text-muted);
+      color: #334155;
     }
     .arch-bullet i {
-      color: var(--emerald);
+      color: #059669;
       flex-shrink: 0;
       margin-top: 3px;
     }
@@ -422,12 +435,13 @@
     }
     .tech-pill {
       font-size: 0.76rem;
-      background: rgba(0, 255, 136, 0.08);
-      border: 1px solid rgba(0, 255, 136, 0.25);
-      color: var(--emerald);
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #059669;
       padding: 4px 10px;
       border-radius: 6px;
       font-family: var(--font-code);
+      font-weight: 600;
     }
   </style>
 </head>
