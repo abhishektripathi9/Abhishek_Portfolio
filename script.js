@@ -418,6 +418,23 @@ function initProjectsCoverflow() {
    10. PROJECT QUICK-VIEW MODAL
    ===================================================== */
 const projectData = {
+  'noir-atelier': {
+    title: 'NOIR ATELIER — Luxury Salon & Grooming Studio Platform',
+    year: '2026',
+    category: 'Full-Stack Booking & Reception POS System',
+    image: 'assets/project-noir-atelier.jpg',
+    desc: 'Production-ready full-stack web application for a modern luxury Indian salon & grooming studio. Designed with a strict high-contrast monochrome editorial aesthetic (#FFFFFF, #F5F5F7, #111111) featuring real-time anti-double-booking slot locking, promo offers, WhatsApp Digital Pass generation, and a JWT-protected Reception & Owner POS Dashboard.',
+    highlights: [
+      'Real-Time Chair & Slot Locking: Transactional booking engine (10:00 AM – 08:30 PM IST) with overlap detection preventing double-booking across specific or auto-assigned stylists.',
+      'Multi-Service Cart & Promo Offers Engine: Dynamic duration & INR (₹) total calculation with live studio promo codes (NOIR20, GROOM500, GLOW250) managed from Admin.',
+      'Instant Digital Appointment Pass: Generates unique SLN-XXXX booking codes with printable/PNG-downloadable passes and one-click WhatsApp confirmation.',
+      'Customer Self-Service Tracking: Lookup appointments by 10-digit phone or booking code to view passes, reschedule slots, or cancel.',
+      'JWT-Protected Reception & Owner POS (/admin): Today’s Queue, 4-chair live floor dispatch, Quick Walk-In Billing modal, Services/Stylists/Offers CRUD, Revenue Analytics, and CSV export.'
+    ],
+    tech: ['React 18', 'Vite', 'Tailwind CSS', 'Node.js', 'Express.js', 'MySQL 8.0', 'SQLite', 'JWT & Bcrypt'],
+    github: 'https://github.com/abhishektripathi9/salon-booking-platform',
+    liveDemo: './noir-atelier/index.html'
+  },
   'drivecraft-academy': {
     title: 'DriveCraft Academy: Dual-Control Driving School & Operations Dispatch SaaS Platform',
     year: '2026',

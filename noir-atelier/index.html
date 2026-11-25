@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOIR ATELIER — Luxury Salon &amp; Grooming Studio | Abhishek Tripathi Portfolio</title>
+  <meta name="description" content="Full-stack luxury salon & grooming studio booking platform and reception POS built with React, Node.js, Express, JWT Auth, and MySQL/SQLite." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Instrument Serif', 'Georgia', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .num { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-white text-[#111111] font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- PORTFOLIO TOP BAR -->
+  <aside class="bg-[#111111] text-white text-xs px-4 py-2.5 border-b border-neutral-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-semibold text-neutral-300 hover:text-white bg-neutral-900 hover:bg-neutral-800 px-3 py-1 border border-neutral-800">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Back to Portfolio</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+          <span class="font-bold uppercase tracking-wider">NOIR ATELIER — Salon &amp; Grooming Studio</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 text-[11px]">
+        <a href="http://127.0.0.1:5173" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-[#111111] font-semibold uppercase hover:bg-neutral-200 transition-colors">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Launch Local App (:5173)</span>
+        </a>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-neutral-900 text-neutral-300 border border-neutral-700">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+          <span>Private GitHub Repo</span>
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- INTERACTIVE VIEW SWITCHER -->
+  <div class="bg-[#F5F5F7] border-b border-[#E5E5E5] sticky top-10 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <button onclick="switchView('lookbook')" id="btn-lookbook" class="px-3.5 py-1.5 font-semibold uppercase tracking-wider bg-[#111111] text-white">
+          Lookbook &amp; Offers
+        </button>
+        <button onclick="switchView('booking')" id="btn-booking" class="px-3.5 py-1.5 font-semibold uppercase tracking-wider bg-white text-[#111111] border border-[#E5E5E5]">
+          Interactive Booking &amp; Pass
+        </button>
+        <button onclick="switchView('admin')" id="btn-admin" class="px-3.5 py-1.5 font-semibold uppercase tracking-wider bg-white text-[#111111] border border-[#E5E5E5]">
+          Reception Admin POS
+        </button>
+      </div>
+      <div class="text-[11px] uppercase tracking-[0.14em] text-[#555555]">
+        React + Vite • Express + JWT • MySQL / SQLite
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+
+    <!-- VIEW 1: LOOKBOOK & OFFERS -->
+    <section id="view-lookbook" class="space-y-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-[#E5E5E5] pb-10">
+        <div class="lg:col-span-6 space-y-5">
+          <div class="inline-flex items-center gap-3">
+            <svg viewBox="0 0 120 120" class="w-11 h-11" fill="none">
+              <rect width="120" height="120" rx="10" fill="#111111"/>
+              <circle cx="60" cy="20" r="3.5" fill="#FFFFFF"/>
+              <path d="M36 90V32H47.5L73.5 72.5V32H84V90H72.8L46.5 49.2V90H36Z" fill="#FFFFFF"/>
+              <line x1="20" y1="104" x2="100" y2="104" stroke="#666666" stroke-width="1.5"/>
+            </svg>
+            <div>
+              <div class="font-serif text-2xl font-bold tracking-[0.14em]">NOIR ATELIER</div>
+              <div class="text-[9px] uppercase tracking-[0.28em] text-[#666666]">HAUTE SALON &amp; GROOMING • EST. 2024</div>
+            </div>
+          </div>
+
+          <h1 class="font-serif text-5xl sm:text-6xl leading-[1.02]">Precision Grooming, <span class="italic">Curated Calm.</span></h1>
+          <p class="text-sm sm:text-base text-[#555555] leading-relaxed">
+            Built for Indian metropolitan grooming studios (Mumbai, Bengaluru, New Delhi) with real-time 30-min slot locking, promo code offers, WhatsApp Digital Pass generation, and a monochrome Reception POS Dashboard.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="switchView('booking')" class="bg-[#111111] text-white text-xs uppercase tracking-[0.14em] font-semibold px-6 py-3.5">
+              Try Interactive Booking →
+            </button>
+            <button onclick="switchView('admin')" class="border border-[#E5E5E5] text-[#111111] text-xs uppercase tracking-[0.14em] font-semibold px-6 py-3.5 hover:border-[#111111]">
+              Preview Admin POS
+            </button>
+          </div>
+        </div>
+        <div class="lg:col-span-6 border border-[#E5E5E5] bg-[#F5F5F7] p-2">
+          <img src="./images/hero-studio.jpg" alt="NOIR ATELIER Studio" class="w-full h-80 sm:h-96 object-cover grayscale" />
+        </div>
+      </div>
+
+      <!-- Studio Offers -->
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.18em] text-[#666666] font-semibold">Live Promo Engine</div>
+        <h2 class="font-serif text-3xl mt-1 mb-5">Current Studio Offers</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="border border-[#E5E5E5] p-5 bg-[#F5F5F7]">
+            <div class="flex justify-between items-center">
+              <span class="bg-[#111111] text-white text-[10px] font-bold px-2.5 py-1">20% OFF</span>
+              <span class="font-mono text-xs font-bold border border-[#111111] bg-white px-2.5 py-0.5">NOIR20</span>
+            </div>
+            <h3 class="font-serif text-2xl mt-3">Atelier First Visit Privilege</h3>
+            <p class="text-xs text-[#555555] mt-1">20% off haircuts, beard rituals, or skin detox sessions on bills ₹999+.</p>
+          </div>
+          <div class="border border-[#E5E5E5] p-5 bg-[#F5F5F7]">
+            <div class="flex justify-between items-center">
+              <span class="bg-[#111111] text-white text-[10px] font-bold px-2.5 py-1">FLAT ₹500 OFF</span>
+              <span class="font-mono text-xs font-bold border border-[#111111] bg-white px-2.5 py-0.5">GROOM500</span>
+            </div>
+            <h3 class="font-serif text-2xl mt-3">Groom Wedding Suite Offer</h3>
+            <p class="text-xs text-[#555555] mt-1">Flat ₹500 instant privilege on Signature Groom &amp; Baraat Ready packages.</p>
+          </div>
+          <div class="border border-[#E5E5E5] p-5 bg-[#F5F5F7]">
+            <div class="flex justify-between items-center">
+              <span class="bg-[#111111] text-white text-[10px] font-bold px-2.5 py-1">FLAT ₹250 OFF</span>
+              <span class="font-mono text-xs font-bold border border-[#111111] bg-white px-2.5 py-0.5">GLOW250</span>
+            </div>
+            <h3 class="font-serif text-2xl mt-3">Midweek Skin Detox Credit</h3>
+            <p class="text-xs text-[#555555] mt-1">Instant ₹250 off on Noir Charcoal Detox Facial &amp; Cryo-Jade Hydration.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lookbook Gallery -->
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.18em] text-[#666666] font-semibold">Editorial Lookbook</div>
+        <h2 class="font-serif text-3xl mt-1 mb-5">Curated Style Gallery</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="border border-[#E5E5E5]">
+            <img src="./images/lookbook-hair.jpg" alt="Hair Lookbook" class="w-full h-72 object-cover grayscale border-b border-[#E5E5E5]" />
+            <div class="p-4">
+              <div class="text-[10px] uppercase tracking-widest text-[#666666]">Haircuts</div>
+              <div class="font-serif text-xl mt-1">Architectural Scissor Crop</div>
+            </div>
+          </div>
+          <div class="border border-[#E5E5E5]">
+            <img src="./images/lookbook-beard.jpg" alt="Beard Lookbook" class="w-full h-72 object-cover grayscale border-b border-[#E5E5E5]" />
+            <div class="p-4">
+              <div class="text-[10px] uppercase tracking-widest text-[#666666]">Beard &amp; Shave</div>
+              <div class="font-serif text-xl mt-1">Geometric Straight-Razor Sculpt</div>
+            </div>
+          </div>
+          <div class="border border-[#E5E5E5]">
+            <img src="./images/lookbook-groom.jpg" alt="Groom Lookbook" class="w-full h-72 object-cover grayscale border-b border-[#E5E5E5]" />
+            <div class="p-4">
+              <div class="text-[10px] uppercase tracking-widest text-[#666666]">Groom Packages</div>
+              <div class="font-serif text-xl mt-1">Royal Bandhgala Groom Suite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: INTERACTIVE BOOKING SIMULATOR -->
+    <section id="view-booking" class="hidden space-y-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 border-b border-[#E5E5E5] pb-4">
+        <div>
+          <div class="text-[10px] uppercase tracking-[0.18em] text-[#666666]">Interactive Demo</div>
+          <h2 class="font-serif text-3xl">Multi-Service Booking &amp; Digital Pass</h2>
+        </div>
+        <span class="text-xs bg-[#F5F5F7] border border-[#E5E5E5] px-3 py-1">Zero Double-Booking Simulation</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4" id="demo-services"></div>
+        <div class="lg:col-span-5 border border-[#E5E5E5] bg-white p-6 space-y-4">
+          <div class="font-serif text-2xl border-b border-[#E5E5E5] pb-3">Reservation Pass</div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider text-[#666666] mb-1.5">Time Slot</div>
+            <div class="grid grid-cols-3 gap-1.5" id="demo-slots"></div>
+          </div>
+          <div class="flex gap-2">
+            <input id="demo-promo" type="text" placeholder="Promo: NOIR20" class="flex-1 border border-[#E5E5E5] px-3 py-2 text-xs font-mono uppercase" />
+            <button onclick="applyDemoPromo()" class="bg-[#111111] text-white px-3 py-2 text-[10px] uppercase font-semibold">Apply</button>
+          </div>
+          <div class="border-t border-[#111111] pt-3 flex justify-between items-center">
+            <div>
+              <div class="text-xs font-semibold">Total Payable</div>
+              <div class="text-[11px] text-[#666666] num" id="demo-summary">0 services • 0 mins</div>
+            </div>
+            <div class="text-2xl font-bold num" id="demo-total">₹0</div>
+          </div>
+          <button onclick="confirmDemoBooking()" class="w-full bg-[#111111] text-white py-3.5 text-xs uppercase tracking-[0.14em] font-semibold">
+            Generate Digital Pass →
+          </button>
+          <div id="demo-pass-output" class="hidden border border-[#111111] bg-[#F5F5F7] p-4 text-xs space-y-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: RECEPTION ADMIN POS -->
+    <section id="view-admin" class="hidden space-y-6">
+      <div class="border-b border-[#E5E5E5] pb-4 flex flex-wrap justify-between items-end gap-4">
+        <div>
+          <div class="text-[10px] uppercase tracking-[0.18em] text-[#666666]">B2B Reception Console (JWT Protected in App)</div>
+          <h2 class="font-serif text-3xl">Reception &amp; Appointment Queue</h2>
+        </div>
+        <span class="bg-[#111111] text-white text-[10px] uppercase tracking-widest px-3 py-1.5 font-semibold">TERMINAL ALPHA • LIVE</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="border border-[#E5E5E5] p-4"><div class="text-[10px] uppercase text-[#666666]">Today&apos;s Appointments</div><div class="text-3xl font-bold num mt-1">7</div></div>
+        <div class="border border-[#E5E5E5] p-4"><div class="text-[10px] uppercase text-[#666666]">Floor Gross Revenue</div><div class="text-3xl font-bold num mt-1">₹7,293</div></div>
+        <div class="border border-[#E5E5E5] p-4"><div class="text-[10px] uppercase text-[#666666]">Chairs On Duty</div><div class="text-3xl font-bold num mt-1">4 / 4</div></div>
+        <div class="border border-[#E5E5E5] p-4"><div class="text-[10px] uppercase text-[#666666]">Active Offers</div><div class="text-3xl font-bold num mt-1">3</div></div>
+      </div>
+
+      <div class="border border-[#E5E5E5] overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-[#F5F5F7] border-b border-[#E5E5E5] text-[10px] uppercase tracking-wider text-[#666666]">
+            <tr>
+              <th class="py-3 px-4">Code</th>
+              <th class="py-3 px-4">Slot</th>
+              <th class="py-3 px-4">Client</th>
+              <th class="py-3 px-4">Services</th>
+              <th class="py-3 px-4">Stylist</th>
+              <th class="py-3 px-4">Bill</th>
+              <th class="py-3 px-4">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#E5E5E5] num">
+            <tr><td class="py-3 px-4 font-bold">SLN-3894</td><td class="py-3 px-4">04:00 PM</td><td class="py-3 px-4">Abhishek</td><td class="py-3 px-4">Hot Towel Straight-Razor Shave</td><td class="py-3 px-4">Vikramaditya Nair</td><td class="py-3 px-4 font-bold">₹699</td><td class="py-3 px-4"><span class="bg-[#F5F5F7] border border-[#E5E5E5] px-2 py-0.5 text-[10px]">COMPLETED</span></td></tr>
+            <tr><td class="py-3 px-4 font-bold">SLN-8493</td><td class="py-3 px-4">01:00 PM</td><td class="py-3 px-4">Arjun Kapoor</td><td class="py-3 px-4">The Atelier Full Ritual</td><td class="py-3 px-4">Vikramaditya Nair</td><td class="py-3 px-4 font-bold">₹2,199</td><td class="py-3 px-4"><span class="bg-[#111111] text-white px-2 py-0.5 text-[10px]">CONFIRMED</span></td></tr>
+            <tr><td class="py-3 px-4 font-bold">SLN-8494</td><td class="py-3 px-4">03:00 PM</td><td class="py-3 px-4">Nikhil Verma</td><td class="py-3 px-4">Noir Charcoal Detox Facial</td><td class="py-3 px-4">Devansh Kulkarni</td><td class="py-3 px-4 font-bold">₹1,299</td><td class="py-3 px-4"><span class="bg-[#111111] text-white px-2 py-0.5 text-[10px]">CONFIRMED</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    function switchView(tab) {
+      ['lookbook', 'booking', 'admin'].forEach((t) => {
+        document.getElementById('view-' + t).classList.toggle('hidden', t !== tab);
+        const btn = document.getElementById('btn-' + t);
+        btn.className = t === tab
+          ? 'px-3.5 py-1.5 font-semibold uppercase tracking-wider bg-[#111111] text-white'
+          : 'px-3.5 py-1.5 font-semibold uppercase tracking-wider bg-white text-[#111111] border border-[#E5E5E5]';
+      });
+    }
+
+    const demoServices = [
+      { id: 1, name: 'Signature Atelier Cut', mins: 45, price: 899 },
+      { id: 2, name: 'Architectural Beard Sculpt', mins: 30, price: 499 },
+      { id: 3, name: 'Noir Charcoal Detox Facial', mins: 60, price: 1299 },
+      { id: 4, name: 'The Atelier Full Ritual', mins: 90, price: 2199 },
+    ];
+    const demoSlots = ['11:00 AM', '01:00 PM', '03:30 PM', '05:00 PM', '06:30 PM', '08:00 PM'];
+    let selectedIds = [1];
+    let selectedSlot = '03:30 PM';
+    let promoCode = '';
+
+    function renderDemo() {
+      document.getElementById('demo-services').innerHTML = demoServices.map((s) => {
+        const active = selectedIds.includes(s.id);
+        return `<div onclick="toggleDemoSvc(${s.id})" class="cursor-pointer border p-4 ${active ? 'border-[#111111] bg-[#F5F5F7]' : 'border-[#E5E5E5] bg-white'}">
+          <div class="flex justify-between font-bold text-sm"><span>${s.name}</span><span class="num">₹${s.price}</span></div>
+          <div class="text-xs text-[#666666] mt-2 flex justify-between"><span>${s.mins} mins</span><span>${active ? 'SELECTED ✓' : '+ ADD'}</span></div>
+        </div>`;
+      }).join('');
+
+      document.getElementById('demo-slots').innerHTML = demoSlots.map((sl) => {
+        const active = selectedSlot === sl;
+        return `<button type="button" onclick="selectedSlot='${sl}';renderDemo();" class="py-1.5 text-[11px] border num ${active ? 'bg-[#111111] text-white border-[#111111]' : 'bg-white border-[#E5E5E5]'}">${sl}</button>`;
+      }).join('');
+
+      const chosen = demoServices.filter((s) => selectedIds.includes(s.id));
+      const subtotal = chosen.reduce((a, b) => a + b.price, 0);
+      const mins = chosen.reduce((a, b) => a + b.mins, 0);
+      let discount = 0;
+      if (promoCode === 'NOIR20' && subtotal >= 999) discount = Math.round(subtotal * 0.2);
+      if (promoCode === 'GROOM500' && subtotal >= 2999) discount = 500;
+      const total = Math.max(0, subtotal - discount);
+
+      document.getElementById('demo-summary').textContent = `${chosen.length} services • ${mins} mins${discount ? ` • Saved ₹${discount}` : ''}`;
+      document.getElementById('demo-total').textContent = `₹${total.toLocaleString('en-IN')}`;
+    }
+
+    window.toggleDemoSvc = (id) => {
+      selectedIds = selectedIds.includes(id) ? selectedIds.filter((x) => x !== id) : [...selectedIds, id];
+      renderDemo();
+    };
+    window.applyDemoPromo = () => {
+      promoCode = document.getElementById('demo-promo').value.trim().toUpperCase();
+      renderDemo();
+    };
+    window.confirmDemoBooking = () => {
+      if (!selectedIds.length) return;
+      const code = 'SLN-' + Math.floor(1000 + Math.random() * 9000);
+      const out = document.getElementById('demo-pass-output');
+      out.classList.remove('hidden');
+      out.innerHTML = `<div class="font-bold">DIGITAL PASS GENERATED: ${code}</div><div>Slot: ${selectedSlot} • Total: ${document.getElementById('demo-total').textContent}</div>`;
+    };
+    renderDemo();
+  </script>
+</body>
+</html>
