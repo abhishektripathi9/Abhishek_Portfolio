@@ -29,22 +29,22 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-neutral-100 text-neutral-900 font-sans antialiased selection:bg-neutral-950 selection:text-white min-h-screen flex flex-col">
+<body class="bg-neutral-100 text-neutral-900 font-sans antialiased selection:bg-neutral-950 selection:text-neutral-900 min-h-screen flex flex-col">
 
   <!-- =========================================================================
        PORTFOLIO TOP BAR (Launch Local / Back to Portfolio)
        ========================================================================= -->
-  <aside aria-label="Portfolio Navigation Bar" class="bg-neutral-900 text-white text-xs px-4 py-2.5 border-b border-neutral-800 sticky top-0 z-50">
+  <aside aria-label="Portfolio Navigation Bar" class="bg-neutral-100 text-neutral-900 text-xs px-4 py-2.5 border-b border-neutral-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-semibold text-neutral-300 hover:text-white transition-colors bg-neutral-800 hover:bg-neutral-700 px-3 py-1 rounded-md">
+        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-semibold text-neutral-300 hover:text-neutral-900 transition-colors bg-neutral-800 hover:bg-neutral-700 px-3 py-1 rounded-md">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           <span>Back to Portfolio</span>
         </a>
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span class="font-medium text-neutral-300 hidden sm:inline">Project Showcase:</span>
-          <span class="font-bold text-white">BharatBazaar E-Commerce &amp; Control Room</span>
+          <span class="font-bold text-neutral-900">BharatBazaar E-Commerce &amp; Control Room</span>
         </div>
       </div>
 
@@ -53,7 +53,7 @@
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           <span>Launch Local App (Port 3000)</span>
         </a>
-        <a href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 transition-colors">
+        <a href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-neutral-800 text-neutral-300 hover:text-neutral-900 border border-neutral-700 transition-colors">
           <i data-lucide="github" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">Source Code</span>
         </a>
@@ -67,7 +67,7 @@
   <div class="bg-white border-b border-neutral-200 shadow-2xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-2 p-1 bg-neutral-100 rounded-lg text-xs font-bold">
-        <button onclick="switchTab('storefront')" id="tab-storefront-btn" class="px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-white shadow-xs cursor-pointer">
+        <button onclick="switchTab('storefront')" id="tab-storefront-btn" class="px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-neutral-900 shadow-xs cursor-pointer">
           <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
           <span>Customer Storefront</span>
           <span class="text-[9px] bg-white/20 px-1.5 py-0.2 rounded font-mono">Public</span>
@@ -84,7 +84,7 @@
         </button>
       </div>
 
-      <div class="text-[11px] text-neutral-500 font-medium hidden md:flex items-center gap-2">
+      <div class="text-[11px] text-neutral-600 font-medium hidden md:flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
         <span>MySQL 8.0 &amp; Node.js Express Backend Linked</span>
       </div>
@@ -96,8 +96,8 @@
        ========================================================================= -->
   <div id="view-storefront" class="block flex-1 bg-white">
     <!-- Announcement Bar -->
-    <div class="bg-neutral-950 text-white text-[11px] font-medium py-1.5 px-4 text-center tracking-wide">
-      <span class="font-normal text-neutral-300">Free Express Delivery on orders above ₹999 • Use code <strong class="text-white">WELCOME20</strong></span>
+    <div class="bg-neutral-950 text-neutral-900 text-[11px] font-medium py-1.5 px-4 text-center tracking-wide">
+      <span class="font-normal text-neutral-300">Free Express Delivery on orders above ₹999 • Use code <strong class="text-neutral-900">WELCOME20</strong></span>
     </div>
 
     <!-- Storefront Header -->
@@ -105,7 +105,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <!-- Unified Brand Logo -->
         <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-neutral-900 text-white flex items-center justify-center relative shadow-xs shrink-0">
+          <div class="w-7 h-7 rounded-lg bg-neutral-100 text-neutral-900 flex items-center justify-center relative shadow-xs shrink-0">
             <svg viewBox="0 0 36 36" fill="none" class="w-full h-full p-1"><rect x="2" y="2" width="32" height="32" rx="8" fill="#0F172A"/><path d="M13 14V11C13 8.23858 15.2386 6 18 6C20.7614 6 23 8.23858 23 11V14" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/><rect x="8" y="13" width="20" height="16" rx="4" fill="#0F172A" stroke="#FFFFFF" stroke-width="2.2"/><circle cx="18" cy="21" r="3.2" fill="#10B981"/><path d="M18 17.5C20.5 15.5 24 16.5 24 19C24 21.5 20.5 22.5 18 21" fill="#10B981"/></svg>
           </div>
           <span class="text-base font-extrabold text-neutral-950 tracking-tight leading-none">Bharat<span class="text-neutral-900 font-bold">Bazaar</span></span>
@@ -114,7 +114,7 @@
         <!-- Search Bar -->
         <div class="flex-1 max-w-xl mx-4 hidden md:block">
           <div class="relative">
-            <i data-lucide="search" class="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <i data-lucide="search" class="w-4 h-4 text-neutral-600 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
             <input type="text" placeholder="Search for electronics, fashion, essentials..." class="w-full pl-10 pr-4 py-2 text-xs bg-neutral-50 hover:bg-neutral-100/70 border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-hidden" />
           </div>
         </div>
@@ -135,7 +135,7 @@
           <button onclick="toggleCart()" class="flex items-center gap-1.5 hover:text-neutral-950 cursor-pointer relative">
             <div class="relative">
               <i data-lucide="shopping-bag" class="w-4 h-4 text-neutral-900"></i>
-              <span id="demo-cart-badge" class="absolute -top-1.5 -right-2 bg-neutral-950 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+              <span id="demo-cart-badge" class="absolute -top-1.5 -right-2 bg-neutral-950 text-neutral-900 text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
             </div>
             <span class="hidden sm:inline">Cart</span>
           </button>
@@ -149,13 +149,13 @@
         <!-- Left Column -->
         <div class="lg:col-span-6 space-y-6">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-800 text-[11px] font-mono font-medium tracking-wide shadow-2xs">
-            <span class="w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-neutral-100"></span>
             <span>LIMITED EDITION // ARCHIVE 2026</span>
           </div>
 
           <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-950 leading-[1.12]">
             Engineered Precision.<br />
-            <span class="text-neutral-500 font-bold">Timeless Monochrome Essentials.</span>
+            <span class="text-neutral-600 font-bold">Timeless Monochrome Essentials.</span>
           </h1>
 
           <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-lg">
@@ -163,7 +163,7 @@
           </p>
 
           <div class="flex flex-wrap items-center gap-3 pt-1">
-            <button class="px-6 py-3 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer">
+            <button class="px-6 py-3 bg-neutral-950 hover:bg-neutral-800 text-neutral-900 text-xs font-bold rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer">
               <span>Shop Collection</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -194,18 +194,18 @@
           <div class="relative aspect-4/3 sm:aspect-16/11 rounded-2xl overflow-hidden border border-neutral-200 bg-neutral-100 shadow-sm group">
             <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1000" alt="Studio Headphones and Watch" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700" />
             <div class="absolute top-4 right-4 z-10">
-              <span class="bg-neutral-950/80 backdrop-blur-xs text-white text-[10px] font-mono tracking-widest px-2.5 py-1 rounded font-medium flex items-center gap-1.5 border border-white/10">
+              <span class="bg-neutral-950/80 backdrop-blur-xs text-neutral-900 text-[10px] font-mono tracking-widest px-2.5 py-1 rounded font-medium flex items-center gap-1.5 border border-white/10">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 STUDIO SPEC SERIES
               </span>
             </div>
             <div class="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs z-10">
-              <div class="bg-neutral-950/90 text-white backdrop-blur-md p-3 rounded-xl border border-white/15 flex items-center gap-3 shadow-lg">
+              <div class="bg-neutral-950/90 text-neutral-900 backdrop-blur-md p-3 rounded-xl border border-white/15 flex items-center gap-3 shadow-lg">
                 <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                  <i data-lucide="headphones" class="w-4 h-4 text-white"></i>
+                  <i data-lucide="headphones" class="w-4 h-4 text-neutral-900"></i>
                 </div>
                 <div class="min-w-0">
-                  <h4 class="text-xs font-bold text-white truncate">Aura Sound ANC Max</h4>
+                  <h4 class="text-xs font-bold text-neutral-900 truncate">Aura Sound ANC Max</h4>
                   <p class="text-[10px] text-neutral-300 truncate">Active Noise Suppression | 40mm Drivers</p>
                 </div>
               </div>
@@ -219,7 +219,7 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-neutral-200 pb-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-          <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap bg-neutral-950 text-white shadow-xs">All Products (16)</button>
+          <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap bg-neutral-950 text-neutral-900 shadow-xs">All Products (16)</button>
           <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap bg-white border border-neutral-200 text-neutral-700 hover:border-neutral-900">Electronics</button>
           <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap bg-white border border-neutral-200 text-neutral-700 hover:border-neutral-900">Audio &amp; Studio</button>
           <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap bg-white border border-neutral-200 text-neutral-700 hover:border-neutral-900">Desk &amp; Ergonomics</button>
@@ -228,13 +228,13 @@
         </div>
 
         <div class="flex items-center gap-3 self-end sm:self-auto shrink-0">
-          <div class="flex items-center border border-neutral-200 rounded-lg p-0.5 bg-neutral-50 text-neutral-500">
+          <div class="flex items-center border border-neutral-200 rounded-lg p-0.5 bg-neutral-50 text-neutral-600">
             <span class="p-1 rounded bg-white text-neutral-900 shadow-2xs"><i data-lucide="grid" class="w-3.5 h-3.5"></i></span>
-            <span class="p-1 rounded text-neutral-500"><i data-lucide="layout-grid" class="w-3.5 h-3.5"></i></span>
+            <span class="p-1 rounded text-neutral-600"><i data-lucide="layout-grid" class="w-3.5 h-3.5"></i></span>
           </div>
           <div class="border border-neutral-200 rounded-lg text-xs font-semibold text-neutral-800 py-1.5 px-3 bg-white flex items-center gap-2">
             <span>SORT: Featured Priority</span>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-neutral-500"></i>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-neutral-600"></i>
           </div>
         </div>
       </div>
@@ -246,10 +246,10 @@
         <div>
           <div class="flex items-center gap-2 mb-1">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span class="text-[10px] font-mono font-bold tracking-widest text-neutral-500 uppercase">LIVE INVENTORY</span>
+            <span class="text-[10px] font-mono font-bold tracking-widest text-neutral-600 uppercase">LIVE INVENTORY</span>
           </div>
           <h2 class="text-xl sm:text-2xl font-extrabold text-neutral-950 tracking-tight">Trending Essentials</h2>
-          <p class="text-xs text-neutral-500 mt-0.5">Top catalog selections processed across 4 fulfillment hubs this morning</p>
+          <p class="text-xs text-neutral-600 mt-0.5">Top catalog selections processed across 4 fulfillment hubs this morning</p>
         </div>
         <span class="text-xs font-bold text-neutral-900 flex items-center gap-1 cursor-pointer">
           <span>View All (128 Items)</span>
@@ -268,7 +268,7 @@
       <div class="border border-neutral-200 rounded-2xl p-6 sm:p-10 bg-white shadow-2xs">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-7 space-y-4">
-            <span class="text-[10px] font-mono font-bold tracking-widest text-neutral-400 uppercase">OPERATIONAL CLARITY</span>
+            <span class="text-[10px] font-mono font-bold tracking-widest text-neutral-600 uppercase">OPERATIONAL CLARITY</span>
             <h3 class="text-xl sm:text-2xl font-extrabold text-neutral-950 tracking-tight leading-snug">Direct from Tier-1 Workshops to Your Studio</h3>
             <p class="text-xs text-neutral-600 leading-relaxed max-w-xl">
               We eliminate middle layers and distributor markups. Every piece ships directly in tamper-evident industrial packaging, accompanied by verified batch serialization and calibrated QC seals.
@@ -276,11 +276,11 @@
             <div class="pt-4 grid grid-cols-2 gap-6 sm:gap-10 border-t border-neutral-100 max-w-md">
               <div>
                 <div class="text-2xl sm:text-3xl font-extrabold text-neutral-950 tabular-nums">19,400+</div>
-                <div class="text-xs text-neutral-500 font-medium mt-0.5">Indian Pin-Codes Served</div>
+                <div class="text-xs text-neutral-600 font-medium mt-0.5">Indian Pin-Codes Served</div>
               </div>
               <div>
                 <div class="text-2xl sm:text-3xl font-extrabold text-neutral-950 tabular-nums">99.4%</div>
-                <div class="text-xs text-neutral-500 font-medium mt-0.5">On-Time SLA Rate</div>
+                <div class="text-xs text-neutral-600 font-medium mt-0.5">On-Time SLA Rate</div>
               </div>
             </div>
           </div>
@@ -297,16 +297,16 @@
               <div class="flex items-center justify-between bg-white border border-neutral-200 p-3 rounded-lg shadow-2xs">
                 <div>
                   <div class="text-xs font-bold text-neutral-900">Batch #BB-8492</div>
-                  <div class="text-[11px] text-neutral-500">42 units dispatched</div>
+                  <div class="text-[11px] text-neutral-600">42 units dispatched</div>
                 </div>
                 <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">2m ago</span>
               </div>
               <div class="flex items-center justify-between bg-white border border-neutral-200 p-3 rounded-lg shadow-2xs">
                 <div>
                   <div class="text-xs font-bold text-neutral-900">Batch #BB-8491</div>
-                  <div class="text-[11px] text-neutral-500">18 units QC verified</div>
+                  <div class="text-[11px] text-neutral-600">18 units QC verified</div>
                 </div>
-                <span class="text-[10px] font-semibold text-neutral-500 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">7m ago</span>
+                <span class="text-[10px] font-semibold text-neutral-600 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">7m ago</span>
               </div>
             </div>
           </div>
@@ -319,19 +319,19 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="flex items-start gap-3">
           <div class="w-9 h-9 rounded-lg bg-white border border-neutral-200 flex items-center justify-center shrink-0 shadow-2xs"><i data-lucide="truck" class="w-4 h-4"></i></div>
-          <div><h4 class="text-xs font-bold uppercase tracking-wide">Free Pan-India Delivery</h4><p class="text-[11px] text-neutral-500 mt-0.5">On orders above ₹999 across all pin-codes.</p></div>
+          <div><h4 class="text-xs font-bold uppercase tracking-wide">Free Pan-India Delivery</h4><p class="text-[11px] text-neutral-600 mt-0.5">On orders above ₹999 across all pin-codes.</p></div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-9 h-9 rounded-lg bg-white border border-neutral-200 flex items-center justify-center shrink-0 shadow-2xs"><i data-lucide="credit-card" class="w-4 h-4"></i></div>
-          <div><h4 class="text-xs font-bold uppercase tracking-wide">COD &amp; UPI Enabled</h4><p class="text-[11px] text-neutral-500 mt-0.5">Zero-cost UPI, Net Banking, Card or Cash.</p></div>
+          <div><h4 class="text-xs font-bold uppercase tracking-wide">COD &amp; UPI Enabled</h4><p class="text-[11px] text-neutral-600 mt-0.5">Zero-cost UPI, Net Banking, Card or Cash.</p></div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-9 h-9 rounded-lg bg-white border border-neutral-200 flex items-center justify-center shrink-0 shadow-2xs"><i data-lucide="refresh-cw" class="w-4 h-4"></i></div>
-          <div><h4 class="text-xs font-bold uppercase tracking-wide">7-Day Hassle Exchange</h4><p class="text-[11px] text-neutral-500 mt-0.5">Instant reverse doorstep pickup.</p></div>
+          <div><h4 class="text-xs font-bold uppercase tracking-wide">7-Day Hassle Exchange</h4><p class="text-[11px] text-neutral-600 mt-0.5">Instant reverse doorstep pickup.</p></div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-9 h-9 rounded-lg bg-white border border-neutral-200 flex items-center justify-center shrink-0 shadow-2xs"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
-          <div><h4 class="text-xs font-bold uppercase tracking-wide">100% Genuine Guaranteed</h4><p class="text-[11px] text-neutral-500 mt-0.5">Direct brand-authorized procurement.</p></div>
+          <div><h4 class="text-xs font-bold uppercase tracking-wide">100% Genuine Guaranteed</h4><p class="text-[11px] text-neutral-600 mt-0.5">Direct brand-authorized procurement.</p></div>
         </div>
       </div>
     </div>
@@ -340,65 +340,65 @@
     <!-- ====================================================
          BHARATBAZAAR ENTERPRISE COMMERCE FOOTER
          ==================================================== -->
-    <footer class="bg-neutral-950 text-neutral-400 text-xs mt-16 pt-16 pb-10 border-t border-neutral-800">
+    <footer class="bg-white text-neutral-600 text-xs mt-16 pt-16 pb-10 border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.02)]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Pre-Footer Trust Bar -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 mb-12 border-b border-neutral-800 text-center sm:text-left">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 mb-12 border-b border-neutral-200 text-center sm:text-left">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-neutral-900 flex items-center justify-center text-emerald-400 border border-neutral-800 shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-emerald-400 border border-neutral-200 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <div>
-              <h5 class="text-white font-bold text-xs uppercase tracking-wider">100% Original Products</h5>
-              <p class="text-neutral-500 text-[11px]">Direct brand verified supply</p>
+              <h5 class="text-neutral-900 font-bold text-xs uppercase tracking-wider">100% Original Products</h5>
+              <p class="text-neutral-600 text-[11px]">Direct brand verified supply</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-neutral-900 flex items-center justify-center text-emerald-400 border border-neutral-800 shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-emerald-400 border border-neutral-200 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
             </div>
             <div>
-              <h5 class="text-white font-bold text-xs uppercase tracking-wider">7-Day Free Returns</h5>
-              <p class="text-neutral-500 text-[11px]">Instant doorstep refunds</p>
+              <h5 class="text-neutral-900 font-bold text-xs uppercase tracking-wider">7-Day Free Returns</h5>
+              <p class="text-neutral-600 text-[11px]">Instant doorstep refunds</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-neutral-900 flex items-center justify-center text-emerald-400 border border-neutral-800 shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-emerald-400 border border-neutral-200 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <div>
-              <h5 class="text-white font-bold text-xs uppercase tracking-wider">Automated GST Invoices</h5>
-              <p class="text-neutral-500 text-[11px]">B2B input tax credit eligible</p>
+              <h5 class="text-neutral-900 font-bold text-xs uppercase tracking-wider">Automated GST Invoices</h5>
+              <p class="text-neutral-600 text-[11px]">B2B input tax credit eligible</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-neutral-900 flex items-center justify-center text-emerald-400 border border-neutral-800 shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-emerald-400 border border-neutral-200 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
             <div>
-              <h5 class="text-white font-bold text-xs uppercase tracking-wider">Express Dispatch</h5>
-              <p class="text-neutral-500 text-[11px]">19,000+ Indian pin codes</p>
+              <h5 class="text-neutral-900 font-bold text-xs uppercase tracking-wider">Express Dispatch</h5>
+              <p class="text-neutral-600 text-[11px]">19,000+ Indian pin codes</p>
             </div>
           </div>
         </div>
 
         <!-- 4-Column Directory Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-neutral-800">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-neutral-200">
           <div class="lg:col-span-4 space-y-4">
             <div class="flex items-center gap-2">
               <div class="w-7 h-7 rounded bg-emerald-500 text-neutral-950 flex items-center justify-center p-1 font-black text-sm">
                 BB
               </div>
-              <span class="font-extrabold text-white text-base tracking-tight">BharatBazaar<span class="text-emerald-400">.</span></span>
+              <span class="font-extrabold text-neutral-900 text-base tracking-tight">BharatBazaar<span class="text-emerald-400">.</span></span>
             </div>
-            <p class="text-neutral-400 text-xs leading-relaxed">
+            <p class="text-neutral-600 text-xs leading-relaxed">
               High-density catalog intelligence delivering direct retail commerce and unified B2B administrative control across all 28 states and union territories.
             </p>
             <div class="pt-1">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1.5">EXCLUSIVE BUYER OFFERS</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-neutral-600 block mb-1.5">EXCLUSIVE BUYER OFFERS</span>
               <div class="flex items-center gap-2">
-                <input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 text-xs bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500" />
+                <input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 text-xs bg-neutral-100 border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-emerald-500" />
                 <button onclick="triggerToast('✓ Subscribed! Promo code WELCOME20 sent to your inbox.')" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold rounded-lg cursor-pointer transition">Join</button>
               </div>
             </div>
@@ -406,8 +406,8 @@
 
           <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div>
-              <h5 class="font-bold text-white text-xs mb-3 uppercase tracking-wider">POPULAR DEPARTMENTS</h5>
-              <ul class="space-y-2 text-neutral-400">
+              <h5 class="font-bold text-neutral-900 text-xs mb-3 uppercase tracking-wider">POPULAR DEPARTMENTS</h5>
+              <ul class="space-y-2 text-neutral-600">
                 <li><a href="#" class="hover:text-emerald-400 transition">Consumer Electronics &amp; Audio</a></li>
                 <li><a href="#" class="hover:text-emerald-400 transition">Smart Home &amp; Automation</a></li>
                 <li><a href="#" class="hover:text-emerald-400 transition">Kitchen Appliances &amp; Dining</a></li>
@@ -416,8 +416,8 @@
               </ul>
             </div>
             <div>
-              <h5 class="font-bold text-white text-xs mb-3 uppercase tracking-wider">BUSINESS &amp; INVOICING</h5>
-              <ul class="space-y-2 text-neutral-400">
+              <h5 class="font-bold text-neutral-900 text-xs mb-3 uppercase tracking-wider">BUSINESS &amp; INVOICING</h5>
+              <ul class="space-y-2 text-neutral-600">
                 <li><button onclick="window.viewSampleGstInvoice()" class="hover:text-emerald-400 transition text-left">Generate Sample GST Bill</button></li>
                 <li><a href="#" class="hover:text-emerald-400 transition">GSTIN: 09AAACB1234D1Z5</a></li>
                 <li><a href="#" class="hover:text-emerald-400 transition">B2B Bulk Purchase Inquiries</a></li>
@@ -426,16 +426,16 @@
               </ul>
             </div>
             <div>
-              <h5 class="font-bold text-white text-xs mb-3 uppercase tracking-wider">CREATOR &amp; ARCHITECTURE</h5>
-              <p class="text-neutral-400 text-xs mb-3">
-                Architected &amp; built by <strong class="text-white">Abhishek Tripathi</strong> with React 19, Node.js, Express, MySQL 8.0, and RBAC authentication.
+              <h5 class="font-bold text-neutral-900 text-xs mb-3 uppercase tracking-wider">CREATOR &amp; ARCHITECTURE</h5>
+              <p class="text-neutral-600 text-xs mb-3">
+                Architected &amp; built by <strong class="text-neutral-900">Abhishek Tripathi</strong> with React 19, Node.js, Express, MySQL 8.0, and RBAC authentication.
               </p>
               <div class="space-y-2">
                 <a href="../index.html" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-bold transition">
                   <span>← Back to Abhishek's Portfolio</span>
                 </a>
                 <br>
-                <a href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-neutral-400 hover:text-white transition">
+                <a href="https://github.com/abhishektripathi9/E-commerce-Admin-Panel" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-neutral-900 transition">
                   <span>GitHub Repository &bull; Codebase</span>
                 </a>
               </div>
@@ -444,7 +444,7 @@
         </div>
 
         <!-- Bottom Copyright -->
-        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-neutral-500 text-xs gap-3">
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-neutral-600 text-xs gap-3">
           <p>© 2026 BharatBazaar Retail Systems. Designed &amp; Maintained by Abhishek Tripathi.</p>
           <div class="flex items-center gap-4">
             <span>Prices in INR (₹)</span>
@@ -467,7 +467,7 @@
       <!-- Admin Top Bar -->
       <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 shadow-2xs">
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-neutral-900 text-white flex items-center justify-center p-1 shadow-xs">
+          <div class="w-8 h-8 rounded-lg bg-neutral-100 text-neutral-900 flex items-center justify-center p-1 shadow-xs">
             <svg viewBox="0 0 36 36" fill="none" class="w-full h-full"><rect x="2" y="2" width="32" height="32" rx="8" fill="#0F172A"/><path d="M13 14V11C13 8.23858 15.2386 6 18 6C20.7614 6 23 8.23858 23 11V14" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/><rect x="8" y="13" width="20" height="16" rx="4" fill="#0F172A" stroke="#FFFFFF" stroke-width="2.2"/><circle cx="18" cy="21" r="3.2" fill="#10B981"/><path d="M18 17.5C20.5 15.5 24 16.5 24 19C24 21.5 20.5 22.5 18 21" fill="#10B981"/></svg>
           </div>
           <div>
@@ -483,7 +483,7 @@
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
             <span>All Systems Operational</span>
           </span>
-          <a href="http://localhost:3000/admin" target="_blank" class="px-3 py-1 bg-neutral-950 text-white font-bold text-xs rounded-lg hover:bg-neutral-800 transition-colors">
+          <a href="http://localhost:3000/admin" target="_blank" class="px-3 py-1 bg-neutral-950 text-neutral-900 font-bold text-xs rounded-lg hover:bg-neutral-800 transition-colors">
             Open Full Portal ↗
           </a>
         </div>
@@ -589,12 +589,12 @@
   <!-- =========================================================================
        VIEW 3: FULL-STACK ARCHITECTURE & TECH SPECS
        ========================================================================= -->
-  <div id="view-architecture" class="hidden flex-1 bg-neutral-900 text-white p-6 sm:p-10">
+  <div id="view-architecture" class="hidden flex-1 bg-neutral-100 text-neutral-900 p-6 sm:p-10">
     <div class="max-w-5xl mx-auto space-y-8">
       <div>
         <span class="text-[10px] font-mono font-bold tracking-widest text-emerald-400 uppercase">SYSTEM ARCHITECTURE SPECIFICATION</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1">BharatBazaar Dual-Portal Full-Stack Monorepo</h2>
-        <p class="text-xs sm:text-sm text-neutral-400 mt-2">Production-grade architecture separating public customer shopping routes from internal role-governed administrative execution.</p>
+        <p class="text-xs sm:text-sm text-neutral-600 mt-2">Production-grade architecture separating public customer shopping routes from internal role-governed administrative execution.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -764,33 +764,33 @@
           <div>
             <div class="relative aspect-square rounded-lg bg-neutral-100 overflow-hidden mb-3 border border-neutral-100">
               <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <span class="absolute top-2.5 left-2.5 bg-neutral-950 text-white text-[10px] font-extrabold px-2 py-0.5 rounded shadow-xs">-${p.discount}% OFF</span>
+              <span class="absolute top-2.5 left-2.5 bg-neutral-950 text-neutral-900 text-[10px] font-extrabold px-2 py-0.5 rounded shadow-xs">-${p.discount}% OFF</span>
               <button class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-neutral-600 hover:text-rose-600 flex items-center justify-center shadow-xs cursor-pointer">
                 <i data-lucide="heart" class="w-3.5 h-3.5"></i>
               </button>
             </div>
             <div class="flex items-center justify-between text-[10px] mb-1">
-              <span class="font-extrabold text-neutral-400 tracking-wider uppercase">${p.brand}</span>
-              <span class="font-medium text-neutral-500">${p.spec}</span>
+              <span class="font-extrabold text-neutral-600 tracking-wider uppercase">${p.brand}</span>
+              <span class="font-medium text-neutral-600">${p.spec}</span>
             </div>
             <h4 class="text-xs font-bold text-neutral-900 group-hover:text-black line-clamp-1 mb-1.5">${p.title}</h4>
-            <div class="flex items-center gap-1.5 text-[11px] text-neutral-500 mb-3">
+            <div class="flex items-center gap-1.5 text-[11px] text-neutral-600 mb-3">
               <span class="flex items-center gap-0.5 text-neutral-900 font-bold">
                 <i data-lucide="star" class="w-3 h-3 fill-neutral-900 text-neutral-900"></i>
                 <span>${p.rating}</span>
               </span>
-              <span class="text-neutral-400">(${p.reviews} reviews)</span>
+              <span class="text-neutral-600">(${p.reviews} reviews)</span>
             </div>
           </div>
           <div class="space-y-2.5 pt-2 border-t border-neutral-100">
             <div class="flex items-baseline justify-between gap-1">
               <div class="flex items-baseline gap-1.5">
                 <span class="text-sm font-extrabold text-neutral-950 tabular-nums">₹${p.price.toLocaleString('en-IN')}</span>
-                <span class="text-[11px] text-neutral-400 line-through tabular-nums">₹${p.originalPrice.toLocaleString('en-IN')}</span>
+                <span class="text-[11px] text-neutral-600 line-through tabular-nums">₹${p.originalPrice.toLocaleString('en-IN')}</span>
               </div>
               <span class="text-[10px] font-semibold text-emerald-600">Save ₹${p.savings.toLocaleString('en-IN')}</span>
             </div>
-            <button onclick="addToCartDemo('${p.title}')" class="w-full py-2 px-3 rounded-lg bg-white hover:bg-neutral-950 text-neutral-900 hover:text-white border border-neutral-300 hover:border-neutral-950 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer">
+            <button onclick="addToCartDemo('${p.title}')" class="w-full py-2 px-3 rounded-lg bg-white hover:bg-neutral-950 text-neutral-900 hover:text-neutral-900 border border-neutral-300 hover:border-neutral-950 text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer">
               <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
               <span>+ Add to Cart</span>
             </button>
@@ -813,13 +813,13 @@
 
       if (tab === 'storefront') {
         document.getElementById('view-storefront').classList.remove('hidden');
-        document.getElementById('tab-storefront-btn').className = "px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-white shadow-xs cursor-pointer";
+        document.getElementById('tab-storefront-btn').className = "px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-neutral-900 shadow-xs cursor-pointer";
       } else if (tab === 'admin') {
         document.getElementById('view-admin').classList.remove('hidden');
-        document.getElementById('tab-admin-btn').className = "px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-white shadow-xs cursor-pointer";
+        document.getElementById('tab-admin-btn').className = "px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-neutral-900 shadow-xs cursor-pointer";
       } else if (tab === 'architecture') {
         document.getElementById('view-architecture').classList.remove('hidden');
-        document.getElementById('tab-arch-btn').className = "px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-white shadow-xs cursor-pointer";
+        document.getElementById('tab-arch-btn').className = "px-4 py-2 rounded-md transition-all flex items-center gap-2 bg-neutral-950 text-neutral-900 shadow-xs cursor-pointer";
       }
       lucide.createIcons();
     }
@@ -886,13 +886,13 @@
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200">
       <div class="flex items-center justify-between pb-3 border-b border-neutral-200 mb-4">
         <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg bg-neutral-950 text-white flex items-center justify-center font-bold text-xs">BB</div>
+          <div class="w-8 h-8 rounded-lg bg-neutral-950 text-neutral-900 flex items-center justify-center font-bold text-xs">BB</div>
           <div>
             <h3 class="font-bold text-sm text-neutral-950">Tax Invoice / Cash Receipt</h3>
-            <p id="inv-order-id" class="text-[11px] text-neutral-400 font-mono font-bold">#BB-98421</p>
+            <p id="inv-order-id" class="text-[11px] text-neutral-600 font-mono font-bold">#BB-98421</p>
           </div>
         </div>
-        <button onclick="closeInvoiceModal()" class="text-neutral-400 hover:text-neutral-800">
+        <button onclick="closeInvoiceModal()" class="text-neutral-600 hover:text-neutral-800">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -900,11 +900,11 @@
       <div class="space-y-3 text-xs mb-5">
         <div class="grid grid-cols-2 gap-2 p-3 bg-neutral-50 rounded-xl">
           <div>
-            <span class="text-[10px] text-neutral-400 block font-bold">Billed To</span>
+            <span class="text-[10px] text-neutral-600 block font-bold">Billed To</span>
             <span id="inv-buyer" class="font-bold text-neutral-900">Pooja Sharma</span>
           </div>
           <div>
-            <span class="text-[10px] text-neutral-400 block font-bold">GSTIN / Status</span>
+            <span class="text-[10px] text-neutral-600 block font-bold">GSTIN / Status</span>
             <span class="font-mono font-bold text-emerald-600 text-[10px]">09AABCB1234F1Z8 (Verified)</span>
           </div>
         </div>
@@ -917,16 +917,16 @@
           <div class="p-3 flex justify-between border-b border-neutral-100">
             <div>
               <p id="inv-item" class="font-bold text-neutral-900">Studio Wireless Headphones Max</p>
-              <span class="text-[10px] text-neutral-400">HSN: 8518 &bull; Qty: 1</span>
+              <span class="text-[10px] text-neutral-600">HSN: 8518 &bull; Qty: 1</span>
             </div>
             <span id="inv-base" class="font-bold font-mono">₹15,677.12</span>
           </div>
           <div class="p-2.5 bg-neutral-50 space-y-1 text-[11px]">
-            <div class="flex justify-between text-neutral-500">
+            <div class="flex justify-between text-neutral-600">
               <span>CGST (9.0%)</span>
               <span id="inv-cgst" class="font-mono">₹1,410.94</span>
             </div>
-            <div class="flex justify-between text-neutral-500">
+            <div class="flex justify-between text-neutral-600">
               <span>SGST (9.0%)</span>
               <span id="inv-sgst" class="font-mono">₹1,410.94</span>
             </div>
@@ -943,7 +943,7 @@
           <i data-lucide="printer" class="w-3.5 h-3.5"></i>
           <span>Print Tax Invoice</span>
         </button>
-        <button onclick="closeInvoiceModal()" class="flex-1 py-2.5 rounded-xl bg-neutral-950 text-white font-bold text-xs hover:bg-black">
+        <button onclick="closeInvoiceModal()" class="flex-1 py-2.5 rounded-xl bg-neutral-950 text-neutral-900 font-bold text-xs hover:bg-black">
           Close
         </button>
       </div>
@@ -959,7 +959,7 @@
           <h3 class="font-black text-base text-neutral-950">Shopping Cart</h3>
           <span id="cart-drawer-count" class="text-xs bg-neutral-100 text-neutral-700 font-bold px-2 py-0.5 rounded-full">2 items</span>
         </div>
-        <button onclick="toggleCart()" class="p-1.5 text-neutral-400 hover:text-neutral-800 rounded-lg hover:bg-neutral-100">
+        <button onclick="toggleCart()" class="p-1.5 text-neutral-600 hover:text-neutral-800 rounded-lg hover:bg-neutral-100">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -970,7 +970,7 @@
             <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-600 font-bold text-[10px]">HEADSET</div>
             <div>
               <p class="font-bold text-neutral-950">Studio Wireless Headphones Max</p>
-              <p class="text-[11px] text-neutral-400">Qty: 1 &bull; Midnight Black</p>
+              <p class="text-[11px] text-neutral-600">Qty: 1 &bull; Midnight Black</p>
             </div>
           </div>
           <span class="font-bold font-mono text-neutral-950">₹18,499.00</span>
@@ -981,7 +981,7 @@
             <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-600 font-bold text-[10px]">WATCH</div>
             <div>
               <p class="font-bold text-neutral-950">Minimalist Chronograph Automatic</p>
-              <p class="text-[11px] text-neutral-400">Qty: 1 &bull; Leather Strap</p>
+              <p class="text-[11px] text-neutral-600">Qty: 1 &bull; Leather Strap</p>
             </div>
           </div>
           <span class="font-bold font-mono text-neutral-950">₹12,990.00</span>
@@ -990,7 +990,7 @@
 
       <!-- Cost Breakdown -->
       <div class="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-2 text-xs">
-        <div class="flex justify-between text-neutral-500">
+        <div class="flex justify-between text-neutral-600">
           <span>Subtotal</span>
           <span class="font-mono font-bold text-neutral-900">₹31,489.00</span>
         </div>
@@ -998,7 +998,7 @@
           <span>Promo (WELCOME20)</span>
           <span class="font-mono">-₹5,000.00</span>
         </div>
-        <div class="flex justify-between text-neutral-500">
+        <div class="flex justify-between text-neutral-600">
           <span>Pan-India Delivery</span>
           <span class="font-mono font-bold text-emerald-600">FREE</span>
         </div>
@@ -1010,7 +1010,7 @@
     </div>
 
     <div class="p-4 bg-white border-t border-neutral-200">
-      <button onclick="toggleCart(); showBbToast('Proceeding to Razorpay / UPI Instant Checkout simulator!');" class="w-full py-3 rounded-xl bg-neutral-950 hover:bg-black text-white font-bold text-xs shadow-md flex items-center justify-center gap-2">
+      <button onclick="toggleCart(); showBbToast('Proceeding to Razorpay / UPI Instant Checkout simulator!');" class="w-full py-3 rounded-xl bg-neutral-950 hover:bg-black text-neutral-900 font-bold text-xs shadow-md flex items-center justify-center gap-2">
         <span>Proceed to UPI / Card Checkout (₹26,489)</span>
         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
       </button>
@@ -1019,7 +1019,7 @@
 
   <!-- Toast Notification -->
   <div id="bb-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="bg-neutral-950 text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-neutral-800">
+    <div class="bg-neutral-950 text-neutral-900 text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-neutral-200">
       <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
       <span id="bb-toast-text">Action completed successfully!</span>
     </div>

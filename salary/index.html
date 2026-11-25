@@ -84,17 +84,17 @@
   <!-- =========================================================================
        1. PORTFOLIO DEMO TOP BAR (Context Navigation & Quick Launcher)
        ========================================================================= -->
-  <aside aria-label="Portfolio Navigation Bar" class="bg-slate-900 text-white text-xs px-4 py-2.5 border-b border-slate-800 sticky top-0 z-50">
+  <aside aria-label="Portfolio Navigation Bar" class="bg-slate-900 text-slate-900 text-xs px-4 py-2.5 border-b border-slate-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-semibold text-slate-300 hover:text-white transition-colors bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-md">
+        <a href="../index.html#projects" class="inline-flex items-center gap-1.5 font-semibold text-slate-300 hover:text-slate-900 transition-colors bg-slate-100 hover:bg-slate-700 px-3 py-1 rounded-md">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           <span>Back to Portfolio</span>
         </a>
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span class="font-medium text-slate-300 hidden sm:inline">Project Showcase:</span>
-          <span class="font-bold text-white">SalaryAI — Tech Compensation &amp; Leveling Engine</span>
+          <span class="font-bold text-slate-900">SalaryAI — Tech Compensation &amp; Leveling Engine</span>
         </div>
       </div>
 
@@ -103,7 +103,7 @@
           <i data-lucide="play" class="w-3.5 h-3.5"></i>
           <span>Launch Local App (Port 5173)</span>
         </a>
-        <a href="https://github.com/abhishektripathi9/Salary-Prediction-System" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition-colors">
+        <a href="https://github.com/abhishektripathi9/Salary-Prediction-System" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-100 text-slate-300 hover:text-slate-900 border border-slate-200 transition-colors">
           <i data-lucide="github" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">GitHub Repository</span>
         </a>
@@ -121,7 +121,7 @@
         <!-- Left: Brand + Version + Live Model Pill -->
         <div class="flex items-center gap-3">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white font-bold text-base shadow-sm">
+            <div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-900 font-bold text-base shadow-sm">
               S
             </div>
             <span class="font-bold text-lg tracking-tight text-slate-900">
@@ -164,7 +164,7 @@
           <button onclick="toggleCurrency()" id="currency-toggle-btn" class="flex items-center text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition shadow-2xs">
             <span id="curr-inr" class="text-slate-900 font-bold">₹ INR</span>
             <span class="mx-1 text-slate-300">/</span>
-            <span id="curr-lacs" class="text-slate-400">Lacs</span>
+            <span id="curr-lacs" class="text-slate-600">Lacs</span>
           </button>
 
           <div class="hidden lg:flex items-center gap-1.5 text-xs font-medium text-slate-600">
@@ -172,7 +172,7 @@
             <span>Live Market Feed</span>
           </div>
 
-          <button onclick="triggerToast('Super Admin: admin@salaryai.in • Model Registry &amp; Live Inference Active')" class="flex items-center gap-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-1.5 rounded-lg transition shadow-xs">
+          <button onclick="triggerToast('Super Admin: admin@salaryai.in • Model Registry &amp; Live Inference Active')" class="flex items-center gap-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-100 text-slate-900 px-3.5 py-1.5 rounded-lg transition shadow-xs">
             <span>Sign In</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -191,7 +191,7 @@
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
             Tech Compensation &amp; Leveling Engine
           </h1>
-          <p class="text-sm text-slate-500 mt-1">
+          <p class="text-sm text-slate-600 mt-1">
             Multi-model Scikit-Learn regression trained on 2,540 verified Indian tech offers across Tier-1/2 metros and global remote cohorts.
           </p>
         </div>
@@ -222,8 +222,8 @@
       <div class="exec-card p-6 flex flex-col gap-5">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
           <div>
-            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Candidate Profile</h2>
-            <p class="text-xs text-slate-400">Configure parameters for live inference</p>
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-600">Candidate Profile</h2>
+            <p class="text-xs text-slate-600">Configure parameters for live inference</p>
           </div>
           <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
             Live Input
@@ -256,7 +256,7 @@
             </span>
           </div>
           <input type="range" id="inp-exp" min="0" max="25" step="0.5" value="10.5" oninput="runSimulation()" class="w-full" />
-          <div class="flex justify-between text-[10px] text-slate-400">
+          <div class="flex justify-between text-[10px] text-slate-600">
             <span>0y (Fresh Grad)</span>
             <span>12.5y</span>
             <span>25y (Principal/Exec)</span>
@@ -273,7 +273,7 @@
             </div>
           </div>
           <input type="range" id="inp-skill" min="10" max="100" step="1" value="88" oninput="runSimulation()" class="w-full" />
-          <div class="flex justify-between text-[10px] text-slate-400">
+          <div class="flex justify-between text-[10px] text-slate-600">
             <span>10 (Basic)</span>
             <span>50 (Standard)</span>
             <span>100 (Staff / Fellow)</span>
@@ -300,7 +300,7 @@
         <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
           <div>
             <label class="text-xs font-semibold text-slate-800 block">Production AI Workloads</label>
-            <span class="text-[11px] text-slate-400">Deployed high-scale pipelines</span>
+            <span class="text-[11px] text-slate-600">Deployed high-scale pipelines</span>
           </div>
           <div class="flex items-center gap-2">
             <button type="button" onclick="adjustWorkload(-1)" class="w-7 h-7 rounded-md bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold shadow-2xs">−</button>
@@ -331,7 +331,7 @@
 
         <!-- Action Buttons -->
         <div class="flex flex-col gap-2 mt-2">
-          <button type="button" onclick="saveProfile()" class="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white py-2.5 px-4 rounded-lg text-xs font-semibold transition shadow-xs">
+          <button type="button" onclick="saveProfile()" class="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-100 active:scale-[0.99] text-slate-900 py-2.5 px-4 rounded-lg text-xs font-semibold transition shadow-xs">
             <i data-lucide="bookmark-plus" class="w-4 h-4"></i>
             <span>Save Candidate Profile</span>
           </button>
@@ -342,8 +342,8 @@
         </div>
 
         <div class="p-3 bg-slate-50/80 border border-slate-200 rounded-lg flex items-start gap-2.5">
-          <i data-lucide="info" class="w-4 h-4 text-slate-400 mt-0.5 shrink-0"></i>
-          <p class="text-[11px] text-slate-500 leading-relaxed">
+          <i data-lucide="info" class="w-4 h-4 text-slate-600 mt-0.5 shrink-0"></i>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
             <strong class="text-slate-700">Bias-Corrected Estimator:</strong> Multi-factor regression adjusts for location purchasing power parity and removes non-merit negotiation drift.
           </p>
         </div>
@@ -353,8 +353,8 @@
       <div class="exec-card-hero p-6 flex flex-col gap-6 relative overflow-hidden">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
           <div class="flex items-center gap-2">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Estimated Annual CTC</h2>
-            <span class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">GROSS CTC</span>
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-600">Estimated Annual CTC</h2>
+            <span class="text-[10px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">GROSS CTC</span>
           </div>
           <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-semibold text-emerald-700">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -368,7 +368,7 @@
             <span id="hero-ctc-figure" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 tabular-nums">
               ₹40,52,000
             </span>
-            <span class="text-sm font-semibold text-slate-400">/ year</span>
+            <span class="text-sm font-semibold text-slate-600">/ year</span>
           </div>
 
           <div class="flex items-center gap-2 flex-wrap mt-1">
@@ -383,11 +383,11 @@
 
         <!-- Compensation Breakdown Mini-Cards -->
         <div class="flex flex-col gap-2">
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Compensation Breakdown</span>
+          <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider">Compensation Breakdown</span>
           <div class="grid grid-cols-3 gap-2.5">
             <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
               <div>
-                <div class="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                <div class="flex items-center justify-between text-[11px] text-slate-600 font-medium">
                   <span>BASE</span>
                   <span id="pct-base" class="font-bold text-slate-700 tabular-nums">70%</span>
                 </div>
@@ -402,7 +402,7 @@
 
             <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
               <div>
-                <div class="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                <div class="flex items-center justify-between text-[11px] text-slate-600 font-medium">
                   <span>BONUS</span>
                   <span id="pct-bonus" class="font-bold text-slate-700 tabular-nums">18%</span>
                 </div>
@@ -417,7 +417,7 @@
 
             <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
               <div>
-                <div class="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                <div class="flex items-center justify-between text-[11px] text-slate-600 font-medium">
                   <span>EQUITY</span>
                   <span id="pct-equity" class="font-bold text-slate-700 tabular-nums">12%</span>
                 </div>
@@ -436,10 +436,10 @@
         <div class="flex flex-col gap-3 pt-4 border-t border-slate-100">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-400"></i>
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-600"></i>
               <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Feature Weight &amp; Impact (SHAP)</span>
             </div>
-            <span class="text-[10px] text-slate-400">Marginal contribution</span>
+            <span class="text-[10px] text-slate-600">Marginal contribution</span>
           </div>
 
           <div class="flex flex-col gap-2.5">
@@ -449,7 +449,7 @@
                 <span class="text-slate-900 font-bold tabular-nums">77.7%</span>
               </div>
               <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
-                <div class="bg-slate-800 h-full rounded-full" style="width: 77.7%"></div>
+                <div class="bg-slate-100 h-full rounded-full" style="width: 77.7%"></div>
               </div>
             </div>
             <div class="flex flex-col gap-1">
@@ -458,7 +458,7 @@
                 <span class="text-slate-900 font-bold tabular-nums">13.2%</span>
               </div>
               <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
-                <div class="bg-slate-800 h-full rounded-full" style="width: 13.2%"></div>
+                <div class="bg-slate-100 h-full rounded-full" style="width: 13.2%"></div>
               </div>
             </div>
             <div class="flex flex-col gap-1">
@@ -467,7 +467,7 @@
                 <span class="text-slate-900 font-bold tabular-nums">5.8%</span>
               </div>
               <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
-                <div class="bg-slate-800 h-full rounded-full" style="width: 5.8%"></div>
+                <div class="bg-slate-100 h-full rounded-full" style="width: 5.8%"></div>
               </div>
             </div>
             <div class="flex flex-col gap-1">
@@ -476,7 +476,7 @@
                 <span class="text-slate-900 font-bold tabular-nums">1.7%</span>
               </div>
               <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
-                <div class="bg-slate-800 h-full rounded-full" style="width: 1.7%"></div>
+                <div class="bg-slate-100 h-full rounded-full" style="width: 1.7%"></div>
               </div>
             </div>
             <div class="flex flex-col gap-1">
@@ -485,7 +485,7 @@
                 <span class="text-slate-900 font-bold tabular-nums">1.6%</span>
               </div>
               <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/60">
-                <div class="bg-slate-800 h-full rounded-full" style="width: 1.6%"></div>
+                <div class="bg-slate-100 h-full rounded-full" style="width: 1.6%"></div>
               </div>
             </div>
           </div>
@@ -496,8 +496,8 @@
       <div class="exec-card p-6 flex flex-col gap-5">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
           <div>
-            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Market Distribution</h2>
-            <p class="text-xs text-slate-400">Positioning across tech cohorts</p>
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-600">Market Distribution</h2>
+            <p class="text-xs text-slate-600">Positioning across tech cohorts</p>
           </div>
           <span class="text-[11px] font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-2.5 py-0.5 rounded-full">
             N = 3,420 Offers
@@ -518,15 +518,15 @@
         <!-- 3 Summary Metric Boxes -->
         <div class="grid grid-cols-3 gap-2.5">
           <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Market Median</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">Market Median</span>
             <div class="mt-1">
               <span class="text-sm sm:text-base font-extrabold text-slate-900 tabular-nums">₹25.32L</span>
             </div>
-            <span class="text-[10px] text-slate-400 mt-1">50th percentile</span>
+            <span class="text-[10px] text-slate-600 mt-1">50th percentile</span>
           </div>
 
           <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Benchmark</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">Benchmark</span>
             <div class="mt-1">
               <span id="box-ctc-lacs" class="text-sm sm:text-base font-extrabold text-slate-900 tabular-nums">₹40.52L</span>
             </div>
@@ -543,22 +543,22 @@
         </div>
 
         <!-- Insights Pill Card -->
-        <div class="p-3.5 rounded-lg bg-slate-900 text-white flex items-center justify-between shadow-xs">
+        <div class="p-3.5 rounded-lg bg-slate-900 text-slate-900 flex items-center justify-between shadow-xs">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
               <i data-lucide="zap" class="w-4 h-4"></i>
             </div>
             <div>
-              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+              <div class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                 <span>Negotiation Leverage:</span>
                 <span class="text-emerald-400">High</span>
               </div>
-              <div class="text-[11px] text-slate-400 mt-0.5">
-                YoY Market Growth: <strong class="text-slate-200">+14.2%</strong>
+              <div class="text-[11px] text-slate-600 mt-0.5">
+                YoY Market Growth: <strong class="text-slate-900">+14.2%</strong>
               </div>
             </div>
           </div>
-          <button onclick="switchTab('benchmarks')" class="flex items-center gap-1 text-xs font-semibold text-slate-300 hover:text-white transition">
+          <button onclick="switchTab('benchmarks')" class="flex items-center gap-1 text-xs font-semibold text-slate-300 hover:text-slate-900 transition">
             <span>Full Matrix</span>
             <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -571,14 +571,14 @@
       <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white">
         <div>
           <h2 class="text-base font-bold text-slate-900">Verified Compensation Bands (2,540 Offers)</h2>
-          <p class="text-xs text-slate-400">Filter verified developer and ML engineer compensation cohorts</p>
+          <p class="text-xs text-slate-600">Filter verified developer and ML engineer compensation cohorts</p>
         </div>
         <input type="text" id="bm-search" oninput="filterBenchmarks()" placeholder="Filter by role or tier..." class="text-xs px-3 py-2 border border-slate-200 bg-slate-50 rounded-lg w-full sm:w-64 outline-none" />
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+            <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
               <th class="py-3 px-5">Role &amp; Degree</th>
               <th class="py-3 px-4">Experience</th>
               <th class="py-3 px-4">Skill Rank</th>
@@ -599,9 +599,9 @@
       <div class="flex items-center justify-between pb-4 border-b border-slate-200">
         <div>
           <h2 class="text-base font-bold text-slate-900">Saved Candidate Evaluations</h2>
-          <p class="text-xs text-slate-500">Archived compensation trajectories for promotion planning</p>
+          <p class="text-xs text-slate-600">Archived compensation trajectories for promotion planning</p>
         </div>
-        <button onclick="switchTab('predictor')" class="px-3.5 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold">
+        <button onclick="switchTab('predictor')" class="px-3.5 py-1.5 bg-slate-900 text-slate-900 rounded-lg text-xs font-semibold">
           + New Simulation
         </button>
       </div>
@@ -617,7 +617,7 @@
           Whitepaper Summary
         </span>
         <h2 class="text-xl font-bold text-slate-900 mt-2">Compensation Modeling &amp; Leveling Methodology</h2>
-        <p class="text-xs text-slate-500 mt-1">Multi-variable Scikit-Learn regression with R² 0.942 on 2,540 verified profiles</p>
+        <p class="text-xs text-slate-600 mt-1">Multi-variable Scikit-Learn regression with R² 0.942 on 2,540 verified profiles</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
         <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
@@ -637,12 +637,12 @@
 
     <!-- TAB 5: ADMIN CONTROL ROOM DEMO -->
     <div id="view-admin" class="hidden flex flex-col gap-6">
-      <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between">
+      <div class="p-4 rounded-xl bg-slate-900 text-slate-900 flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded">
             Admin Control Panel
           </span>
-          <h2 class="text-base font-bold text-white mt-1">ML Engine Registry &amp; Live Prediction Stream</h2>
+          <h2 class="text-base font-bold text-slate-900 mt-1">ML Engine Registry &amp; Live Prediction Stream</h2>
         </div>
         <a href="http://localhost:5173/admin" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400">
           Open Full Admin Dashboard ↗
@@ -652,24 +652,24 @@
       <!-- 4 Top KPI Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="exec-card p-4">
-          <div class="text-[10px] font-bold uppercase text-slate-400">Active ML Engine</div>
+          <div class="text-[10px] font-bold uppercase text-slate-600">Active ML Engine</div>
           <div class="text-sm font-bold text-slate-900 mt-1">Random Forest v4.2.0</div>
           <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 mt-2 inline-block">● Serving Live</span>
         </div>
         <div class="exec-card p-4">
-          <div class="text-[10px] font-bold uppercase text-slate-400">Model Accuracy</div>
+          <div class="text-[10px] font-bold uppercase text-slate-600">Model Accuracy</div>
           <div class="text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">R² 0.942</div>
-          <span class="text-[10px] text-slate-400 mt-1 block">Cross-validated holdout</span>
+          <span class="text-[10px] text-slate-600 mt-1 block">Cross-validated holdout</span>
         </div>
         <div class="exec-card p-4">
-          <div class="text-[10px] font-bold uppercase text-slate-400">Benchmark Records</div>
+          <div class="text-[10px] font-bold uppercase text-slate-600">Benchmark Records</div>
           <div class="text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">2,540</div>
           <span class="text-[10px] text-emerald-700 font-semibold mt-1 block">Verified Tech Offers</span>
         </div>
         <div class="exec-card p-4">
-          <div class="text-[10px] font-bold uppercase text-slate-400">Inferences Today</div>
+          <div class="text-[10px] font-bold uppercase text-slate-600">Inferences Today</div>
           <div class="text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">348</div>
-          <span class="text-[10px] text-slate-400 mt-1 block">Real-time requests</span>
+          <span class="text-[10px] text-slate-600 mt-1 block">Real-time requests</span>
         </div>
       </div>
 
@@ -680,7 +680,7 @@
         </div>
         <table class="w-full text-left text-xs">
           <thead>
-            <tr class="border-b border-slate-200 bg-white text-[11px] font-bold text-slate-500 uppercase">
+            <tr class="border-b border-slate-200 bg-white text-[11px] font-bold text-slate-600 uppercase">
               <th class="py-2.5 px-4">Architecture</th>
               <th class="py-2.5 px-4">R² Score</th>
               <th class="py-2.5 px-4">MAE (₹)</th>
@@ -694,7 +694,7 @@
               <td class="py-3 px-4 font-bold text-slate-900">0.942</td>
               <td class="py-3 px-4 tabular-nums">₹1,41,200</td>
               <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Active Live</span></td>
-              <td class="py-3 px-4 text-right text-slate-400 italic">Serving</td>
+              <td class="py-3 px-4 text-right text-slate-600 italic">Serving</td>
             </tr>
             <tr>
               <td class="py-3 px-4 font-bold text-slate-900">Gradient Boosting Regressor v4.1</td>
@@ -702,7 +702,7 @@
               <td class="py-3 px-4 tabular-nums">₹1,52,400</td>
               <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">Standby</span></td>
               <td class="py-3 px-4 text-right">
-                <button onclick="triggerToast('Switched active model to Gradient Boosting v4.1 (R² 0.938)')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[10px] font-semibold transition">Activate</button>
+                <button onclick="triggerToast('Switched active model to Gradient Boosting v4.1 (R² 0.938)')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-100 text-slate-900 rounded text-[10px] font-semibold transition">Activate</button>
               </td>
             </tr>
             <tr>
@@ -711,7 +711,7 @@
               <td class="py-3 px-4 tabular-nums">₹1,36,500</td>
               <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">Standby</span></td>
               <td class="py-3 px-4 text-right">
-                <button onclick="triggerToast('Switched active model to Ridge Regression v3.8 (R² 0.955)')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[10px] font-semibold transition">Activate</button>
+                <button onclick="triggerToast('Switched active model to Ridge Regression v3.8 (R² 0.955)')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-100 text-slate-900 rounded text-[10px] font-semibold transition">Activate</button>
               </td>
             </tr>
           </tbody>
@@ -726,51 +726,51 @@
   <!-- ====================================================
        SALARYAI ENTERPRISE LEVELING & ML FOOTER
        ==================================================== -->
-  <footer class="bg-slate-900 text-slate-400 text-xs mt-20 pt-16 pb-12 border-t border-slate-800">
+  <footer class="bg-white text-slate-600 text-xs mt-20 pt-16 pb-12 border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.02)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Pre-Footer Model Benchmark Banner -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 mb-12 border-b border-slate-800 text-center sm:text-left">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 mb-12 border-b border-slate-200 text-center sm:text-left">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-cyan-400 border border-slate-200 shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
           <div>
-            <h5 class="text-white font-bold text-xs uppercase tracking-wider">0.942 R² Accuracy</h5>
-            <p class="text-slate-500 text-[11px]">Strict polynomial validation</p>
+            <h5 class="text-slate-900 font-bold text-xs uppercase tracking-wider">0.942 R² Accuracy</h5>
+            <p class="text-slate-600 text-[11px]">Strict polynomial validation</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-cyan-400 border border-slate-200 shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
           <div>
-            <h5 class="text-white font-bold text-xs uppercase tracking-wider">2,540+ Verified Offers</h5>
-            <p class="text-slate-500 text-[11px]">BLR, HYD, NCR &amp; Pune data</p>
+            <h5 class="text-slate-900 font-bold text-xs uppercase tracking-wider">2,540+ Verified Offers</h5>
+            <p class="text-slate-600 text-[11px]">BLR, HYD, NCR &amp; Pune data</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-cyan-400 border border-slate-200 shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div>
-            <h5 class="text-white font-bold text-xs uppercase tracking-wider">90% Confidence Bands</h5>
-            <p class="text-slate-500 text-[11px]">P10, P50, P90 percentile curves</p>
+            <h5 class="text-slate-900 font-bold text-xs uppercase tracking-wider">90% Confidence Bands</h5>
+            <p class="text-slate-600 text-[11px]">P10, P50, P90 percentile curves</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-cyan-400 border border-slate-700 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-cyan-400 border border-slate-200 shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
           <div>
-            <h5 class="text-white font-bold text-xs uppercase tracking-wider">Zero Bias Auditing</h5>
-            <p class="text-slate-500 text-[11px]">Fair pay parity certified</p>
+            <h5 class="text-slate-900 font-bold text-xs uppercase tracking-wider">Zero Bias Auditing</h5>
+            <p class="text-slate-600 text-[11px]">Fair pay parity certified</p>
           </div>
         </div>
       </div>
 
       <!-- 4-Column Directory Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-200">
         
         <!-- Brand & Description -->
         <div class="space-y-4">
@@ -778,20 +778,20 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-md shadow-cyan-500/20">
               AI
             </div>
-            <span class="text-lg font-black text-white tracking-tight">SalaryAI<span class="text-cyan-400">.</span></span>
+            <span class="text-lg font-black text-slate-900 tracking-tight">SalaryAI<span class="text-cyan-400">.</span></span>
           </div>
-          <p class="text-slate-400 text-xs leading-relaxed">
+          <p class="text-slate-600 text-xs leading-relaxed">
             Enterprise compensation &amp; tech leveling platform. Leverages multi-variable machine learning regressions to calculate objective engineering base pay, stock grants, and bonus benchmarks.
           </p>
-          <div class="inline-flex items-center gap-2 bg-slate-800/80 text-cyan-300 text-xs px-3 py-1.5 rounded-lg border border-slate-700/60 font-medium">
+          <div class="inline-flex items-center gap-2 bg-slate-100/80 text-cyan-300 text-xs px-3 py-1.5 rounded-lg border border-slate-200/60 font-medium">
             <span>●</span> Live Production Engine v4.2
           </div>
         </div>
 
         <!-- ML Models & Theory -->
         <div class="space-y-3">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">ML Architectures</h4>
-          <ul class="space-y-2 text-slate-400">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">ML Architectures</h4>
+          <ul class="space-y-2 text-slate-600">
             <li><a href="#" class="hover:text-cyan-400 transition">Polynomial Regression (Degree 3)</a></li>
             <li><a href="#" class="hover:text-cyan-400 transition">Ridge L2 Penalty Regularization</a></li>
             <li><a href="#" class="hover:text-cyan-400 transition">Random Forest Ensemble Estimator</a></li>
@@ -802,8 +802,8 @@
 
         <!-- Leveling Frameworks -->
         <div class="space-y-3">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Leveling Bands</h4>
-          <ul class="space-y-2 text-slate-400">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Leveling Bands</h4>
+          <ul class="space-y-2 text-slate-600">
             <li><a href="#" class="hover:text-cyan-400 transition">L3 — Associate / Junior SDE (0–2 YOE)</a></li>
             <li><a href="#" class="hover:text-cyan-400 transition">L4 — Mid-Level Software Engineer (2–5 YOE)</a></li>
             <li><a href="#" class="hover:text-cyan-400 transition">L5 — Senior Software Engineer (5–8 YOE)</a></li>
@@ -814,16 +814,16 @@
 
         <!-- Creator & Codebase -->
         <div class="space-y-3">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Creator &amp; Stacks</h4>
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Designed &amp; built by <strong class="text-white">Abhishek Tripathi</strong> with Python 3, Flask, Scikit-Learn, Tailwind CSS, and Recharts.
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900">Creator &amp; Stacks</h4>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Designed &amp; built by <strong class="text-slate-900">Abhishek Tripathi</strong> with Python 3, Flask, Scikit-Learn, Tailwind CSS, and Recharts.
           </p>
           <div class="pt-2 space-y-2">
             <a href="../index.html" class="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-bold transition">
               <span>← Back to Abhishek's Portfolio</span>
             </a>
             <br>
-            <a href="https://github.com/abhishektripathi9/Salary-Prediction-System" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition">
+            <a href="https://github.com/abhishektripathi9/Salary-Prediction-System" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 transition">
               <span>GitHub Repository &bull; Source Code</span>
             </a>
           </div>
@@ -832,12 +832,12 @@
       </div>
 
       <!-- Bottom Bar -->
-      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-xs gap-3">
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-600 text-xs gap-3">
         <p>© 2026 SalaryAI Compensation Engine. Developed by Abhishek Tripathi.</p>
         <div class="flex items-center gap-4">
-          <a href="#" class="hover:text-slate-400 transition">Model Methodology</a>
+          <a href="#" class="hover:text-slate-600 transition">Model Methodology</a>
           <span>&bull;</span>
-          <a href="#" class="hover:text-slate-400 transition">Data Privacy</a>
+          <a href="#" class="hover:text-slate-600 transition">Data Privacy</a>
           <span>&bull;</span>
           <a href="https://wa.me/919595347836" target="_blank" class="text-cyan-400 font-bold hover:underline">Consultation: +91 95953 47836</a>
         </div>
@@ -908,8 +908,8 @@
 
     function toggleCurrency() {
       currencyMode = (currencyMode === 'INR') ? 'LACS' : 'INR';
-      document.getElementById('curr-inr').className = (currencyMode === 'INR') ? 'text-slate-900 font-bold' : 'text-slate-400';
-      document.getElementById('curr-lacs').className = (currencyMode === 'LACS') ? 'text-slate-900 font-bold' : 'text-slate-400';
+      document.getElementById('curr-inr').className = (currencyMode === 'INR') ? 'text-slate-900 font-bold' : 'text-slate-600';
+      document.getElementById('curr-lacs').className = (currencyMode === 'LACS') ? 'text-slate-900 font-bold' : 'text-slate-600';
       runSimulation();
     }
 
@@ -1151,7 +1151,7 @@
         <tr class="hover:bg-slate-50 transition">
           <td class="py-3 px-5 font-semibold text-slate-900">
             ${b.role}
-            <span class="block text-[10px] text-slate-400 font-normal">${b.edu}</span>
+            <span class="block text-[10px] text-slate-600 font-normal">${b.edu}</span>
           </td>
           <td class="py-3 px-4 text-slate-700">${b.exp}y</td>
           <td class="py-3 px-4"><span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-bold">${b.skill}/100</span></td>
@@ -1222,7 +1222,7 @@
               <span class="text-xs font-bold text-slate-900">${p.title}</span>
               <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">Archived</span>
             </div>
-            <div class="text-[11px] text-slate-500 mt-1">${p.role} • ${p.exp} yrs • ${p.comp}</div>
+            <div class="text-[11px] text-slate-600 mt-1">${p.role} • ${p.exp} yrs • ${p.comp}</div>
             <div class="mt-3 text-lg font-extrabold text-slate-900 tabular-nums">${typeof p.ctc === 'number' ? formatNumber(p.ctc) : p.ctc}</div>
           </div>
           <button onclick="deleteSaved(${p.id})" class="text-xs text-rose-600 hover:text-rose-800 font-semibold self-start mt-2">Delete Record</button>
