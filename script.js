@@ -541,23 +541,6 @@ const projectData = {
     github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects',
     liveDemo: './powerbi-analytics/index.html#tesla'
   },
-  'quiz-portal': {
-    title: 'Student Quiz & Course Learning Portal',
-    year: '2026',
-    category: 'Full Stack & EdTech',
-    image: 'assets/project-quiz-portal.jpg',
-    desc: 'An end-to-end full-stack e-learning platform supporting student authentication, dynamic course catalogs, and automated quiz scoring. Engineered with 8+ secure REST APIs in Express.js with input validation, token-based authentication, and instant result calculation, backed by an optimized React frontend guaranteeing sub-100ms UI transitions.',
-    highlights: [
-      'Developed an end-to-end e-learning platform supporting student authentication, dynamic course catalogs, and automated quiz scoring.',
-      'Implemented 8+ secure REST APIs in Express.js with input validation, token-based authentication, and instant result calculation.',
-      'Constructed an optimized React frontend with client-side state handling, guaranteeing sub-100ms UI transitions.',
-      'Real-time automated evaluation engine with question telemetry, timing countdowns, and performance metrics analytics.',
-      'Relational MySQL schema storing students, enrolled modules, quiz questions, and cryptographic session tokens.'
-    ],
-    tech: ['React.js', 'Node.js', 'Express.js', 'MySQL', 'REST APIs', 'JWT', 'Context API'],
-    github: 'https://github.com/abhishektripathi9',
-    liveDemo: './quiz-portal/index.html'
-  },
   'banking-system': {
     title: 'Enterprise Banking Management System',
     year: '2025',
@@ -639,22 +622,6 @@ const projectData = {
     tech: ['React 18', 'Three.js', 'WebGL', 'Node.js', 'Tailwind CSS', 'Vite'],
     github: 'https://github.com/abhishektripathi9',
     liveDemo: './vastu3d/index.html'
-  },
-  fitpulse: {
-    title: 'FitPulse Studio — Boutique Strength & Conditioning Platform',
-    year: '2026',
-    category: 'Health & Lead Generation',
-    image: 'assets/project-fitpulse.jpg',
-    desc: 'High-conversion boutique fitness studio web application designed for Civil Lines, Prayagraj. Engineered with zero runtime dependencies for sub-50ms load times, bespoke Syne/Inter typography, and direct WhatsApp booking passes.',
-    highlights: [
-      'Zero-Dependency Lightweight Architecture: 1,425 lines of bespoke, meticulously crafted CSS with zero framework bloat and instant load times.',
-      'Dynamic Membership Pricing Calculator: Interactive tier-based pricing (Monthly, Quarterly, Annual) with savings badges and instant WhatsApp enrollment links.',
-      'Interactive Class Schedule & Timetable: Filter workouts by Strength, Conditioning, Functional Training, and Personal Coaching slots.',
-      'Direct WhatsApp Lead Capture: Seamlessly links prospects to direct WhatsApp passes (+91 95953 47836) for 1-click booking.'
-    ],
-    tech: ['HTML5', 'Bespoke CSS3', 'JavaScript ES6+', 'HTML5 Canvas', 'SVG'],
-    github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio',
-    liveDemo: './fitpulse/index.html'
   },
   kisan: {
     title: 'Kisan Smart Assistant (किसान स्मार्ट सहायक) — All India Mandi Intelligence',
