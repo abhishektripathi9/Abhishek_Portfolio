@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AuraWeather – Real-Time Atmospheric & Pollution Telemetry | Live Demo</title>
-  <meta name="description" content="AuraWeather delivers hyper-accurate real-time weather, 7-day meteorological forecasts, air quality index (AQI) radar, and hourly wind telemetry." />
+  <title>AuraWeather – Real-Time Atmospheric &amp; Pollution Telemetry | Live Demo</title>
+  <meta name="description" content="AuraWeather delivers hyper-accurate real-time weather, Doppler radar dynamics, 7-day meteorological forecasts, air quality index (AQI) radar, and atmospheric telemetry." />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
   <style>
     :root {
       --bg: #F8FAFC;
       --card-bg: #FFFFFF;
       --border: #E2E8F0;
+      --border-subtle: #EDF2F7;
       --cyan: #0284C7;
+      --cyan-light: #E0F2FE;
       --amber: #D97706;
       --blue: #2563EB;
       --emerald: #059669;
+      --emerald-light: #ECFDF5;
       --text: #0F172A;
       --text-muted: #64748B;
+      --text-sub: #475569;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.06);
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: var(--bg);
@@ -31,155 +41,651 @@
       font-family: 'Outfit', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
-      background-image: radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 100% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 40%);
     }
+
+    /* Top Navigation Bar */
     .top-bar {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 14px 24px;
+      padding: 12px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       text-decoration: none;
       color: #0F172A;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1.35rem;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
-    .brand-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #F59E0B, #2563EB);
-      border-radius: 10px;
+    .brand-icon-box {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #38BDF8, #2563EB);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFFFFF;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.25);
     }
-    .demo-badge {
-      font-size: 0.72rem;
-      background: #ECFDF5;
-      border: 1px solid #A7F3D0;
-      color: #059669;
-      padding: 3px 10px;
+    .pill-pro {
+      font-size: 10px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 7px;
       border-radius: 99px;
-      font-weight: 600;
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #CBD5E1;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .back-btn {
+    .pill-doppler {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: #334155;
-      text-decoration: none;
-      font-size: 0.88rem;
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #F1F5F9;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: var(--emerald-light);
+      border: 1px solid #A7F3D0;
+      color: var(--emerald);
+      letter-spacing: 0.04em;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      animation: pulseDot 1.8s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.35); }
+    }
+
+    .top-right-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .station-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #64748B;
       font-weight: 600;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .station-id span { color: #0EA5E9; font-weight: 700; }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0F172A;
+      text-decoration: none;
+      font-size: 12.5px;
+      padding: 7px 14px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
       transition: all 0.2s;
     }
-    .back-btn:hover { color: #FFFFFF; border-color: #0F172A; background: #0F172A; }
+    .btn-back:hover {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+    }
 
-    .main-container { max-width: 1140px; margin: 0 auto; padding: 40px 20px 60px; }
+    /* Main Container */
+    .main-wrapper {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px 50px;
+    }
 
-    /* Search & Quick Cities */
-    .search-wrapper { max-width: 600px; margin: 0 auto 24px; position: relative; }
+    /* Search & Location Bar */
+    .search-row {
+      max-width: 580px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .search-box {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-box i {
+      position: absolute;
+      left: 18px;
+      color: #64748B;
+      width: 17px;
+      height: 17px;
+    }
     .search-input {
       width: 100%;
       background: #FFFFFF;
-      border: 1px solid var(--border);
-      padding: 16px 20px 16px 50px;
+      border: 1px solid #CBD5E1;
       border-radius: 99px;
-      color: #0F172A;
-      font-size: 1rem;
-      outline: none;
+      padding: 12px 18px 12px 48px;
+      font-size: 13.5px;
       font-family: inherit;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      color: #0F172A;
+      outline: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
       transition: all 0.2s;
     }
-    .search-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); background: #FFFFFF; }
-    .search-icon-pos { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .quick-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+    .search-input:focus {
+      border-color: #0284C7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+    .btn-locate {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 18px;
+      border-radius: 99px;
+      border: 1px solid #0284C7;
+      background: #0284C7;
+      color: #FFFFFF;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+    .btn-locate:hover {
+      background: #0369A1;
+      border-color: #0369A1;
+    }
+
+    /* Quick City Chips */
+    .quick-chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
     .chip {
       background: #FFFFFF;
       border: 1px solid var(--border);
       padding: 6px 14px;
       border-radius: 99px;
-      font-size: 0.8rem;
+      font-size: 12px;
+      font-weight: 600;
       color: #475569;
       cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
       transition: all 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
-    .chip.active, .chip:hover { color: var(--cyan); border-color: var(--cyan); background: #F0F9FF; font-weight: 600; }
+    .chip:hover {
+      border-color: #0284C7;
+      color: #0284C7;
+      background: #F0F9FF;
+    }
+    .chip.active {
+      background: #0284C7;
+      border-color: #0284C7;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
 
-    /* Main Weather Hero Card */
-    .weather-hero {
-      background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%);
+    /* Hero Weather Grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.18fr 1fr;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    /* Weather Hero Left Card */
+    .weather-card-hero {
+      background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 65%, #FEF9C3 100%);
       border: 1px solid #BAE6FD;
       border-radius: 24px;
-      padding: 36px 40px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      align-items: center;
-      gap: 30px;
-      margin-bottom: 30px;
+      padding: 28px 32px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     }
-    .weather-loc-box h2 { font-size: 2.2rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; margin-bottom: 6px; color: #0F172A; }
-    .weather-time { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; font-weight: 500; }
-    .temp-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
-    .temp-val { font-size: 5rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; line-height: 1; color: #0F172A; }
-    .temp-unit { font-size: 1.6rem; color: var(--cyan); font-weight: 600; cursor: pointer; }
-    .condition-text { font-size: 1.3rem; font-weight: 600; color: #0284C7; display: flex; align-items: center; gap: 10px; }
+    .loc-coords {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .loc-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .loc-telemetry-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #059669;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .temp-large-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .temp-huge {
+      font-size: 4.8rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 0.95;
+      color: #0F172A;
+      letter-spacing: -0.03em;
+    }
+    .temp-extra {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12.5px;
+      color: #475569;
+      font-weight: 600;
+    }
+    .condition-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 10px 16px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .cond-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .cond-sub {
+      font-size: 11px;
+      color: #64748B;
+    }
 
-    /* Atmospheric Telemetry Grid */
-    .telemetry-grid {
+    /* Sub-stat Pills at bottom of Hero Card */
+    .hero-sub-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      border-top: 1px solid rgba(186, 230, 253, 0.6);
+      padding-top: 16px;
+    }
+    .hero-sub-box {
+      text-align: center;
+    }
+    .hsb-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #64748B;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .hsb-val {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    /* Right Column: Radar & AQI */
+    .hero-right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Live Radar Card */
+    .radar-card {
+      background: #090E17;
+      border-radius: 22px;
+      border: 1px solid #1E293B;
+      padding: 18px 20px;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .radar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .radar-head-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .radar-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+    .radar-sub {
+      font-size: 10.5px;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .radar-hd-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 99px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #38BDF8;
+      color: #38BDF8;
+      letter-spacing: 0.04em;
+    }
+
+    /* Radar Canvas Scope */
+    .radar-screen-wrap {
+      width: 100%;
+      height: 155px;
+      background: radial-gradient(circle at 50% 50%, #032130 0%, #040C18 75%);
+      border-radius: 14px;
+      border: 1px solid #1E3A5F;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    #radar-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .radar-center-mark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #38BDF8;
+      pointer-events: none;
+      text-shadow: 0 0 6px #38BDF8;
+    }
+
+    .radar-nav-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .radar-tab {
+      flex: 1;
+      padding: 6px 0;
+      text-align: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94A3B8;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .radar-tab.active, .radar-tab:hover {
+      background: #0284C7;
+      color: #FFFFFF;
+      border-color: #0284C7;
+    }
+
+    /* Air Quality Telemetry Card (AQI) */
+    .aqi-card {
+      background: #090E17;
+      border-radius: 22px;
+      border: 1px solid #1E293B;
+      padding: 18px 20px;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-md);
+    }
+    .aqi-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .aqi-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+    .aqi-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 99px;
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FCD34D;
+    }
+    .aqi-big-num {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .aqi-val {
+      font-size: 2.8rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1;
+      color: #FFFFFF;
+    }
+    .aqi-scale {
+      font-size: 12px;
+      color: #64748B;
+      font-weight: 600;
+    }
+    .aqi-status-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #F8FAFC;
+    }
+
+    .aqi-pollutants-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 30px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
-    .telemetry-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .aqi-pbox {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 7px 6px;
+      text-align: center;
     }
-    .telemetry-card:hover { transform: translateY(-3px); border-color: #38BDF8; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-    .tele-head { display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
-    .tele-val { font-size: 1.45rem; font-weight: 700; color: #0F172A; font-family: 'Space Grotesk', sans-serif; }
-    .tele-sub { font-size: 0.75rem; color: var(--emerald); margin-top: 4px; font-weight: 600; }
+    .pbox-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+    .pbox-val {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #38BDF8;
+      margin-top: 2px;
+    }
 
-    /* Hourly Chart Section */
-    .chart-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    .aqi-warning {
+      font-size: 11px;
+      color: #CBD5E1;
+      line-height: 1.45;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
     }
-    .panel-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: #0F172A; }
-    .chart-canvas { width: 100%; height: 160px; display: block; }
+
+    /* 6 Core Telemetry Metric Cards */
+    .telemetry-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .tele-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .tele-box:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #BAE6FD;
+    }
+    .tb-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .tb-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #64748B;
+      text-transform: uppercase;
+    }
+    .tb-icon {
+      width: 15px;
+      height: 15px;
+      color: #0284C7;
+    }
+    .tb-val {
+      font-size: 1.55rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .tb-sub {
+      font-size: 10.5px;
+      color: #64748B;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    /* Section Cards (24H Telemetry & 7-Day Forecast) */
+    .panel-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .panel-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-title {
+      font-size: 15px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0F172A;
+    }
+    .panel-sub {
+      font-size: 11px;
+      color: #64748B;
+    }
+    .curve-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .curve-tab-btn {
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .curve-tab-btn.active, .curve-tab-btn:hover {
+      background: #0284C7;
+      color: #FFFFFF;
+      border-color: #0284C7;
+    }
+    .curve-canvas-wrap {
+      width: 100%;
+      height: 180px;
+      position: relative;
+    }
+    #curve-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
     /* 7-Day Forecast Grid */
     .forecast-grid {
@@ -187,227 +693,751 @@
       grid-template-columns: repeat(7, 1fr);
       gap: 12px;
     }
-    .forecast-day-card {
-      background: #FFFFFF;
+    .forecast-day-box {
+      background: #F8FAFC;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 16px 10px;
       text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: all 0.2s ease;
+    }
+    .forecast-day-box:hover {
+      background: #F0F9FF;
+      border-color: #BAE6FD;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .f-day {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+    .f-icon {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto 8px;
+      color: #D97706;
+    }
+    .f-precip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #0284C7;
+      margin-bottom: 6px;
+    }
+    .f-high {
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0F172A;
+    }
+    .f-low {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+
+    /* =====================================================
+       PURE WHITE METEOROLOGICAL FOOTER (MATCHING USER SPEC)
+       ===================================================== */
+    .aura-footer-white {
+      background: #FFFFFF !important;
+      border-top: 1px solid #E2E8F0;
+      padding: 56px 24px 34px;
+      color: #0F172A;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Top Footer Row: Brand Info + Newsletter Box */
+    .footer-top-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 40px;
+      align-items: start;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .footer-brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .footer-brand-desc {
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 16px;
+    }
+    .footer-uptime-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #059669;
+    }
+    .footer-uptime-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+    }
+
+    /* Newsletter Box in White Footer */
+    .footer-newsletter-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+    .fn-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+    .fn-sub {
+      font-size: 12px;
+      color: #64748B;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .fn-form {
+      display: flex;
+      gap: 8px;
+    }
+    .fn-input {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #0F172A;
+      outline: none;
       transition: all 0.2s;
     }
-    .forecast-day-card:hover { background: #F0F9FF; border-color: var(--cyan); transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,0.05); }
-    .day-name { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
-    .day-icon { width: 32px; height: 32px; margin: 0 auto 10px; color: var(--amber); }
-    .day-high { font-size: 1.1rem; font-weight: 700; color: #0F172A; }
-    .day-low { font-size: 0.8rem; color: var(--text-muted); }
-
-    @media (max-width: 860px) {
-      .weather-hero { grid-template-columns: 1fr; }
-      .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
-      .forecast-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+    .fn-input:focus {
+      border-color: #0284C7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
     }
-</style>
+    .fn-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: #0284C7;
+      color: #FFFFFF;
+      border: 1px solid #0284C7;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fn-btn:hover {
+      background: #0369A1;
+      border-color: #0369A1;
+    }
+
+    /* Middle 4 Links Columns */
+    .footer-columns-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .fc-head {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #0F172A;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .fc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 12.5px;
+      color: #475569;
+    }
+    .fc-list li a {
+      color: #475569;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .fc-list li a:hover {
+      color: #0284C7;
+    }
+    .creator-bio {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #475569;
+      margin-bottom: 14px;
+    }
+    .creator-bio strong {
+      color: #0F172A;
+    }
+    .creator-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .clink-primary {
+      color: #0284C7 !important;
+      font-weight: 700;
+      font-size: 12.5px;
+      text-decoration: none;
+    }
+    .clink-wa {
+      color: #059669 !important;
+      font-weight: 700;
+      font-size: 12.5px;
+      text-decoration: none;
+    }
+
+    /* Bottom Sub-Footer */
+    .footer-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 26px;
+      font-size: 12px;
+      color: #64748B;
+    }
+    .footer-legal-links {
+      display: flex;
+      gap: 16px;
+    }
+    .footer-legal-links a {
+      color: #64748B;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-legal-links a:hover {
+      color: #0F172A;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .telemetry-row { grid-template-columns: repeat(3, 1fr); }
+      .forecast-grid { grid-template-columns: repeat(4, 1fr); }
+      .footer-top-row { grid-template-columns: 1fr; }
+      .footer-columns-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .telemetry-row { grid-template-columns: repeat(2, 1fr); }
+      .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-columns-grid { grid-template-columns: 1fr; }
+      .top-bar { padding: 12px 16px; }
+      .main-wrapper { padding: 16px 12px 40px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Navigation Bar -->
   <header class="top-bar">
-    <a href="./index.html" class="brand">
-      <div class="brand-icon"><i data-lucide="cloud-sun"></i></div>
-      <span>AuraWeather</span>
-      <span class="demo-badge">LIVE DEMO</span>
-    </a>
-    <a href="../index.html#projects" class="back-btn">
-      <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-      <span>Back to Portfolio</span>
-    </a>
-  </header>
-
-  <main class="main-container">
-    <!-- Search Bar -->
-    <div class="search-wrapper">
-      <i data-lucide="search" class="search-icon-pos" style="width:20px;height:20px;"></i>
-      <input type="text" class="search-input" id="city-input" placeholder="Search city (e.g. Prayagraj, Banda, Delhi, Bangalore)..." value="Prayagraj" />
+    <div class="brand-wrap">
+      <a href="../index.html#projects" class="brand">
+        <div class="brand-icon-box">
+          <i data-lucide="cloud-sun" style="width:19px;height:19px;"></i>
+        </div>
+        <span>AuraWeather</span>
+      </a>
+      <span class="pill-pro">PRO</span>
+      <span class="pill-doppler">
+        <span class="pulse-dot"></span>
+        LIVE DEMO • DOPPLER SYNC
+      </span>
     </div>
 
-    <!-- Quick City Pills -->
+    <div class="top-right-group">
+      <div class="station-id">STATION: <span>015-PRG-04</span></div>
+      <a href="../index.html#projects" class="btn-back">
+        <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
+        <span>Back to Portfolio</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <!-- Search Row -->
+    <div class="search-row">
+      <div class="search-box">
+        <i data-lucide="search"></i>
+        <input type="text" id="city-input" class="search-input" placeholder="Search meteorological station or city..." value="Prayagraj" />
+      </div>
+      <button class="btn-locate" id="btn-locate" title="Acquire GPS coordinates">
+        <i data-lucide="crosshair" style="width:14px;height:14px;"></i>
+        <span>Locate</span>
+      </button>
+    </div>
+
+    <!-- Quick Location Chips -->
     <div class="quick-chips">
       <button class="chip active" data-city="Prayagraj">Prayagraj, UP</button>
       <button class="chip" data-city="Banda">Banda, UP</button>
       <button class="chip" data-city="Lucknow">Lucknow, UP</button>
-      <button class="chip" data-city="Delhi">New Delhi</button>
+      <button class="chip" data-city="New Delhi">New Delhi</button>
       <button class="chip" data-city="Bengaluru">Bengaluru</button>
       <button class="chip" data-city="Mumbai">Mumbai</button>
       <button class="chip" data-city="London">London, UK</button>
       <button class="chip" data-city="Tokyo">Tokyo, Japan</button>
+      <button class="chip" data-city="New York">New York, US</button>
     </div>
 
-    <!-- Weather Hero Card -->
-    <section class="weather-hero">
-      <div class="weather-loc-box">
-        <h2 id="disp-city">Prayagraj, Uttar Pradesh</h2>
-        <div class="weather-time" id="disp-time">Telemetry updated: Just now • Clear Atmospheric Radar</div>
-        <div class="temp-row">
-          <div class="temp-val" id="disp-temp">28</div>
-          <div class="temp-unit" id="unit-toggle" title="Click to toggle °C/°F">°C</div>
+    <!-- Weather Hero 2-Column Section -->
+    <section class="hero-grid">
+      <!-- Left Card: Weather Main -->
+      <div class="weather-card-hero">
+        <div>
+          <div class="loc-coords" id="disp-coords">25.4358° N, 81.8463° E • 98m Elev</div>
+          <h1 class="loc-title" id="disp-city">Prayagraj, Meteorological Radar</h1>
+          <div class="loc-telemetry-tag">
+            <span class="pulse-dot"></span>
+            <span>Telemetry: Just now</span>
+          </div>
+
+          <div class="temp-large-row">
+            <div class="temp-huge" id="disp-temp">29°C</div>
+            <div class="temp-extra">
+              <span id="disp-feels">Feels like 31°C</span>
+              <span id="disp-hl">H: 32° • L: 19°</span>
+            </div>
+          </div>
+
+          <div class="condition-badge">
+            <span id="cond-icon" style="font-size:24px;">☀️</span>
+            <div>
+              <div class="cond-title" id="disp-cond">Sunny &amp; Clear Sky</div>
+              <div class="cond-sub" id="disp-cond-sub">Clear atmospheric radar • 0% precip</div>
+            </div>
+          </div>
         </div>
-        <div class="condition-text">
-          <i data-lucide="sun" id="cond-icon" style="width:28px;height:28px;color:var(--amber);"></i>
-          <span id="disp-cond">Sunny &amp; Clear Sky</span>
+
+        <div class="hero-sub-stats">
+          <div class="hero-sub-box">
+            <div class="hsb-label">DEW POINT</div>
+            <div class="hsb-val" id="disp-dew">15.2°C</div>
+          </div>
+          <div class="hero-sub-box">
+            <div class="hsb-label">PRECIP PROB</div>
+            <div class="hsb-val" id="disp-precip">0% Trace</div>
+          </div>
+          <div class="hero-sub-box">
+            <div class="hsb-label">CLOUD COVER</div>
+            <div class="hsb-val" id="disp-cloud">12% Scattered</div>
+          </div>
         </div>
       </div>
 
-      <!-- Quick Air Quality / Radar Box -->
-      <div style="background:rgba(0,0,0,0.3);padding:24px;border-radius:18px;border:1px solid rgba(255,255,255,0.08);">
-        <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
-          <span style="font-size:0.85rem;color:var(--text-muted);text-transform:uppercase;font-weight:600;">Air Quality Index (AQI)</span>
-          <span style="font-size:0.85rem;color:var(--emerald);font-weight:700;" id="disp-aqi-stat">Moderate</span>
+      <!-- Right Column: Radar Dynamics & AQI -->
+      <div class="hero-right-col">
+        <!-- Live Doppler Radar Card -->
+        <div class="radar-card">
+          <div class="radar-head">
+            <div class="radar-head-left">
+              <i data-lucide="radar" style="width:16px;height:16px;color:#38BDF8;"></i>
+              <div>
+                <div class="radar-title">Atmospheric Radar &amp; Cloud Dynamics</div>
+                <div class="radar-sub">Doppler Scan • 250km Radius</div>
+              </div>
+            </div>
+            <span class="radar-hd-pill">HD SYNC</span>
+          </div>
+
+          <div class="radar-screen-wrap">
+            <canvas id="radar-canvas"></canvas>
+            <div class="radar-center-mark">PRG/VRN-1</div>
+          </div>
+
+          <div class="radar-nav-tabs">
+            <button class="radar-tab active">Radar</button>
+            <button class="radar-tab">Wind Flow</button>
+            <button class="radar-tab">Precip</button>
+            <button class="radar-tab">Heatmap</button>
+          </div>
         </div>
-        <div style="font-size:3rem;font-weight:800;font-family:'Space Grotesk';color:#fff;margin-bottom:8px;" id="disp-aqi">78</div>
-        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.5;">PM2.5: 18.4 µg/m³ &bull; Air quality is satisfactory and poses little or no risk to healthy individuals.</p>
+
+        <!-- Air Quality Telemetry Card -->
+        <div class="aqi-card">
+          <div class="aqi-top-row">
+            <span class="aqi-title">Air Quality Telemetry (AQI)</span>
+            <span class="aqi-badge" id="disp-aqi-stat">Moderate</span>
+          </div>
+
+          <div class="aqi-big-num">
+            <span class="aqi-val" id="disp-aqi">82</span>
+            <span class="aqi-scale">/ 500</span>
+            <span class="aqi-status-text">Acceptable Air Quality</span>
+          </div>
+
+          <div class="aqi-pollutants-grid">
+            <div class="aqi-pbox">
+              <div class="pbox-lbl">PM2.5</div>
+              <div class="pbox-val">18.4 µg/m³</div>
+            </div>
+            <div class="aqi-pbox">
+              <div class="pbox-lbl">PM10</div>
+              <div class="pbox-val">42.1 µg/m³</div>
+            </div>
+            <div class="aqi-pbox">
+              <div class="pbox-lbl">CO</div>
+              <div class="pbox-val">36.4 ppm</div>
+            </div>
+            <div class="aqi-pbox">
+              <div class="pbox-lbl">SO2</div>
+              <div class="pbox-val">14.8 ppb</div>
+            </div>
+          </div>
+
+          <div class="aqi-warning">
+            <i data-lucide="info" style="width:13px;height:13px;flex-shrink:0;color:#F59E0B;margin-top:1px;"></i>
+            <span>Sensitive groups should reduce prolonged outdoor exertion during peak afternoon hours.</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Telemetry Stats Grid -->
-    <div class="telemetry-grid">
-      <div class="telemetry-card">
-        <div class="tele-head"><span>Humidity</span><i data-lucide="droplets" style="width:16px;height:16px;color:var(--cyan);"></i></div>
-        <div class="tele-val" id="disp-humidity">42%</div>
-        <div class="tele-sub">Dew Point 15°C</div>
+    <!-- 6 Core Atmospheric Telemetry Cards -->
+    <section class="telemetry-row">
+      <div class="tele-box">
+        <div class="tb-head">
+          <span class="tb-lbl">HUMIDITY</span>
+          <i data-lucide="droplets" class="tb-icon"></i>
+        </div>
+        <div class="tb-val" id="disp-humidity">38%</div>
+        <div class="tb-sub">Dew Point 15°C<br>Comfort: Optimal</div>
       </div>
-      <div class="telemetry-card">
-        <div class="tele-head"><span>Wind Speed</span><i data-lucide="wind" style="width:16px;height:16px;color:var(--blue);"></i></div>
-        <div class="tele-val" id="disp-wind">14 km/h</div>
-        <div class="tele-sub">ESE direction</div>
-      </div>
-      <div class="telemetry-card">
-        <div class="tele-head"><span>UV Index</span><i data-lucide="sun-medium" style="width:16px;height:16px;color:var(--amber);"></i></div>
-        <div class="tele-val" id="disp-uv">6.2</div>
-        <div class="tele-sub" style="color:var(--amber);">High (Protection Needed)</div>
-      </div>
-      <div class="telemetry-card">
-        <div class="tele-head"><span>Barometer</span><i data-lucide="gauge" style="width:16px;height:16px;color:var(--purple);"></i></div>
-        <div class="tele-val" id="disp-pressure">1013 hPa</div>
-        <div class="tele-sub">Steady Pressure</div>
-      </div>
-    </div>
 
-    <!-- 24-Hour Temperature Graph -->
-    <div class="chart-panel">
-      <div class="panel-title">
-        <i data-lucide="activity" style="width:18px;height:18px;color:var(--cyan);"></i>
-        <span>24-Hour Temperature Telemetry Curve</span>
+      <div class="tele-box">
+        <div class="tb-head">
+          <span class="tb-lbl">WIND VECTOR</span>
+          <i data-lucide="wind" class="tb-icon"></i>
+        </div>
+        <div class="tb-val" id="disp-wind">12 km/h</div>
+        <div class="tb-sub">ESE • 112° Compass<br>Gusts up to 18 km/h</div>
       </div>
-      <canvas id="temp-chart" class="chart-canvas"></canvas>
-    </div>
 
-    <!-- 7-Day Forecast -->
-    <div class="chart-panel">
-      <div class="panel-title">
-        <i data-lucide="calendar" style="width:18px;height:18px;color:var(--cyan);"></i>
-        <span>7-Day Meteorological Projections</span>
+      <div class="tele-box">
+        <div class="tb-head">
+          <span class="tb-lbl">UV RADIATION</span>
+          <i data-lucide="sun" class="tb-icon" style="color:#D97706;"></i>
+        </div>
+        <div class="tb-val" id="disp-uv" style="color:#D97706;">6.4 <span style="font-size:12px;font-weight:600;">High</span></div>
+        <div class="tb-sub">Protection needed until 4:30 PM • SPF 30+</div>
       </div>
+
+      <div class="tele-box">
+        <div class="tb-head">
+          <span class="tb-lbl">BAROMETER</span>
+          <i data-lucide="gauge" class="tb-icon"></i>
+        </div>
+        <div class="tb-val" id="disp-pressure">1012 hPa</div>
+        <div class="tb-sub">Steady Atmospheric Pressure<br>Normal baseline: 1013.2 hPa</div>
+      </div>
+
+      <div class="tele-box">
+        <div class="tb-head">
+          <span class="tb-lbl">VISIBILITY</span>
+          <i data-lucide="eye" class="tb-icon"></i>
+        </div>
+        <div class="tb-val" id="disp-vis">9.8 km</div>
+        <div class="tb-sub">Cloud Cover: 12%<br>Unrestricted Horizon View</div>
+      </div>
+
+      <div class="tele-box">
+        <div class="tb-head">
+          <span class="tb-lbl">SOLAR ARC</span>
+          <i data-lucide="sunrise" class="tb-icon" style="color:#D97706;"></i>
+        </div>
+        <div class="tb-val" style="font-size:1.15rem;color:#D97706;">05:48 / 18:18</div>
+        <div class="tb-sub">Sunrise: 05:48 AM<br>Sunset: 06:18 PM</div>
+      </div>
+    </section>
+
+    <!-- 24-Hour Atmospheric Telemetry Curve -->
+    <section class="panel-card">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <i data-lucide="activity" style="width:18px;height:18px;color:#0284C7;"></i>
+          <div>
+            <h3 class="panel-title">24-Hour Atmospheric Telemetry Curve</h3>
+            <span class="panel-sub">Continuous surface sensor relay • Prayagraj Station</span>
+          </div>
+        </div>
+        <div class="curve-tabs">
+          <button class="curve-tab-btn active">Temperature (°C)</button>
+          <button class="curve-tab-btn">Rain Prob (%)</button>
+          <button class="curve-tab-btn">Wind Vector</button>
+        </div>
+      </div>
+      <div class="curve-canvas-wrap">
+        <canvas id="curve-canvas"></canvas>
+      </div>
+    </section>
+
+    <!-- 7-Day Precision Meteorological Projections -->
+    <section class="panel-card">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <i data-lucide="calendar" style="width:18px;height:18px;color:#0284C7;"></i>
+          <div>
+            <h3 class="panel-title">7-Day Precision Meteorological Projections</h3>
+            <span class="panel-sub">ECMWF &amp; GFS Ensemble Forecast Model Synchronized</span>
+          </div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748B;font-weight:700;">
+          ACCURACY: <span style="color:#059669;">94.6%</span>
+        </div>
+      </div>
+
       <div class="forecast-grid" id="forecast-container">
         <!-- Rendered via JS -->
       </div>
-    </div>
+    </section>
   </main>
 
-  <!-- ====================================================
-       AURAWEATHER ENTERPRISE METEOROLOGICAL FOOTER
-       ==================================================== -->
-  <footer style="background:#ffffff;color:#475569;box-shadow:0 -4px 20px rgba(0,0,0,0.02);font-size:0.8rem;border-top:1px solid #e2e8f0;margin-top:60px;padding:50px 20px 30px;">
-    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:36px;padding-bottom:36px;border-bottom:1px solid #e2e8f0;">
-      <div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:1.15rem;font-weight:800;color:#0f172a;margin-bottom:12px;">
-          <span style="color:#38bdf8;">🌤️</span> AuraWeather Telemetry
+  <!-- =====================================================
+       PURE WHITE METEOROLOGICAL FOOTER (USER REQUESTED 100% WHITE)
+       ===================================================== -->
+  <footer class="aura-footer-white">
+    <div class="footer-inner">
+      <!-- Top Row: Brand Info + Newsletter -->
+      <div class="footer-top-row">
+        <div>
+          <div class="footer-brand-title">
+            <div class="brand-icon-box" style="width:30px;height:30px;">
+              <i data-lucide="cloud-sun" style="width:16px;height:16px;"></i>
+            </div>
+            <span>AuraWeather</span>
+            <span class="pill-pro">PRO</span>
+          </div>
+          <p class="footer-brand-desc">
+            Real-time atmospheric telemetry &amp; air quality index (AQI) radar workstation powered by OpenWeather REST APIs and GFS numerical models.
+          </p>
+          <div class="footer-uptime-badge">
+            <span class="footer-uptime-dot"></span>
+            <span>All Systems Operational • 99.58% Uptime</span>
+          </div>
         </div>
-        <p style="color:#475569;line-height:1.6;font-size:0.78rem;">
-          Real-time atmospheric telemetry &amp; air quality index (AQI) radar. OpenWeather REST integration, hourly pressure models, and responsive HTML5 Canvas charts.
-        </p>
-        <div style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,0.12);color:#38bdf8;padding:4px 10px;border-radius:6px;border:1px solid rgba(56,189,248,0.25);font-size:0.72rem;font-weight:600;">
-          <span>●</span> Live Satellite Radar Feed
-        </div>
-      </div>
 
-      <div>
-        <h4 style="color:#0f172a;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">MAJOR TELEMETRY STATIONS</h4>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:0.78rem;color:#475569;">
-          <li>Prayagraj — Sangam &amp; Civil Lines Station</li>
-          <li>New Delhi — IGI Airport &amp; Anand Vihar (AQI)</li>
-          <li>Bengaluru — Electronic City &amp; Whitefield</li>
-          <li>Mumbai — Colaba &amp; Santacruz Coastal Radar</li>
-          <li>London &bull; New York &bull; Tokyo Global Relays</li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 style="color:#0f172a;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">ATMOSPHERIC INDICES</h4>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:0.78rem;color:#475569;">
-          <li>PM2.5 &amp; PM10 Particulate Density</li>
-          <li>Barometric Atmospheric Pressure (hPa)</li>
-          <li>Relative Humidity &amp; Dew Point Spread</li>
-          <li>UV Radiation Index &amp; Cloud Cover</li>
-          <li>Wind Velocity &amp; Direction Vector</li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 style="color:#0f172a;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">CREATOR &amp; ARCHITECTURE</h4>
-        <p style="color:#475569;line-height:1.6;font-size:0.78rem;margin-bottom:12px;">
-          Engineered by <strong style="color:#0f172a;">Abhishek Tripathi</strong> with JavaScript, OpenWeather REST APIs, and Glassmorphic CSS.
-        </p>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <a href="../index.html" style="color:#38bdf8;text-decoration:none;font-weight:700;font-size:0.78rem;">← Back to Abhishek's Portfolio</a>
-          <a href="https://github.com/abhishektripathi9/Weather-App" target="_blank" style="color:#475569;text-decoration:none;font-size:0.78rem;">GitHub Repository &bull; Codebase</a>
-          <a href="https://wa.me/919595347836" target="_blank" style="color:#34d399;text-decoration:none;font-weight:700;font-size:0.78rem;">WhatsApp: +91 95953 47836</a>
+        <!-- Newsletter Card (Crisp White/Light Design) -->
+        <div class="footer-newsletter-card">
+          <h4 class="fn-title">Telemetry Alerts &amp; API Updates</h4>
+          <p class="fn-sub">Get severe weather advisories and Doppler release notes.</p>
+          <form class="fn-form" onsubmit="event.preventDefault(); alert('Subscribed to AuraWeather Advisories!');">
+            <input type="email" class="fn-input" placeholder="your@domain.com" required />
+            <button type="submit" class="fn-btn">Subscribe</button>
+          </form>
         </div>
       </div>
-    </div>
 
-    <div style="max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:0.75rem;color:#475569;">
-      <p style="margin:0;">© 2026 AuraWeather Telemetry Hub. Handcrafted by Abhishek Tripathi.</p>
-      <div>Real-Time REST Sync &bull; OpenWeather Standards &bull; Dynamic Chart.js Rendering</div>
+      <!-- Middle Columns Grid (4 Columns in Crisp Dark-on-White Typography) -->
+      <div class="footer-columns-grid">
+        <div>
+          <h5 class="fc-head">PLATFORM</h5>
+          <ul class="fc-list">
+            <li><a href="#radar">Live Doppler Radar</a></li>
+            <li><a href="#aqi">Air Quality Index</a></li>
+            <li><a href="#curve">24h Telemetry Curve</a></li>
+            <li><a href="#forecast">7-Day Ensemble Forecast</a></li>
+            <li><a href="#alerts">Severe Weather Alerts</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="fc-head">TELEMETRY STATIONS</h5>
+          <ul class="fc-list">
+            <li>• Prayagraj — Sangam &amp; Civil Lines</li>
+            <li>• New Delhi — IGI &amp; Anand Vihar</li>
+            <li>• Bengaluru — Electronic City</li>
+            <li>• Mumbai — Colaba Coastal</li>
+            <li>• Global Relays (London, Tokyo, NY)</li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="fc-head">RESOURCES &amp; API</h5>
+          <ul class="fc-list">
+            <li><a href="https://openweathermap.org/api" target="_blank" rel="noopener">OpenWeather REST Docs</a></li>
+            <li><a href="https://www.ecmwf.int/" target="_blank" rel="noopener">ECMWF &amp; GFS Models</a></li>
+            <li><a href="#indices">Atmospheric Indices Guide</a></li>
+            <li><a href="#status">System Status</a></li>
+            <li><a href="#changelog">Changelog v3.4</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="fc-head">CREATOR &amp; CONNECT</h5>
+          <p class="creator-bio">
+            Engineered by <strong>Abhishek Tripathi</strong> with JavaScript, OpenWeather REST APIs, and Glassmorphic CSS.
+          </p>
+          <div class="creator-links">
+            <a href="../index.html#projects" class="clink-primary">← Back to Portfolio</a>
+            <a href="https://github.com/abhishektripathi9/Weather-App" target="_blank" rel="noopener" style="color:#475569;text-decoration:none;font-size:12.5px;">GitHub Repository</a>
+            <a href="https://wa.me/919595347836" target="_blank" rel="noopener" class="clink-wa">WhatsApp: +91 95953 47836</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Sub-Footer Bar -->
+      <div class="footer-bottom-bar">
+        <div>© 2026 AuraWeather Telemetry Hub. Handcrafted by Abhishek Tripathi.</div>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <span>•</span>
+          <a href="#">Terms of Service</a>
+          <span>•</span>
+          <a href="#">Data Attribution</a>
+          <span>•</span>
+          <span>v3.4</span>
+        </div>
+      </div>
     </div>
   </footer>
 
   <script>
     const cityData = {
-      'Prayagraj': { temp: 29, cond: 'Sunny & Clear Sky', icon: 'sun', aqi: 82, aqiStatus: 'Moderate', humidity: 38, wind: 12, uv: '6.4 (High)', pressure: 1012, hourly: [24,23,22,23,25,28,29,28,26,25,24,23] },
-      'Banda': { temp: 31, cond: 'Hot & Clear', icon: 'sun', aqi: 65, aqiStatus: 'Good', humidity: 32, wind: 10, uv: '7.1 (Very High)', pressure: 1011, hourly: [25,24,23,24,27,30,31,30,28,26,25,24] },
-      'Lucknow': { temp: 28, cond: 'Passing Clouds', icon: 'cloud-sun', aqi: 110, aqiStatus: 'Unhealthy for Sensitive', humidity: 45, wind: 15, uv: '5.8 (Moderate)', pressure: 1014, hourly: [23,22,21,22,25,27,28,27,25,24,23,22] },
-      'Delhi': { temp: 30, cond: 'Hazy & Mist', icon: 'cloud', aqi: 185, aqiStatus: 'Unhealthy', humidity: 52, wind: 9, uv: '4.5 (Moderate)', pressure: 1013, hourly: [26,25,24,25,27,29,30,29,28,27,26,25] },
-      'Bengaluru': { temp: 23, cond: 'Gentle Breezy Showers', icon: 'cloud-rain', aqi: 42, aqiStatus: 'Excellent', humidity: 72, wind: 22, uv: '3.8 (Low)', pressure: 1016, hourly: [20,19,19,20,21,23,23,22,21,20,20,19] },
-      'Mumbai': { temp: 32, cond: 'Humid & Sunny', icon: 'sun', aqi: 95, aqiStatus: 'Moderate', humidity: 78, wind: 18, uv: '8.2 (Very High)', pressure: 1010, hourly: [28,27,27,28,29,31,32,31,30,29,28,28] },
-      'London': { temp: 16, cond: 'Overcast & Drizzle', icon: 'cloud-rain', aqi: 28, aqiStatus: 'Clean Air', humidity: 82, wind: 25, uv: '2.1 (Low)', pressure: 1020, hourly: [14,13,13,14,15,16,16,15,14,14,13,13] },
-      'Tokyo': { temp: 19, cond: 'Partly Cloudy', icon: 'cloud-sun', aqi: 35, aqiStatus: 'Clean Air', humidity: 58, wind: 14, uv: '4.2 (Moderate)', pressure: 1018, hourly: [16,15,15,16,18,19,19,18,17,17,16,15] }
+      'Prayagraj': {
+        coords: '25.4358° N, 81.8463° E • 98m Elev',
+        temp: 29, feels: 31, hl: 'H: 32° • L: 19°',
+        cond: 'Sunny & Clear Sky', condSub: 'Clear atmospheric radar • 0% precip', icon: '☀️',
+        dew: '15.2°C', precip: '0% Trace', cloud: '12% Scattered',
+        aqi: 82, aqiStatus: 'Moderate', aqiClass: '#B45309',
+        humidity: '38%', wind: '12 km/h', uv: '6.4 High', pressure: '1012 hPa', vis: '9.8 km',
+        hourly: [24, 23, 22, 23, 25, 28, 29, 28, 26, 25, 24, 23]
+      },
+      'Banda': {
+        coords: '25.4746° N, 80.3372° E • 123m Elev',
+        temp: 31, feels: 33, hl: 'H: 34° • L: 21°',
+        cond: 'Hot & Clear Sunshine', condSub: 'High thermal radiation • 0% precip', icon: '☀️',
+        dew: '13.8°C', precip: '0% Trace', cloud: '8% Clear',
+        aqi: 65, aqiStatus: 'Good', aqiClass: '#059669',
+        humidity: '32%', wind: '10 km/h', uv: '7.1 Very High', pressure: '1011 hPa', vis: '10 km',
+        hourly: [25, 24, 23, 24, 27, 30, 31, 30, 28, 26, 25, 24]
+      },
+      'Lucknow': {
+        coords: '26.8467° N, 80.9462° E • 123m Elev',
+        temp: 28, feels: 30, hl: 'H: 30° • L: 18°',
+        cond: 'Passing Cirrus Clouds', condSub: 'Moderate atmospheric turbidity', icon: '⛅',
+        dew: '16.4°C', precip: '5% Low', cloud: '25% Scattered',
+        aqi: 110, aqiStatus: 'Unhealthy for Sensitive', aqiClass: '#D97706',
+        humidity: '45%', wind: '15 km/h', uv: '5.8 Moderate', pressure: '1014 hPa', vis: '8.5 km',
+        hourly: [23, 22, 21, 22, 25, 27, 28, 27, 25, 24, 23, 22]
+      },
+      'New Delhi': {
+        coords: '28.6139° N, 77.2090° E • 216m Elev',
+        temp: 30, feels: 32, hl: 'H: 32° • L: 20°',
+        cond: 'Hazy & Atmospheric Mist', condSub: 'Particulate scattering present', icon: '🌫️',
+        dew: '18.1°C', precip: '0% Trace', cloud: '30% Haze',
+        aqi: 185, aqiStatus: 'Unhealthy', aqiClass: '#DC2626',
+        humidity: '52%', wind: '9 km/h', uv: '4.5 Moderate', pressure: '1013 hPa', vis: '4.2 km',
+        hourly: [26, 25, 24, 25, 27, 29, 30, 29, 28, 27, 26, 25]
+      },
+      'Bengaluru': {
+        coords: '12.9716° N, 77.5946° E • 920m Elev',
+        temp: 24, feels: 24, hl: 'H: 26° • L: 17°',
+        cond: 'Breezy & Pleasant Overcast', condSub: 'High altitude moisture layer', icon: '🌥️',
+        dew: '16.0°C', precip: '15% Isolated', cloud: '60% Broken',
+        aqi: 45, aqiStatus: 'Good', aqiClass: '#059669',
+        humidity: '64%', wind: '18 km/h', uv: '5.2 Moderate', pressure: '1016 hPa', vis: '10 km',
+        hourly: [20, 19, 18, 19, 21, 23, 24, 23, 22, 21, 20, 19]
+      },
+      'Mumbai': {
+        coords: '18.9220° N, 72.8347° E • 14m Elev',
+        temp: 32, feels: 36, hl: 'H: 33° • L: 24°',
+        cond: 'Humid Coastal Breeze', condSub: 'Arabian Sea maritime airmass', icon: '🌤️',
+        dew: '23.5°C', precip: '10% Low', cloud: '20% Scat',
+        aqi: 92, aqiStatus: 'Moderate', aqiClass: '#B45309',
+        humidity: '72%', wind: '20 km/h', uv: '6.8 High', pressure: '1012 hPa', vis: '7.0 km',
+        hourly: [27, 26, 25, 26, 28, 30, 32, 31, 30, 29, 28, 27]
+      },
+      'London': {
+        coords: '51.5074° N, 0.1278° W • 25m Elev',
+        temp: 15, feels: 14, hl: 'H: 16° • L: 9°',
+        cond: 'Overcast & Light Drizzle', condSub: 'Atlantic low pressure system', icon: '🌧️',
+        dew: '11.0°C', precip: '65% Precip', cloud: '90% Overcast',
+        aqi: 28, aqiStatus: 'Good', aqiClass: '#059669',
+        humidity: '82%', wind: '25 km/h', uv: '2.1 Low', pressure: '1020 hPa', vis: '8.0 km',
+        hourly: [14, 13, 13, 14, 15, 16, 16, 15, 14, 14, 13, 13]
+      },
+      'Tokyo': {
+        coords: '35.6762° N, 139.6503° E • 44m Elev',
+        temp: 19, feels: 19, hl: 'H: 21° • L: 13°',
+        cond: 'Partly Cloudy & Crisp', condSub: 'Pacific high ridge flow', icon: '⛅',
+        dew: '10.5°C', precip: '5% Low', cloud: '35% Scat',
+        aqi: 35, aqiStatus: 'Good', aqiClass: '#059669',
+        humidity: '58%', wind: '14 km/h', uv: '4.2 Moderate', pressure: '1018 hPa', vis: '10 km',
+        hourly: [16, 15, 15, 16, 18, 19, 19, 18, 17, 17, 16, 15]
+      },
+      'New York': {
+        coords: '40.7128° N, 74.0060° W • 10m Elev',
+        temp: 18, feels: 17, hl: 'H: 20° • L: 11°',
+        cond: 'Clear & Sunny Skyline', condSub: 'Continental high pressure stability', icon: '☀️',
+        dew: '8.2°C', precip: '0% Trace', cloud: '15% Clear',
+        aqi: 40, aqiStatus: 'Good', aqiClass: '#059669',
+        humidity: '48%', wind: '16 km/h', uv: '4.8 Moderate', pressure: '1017 hPa', vis: '10 km',
+        hourly: [15, 14, 13, 14, 16, 17, 18, 18, 17, 16, 15, 14]
+      }
     };
 
-    let isCelsius = true;
-
-    function updateWeather(cityKey) {
+    function updateCity(cityKey) {
       const data = cityData[cityKey] || cityData['Prayagraj'];
-      const dispTemp = isCelsius ? data.temp : Math.round((data.temp * 9/5) + 32);
-
+      document.getElementById('disp-coords').textContent = data.coords;
       document.getElementById('disp-city').textContent = cityKey + ', Meteorological Radar';
-      document.getElementById('disp-temp').textContent = dispTemp;
+      document.getElementById('disp-temp').textContent = data.temp + '°C';
+      document.getElementById('disp-feels').textContent = 'Feels like ' + data.feels + '°C';
+      document.getElementById('disp-hl').textContent = data.hl;
+      document.getElementById('cond-icon').textContent = data.icon;
       document.getElementById('disp-cond').textContent = data.cond;
+      document.getElementById('disp-cond-sub').textContent = data.condSub;
+
+      document.getElementById('disp-dew').textContent = data.dew;
+      document.getElementById('disp-precip').textContent = data.precip;
+      document.getElementById('disp-cloud').textContent = data.cloud;
+
       document.getElementById('disp-aqi').textContent = data.aqi;
       document.getElementById('disp-aqi-stat').textContent = data.aqiStatus;
-      document.getElementById('disp-humidity').textContent = data.humidity + '%';
-      document.getElementById('disp-wind').textContent = data.wind + ' km/h';
-      document.getElementById('disp-uv').textContent = data.uv;
-      document.getElementById('disp-pressure').textContent = data.pressure + ' hPa';
+      document.getElementById('disp-humidity').textContent = data.humidity;
+      document.getElementById('disp-wind').textContent = data.wind;
+      document.getElementById('disp-uv').innerHTML = data.uv.replace(' ', ' <span style="font-size:12px;font-weight:600;">') + '</span>';
+      document.getElementById('disp-pressure').textContent = data.pressure;
+      document.getElementById('disp-vis').textContent = data.vis;
 
-      drawChart(data.hourly);
+      drawCurve(data.hourly);
       renderForecast(data.temp);
-
       if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
-    function drawChart(hourlyData) {
-      const canvas = document.getElementById('temp-chart');
+    // Interactive Curve Canvas
+    function drawCurve(hourly) {
+      const canvas = document.getElementById('curve-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const dpr = window.devicePixelRatio || 1;
@@ -419,87 +1449,197 @@
       const h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
 
-      const minT = Math.min(...hourlyData) - 2;
-      const maxT = Math.max(...hourlyData) + 2;
+      const minT = Math.min(...hourly) - 2;
+      const maxT = Math.max(...hourly) + 2;
 
-      // Draw gradient line
+      // Draw horizontal dashed grid lines
+      ctx.strokeStyle = '#E2E8F0';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      for (let yPos = 30; yPos <= h - 30; yPos += 35) {
+        ctx.beginPath();
+        ctx.moveTo(30, yPos);
+        ctx.lineTo(w - 30, yPos);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+
+      // Draw smooth spline curve
       ctx.beginPath();
-      hourlyData.forEach((temp, i) => {
-        const x = (i / (hourlyData.length - 1)) * (w - 60) + 30;
-        const y = h - 35 - ((temp - minT) / (maxT - minT)) * (h - 70);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+      const points = hourly.map((t, i) => {
+        const x = 40 + (i / (hourly.length - 1)) * (w - 80);
+        const y = h - 40 - ((t - minT) / (maxT - minT)) * (h - 75);
+        return { x, y, t };
       });
-      ctx.strokeStyle = '#00f0ff';
-      ctx.lineWidth = 3;
+
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 0; i < points.length - 1; i++) {
+        const xc = (points[i].x + points[i + 1].x) / 2;
+        const yc = (points[i].y + points[i + 1].y) / 2;
+        ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+      }
+      ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+      ctx.strokeStyle = '#0284C7';
+      ctx.lineWidth = 3.5;
       ctx.stroke();
 
-      // Points & labels
-      hourlyData.forEach((temp, i) => {
-        const x = (i / (hourlyData.length - 1)) * (w - 60) + 30;
-        const y = h - 35 - ((temp - minT) / (maxT - minT)) * (h - 70);
+      // Draw gradient fill below curve
+      ctx.lineTo(points[points.length - 1].x, h - 25);
+      ctx.lineTo(points[0].x, h - 25);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, 'rgba(2, 132, 199, 0.22)');
+      grad.addColorStop(1, 'rgba(2, 132, 199, 0.0)');
+      ctx.fillStyle = grad;
+      ctx.fill();
 
+      // Draw points & labels
+      points.forEach((pt, i) => {
         ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
+        ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#0284C7';
         ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.stroke();
 
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '11px sans-serif';
+        ctx.font = '700 11px Outfit, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(`${temp}°`, x, y - 10);
-        ctx.fillText(`${(i * 2)}:00`, x, h - 8);
+        ctx.fillStyle = '#0F172A';
+        ctx.fillText(`${pt.t}°`, pt.x, pt.y - 10);
+
+        ctx.font = '600 10px JetBrains Mono, monospace';
+        ctx.fillStyle = '#64748B';
+        const hr = (i * 2) % 24;
+        ctx.fillText(`${hr < 10 ? '0' + hr : hr}:00`, pt.x, h - 10);
       });
     }
 
+    // Render 7-day forecast
     function renderForecast(baseTemp) {
-      const days = ['Today', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      const icons = ['sun', 'sun', 'cloud-sun', 'cloud-rain', 'sun', 'cloud', 'sun'];
+      const days = ['Thu, 22', 'Fri, 23', 'Sat, 24', 'Sun, 25', 'Mon, 26', 'Tue, 27', 'Wed, 28'];
+      const icons = ['☀️', '☁️', '☀️', '🌤️', '🌦️', '☀️', '⛅'];
+      const precips = ['18%', '20%', '8%', '12%', '45%', '5%', '10%'];
       const container = document.getElementById('forecast-container');
 
       container.innerHTML = days.map((day, i) => {
         const high = baseTemp + (i % 3) - 1;
         const low = high - 8;
         return `
-          <div class="forecast-day-card">
-            <div class="day-name">${day}</div>
-            <i data-lucide="${icons[i]}" class="day-icon"></i>
-            <div class="day-high">${isCelsius ? high : Math.round((high*9/5)+32)}°</div>
-            <div class="day-low">${isCelsius ? low : Math.round((low*9/5)+32)}°</div>
+          <div class="forecast-day-box">
+            <div class="f-day">${day}</div>
+            <div class="f-icon" style="font-size:24px;">${icons[i]}</div>
+            <div class="f-precip">${precips[i]} Precip</div>
+            <div class="f-high">${high}°</div>
+            <div class="f-low">${low}°</div>
           </div>
         `;
       }).join('');
     }
 
+    // Animated Live Doppler Radar
+    function initRadar() {
+      const canvas = document.getElementById('radar-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+
+      function render() {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = canvas.offsetWidth * dpr;
+        canvas.height = canvas.offsetHeight * dpr;
+        ctx.scale(dpr, dpr);
+
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        const cx = w / 2;
+        const cy = h / 2;
+        const maxR = Math.min(cx, cy) - 8;
+
+        ctx.clearRect(0, 0, w, h);
+
+        // Draw concentric distance circles
+        ctx.strokeStyle = '#1E3A5F';
+        ctx.lineWidth = 1;
+        for (let r = 25; r <= maxR; r += 28) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // Crosshairs
+        ctx.beginPath();
+        ctx.moveTo(cx - maxR, cy); ctx.lineTo(cx + maxR, cy);
+        ctx.moveTo(cx, cy - maxR); ctx.lineTo(cx, cy + maxR);
+        ctx.stroke();
+
+        // Simulated Weather Cloud Blips
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.45)';
+        ctx.beginPath();
+        ctx.arc(cx + 35, cy - 25, 14, 0, Math.PI * 2);
+        ctx.arc(cx - 40, cy + 18, 18, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Rotating Sweep Beam
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(angle);
+        const sweepGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, maxR);
+        sweepGrad.addColorStop(0, 'rgba(56, 189, 248, 0.6)');
+        sweepGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+
+        ctx.fillStyle = sweepGrad;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, maxR, -0.35, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = '#38BDF8';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(maxR, 0);
+        ctx.stroke();
+        ctx.restore();
+
+        angle += 0.035;
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+    }
+
+    // City selection chips
     document.querySelectorAll('.chip').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
         const city = btn.getAttribute('data-city');
         document.getElementById('city-input').value = city;
-        updateWeather(city);
+        updateCity(city);
       });
     });
 
     document.getElementById('city-input').addEventListener('change', (e) => {
-      updateWeather(e.target.value.trim());
+      const q = e.target.value.trim();
+      if (q) updateCity(q);
     });
 
-    document.getElementById('unit-toggle').addEventListener('click', () => {
-      isCelsius = !isCelsius;
-      document.getElementById('unit-toggle').textContent = isCelsius ? '°C' : '°F';
-      const city = document.getElementById('city-input').value.trim() || 'Prayagraj';
-      updateWeather(city);
+    document.getElementById('btn-locate').addEventListener('click', () => {
+      updateCity('Prayagraj');
+      alert('GPS Coordinates Acquired: 25.4358° N, 81.8463° E (Prayagraj Station 015-PRG-04)');
     });
 
     window.addEventListener('resize', () => {
       const city = document.getElementById('city-input').value.trim() || 'Prayagraj';
       const data = cityData[city] || cityData['Prayagraj'];
-      drawChart(data.hourly);
+      drawCurve(data.hourly);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      updateWeather('Prayagraj');
+      updateCity('Prayagraj');
+      initRadar();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     });
   </script>
 </body>
