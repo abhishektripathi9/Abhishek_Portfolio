@@ -541,23 +541,6 @@ const projectData = {
     github: 'https://github.com/abhishektripathi9/Abhishek_Portfolio/tree/main/powerbi-projects',
     liveDemo: './powerbi-analytics/index.html#tesla'
   },
-  'banking-system': {
-    title: 'Enterprise Banking Management System',
-    year: '2025',
-    category: 'Java & Enterprise Architecture',
-    image: 'assets/project-banking-system.jpg',
-    desc: 'Desktop and web enterprise banking software engineered with MVC architecture and OOP principles to manage secure customer accounts and ledger transactions. Integrates JDBC with PreparedStatements to sanitize inputs and eliminate SQL injection, with strict ACID transaction management and automated rollback handlers.',
-    highlights: [
-      'Built a desktop banking software following MVC patterns and OOP principles to manage secure customer accounts and ledger transactions.',
-      'Integrated JDBC using PreparedStatements to sanitize inputs and eliminate SQL injection vulnerabilities.',
-      'Enforced strict ACID transaction management with automated rollbacks to guarantee ledger consistency during failed transfers.',
-      'Real-time transaction audit ledger logging customer balances, debit/credit events, and cluster node synchronization.',
-      'High-concurrency connection pooling ensuring sub-50ms query response times under high transaction volume.'
-    ],
-    tech: ['Java', 'JDBC', 'MySQL', 'OOP Architecture', 'MVC Pattern', 'ACID Transactions', 'PreparedStatements'],
-    github: 'https://github.com/abhishektripathi9',
-    liveDemo: './banking-system/index.html'
-  },
   'land-registry': {
     title: 'BhumiChain – Decentralized Land Registry & UP-GIS Sovereign Ledger',
     year: '2026',
