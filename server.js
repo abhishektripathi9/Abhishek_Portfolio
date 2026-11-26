@@ -409,48 +409,58 @@ const server = http.createServer((req, res) => {
 
     // 2. Tehsils by District (/api/bhulekh/tehsils)
     if (normPath === '/api/bhulekh/tehsils') {
-      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
-      const dData = UP_75_DISTRICTS[dist] || {};
+      const dist = (parsedUrl.searchParams.get('district') || 'Chitrakoot').trim();
+      let distKey = Object.keys(UP_75_DISTRICTS).find(k => 
+        k.toLowerCase() === dist.toLowerCase() ||
+        (UP_75_DISTRICTS[k].nameHi && UP_75_DISTRICTS[k].nameHi.toLowerCase().includes(dist.toLowerCase())) ||
+        dist.toLowerCase().includes(k.toLowerCase())
+      ) || dist;
+      const dData = UP_75_DISTRICTS[distKey] || {};
       let tehsils = [];
       if (dData.tehsils && Object.keys(dData.tehsils).length > 0) {
         tehsils = Object.keys(dData.tehsils).map(tName => {
           const tObj = dData.tehsils[tName] || {};
+          const rawHi = tObj.nameHi || tName;
+          const cleanHi = rawHi.replace(/\s*\([^)]*\)/g, '').trim();
           return {
+            id: tName,
             name: tName,
-            nameHi: tObj.nameHi || tName,
+            nameEn: tName,
+            nameHi: cleanHi,
+            displayName: cleanHi && tName && cleanHi !== tName ? `${cleanHi} (${tName})` : cleanHi || tName,
+            district: distKey,
             center: tObj.center || dData.center || [25.38, 81.15],
             zoom: tObj.zoom || 12.5,
-            totalVillages: tObj.villages ? tObj.villages.length : 120
+            totalVillages: tObj.villages ? (Array.isArray(tObj.villages) ? tObj.villages.length : Object.keys(tObj.villages).length) : 120
           };
         });
       }
       if (tehsils.length === 0) {
-        if (dist.toLowerCase().includes('chitra')) {
+        if (distKey.toLowerCase().includes('chitra')) {
           tehsils = [
-            { name: 'Rajapur', nameHi: 'राजापुर', center: [25.386, 81.149], zoom: 12.5, totalVillages: 142 },
-            { name: 'Karwi', nameHi: 'कर्वी', center: [25.215, 80.898], zoom: 12.5, totalVillages: 168 },
-            { name: 'Mau', nameHi: 'मऊ', center: [25.283, 81.425], zoom: 12.5, totalVillages: 110 },
-            { name: 'Manikpur', nameHi: 'मानिकपुर', center: [25.042, 81.118], zoom: 12.5, totalVillages: 95 }
+            { id: 'Rajapur', name: 'Rajapur', nameEn: 'Rajapur', nameHi: 'राजापुर', displayName: 'राजापुर (Rajapur)', center: [25.386, 81.149], zoom: 12.5, totalVillages: 142 },
+            { id: 'Karwi', name: 'Karwi', nameEn: 'Karwi', nameHi: 'कर्वी', displayName: 'कर्वी (Karwi)', center: [25.215, 80.898], zoom: 12.5, totalVillages: 168 },
+            { id: 'Mau', name: 'Mau', nameEn: 'Mau', nameHi: 'मऊ', displayName: 'मऊ (Mau)', center: [25.283, 81.425], zoom: 12.5, totalVillages: 110 },
+            { id: 'Manikpur', name: 'Manikpur', nameEn: 'Manikpur', nameHi: 'मानिकपुर', displayName: 'मानिकपुर (Manikpur)', center: [25.042, 81.118], zoom: 12.5, totalVillages: 95 }
           ];
-        } else if (dist.toLowerCase().includes('prayag')) {
+        } else if (distKey.toLowerCase().includes('prayag')) {
           tehsils = [
-            { name: 'Karchhana', nameHi: 'करछना', center: [25.312, 81.895], zoom: 12.5, totalVillages: 165 },
-            { name: 'Sadar', nameHi: 'सदर', center: [25.435, 81.846], zoom: 12.5, totalVillages: 180 },
-            { name: 'Phulpur', nameHi: 'फूलपुर', center: [25.552, 82.083], zoom: 12.5, totalVillages: 140 },
-            { name: 'Soraon', nameHi: 'सोरांव', center: [25.586, 81.854], zoom: 12.5, totalVillages: 155 }
+            { id: 'Karchhana', name: 'Karchhana', nameEn: 'Karchhana', nameHi: 'करछना', displayName: 'करछना (Karchhana)', center: [25.312, 81.895], zoom: 12.5, totalVillages: 165 },
+            { id: 'Sadar', name: 'Sadar', nameEn: 'Sadar', nameHi: 'सदर', displayName: 'सदर (Sadar)', center: [25.435, 81.846], zoom: 12.5, totalVillages: 180 },
+            { id: 'Phulpur', name: 'Phulpur', nameEn: 'Phulpur', nameHi: 'फूलपुर', displayName: 'फूलपुर (Phulpur)', center: [25.552, 82.083], zoom: 12.5, totalVillages: 140 },
+            { id: 'Soraon', name: 'Soraon', nameEn: 'Soraon', nameHi: 'सोरांव', displayName: 'सोरांव (Soraon)', center: [25.586, 81.854], zoom: 12.5, totalVillages: 155 }
           ];
         } else {
           tehsils = [
-            { name: 'Sadar', nameHi: 'सदर', center: [26.85, 80.95], zoom: 12.5, totalVillages: 150 },
-            { name: 'Tehsil 2', nameHi: 'तहसील 2', center: [26.80, 80.90], zoom: 12.5, totalVillages: 120 }
+            { id: 'Sadar', name: 'Sadar', nameEn: 'Sadar', nameHi: 'सदर', displayName: 'सदर (Sadar)', center: [26.85, 80.95], zoom: 12.5, totalVillages: 150 }
           ];
         }
       }
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({
         success: true,
-        district: dist,
-        districtHi: dData.nameHi || dist,
+        district: distKey,
+        districtHi: dData.nameHi || distKey,
         totalTehsils: tehsils.length,
         tehsils
       }));
@@ -459,43 +469,57 @@ const server = http.createServer((req, res) => {
 
     // 3. Blocks by District & Tehsil (/api/bhulekh/blocks)
     if (normPath === '/api/bhulekh/blocks') {
-      const dist = parsedUrl.searchParams.get('district') || 'Chitrakoot';
-      const teh = parsedUrl.searchParams.get('tehsil') || '';
-      let blocks = UP_BLOCKS_MASTER[dist] || [];
+      const dist = (parsedUrl.searchParams.get('district') || 'Chitrakoot').trim();
+      const teh = (parsedUrl.searchParams.get('tehsil') || '').trim();
+      let distKey = Object.keys(UP_BLOCKS_MASTER).find(k => 
+        k.toLowerCase() === dist.toLowerCase() ||
+        dist.toLowerCase().includes(k.toLowerCase())
+      ) || dist;
+      let rawBlocks = UP_BLOCKS_MASTER[distKey] || [];
 
-      if (!Array.isArray(blocks) || blocks.length === 0) {
-        if (dist.toLowerCase().includes('chitra')) {
-          blocks = [
-            { name: 'Ramnagar', nameHi: 'रामनगर', district: dist, tehsil: 'Rajapur', lat: 25.385, lng: 81.152 },
-            { name: 'Pahari', nameHi: 'पहाड़ी', district: dist, tehsil: 'Rajapur', lat: 25.321, lng: 81.014 },
-            { name: 'Karwi', nameHi: 'कर्वी', district: dist, tehsil: 'Karwi', lat: 25.215, lng: 80.898 },
-            { name: 'Mau', nameHi: 'मऊ', district: dist, tehsil: 'Mau', lat: 25.283, lng: 81.425 },
-            { name: 'Manikpur', nameHi: 'मानिकपुर', district: dist, tehsil: 'Manikpur', lat: 25.042, lng: 81.118 }
-          ];
-        } else if (dist.toLowerCase().includes('prayag')) {
-          blocks = [
-            { name: 'Chaka', nameHi: 'चाका (नैनी)', district: dist, tehsil: 'Karchhana', lat: 25.421, lng: 81.865 },
-            { name: 'Karchhana', nameHi: 'करछना', district: dist, tehsil: 'Karchhana', lat: 25.312, lng: 81.895 },
-            { name: 'Kaundhiyara', nameHi: 'कौंधियारा', district: dist, tehsil: 'Karchhana', lat: 25.185, lng: 81.821 },
-            { name: 'Bahria', nameHi: 'बहरिया', district: dist, tehsil: 'Phulpur', lat: 25.552, lng: 82.083 }
-          ];
-        } else {
-          blocks = [
-            { name: 'Block 1', nameHi: 'विकास खंड 1', district: dist, tehsil: teh || 'Sadar' },
-            { name: 'Block 2', nameHi: 'विकास खंड 2', district: dist, tehsil: teh || 'Sadar' }
-          ];
-        }
+      let blocks = [];
+      if (Array.isArray(rawBlocks) && rawBlocks.length > 0) {
+        blocks = rawBlocks.map((b, idx) => {
+          const bName = b.nameEn || b.name || b.id || `block-${idx}`;
+          const rawHi = b.nameHi || b.name || bName;
+          const cleanHi = rawHi.replace(/\s*\([^)]*\)/g, '').trim();
+          const cleanEn = bName.replace(/\s*\([^)]*\)/g, '').trim();
+          return {
+            id: b.id || cleanEn || bName,
+            name: cleanEn || bName,
+            nameEn: cleanEn || bName,
+            nameHi: cleanHi || cleanEn || bName,
+            displayName: cleanHi && cleanEn && cleanHi !== cleanEn ? `${cleanHi} (${cleanEn})` : cleanHi || cleanEn,
+            district: b.district || distKey,
+            tehsil: b.tehsil || teh || 'ALL',
+            center: b.center || [b.lat || 25.4, b.lng || 80.9],
+            lat: b.lat || (b.center ? b.center[0] : 25.4),
+            lng: b.lng || (b.center ? b.center[1] : 80.9),
+            isHeadquarters: Boolean(b.isHeadquarters)
+          };
+        });
       }
 
-      if (teh) {
-        const filtered = blocks.filter(b => !b.tehsil || b.tehsil.toLowerCase() === teh.toLowerCase());
+      if (teh && blocks.length > 0) {
+        const filtered = blocks.filter(b => 
+          !b.tehsil || 
+          b.tehsil.toLowerCase() === teh.toLowerCase() ||
+          b.tehsil.toLowerCase().includes(teh.toLowerCase()) ||
+          teh.toLowerCase().includes(b.tehsil.toLowerCase())
+        );
         if (filtered.length > 0) blocks = filtered;
+      }
+
+      if (blocks.length === 0) {
+        blocks = [
+          { id: teh || 'Sadar', name: teh || 'Sadar', nameEn: teh || 'Sadar', nameHi: teh || 'सदर', displayName: `${teh || 'सदर'} (${teh || 'Sadar'})`, district: distKey, tehsil: teh || 'Sadar' }
+        ];
       }
 
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({
         success: true,
-        district: dist,
+        district: distKey,
         tehsil: teh || 'ALL',
         totalBlocks: blocks.length,
         blocks
